@@ -77,44 +77,83 @@
             </tbody>
           </table>
         </div>
-  
-        <!-- Pagination and Items Per Page Controls -->
-        <!-- <div class="d-flex align-items-center justify-content-between">
-          <div class="d-flex gap-3 align-items-center">
-            <span>Number Of Items displayed per page</span>
-            <select v-model="itemsPerPage" class="form-select" style="width: 65px; background-color: #28a745; color: white; border: none;">
-              <option value="10">10</option>
-              <option value="14">14</option>
-              <option value="20">20</option>
-            </select>
-            <p class="mb-0">
-              {{ displayedStartIndex }}-{{ displayedEndIndex }} of {{ totalItems }} items
-            </p>
+            <!-- Details Cleaning -->
+
+        <div class="container p-5" v-show="!showDetails">
+          <div class="d-flex justify-content-between px-3 sizing mb-5">
+              <h6>Details Cleaning</h6>
+              <div class="d-flex gap-3 align-items-center profile">
+                <img src="../assets/Dashbordicons/3d_avatar_3.png" alt="" class="">
+                <span>Favour Udoh</span>
+              </div>
+            </div>
+          <div class="rounded-4">
+              <div class="d-flex justify-content-between align-items-center p-2 rounded-top" style="background: linear-gradient(rgba(183, 241, 255, 1)),rgba(241, 255, 211, 1);">
+              <button class="btn" @click="showDetail">Arrow back</button>
+              <div class="d-flex jusify-content-between align-items-center p-2 gap-2">
+                <p class="m-0">Cleaner</p>
+                <span class="badge bg-light text-dark px-3 py-2 me-2">Charlie Brakus</span>
+                <button class="btn btn-success">Cleaner Profile</button>          
+              </div>
+            </div>
+
+            <div class="row justify-content-between px-4 py-3">
+
+              <div class="col-lg-6">
+                <div class="row justify-content-between">
+                  <div class="col-md-5 rounded-2 mb-3 py-2" style="background: rgba(245, 249, 251, 1);">
+                    <p class="title">Client Name</p>
+                    <p class="description">Charlie Brakus</p>
+                  </div>
+                  <div class="col-md-5 rounded-2 mb-3 py-2" style="background: rgba(245, 249, 251, 1);">
+                    <p class="title">Phone Number</p>
+                    <p class="description">+44 012 9904 9944</p>
+                  </div>
+                  <div class="col-md-5 rounded-2 mb-3 py-2" style="background: rgba(245, 249, 251, 1);">
+                    <p class="title">Post Code</p>
+                    <p class="description">B455AT</p>
+                  </div>
+                  <div class="col-md-5 rounded-2 mb-3 py-2" style="background: rgba(245, 249, 251, 1);">
+                    <p class="title">Booking Date</p>
+                    <p class="description">1/1/2001</p>
+                  </div>
+                  <div class="col-md-5 rounded-2 mb-3 py-2" style="background: rgba(245, 249, 251, 1);">
+                    <p class="title">Cleaning Type</p>
+                    <p class="description">Weekly</p>
+                  </div>
+                  <div class="col-md-5 rounded-2 mb-3 py-2" style="background: rgba(245, 249, 251, 1);">
+                    <p class="title">Time</p>
+                    <p class="description">10:00 AM</p>
+                  </div>
+                  <div class="col-md-5 rounded-2 mb-3 py-2" style="background: rgba(245, 249, 251, 1);">
+                    <p class="title">Hours</p>
+                    <p class="description">8</p>
+                  </div>
+                  <div class="col-md-5 rounded-2 mb-3 py-2" style="background: rgba(245, 249, 251, 1);">
+                    <p class="title">Email</p>
+                    <p class="description">Phamo@gmail.com</p>
+                  </div>
+                  <div class="col-12 rounded-2 py-2" style="background: rgba(245, 249, 251, 1); height: 100px;">
+                    <p class="title">Additional Information</p>
+                    <p class="description">Placeholder</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-5 px-4 pt-2" style="background: rgba(245, 249, 251, 1)">
+                <p class="title">Service Details</p>
+                <ul class="list-unstyled">
+                  <li class="description">2 Bedroom</li>
+                  <li class="description">1 Living Room</li>
+                  <li class="description">1 Living Room</li>
+                  <li class="description">1 kitchen cabinet</li>
+                  <li class="description">1 Small Room</li>
+                  <li class="description">1 Lobby</li>
+                </ul>
+              </div>
+            </div>  
           </div>
-          <div>
-            <ul class="pagination mb-0">
-              <li class="page-item" :class="{ disabled: currentPage === 1 }">
-                <button class="page-link" @click="changePage(currentPage - 1)">
-                  <img src="../assets/Payment_Sales/pageleft.png" alt="">
-                </button>
-              </li>
-              <li
-                v-for="page in visiblePages"
-                :key="page"
-                class="page-item"
-                :class="{ active: currentPage === page }"
-              >
-                <button class="page-link" @click="changePage(page)">{{ page }}</button>
-              </li>
-              <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-                <button class="page-link" @click="changePage(currentPage + 1)">
-                  <img src="../assets/Payment_Sales/pageright.png" alt="">
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div> -->
-        
+        </div>
       </div>
     </div>
   </template>
