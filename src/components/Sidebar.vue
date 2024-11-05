@@ -18,7 +18,7 @@
           href="#"
           @click="setActive(item.name)"
         >
-          <img v-if="item.iconPath" :src="item.iconPath" alt="icon" class="me-2" />
+          <img v-if="item.image" :src="item.image" alt="icon" class="me-2" />
           {{ item.name }}
         </a>
       </li>
@@ -34,17 +34,24 @@
 </template>
 
 <script>
+  import payments from '../assets/Dashbordicons/payments.png';
+  import movingquotes from '../assets/Dashbordicons/quotes.png';
+  import drivers from '../assets/Dashbordicons/drivers.png';
+  import cleaners from '../assets/Dashbordicons/cleaners.png';
+  import bookings from '../assets/Dashbordicons/bookings.png';
+  import parameters from '../assets/Dashbordicons/parameters.png';
+  import admin from '../assets/Dashbordicons/admin.png';
 export default {
   data() {
     return {
       menuItems: [
-        { name: 'Payments', image: 'payments.png', active: true, iconPath: '' },
-        { name: 'Moving Quotes', image: 'quotes.png', active: false, iconPath: '' },
-        { name: 'Drivers', image: 'drivers.png', active: false, iconPath: '' },
-        { name: 'Cleaners', image: 'cleaners.png', active: false, iconPath: '' },
-        { name: 'Cleaning Quotes', image: 'bookings.png', active: false, iconPath: '' },
-        { name: 'Parameters', image: 'parameters.png', active: false, iconPath: '' },
-        { name: 'Admins', image: 'admin.png', active: false, iconPath: '' },
+        { name: 'Payments', image: payments, active: true, },
+        { name: 'Moving Quotes', image: movingquotes, active: false, },
+        { name: 'Drivers', image: drivers, active: false, },
+        { name: 'Cleaners', image: cleaners, active: false, },
+        { name: 'Cleaning Quotes', image: bookings, active: false, },
+        { name: 'Parameters', image: parameters, active: false, },
+        { name: 'Admins', image: admin, active: false, },
       ],
     };
   },
@@ -57,29 +64,12 @@ export default {
     logout() {
       console.log("User  logged out");
     },
-    async getIconPath(icon) {
-      try {
-        const imagePath = await import(`@/assets/Dashboardicons/${icon}`);
-        return imagePath.default;
-      } catch (error) {
-        console.error(`Failed to load icon: ${icon}`, error);
-        return "";
-      }
-    },
-    async loadIcons() {
-      for (const item of this.menuItems) {
-        item.iconPath = await this.getIconPath(item.image);
-      }
-    }
-  },
-  async created() {
-    await this.loadIcons();
   }
 };
 </script>
 
   
-  <style>
+<style>
   .sidebar {
     width: 15%;
   }

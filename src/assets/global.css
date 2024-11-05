@@ -1,0 +1,93 @@
+.inputs{
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  border: 1px solid  rgba(213, 213, 213, 1);
+  border-radius: 5px;
+  padding: 5px 0;
+  background-color: rgba(245, 246, 250, 1);
+  height: 50px;
+}
+.btn-success{
+    background-color: rgba(76, 149, 108, 1) !important;
+}
+
+.btn-green {
+    background-color: rgba(76, 149, 108, 1); 
+    color: white; 
+    border-color: rgba(76, 149, 108, 1);
+}
+
+.btn-green:hover{
+    background-color: rgba(76, 149, 108, 1) !important; 
+    color: white !important; 
+    border-color: rgba(76, 149, 108, 1) !important; 
+    box-shadow: none !important;
+}
+.btn-outline-green{
+    background-color: transparent !important; 
+    color: rgba(76, 149, 108, 1) !important; 
+    border-color: rgba(76, 149, 108, 1) !important;
+}
+
+.btn-outline-green:hover{
+    background-color: transparent !important; 
+    color: rgba(76, 149, 108, 1) !important; 
+    border-color: rgba(76, 149, 108, 1) !important; 
+    box-shadow: none !important;
+}
+.btn-outline-red {
+    background-color: transparent !important; 
+    color: rgba(255, 0, 0, 1) !important; 
+    border-color: rgba(255, 0, 0, 1) !important;
+}
+
+.btn-outline-red:hover {
+    background-color: inherit !important; 
+    color: rgba(255, 0, 0, 1) !important; 
+    border-color: rgba(255, 0, 0, 1) !important; 
+    box-shadow: none !important;
+}
+.label{
+    color: rgba(96, 96, 96, 1);
+}
+.modal-footer{
+    border-top: none !important;
+}
+.text-green{
+    color: rgba(76, 149, 108, 1) !important; 
+}
+.paid{
+    background-color: rgba(236, 253, 240, 1);
+    color: rgba(76, 149, 108, 1)
+}
+.pending{
+    color: rgba(155, 93, 0, 1);
+    background-color: rgba(255, 254, 206, 1);
+}
+.ongoing{
+    background: rgba(231, 231, 231, 1);
+    color: rgba(0, 0, 0, 1);
+}
+.new{
+    background-color: rgba(206, 241, 255, 1);
+    color: rgba(0, 140, 155, 1);
+}
+.new-circle{
+    background-color: rgba(0, 55, 255, 1);
+}
+.pending-circle{
+    background-color:rgba(255, 106, 0, 1) ;
+}
+.paid-circle{
+    background: rgba(76, 149, 108, 1);
+}
+.ongoing-circle{
+    background: rgba(0, 0, 0, 1);
+}

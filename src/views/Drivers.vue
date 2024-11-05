@@ -3,16 +3,9 @@
       <!-- Sidebar Section -->
       <Sidebar class="flex-grow-1 overflow-auto" />
   
-      <!-- Main Content Section -->
-      <div class="container flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
-        <div class="d-flex justify-content-between px-3 sizing mb-5">
-          <h2>Moving Quotes</h2>
-          <div class="d-flex gap-3 align-items-center profile">
-            <img src="../assets/Dashbordicons/3d_avatar_3.png" alt="" class="">
-            <span>Favour Udoh</span>
-          </div>
-        </div>
-  
+      <div class="container flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto" v-show="!isDriverDetailsVisible">
+        <Nav title="Drivers" />
+
         <!-- Card Section -->
         <div class="d-flex justify-content-between align-items-center mb-4">
           <div class="d-flex w-100 gap-3">
@@ -74,7 +67,7 @@
                 <h2>Drivers</h2>
                 <p class="p-1 rounded-1 m-0" style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">13 Drivers</p>
               </div>
-              <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center">
+              <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center" @click="isDriverDetailsVisible = true">
                 <span><img src="../assets/Payment_Sales/plus.png" alt=""></span>
                 Add New
               </button>
@@ -172,37 +165,378 @@
         </div> -->
         
       </div>
+
+      <!-- Driver details -->
+      <div class="container flex-grow-1 h-100 overflow-auto position-relative pt-2 px-5" v-show="isDriverAddDetailsVisible">
+        <Nav title="Driver Details" />
+        
+        <div class="bg-white mb-5 rounded-4">
+
+          <div class="rounded-4 mb-5 w-100">
+              <div class="d-flex justify-content-between align-items-center p-2 rounded-top" style="background: linear-gradient(rgba(183, 241, 255, 1),rgba(241, 255, 211, 1));">
+                  <button class=" rounded-circle border bg-white" @click="isDriverDetailsVisible = false"  style="height: 50px; width: 50px;"><img src="../assets/Payment_Sales/ArrowLeft.png" alt=""></button>
+                  <div class="d-flex jusify-content-between align-items-center p-2 gap-2">
+                    <button class="btn btn-success btn-green" @click="viewAssigned">View Assigned</button>          
+                  </div>
+              </div>
+          </div>
+
+          <div class="row px-4 pb-5">
+            <div class="col-md-2 text-center">
+              <img src="../assets/Drivers/Ellipse11.png" alt="Profile" class="rounded-circle img-fluid" width="120" />
+            </div>
+
+            <div class="col-md-10">
+              <div class="row">
+                  <div class="col-12 mb-2">
+                      <div class="row">
+                          <div class="col-6">
+                              <h5 class="">Charlie Brakus</h5>
+                              <p>Erin33@hotmail.com</p>
+                          </div>
+                          <div class="col-6 d-flex gap-2 align-items-center justify-content-end">
+                              <button class="btn btn-outline-danger btn-outline-red p-2 col-3 " @click="deleteProfile">Delete</button>
+                              <button class="btn btn-outline-success btn-outline-green p-2 col-3 " @click="editProfile">Edit</button>
+                          </div>
+
+                      </div>
+                  </div>
+                <div class="">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-6  mb-3">
+                        <label class="mb-2 label">First Name</label>
+                        <input
+                          type="text"
+                          class="inputs p-2"
+                          v-model="user.firstName"
+                          placeholder="Enter first name"
+                        />
+                      </div>
+                      <div class="col-md-6   mb-3">
+                        <label class="mb-2 label">Last Name</label>
+                        <input
+                          type="text"
+                          class="inputs p-2"
+                          v-model="user.lastName"
+                          placeholder="Enter last name"
+                        />
+                      </div>
+
+                      <div class="col-md-6   mb-3">
+                        <label class="mb-2 label">Email</label>
+                        <input
+                          type="email"
+                          class="inputs p-2"
+                          v-model="user.email"
+                          placeholder="Enter email"
+                        />
+                      </div>
+                      <div class="col-md-6   mb-3">
+                        <label class="mb-2 label">Gender</label>
+                        <input
+                          type="text"
+                          class="inputs p-2"
+                          v-model="user.gender"
+                          placeholder="Enter gender"
+                        />
+                      </div>
+
+                      <div class="col-md-6   mb-3">
+                        <label class="mb-2 label">Country</label>
+                        <input
+                          type="text"
+                          class="inputs p-2"
+                          v-model="user.country"
+                          placeholder="Enter country"
+                        />
+                      </div>
+                      <div class="col-md-6   mb-3">
+                        <label class="mb-2 label">City</label>
+                        <input
+                          type="text"
+                          class="inputs p-2"
+                          v-model="user.city"
+                          placeholder="Enter city"
+                        />
+                      </div>
+
+                      <div class="col-md-6   mb-3">
+                        <label class="mb-2 label">Address</label>
+                        <input
+                          type="text"
+                          class="inputs p-2"
+                          v-model="user.address"
+                          placeholder="Enter address"
+                        />
+                      </div>
+                      <div class="col-md-6   mb-3">
+                        <label class="mb-2 label">Language</label>
+                        <input
+                          type="text"
+                          class="inputs p-2"
+                          v-model="user.language"
+                          placeholder="Enter language"
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add New driver -->
+      <div class="container flex-grow-1 h-100 overflow-auto position-relative pt-2 px-5" v-show="isDriverAddDetailsVisible">
+        <Nav title="New Driver" />
+        
+        <div class="bg-white mb-5 rounded-4">
+
+          <div class="rounded-4 mb-5 w-100">
+              <div class="d-flex justify-content-between align-items-center p-2 rounded-top" style="background: linear-gradient(rgba(183, 241, 255, 1),rgba(241, 255, 211, 1));">
+                  <button class=" rounded-circle border bg-white" style="height: 50px; width: 50px;"><img src="../assets/Payment_Sales/ArrowLeft.png" alt=""></button>
+                  <div class="d-flex jusify-content-between align-items-center p-2 gap-2">
+                    <button class="btn btn-success btn-green" @click="viewAssigned">View Assigned</button>          
+                  </div>
+              </div>
+          </div>
+
+          <div class="row px-4 pb-5">
+            <div class="col-md-2 text-center">
+              <img src="../assets/Drivers/Ellipse11.png" alt="Profile" class="rounded-circle img-fluid" width="120" />
+            </div>
+
+            <div class="col-md-10">
+              <div class="row">
+                  <div class="col-12 mb-2">
+                      <div class="row">
+                          <div class="col-6">
+                              <h5 class="">Charlie Brakus</h5>
+                              <p>Erin33@hotmail.com</p>
+                          </div>
+                          <div class="col-6 d-flex gap-2 align-items-center justify-content-end">
+                              <button class="btn btn-outline-danger btn-outline-red p-2 col-3 " @click="deleteProfile">Cancel</button>
+                              <button class="btn btn-success btn-green p-2 col-3 " @click="editProfile">Save</button>
+                          </div>
+
+                      </div>
+                  </div>
+                <div class="">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-6  mb-3">
+                        <label class="mb-2 label">First Name</label>
+                        <input
+                          type="text"
+                          class="inputs p-2"
+                          v-model="user.firstName"
+                          placeholder="Enter first name"
+                        />
+                      </div>
+                      <div class="col-md-6   mb-3">
+                        <label class="mb-2 label">Last Name</label>
+                        <input
+                          type="text"
+                          class="inputs p-2"
+                          v-model="user.lastName"
+                          placeholder="Enter last name"
+                        />
+                      </div>
+
+                      <div class="col-md-6   mb-3">
+                        <label class="mb-2 label">Email</label>
+                        <input
+                          type="email"
+                          class="inputs p-2"
+                          v-model="user.email"
+                          placeholder="Enter email"
+                        />
+                      </div>
+                      <div class="col-md-6   mb-3">
+                        <label class="mb-2 label">Gender</label>
+                        <input
+                          type="text"
+                          class="inputs p-2"
+                          v-model="user.gender"
+                          placeholder="Enter gender"
+                        />
+                      </div>
+
+                      <div class="col-md-6   mb-3">
+                        <label class="mb-2 label">Country</label>
+                        <input
+                          type="text"
+                          class="inputs p-2"
+                          v-model="user.country"
+                          placeholder="Enter country"
+                        />
+                      </div>
+                      <div class="col-md-6   mb-3">
+                        <label class="mb-2 label">City</label>
+                        <input
+                          type="text"
+                          class="inputs p-2"
+                          v-model="user.city"
+                          placeholder="Enter city"
+                        />
+                      </div>
+
+                      <div class="col-md-6   mb-3">
+                        <label class="mb-2 label">Address</label>
+                        <input
+                          type="text"
+                          class="inputs p-2"
+                          v-model="user.address"
+                          placeholder="Enter address"
+                        />
+                      </div>
+                      <div class="col-md-6   mb-3">
+                        <label class="mb-2 label">Language</label>
+                        <input
+                          type="text"
+                          class="inputs p-2"
+                          v-model="user.language"
+                          placeholder="Enter language"
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Assign driver-->
+      <div class="container flex-grow-1 h-100 overflow-auto p-5" v-show="isDriverDetailsVisible">
+        <Nav title="Assign Driver" />
+        
+        <div class="col-12 mb-4">
+          <button class="rounded-circle border bg-white" @click="isDriverDetailsVisible = false" style="height: 50px; width: 50px;">
+            <img src="../assets/Payment_Sales/ArrowLeft.png" alt="Back" />
+          </button>
+        </div>
+
+        <div class="card p-3 mb-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="d-flex align-items-center gap-2 p-3">
+              <h2>Drivers</h2>
+              <p class="p-1 rounded-1 m-0 bg-light-green text-dark-green">13 Drivers</p>
+            </div>
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Serial Number <img src="../assets/Payment_Sales/arrowdown.png" alt="Sort Icon" /></th>
+                <th>Image <img src="../assets/Payment_Sales/arrowdown.png" alt="Sort Icon" /></th>
+                <th>Name <img src="../assets/Payment_Sales/arrowdown.png" alt="Sort Icon" /></th>
+                <th>Email <img src="../assets/Payment_Sales/arrowdown.png" alt="Sort Icon" /></th>
+                <th>Moves Completed <img src="../assets/Payment_Sales/arrowdown.png" alt="Sort Icon" /></th>
+                <th>Age <img src="../assets/Payment_Sales/arrowdown.png" alt="Sort Icon" /></th>
+                <th>Date Added <img src="../assets/Payment_Sales/arrowdown.png" alt="Sort Icon" /></th>
+                <th>Status <img src="../assets/Payment_Sales/arrowdown.png" alt="Sort Icon" /></th>
+                <th>Assign Driver</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(driver, index) in drivers" :key="index">
+                <td>{{ index + 1 }}</td>
+                <td><img :src="driver.image" alt="Driver Image" class="driver-image" /></td>
+                <td>{{ driver.name }}</td>
+                <td>{{ driver.email }}</td>
+                <td>{{ driver.movesCompleted }}</td>
+                <td>{{ driver.age }}</td>
+                <td>{{ driver.dateAdded }}</td>
+                <td>
+                  <span :class="['status-badge', statusClass(driver.status)]">
+                    <div :class="['status-circle', statusClass(driver.status, true)]"></div>
+                    {{ driver.status }}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-success">Assign</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </template>
   
-  <script>
-    import Sidebar from '../components/Sidebar.vue'
+<script>
+  import Sidebar from '../components/Sidebar.vue';
+  import Nav from '@/components/Nav.vue';
+    import driverA from '../assets/Drivers/00.png';
+    import driverB from '../assets/Drivers/01.png';
+    import driverC from '../assets/Drivers/02.png';
+    import driverD from '../assets/Drivers/03.png';
+    import driverE from '../assets/Drivers/04.png';
+    import driverF from '../assets/Drivers/05.png';
+    import driverG from '../assets/Drivers/06.png';
+    import driverH from '../assets/Drivers/07.png';
+    import driverI from '../assets/Drivers/08.png';
+    import driverJ from '../assets/Drivers/09.png';
+    import driverK from '../assets/Drivers/10.png';
+    import driverL from '../assets/Drivers/11.png';
+    import driverM from '../assets/Drivers/12.png';
+    import driverN from '../assets/Drivers/13.png';
     export default {
       components:{
-        Sidebar
+        Sidebar, Nav
       },
       data() {
         return {
           payments: [
-            { image: '../assets/Drivers/00.png', name: 'Charlie Brakus', email: 'Erin33@hotmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
-            { image: '../assets/Drivers/01.png', name: 'Jamie Schroeder', email: 'Ernest_Altenwerth@gmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
-            { image: '../assets/Drivers/02.png', name: 'Alexander O\'Conner', email: 'Lori.Rodriguez@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Inactive', accountType: 'Driver' },
-            { image: '../assets/Drivers/03.png', name: 'Anne Stanton', email: 'Clarence69@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
-            { image: '../assets/Drivers/04.png', name: 'Abel Brown', email: 'Carole.McCullough@hotmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Inactive', accountType: 'Driver' },
-            { image: '../assets/Drivers/05.png', name: 'Lorene Nienow', email: 'Javier.Olson@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
-            { image: '../assets/Drivers/06.png', name: 'Abel Turcotte', email: 'Wilma.Crona@hotmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
-            { image: '../assets/Drivers/07.png', name: 'Rosa Kohler', email: 'Micheal_Hane@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Inactive', accountType: 'Driver' },
-            { image: '../assets/Drivers/08.png', name: 'Mike Sporer', email: 'Veronica_Reynolds36@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
-            { image: '../assets/Drivers/09.png', name: 'Elena Okuneva', email: 'Marlon_Hills14@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
-            { image: '../assets/Drivers/10.png', name: 'Darrell Brown', email: 'Kathleen_Bode@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Inactive', accountType: 'Driver' },
-            { image: '../assets/Drivers/11.png', name: 'Lillian Mohr', email: 'Shane71@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
-            { image: '../assets/Drivers/12.png', name: 'Kelvin Johnson', email: 'Katherine.VonRueden@gmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Inactive', accountType: 'Driver' },
-            { image: '../assets/Drivers/13.png', name: 'Rosemary Howe', email: 'Santos_Corkery17@gmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
+            { image: driverA, name: 'Charlie Brakus', email: 'Erin33@hotmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
+            { image: driverB, name: 'Jamie Schroeder', email: 'Ernest_Altenwerth@gmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
+            { image: driverC, name: 'Alexander O\'Conner', email: 'Lori.Rodriguez@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Inactive', accountType: 'Driver' },
+            { image: driverD, name: 'Anne Stanton', email: 'Clarence69@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
+            { image: driverE, name: 'Abel Brown', email: 'Carole.McCullough@hotmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Inactive', accountType: 'Driver' },
+            { image: driverF, name: 'Lorene Nienow', email: 'Javier.Olson@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
+            { image: driverG, name: 'Abel Turcotte', email: 'Wilma.Crona@hotmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
+            { image: driverH, name: 'Rosa Kohler', email: 'Micheal_Hane@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Inactive', accountType: 'Driver' },
+            { image: driverI, name: 'Mike Sporer', email: 'Veronica_Reynolds36@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
+            { image: driverJ, name: 'Elena Okuneva', email: 'Marlon_Hills14@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
+            { image: driverK, name: 'Darrell Brown', email: 'Kathleen_Bode@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Inactive', accountType: 'Driver' },
+            { image: driverL, name: 'Lillian Mohr', email: 'Shane71@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
+            { image: driverM, name: 'Kelvin Johnson', email: 'Katherine.VonRueden@gmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Inactive', accountType: 'Driver' },
+            { image: driverN, name: 'Rosemary Howe', email: 'Santos_Corkery17@gmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
           ],
           searchQuery: '',
-          itemsPerPage: 14, // Items per page, with a default value of 14
-          currentPage: 1,    // Current page number
-          totalItems: 12400, // Total number of items (example)
+          itemsPerPage: 14,
+          currentPage: 1,  
+          totalItems: 12400,
+          isDriverDetailsVisible: false,
+          isDriverAddDetailsVisible: false,
+          user: { 
+            firstName: '',
+            lastName: '',
+            email: '',
+            gender: '',
+            country: '',
+            city: '',
+            address: '',
+            language: ''
+          },
+          isDriverDetailsVisible: true,
+          drivers: Array.from({ length: 13 }, (_, i) => ({
+            image: new URL(`../assets/Drivers/${String(i + 1).padStart(2, '0')}.png`, import.meta.url).href,
+            name: [
+              'Charlie Brakus', 'Jamie Schroeder', 'Alexander O\'Conner', 'Anne Stanton', 'Abel Brown', 
+              'Lorene Nienow', 'Abel Turcotte', 'Rosa Kohler', 'Mike Sporer', 'Elena Okuneva', 
+              'Darrell Brown', 'Lillian Mohr', 'Kelvin Johnson'
+            ][i],
+            email: `user${i}@example.com`,
+            movesCompleted: 232,
+            age: 45,
+            dateAdded: '11/6/2022',
+            status: ['Active', 'Inactive', 'Active', 'Inactive', 'Active'][i % 5]
+          }))
         };
       },
       computed: {
@@ -237,6 +571,10 @@
           if (page !== '...' && page >= 1 && page <= this.totalPages) {
             this.currentPage = page;
           }
+        },
+        statusClass(status, isCircle = false) {
+          if (status === 'Active') return isCircle ? 'active-circle' : 'active-status';
+          if (status === 'Inactive') return isCircle ? 'inactive-circle' : 'inactive-status';
         },
       },
     };
@@ -320,6 +658,57 @@
       border:1px solid white;
       border-radius: 5px;
     }
+    .driver-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+.status-circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.active {
+  background-color: rgba(236, 253, 239, 1);
+  color: rgba(76, 149, 108, 1);
+}
+.active-circle {
+  background-color: rgba(76, 149, 108, 1);
+}
+.inactive {
+  background-color: rgba(234, 236, 240, 1);
+  color: rgba(0, 0, 0, 1);
+}
+.inactive-circle {
+  background-color: rgba(0, 0, 0, 1);
+}
+.cleaner-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.btn-green {
+  background-color: #28a745;
+  color: #fff;
+}
   
-    </style>
+</style>
     

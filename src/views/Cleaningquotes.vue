@@ -5,14 +5,8 @@
   
       <!-- Main Content Section -->
       <div class="container flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
-        <div class="d-flex justify-content-between px-3 sizing mb-5">
-          <h2>Cleaners Quotes</h2>
-          <div class="d-flex gap-3 align-items-center profile">
-            <img src="../assets/Dashbordicons/3d_avatar_3.png" alt="" class="">
-            <span>Favour Udoh</span>
-          </div>
-        </div>
-        
+        <Nav title="Cleaning Quotes" />
+
         <!-- Quotes Table Section -->
         <div class="card p-3 mb-3">
           <div class="d-flex justify-content-between align-items-center mb-2">
@@ -54,16 +48,19 @@
                 <td>
                     <span
                         :class="[
-                        'd-flex align-items-center justify-content-center gap-2 rounded p-2', 
-                        payment.status === 'Active' ? 'completed' : '',
-                        payment.status === 'Inactive'? 'draft': ''
+                          'd-flex align-items-center justify-content-center gap-2 rounded p-2', 
+                          payment.status === 'Paid' ? 'completed' : '',
+                          payment.status === 'draft' ? 'draft' : '',
+                          payment.status === 'Pending'? 'ongoing': ''
+                          
                         ]"
                         style="width: fit-content"
                     >
                         <div
                         :class="[
-                            payment.status === 'Active' ? 'completed-circle' : '',
-                            payment.status === 'Inactive' ? 'draft-circle' : ''
+                            payment.status === 'Paid' ? 'completed-circle' : '',
+                            payment.status === 'Draft' ? 'draft-circle' : '',
+                            payment.status === 'Pending' ? 'ongoing-circle' : '',
                         ]"
                         class="rounded-circle"
                         style="height: 10px; width: 10px;"
@@ -121,33 +118,34 @@
   </template>
   
   <script>
-    import Sidebar from '../components/Sidebar.vue'
+  import Sidebar from '../components/Sidebar.vue'
+    import Nav from '@/components/Nav.vue';
     export default {
       components:{
-        Sidebar
+        Sidebar, Nav
       },
       data() {
         return {
           payments: [
-            {clientName: 'Charlie Brakus',  post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Active'},
-            {clientName: 'Jamie Schroeder',  post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Active'},
-            {clientName: 'Alexander O\'Conner', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Inactive'},
-            {clientName: 'Anne Stanton', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Active'},
-            {clientName: 'Abel Brown', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Inactive'},
-            {clientName: 'Lorene Nienow',post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Active'},
-            {clientName: 'Abel Turcotte', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Active'},
-            {clientName: 'Rosa Kohler',post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Inactive'},
-            {clientName: 'Mike Sporer', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Active'},
-            {clientName: 'Elena Okuneva', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Active'},
-            {clientName: 'Darrell Brown', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Inactive'},
-            {clientName: 'Lillian Mohr', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Active'},
-            {clientName: 'Kelvin Johnson', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Inactive'},
-            {clientName: 'Rosemary Howe', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM', PhoneNumber:'+44 012 9904 9944',  status: 'Active'},
+            {clientName: 'Charlie Brakus',  post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Paid'},
+            {clientName: 'Jamie Schroeder',  post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Paid'},
+            {clientName: 'Alexander O\'Conner', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Pending'},
+            {clientName: 'Anne Stanton', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Paid'},
+            {clientName: 'Abel Brown', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Paid'},
+            {clientName: 'Lorene Nienow',post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Draft'},
+            {clientName: 'Abel Turcotte', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Draft'},
+            {clientName: 'Rosa Kohler',post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Pending'},
+            {clientName: 'Mike Sporer', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Paid'},
+            {clientName: 'Elena Okuneva', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Paid'},
+            {clientName: 'Darrell Brown', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Draft'},
+            {clientName: 'Lillian Mohr', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Pending'},
+            {clientName: 'Kelvin Johnson', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Pending'},
+            {clientName: 'Rosemary Howe', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM', PhoneNumber:'+44 012 9904 9944',  status: 'Pending'},
           ],
           searchQuery: '',
-          itemsPerPage: 14, // Items per page, with a default value of 14
-          currentPage: 1,    // Current page number
-          totalItems: 12400, // Total number of items (example)
+          itemsPerPage: 14, 
+          currentPage: 1,  
+          totalItems: 12400,
         };
       },
       computed: {

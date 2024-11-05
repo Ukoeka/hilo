@@ -79,7 +79,7 @@
           
       
     <!-- Cleaner details -->
-    <div class="container flex-grow-1 h-100 overflow-auto position-relative pt-2 px-5" v-show="isCleanerDetailsVisible">
+    <div class="container flex-grow-1 h-100 overflow-auto position-relative pt-2 px-5" v-show="isCleanerAddDetailsVisible">
       <Nav title="Cleaners" />
       
       <div class="bg-white mb-5 rounded-4">
@@ -323,7 +323,7 @@
     </div>
 
     <!-- Assigned cleaners -->
-    <div class="container flex-grow-1 h-100 overflow-auto p-5" v-show="isCleanerAddDetailsVisible">
+    <div class="container flex-grow-1 h-100 overflow-auto p-5" v-show="isCleanerDetailsVisible">
 
       <Nav title="Assigned Cleanings" />
 
@@ -450,6 +450,8 @@
               </td>
               <td>
                 <button v-if="index + 1" class="btn btn-success btn-green">Detail</button>
+                <!-- <button v-if="payment.status === 'Payment Request'" class="btn" style="margin-left: 20px; border: 1px solid rgba(54, 136, 90, 1); background: transparent; color: rgba(54, 136, 90, 1)">Approve</button>
+                <button v-if="payment.status === 'Payment Request'" class="btn" style="color: rgba(188, 78, 78, 1); background: transparent; margin-left: 20px; ">Deny</button> -->
               </td>
             </tr>
           </tbody>
@@ -462,7 +464,7 @@
 
 <script>
 import Nav from '@/components/Nav.vue';
-import Sidebar from '@/components/Sidebar.vue';
+import Sidebar from './Sidebar.vue';
 
 export default {
   components: { Nav, Sidebar },

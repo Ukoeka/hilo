@@ -6,13 +6,8 @@
 
     <!-- Main Content Section -->
     <div class="container flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto" v-show="!showDetails">
-      <div class="d-flex justify-content-between px-3 sizing mb-5">
-        <h2>Payments Requests</h2>
-        <div class="d-flex gap-3 align-items-center profile">
-          <img src="../assets/Dashbordicons/3d_avatar_3.png" alt="" class="">
-          <span>Favour Udoh</span>
-        </div>
-      </div>
+      
+      <Nav title='Payment Request' />
 
       <!-- Filter Tabs -->
       <div class="d-flex gap-3 mb-4 p-2 w-25 border rounded-4 bg-white justify-content-around">
@@ -195,13 +190,13 @@
       <div class="bg-white">
         <div class="rounded-4">
           <div class="d-flex justify-content-between align-items-center p-2 rounded-top" style="background: linear-gradient(rgba(183, 241, 255, 1),rgba(241, 255, 211, 1));">
-          <button class=" rounded-circle border bg-white" @click="showDetail" style="height: 50px; width: 50px;"><img src="../assets/Payment_Sales/ArrowLeft.png" alt=""></button>
-          <div class="d-flex jusify-content-between align-items-center p-2 gap-2">
-            <p class="m-0">Assigned Driver</p>
-            <span class="badge bg-light text-dark px-3 py-2 me-2">Charlie Brakus</span>
-            <button class="btn btn-success">Driver Profile</button>          
+            <button class=" rounded-circle border bg-white" @click="showDetail" style="height: 50px; width: 50px;"><img src="../assets/Payment_Sales/ArrowLeft.png" alt=""></button>
+            <div class="d-flex jusify-content-between align-items-center p-2 gap-2">
+              <p class="m-0">Assigned Driver</p>
+              <span class="badge bg-light text-dark px-3 py-2 me-2">Charlie Brakus</span>
+              <button class="btn btn-success">Driver Profile</button>          
+            </div>
           </div>
-        </div>
 
           <!-- body -->
 
@@ -279,10 +274,11 @@
 </template>
 
 <script>
+import Nav from '../components/Nav.vue'
 import Sidebar from '../components/Sidebar.vue';
 export default {
   components: {
-    Sidebar,
+    Sidebar, Nav
   },
   data() {
     return {
@@ -301,7 +297,6 @@ export default {
         { customer: 'Raman Ismail', accountType: 'Driver', date: '7/7/2024', amount: 'NGN 439,000', status: 'Payment Request' },
         { customer: 'Raman Ismail', accountType: 'Driver', date: '7/7/2024', amount: 'NGN 439,000', status: 'Payment Request' },
         // { customer: 'Raman Ismail', accountType: 'Cleaner', date: '7/7/2024', amount: 'NGN 439,000', status: 'Payment Request' },
-        // Additional payment records
       ],
       searchQuery: '',
       itemsPerPage: 14,
@@ -427,7 +422,6 @@ export default {
     .inputs{
       display: block;
       width: 100%;
-      /* padding: .375rem .75rem; */
       font-size: 1rem;
       font-weight: 400;
       line-height: 1.5;

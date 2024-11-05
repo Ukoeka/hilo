@@ -7,10 +7,11 @@ import Sidebar from '@/components/Sidebar.vue'
 import Quotes from '@/views/Quotes.vue'
 import Cardsection from '@/components/Cardsection.vue'
 import Drivers from '@/views/Drivers.vue'
-import Bookings from '@/views/Bookings.vue'
+import Bookings from '@/views/Cleaningquotes.vue'
 import Cleaners from '@/views/Cleaners.vue'
 import Admin from '@/views/Admin.vue'
 import Parameter from '@/views/Parameter.vue'
+import Rough from '@/components/Rough.vue'
 
 const routes = [
   // { path: '/', component: Home, name: 'Home' },       // Define the Home route
@@ -20,10 +21,12 @@ const routes = [
   {path:'/quotes', component: Quotes, name: 'Quotes'},
   {path:'/cardsection', component: Cardsection, name: 'Cardsection'},
   {path:'/drivers', component: Drivers, name: 'Drivers'},
-  {path:'/bookings', component: Bookings, name: 'Bookings'},
+  {path:'/cleaningquotes', component: Bookings, name: 'Bookings'},
   {path:'/cleaners', component: Cleaners, name: 'Cleaners'},
   {path:'/admin', component: Admin, name: 'Admin'},
-  {path:'/parameter', component: Parameter, name: 'Parameter'},
+  { path: '/parameter', component: Parameter, name: 'Parameter' },
+  {path:'/rough', component: Rough, name: 'Rough'},
+  
 
 
 
