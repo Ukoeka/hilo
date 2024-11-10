@@ -1,6 +1,4 @@
-// src/router/index.js
 import { createRouter, createWebHistory } from "vue-router";
-// import Home from '../views/Home.vue'
 import Login from "../views/Login.vue";
 import Payments from "../views/Payments.vue";
 import Quotes from "@/views/Quotes.vue";
@@ -9,9 +7,18 @@ import Bookings from "@/views/Bookings.vue";
 import Cleaners from "@/views/Cleaners.vue";
 import Admin from "@/views/Admin.vue";
 import Parameter from "@/views/Parameter.vue";
+import Home from "@/pages/Home.vue";
+import Cleaning from "@/pages/Cleaning.vue";
+import Packaging from "@/pages/Packaging.vue";
+import Driver from "@/pages/Driver.vue";
+import Cleaner from "@/pages/Cleaner.vue";
 
 const routes = [
-  // { path: '/', component: Home, name: 'Home' },       // Define the Home route
+  {
+    path: "/",
+    name: "Home",
+    component: Home,
+  },
   { path: "/login", component: Login, name: "Login" },
   { path: "/payments", component: Payments, name: "Payments" },
   { path: "/quotes", component: Quotes, name: "Quotes" },
@@ -20,11 +27,31 @@ const routes = [
   { path: "/cleaners", component: Cleaners, name: "Cleaners" },
   { path: "/admin", component: Admin, name: "Admin" },
   { path: "/parameter", component: Parameter, name: "Parameter" },
+  {
+    path: "/cleaning",
+    name: "Cleaning", 
+    component: Cleaning,
+  },
+  {
+    path: "/packaging",
+    name: "Packaging",
+    component: Packaging,
+  },
+  {
+    path: "/driver-recruitment",
+    name: "Driver",
+    component: Driver,
+  },
+  {
+    path: "/cleaner-recruitment",
+    name: "Cleaner",
+    component: Cleaner,
+  }
 ];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes, // Assign the routes array here
+  routes
 });
 
 export default router;
