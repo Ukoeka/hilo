@@ -36,3 +36,7 @@ body {
   background-color: var(--bs-body-bg);
   background-clip: padding-box;
 }
+
+.bg {
+  background-color: #f0f0f0 !important;
+}
