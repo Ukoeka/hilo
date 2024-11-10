@@ -1,7 +1,10 @@
 <template>
     <div class="tops">
       <div class="left">
-        <h3>Logo</h3>
+        <RouterLink to="/payments">
+          <h3>Logo</h3>
+        </RouterLink>
+       
         <a href="">Removals</a>
         <a href="/cleaning">Cleaning</a>
         <a href="">Businesses</a>
