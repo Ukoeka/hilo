@@ -5,7 +5,7 @@
     <Sidebar class="flex-grow-1 overflow-auto" />
 
     <!-- Main Content Section -->
-    <div class="container flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto" v-show="!showDetails">
+    <div class="container flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto" v-show="showDetails">
       
       <Nav title='Payment Request' />
 
@@ -83,7 +83,7 @@
           <div class="d-flex align-items-center gap-3 w-50">
             <div class="d-flex align-items-center search">
               <img src="../assets/Payment_Sales/search.png" alt="" class="search-img">
-              <input type="text" class="inputs" placeholder="Search" v-model="searchQuery"/>
+              <input type="text" class="search-inputs" placeholder="Search" v-model="searchQuery"/>
             </div>
             <button class="btn btn-outline-secondary">
               <img src="../assets/Payment_Sales/filter-lines.png" alt="">
@@ -179,7 +179,7 @@
       </div>
     </div>
     <!-- Details Moving -->
-    <div class="container flex-grow-1 h-100 overflow-auto p-5" v-show="showDetails">
+    <div class="container flex-grow-1 h-100 overflow-auto p-5" v-show="!showDetails">
       <div class="d-flex justify-content-between px-3 sizing mb-5">
           <h6>Details Moving</h6>
           <div class="d-flex gap-3 align-items-center profile">

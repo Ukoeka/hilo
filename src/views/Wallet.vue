@@ -238,20 +238,6 @@
     .payment-description{
       width: 300px;
     }
-    .inputs{
-      display: block;
-      width: 100%;
-      /* padding: .375rem .75rem; */
-      font-size: 1rem;
-      font-weight: 400;
-      line-height: 1.5;
-      color: var(--bs-body-color);
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      outline: none;
-      border: 1px transparent;
-    }
     .search{
       width: 60%;
       border: 1px solid  rgba(208, 213, 221, 1);
@@ -263,22 +249,8 @@
     }
     .right{
       width: 55%;
-      /* background-color: gray; */
     }
   
-    /* .btn-success{
-      width: 15%;
-    } */
-    .pagination .page-item.active .page-link {
-      background-color: #28a745;
-      border-color: #28a745;
-    }
-    .pagination .page-link {
-      color: #28a745;
-    }
-    .pagination .page-item.disabled .page-link {
-      color: #ccc;
-    }
     .card{
       border:1px solid white;
       border-radius: 5px;
