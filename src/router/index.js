@@ -52,7 +52,32 @@ const routes = [
     path: "/cleaner-recruitment",
     name: "Cleaner",
     component: Cleaner,
-  }
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: About,
+  },
+  {
+    path: "/privacypolicy",
+    name: "PrivacyPolicy",
+    component: PrivacyPolicy,
+  },
+  {
+    path: "/getquote",
+    name: "GetQuote",
+    component: GetQuote,
+  },
+  {
+    path: "/getHired",
+    name: "GetHired",
+    component: GetHired,
+  },
+  {
+    path: "/business",
+    name: "Business",
+    component: Business,
+  },
 ];
 
 const router = createRouter({
@@ -75,41 +100,7 @@ const router = createRouter({
       name: "Packaging",
       component: Packaging,
     },
-    {
-      path: "/driver-recruitment",
-      name: "Driver",
-      component: Driver,
-    },
-    {
-      path: "/cleaner-recruitment",
-      name: "Cleaner",
-      component: Cleaner,
-    },
-    {
-      path: "/about",
-      name: "About",
-      component: About,
-    },
-    {
-      path: "/privacypolicy",
-      name: "PrivacyPolicy",
-      component: PrivacyPolicy,
-    },
-    {
-      path: "/getquote",
-      name: "GetQuote",
-      component: GetQuote,
-    },
-    {
-      path: "/getHired",
-      name: "GetHired",
-      component: GetHired,
-    },
-    {
-      path: "/business",
-      name: "Business",
-      component: Business,
-    },
+    
   ]
 
 export default router;
