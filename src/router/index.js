@@ -19,7 +19,7 @@ import GetHired from "@/pages/GetHired.vue";
 import Business from "@/pages/Business.vue";
 
 const routes = [
-
+  
   {
     path: "/",
     name: "Home",
@@ -56,7 +56,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: "history",
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes
 });
   routes: [
