@@ -1,70 +1,13 @@
 <template>
-  <AdminLayout >
 
-    <div class="vh-100 w-100 bg d-flex flex-column p-3">
-      <div class="d-flex justify-content-between px-3 sizing mb-5">
-          <h2>Drivers</h2>
-          <div class="d-flex gap-3 align-items-center profile">
-            <img src="../assets/Dashbordicons/3d_avatar_3.png" alt="" class="">
-            <span>Favour Udoh</span>
-          </div>
-        </div>
+    <div class="d-flex justify-content-between vh-100 w-100 bg">
+      <!-- Sidebar Section -->
   
       <!-- Main Content Section -->
-      <div v-if="!viewAssign" class="flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
-        <!-- Card Section -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <div class="d-flex w-100 gap-3">
-            <!-- 1 -->
-            <div class="card p-4 payment-description">
-              <div class="w-100 h-100 d-flex align-items-center justify-content-between">
-                <span>
-                  <h6>All Quotes</h6>
-                  <p class="mb-0">10,000</p>
-                </span>
-                <span class="d-flex align-items-center justify-content-between p-3 rounded-3" style="background-color: rgba(94, 166, 244, 0.1); height: 50px;">
-                  <img src="../assets/Payment_Sales/shop.png" alt="">
-                </span>
-              </div>
-            </div>
-            <!-- 2 -->
-            <div class="card p-4 payment-description">
-              <div class="w-100 h-100 d-flex align-items-center justify-content-between">
-                <span>
-                  <h6>Quotes Value</h6>
-                  <p class="mb-0">NGN 99,500,000</p>
-                </span>
-                <span class="d-flex align-items-center justify-content-between p-3 rounded-3" style="background-color: rgba(94, 244, 136, 0.1); height: 50px;">
-                  <img src="../assets/Payment_Sales/card-pos.png" alt="" >
-                </span>
-              </div>  
-            </div>
-            <!-- 3 -->
-            <div class="card p-4 payment-description">
-              <div class="w-100 h-100 d-flex align-items-center justify-content-between">
-                <span>
-                  <h6>Paid</h6>
-                  <p class="mb-0">NGN 4,500,900</p>
-                </span>
-                <span class="d-flex align-items-center justify-content-between p-3 rounded-3" style="background-color: rgba(94, 244, 136, 0.1); height: 50px;">
-                  <img src="../assets/Payment_Sales/card-pos.png" alt="" >
-                </span>
-              </div>  
-            </div>
-            <!-- 4 -->
-            <div class="card p-4 payment-description">
-              <div class="w-100 h-100 d-flex align-items-center justify-content-between">
-                <span>
-                  <h6>Pending</h6>
-                  <p class="mb-0">500</p>
-                </span>
-                <span class="d-flex align-items-center justify-content-between p-3 rounded-3" style="background-color: rgba(255, 254, 206, 1); height: 50px;">
-                  <img src="../assets/Payment_Sales/convertshape.png" alt="" >
-                </span>
-              </div>  
-            </div>
-          </div>
-        </div>
+      <div class="flex-grow-1 position-relative pt-2 px-5 h-100 ">
+        <button class="back-button mb-3" @click="back">
+        ← Back
+      </button>
         
         <!-- Quotes Table Section -->
         <div class="card p-3 mb-3">
@@ -73,8 +16,8 @@
                 <h2>Drivers</h2>
                 <p class="p-1 rounded-1 m-0" style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">13 Drivers</p>
               </div>
-              <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center" @click="AssignDriver('Assign')">
-                <span><img src="../assets/Payment_Sales/plus.png" alt="" ></span>
+              <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center">
+                <span><img src="../assets/Payment_Sales/plus.png" alt=""></span>
                 Add New
               </button>
           </div>
@@ -125,7 +68,7 @@
                         {{ payment.status }}
                     </span>
                     </td>
-                    <td @click="AssignDriver('View')">
+                    <td>
                     <img src="../assets/Payment_Sales/more.png" alt="">
                 </td>
               </tr>
@@ -171,24 +114,17 @@
         </div> -->
         
       </div>
-      <ViewAssign v-if="viewAssign === 'view' || viewAssign === 'assign'" :assign="viewAssign" @close="viewAssign = null" />
     </div>
-  </AdminLayout>
 
   </template>
   
   <script>
-    import ViewAssign from '@/components/Dashboard/ViewAssign.vue';
-import AdminLayout from '@/layouts/AdminLayout.vue';
 
     export default {
       components:{
-        AdminLayout,
-        ViewAssign
       },
       data() {
         return {
-          viewAssign: null,
           payments: [
             { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Charlie Brakus', email: 'Erin33@hotmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
             { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Jamie Schroeder', email: 'Ernest_Altenwerth@gmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
@@ -239,19 +175,14 @@ import AdminLayout from '@/layouts/AdminLayout.vue';
         },
       },
       methods: {
-        AssignDriver(view) {
-          if(view == 'Assign'){
-            console.log('assign');
-            this.viewAssign = 'assign';
-          } else {
-            this.viewAssign = 'view';
-          }
-        },
         changePage(page) {
           if (page !== '...' && page >= 1 && page <= this.totalPages) {
             this.currentPage = page;
           }
         },
+        back() {
+      this.$emit('payment')
+    },
       },
     };
   </script>

@@ -10,7 +10,7 @@
         </div>
       </div>
       <!-- Main Content Section -->
-      <div class=" flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto" v-if="showDetails">
+      <div class=" flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto" v-if="showDetails || showCleanerDetails">
 
 
         <!-- Filter Tabs -->
@@ -52,7 +52,7 @@
               </button>
             </div>
           </div>
-          <TableDetails @paymentRequest="handlePR"/>
+          <TableDetails @paymentRequest="handlePR" />
 
         </div>
 
@@ -60,7 +60,8 @@
       </div>
       <!-- Details Moving -->
 
-      <PaymentRequest v-if="!showDetails"  @payment="handlePR"/>
+      <PaymentRequest v-if="!showDetails" @payment="handlePR" />
+      <CleanersPaymentRequest v-if="!showCleanerDetails" @payment="handlePR" />
     </div>
   </AdminLayout>
 
@@ -76,13 +77,15 @@ import PaymentRequest from '@/components/Dashboard/PaymentRequest.vue';
 // Images
 import pos from '../assets/Payment_Sales/card-pos.png'
 import shop from '../assets/Payment_Sales/shop.png'
+import CleanersPaymentRequest from '@/components/Dashboard/CleanersPaymentRequest.vue';
 
 export default {
   components: {
     OverView,
     AdminLayout,
     TableDetails,
-    PaymentRequest
+    PaymentRequest,
+    CleanersPaymentRequest
   },
   data() {
     return {
@@ -93,6 +96,7 @@ export default {
       totalItems: 12400,
       filterType: 'all',
       showDetails: true,
+      showCleanerDetails: true,
       cards: [
         {
           title: 'All Payments',
@@ -123,14 +127,19 @@ export default {
     handlePR() {
       console.log('called')
       // Toggle between main and detail views
-      this.showDetails = !this.showDetails;
+      if (this.filterType === 'cleaners') {
+
+        this.showCleanerDetails = !this.showCleanerDetails;
+      } else {
+        this.showDetails = !this.showDetails;
+
+      }
     },
   },
 };
 </script>
 
 <style scoped>
-
 .toggle-active.active {
   border-bottom: 3px solid rgba(76, 149, 108, 1);
   color: rgba(76, 149, 108, 1);

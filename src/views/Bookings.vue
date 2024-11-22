@@ -1,28 +1,26 @@
 <template>
   <AdminLayout>
 
-    <div class="d-flex justify-content-between vh-100 w-100 bg">
-
-      <!-- Main Content Section -->
-      <div class=" flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
-        <div class="d-flex justify-content-between px-3 sizing mb-5">
-          <h2>Cleaners Quotes</h2>
-          <div class="d-flex gap-3 align-items-center profile">
-            <img src="../assets/Dashbordicons/3d_avatar_3.png" alt="" class="">
-            <span>Favour Udoh</span>
-          </div>
+    <div class="vh-100 w-100 bg d-flex flex-column p-3">
+      <div class="d-flex justify-content-between px-3 sizing mb-5">
+        <h2>Cleaning Quotes</h2>
+        <div class="d-flex gap-3 align-items-center profile">
+          <img src="../assets/Dashbordicons/3d_avatar_3.png" alt="" class="">
+          <span>Favour Udoh</span>
         </div>
-
+      </div>
+      <!-- Main Content Section -->
+      <div v-if="!viewAssign" class="flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
         <!-- Quotes Table Section -->
         <div class="card p-3 mb-3">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <div class="d-flex align-items-center gap-2 p-3">
-              <h2>Cleanings</h2>
+              <h5>Cleanings</h5>
               <p class="p-1 rounded-1 m-0"
-                style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">13 Quotes
+                style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">13 quotes
               </p>
             </div>
-            <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center">
+            <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center" @click="AssignDriver('Assign')">
               <span><img src="../assets/Payment_Sales/plus.png" alt=""></span>
               Add New
             </button>
@@ -32,27 +30,26 @@
             <thead>
               <tr>
                 <th>Serial Number <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Client Name<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Post<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Cleaning Type<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Hours<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Booking Date<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Time<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Phone Number<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Status<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Image <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Name <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Email <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Age<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Date Added<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Status <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(payment, index) in payments" :key="index">
                 <td>{{ index + 1 }}</td>
-                <td>{{ payment.clientName }}</td>
-                <td>{{ payment.post }}</td>
-                <td>{{ payment.cleaningType }}</td>
-                <td>{{ payment.hours }}</td>
-                <td>{{ payment.bookingDate }}</td>
-                <td>{{ payment.time }}</td>
-                <td>{{ payment.PhoneNumber }}</td>
+                <td>
+                  <img :src="payment.image" alt="Driver Image" style="width: 50px; height: auto;">
+                </td>
+                <td>{{ payment.name }}</td>
+                <td>{{ payment.email }}</td>
+                <td>{{ payment.age }}</td>
+                <td>{{ payment.dateAdded }}</td>
+                <td>{{ payment.status }}</td>
                 <td>
                   <span :class="[
                     'd-flex align-items-center justify-content-center gap-2 rounded p-2',
@@ -66,7 +63,7 @@
                     {{ payment.status }}
                   </span>
                 </td>
-                <td>
+                <td @click="AssignDriver('View')">
                   <img src="../assets/Payment_Sales/more.png" alt="">
                 </td>
               </tr>
@@ -74,71 +71,47 @@
           </table>
         </div>
 
-        <!-- Pagination and Items Per Page Controls -->
-        <!-- <div class="d-flex align-items-center justify-content-between">
-          <div class="d-flex gap-3 align-items-center">
-            <span>Number Of Items displayed per page</span>
-            <select v-model="itemsPerPage" class="form-select" style="width: 65px; background-color: #28a745; color: white; border: none;">
-              <option value="10">10</option>
-              <option value="14">14</option>
-              <option value="20">20</option>
-            </select>
-            <p class="mb-0">
-              {{ displayedStartIndex }}-{{ displayedEndIndex }} of {{ totalItems }} items
-            </p>
-          </div>
-          <div>
-            <ul class="pagination mb-0">
-              <li class="page-item" :class="{ disabled: currentPage === 1 }">
-                <button class="page-link" @click="changePage(currentPage - 1)">
-                  <img src="../assets/Payment_Sales/pageleft.png" alt="">
-                </button>
-              </li>
-              <li
-                v-for="page in visiblePages"
-                :key="page"
-                class="page-item"
-                :class="{ active: currentPage === page }"
-              >
-                <button class="page-link" @click="changePage(page)">{{ page }}</button>
-              </li>
-              <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-                <button class="page-link" @click="changePage(currentPage + 1)">
-                  <img src="../assets/Payment_Sales/pageright.png" alt="">
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div> -->
+        <!-- Details Cleaning -->
+
 
       </div>
+      <ViewAssign v-if="viewAssign === 'view' || viewAssign === 'assign'" :assign="viewAssign" @close="viewAssign = null" />
+
     </div>
   </AdminLayout>
 </template>
 
 <script>
+import Quotes from './Quotes.vue'
 import AdminLayout from '@/layouts/AdminLayout.vue';
+import ViewAssign from '@/components/Dashboard/ViewAssign.vue';
+
 export default {
   components: {
-    AdminLayout
+    AdminLayout,
+    ViewAssign,
+    Quotes,
   },
+
   data() {
     return {
+      viewAssign: null,
+
       payments: [
-        { clientName: 'Charlie Brakus', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
-        { clientName: 'Jamie Schroeder', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
-        { clientName: 'Alexander O\'Conner', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Inactive' },
-        { clientName: 'Anne Stanton', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
-        { clientName: 'Abel Brown', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Inactive' },
-        { clientName: 'Lorene Nienow', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
-        { clientName: 'Abel Turcotte', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
-        { clientName: 'Rosa Kohler', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Inactive' },
-        { clientName: 'Mike Sporer', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
-        { clientName: 'Elena Okuneva', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
-        { clientName: 'Darrell Brown', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Inactive' },
-        { clientName: 'Lillian Mohr', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
-        { clientName: 'Kelvin Johnson', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Inactive' },
-        { clientName: 'Rosemary Howe', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
+        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Charlie Brakus', email: 'Erin33@hotmail.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Active', accountType: 'Driver' },
+        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Jamie Schroeder', email: 'Ernest_Altenwerth@gmail.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Active', accountType: 'Driver' },
+        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Alexander O\'Conner', email: 'Lori.Rodriguez@yahoo.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Inactive', accountType: 'Driver' },
+        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Anne Stanton', email: 'Clarence69@yahoo.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Active', accountType: 'Driver' },
+        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Abel Brown', email: 'Carole.McCullough@hotmail.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Inactive', accountType: 'Driver' },
+        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Lorene Nienow', email: 'Javier.Olson@yahoo.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Male', status: 'Active', accountType: 'Driver' },
+        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Abel Turcotte', email: 'Wilma.Crona@hotmail.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Male', status: 'Active', accountType: 'Driver' },
+        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Rosa Kohler', email: 'Micheal_Hane@yahoo.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Inactive', accountType: 'Driver' },
+        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Mike Sporer', email: 'Veronica_Reynolds36@yahoo.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Active', accountType: 'Driver' },
+        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Elena Okuneva', email: 'Marlon_Hills14@yahoo.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Male', status: 'Active', accountType: 'Driver' },
+        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Darrell Brown', email: 'Kathleen_Bode@yahoo.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Male', status: 'Inactive', accountType: 'Driver' },
+        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Lillian Mohr', email: 'Shane71@yahoo.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Active', accountType: 'Driver' },
+        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Kelvin Johnson', email: 'Katherine.VonRueden@gmail.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Inactive', accountType: 'Driver' },
+        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Rosemary Howe', email: 'Santos_Corkery17@gmail.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Active', accountType: 'Driver' },
       ],
       searchQuery: '',
       itemsPerPage: 14, // Items per page, with a default value of 14
@@ -174,6 +147,14 @@ export default {
     },
   },
   methods: {
+    AssignDriver(view) {
+          if(view == 'Assign'){
+            console.log('assign');
+            this.viewAssign = 'assign';
+          } else {
+            this.viewAssign = 'view';
+          }
+        },
     changePage(page) {
       if (page !== '...' && page >= 1 && page <= this.totalPages) {
         this.currentPage = page;
