@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD:src/views/Bookings.vue
   <AdminLayout>
 
     <div class="vh-100 w-100 bg d-flex flex-column p-3">
@@ -11,6 +12,16 @@
       </div>
       <!-- Main Content Section -->
       <div v-if="!viewAssign" class="flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
+=======
+    <div class="d-flex justify-content-between vh-100">
+      <!-- Sidebar Section -->
+      <Sidebar class="flex-grow-1 overflow-auto" />
+  
+      <!-- Main Content Section -->
+      <div class="container flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
+        <Nav title="Cleaning Quotes" />
+
+>>>>>>> b890a47bf04bc21a69c7c0fb0b42bca10f6b0317:src/views/Cleaningquotes.vue
         <!-- Quotes Table Section -->
         <div class="card p-3 mb-3">
           <div class="d-flex justify-content-between align-items-center mb-2">
@@ -43,6 +54,7 @@
               <tr v-for="(payment, index) in payments" :key="index">
                 <td>{{ index + 1 }}</td>
                 <td>
+<<<<<<< HEAD:src/views/Bookings.vue
                   <img :src="payment.image" alt="Driver Image" style="width: 50px; height: auto;">
                 </td>
                 <td>{{ payment.name }}</td>
@@ -65,6 +77,32 @@
                 </td>
                 <td @click="AssignDriver('View')">
                   <img src="../assets/Payment_Sales/more.png" alt="">
+=======
+                    <span
+                        :class="[
+                          'd-flex align-items-center justify-content-center gap-2 rounded p-2', 
+                          payment.status === 'Paid' ? 'completed' : '',
+                          payment.status === 'draft' ? 'draft' : '',
+                          payment.status === 'Pending'? 'ongoing': ''
+                          
+                        ]"
+                        style="width: fit-content"
+                    >
+                        <div
+                        :class="[
+                            payment.status === 'Paid' ? 'completed-circle' : '',
+                            payment.status === 'Draft' ? 'draft-circle' : '',
+                            payment.status === 'Pending' ? 'ongoing-circle' : '',
+                        ]"
+                        class="rounded-circle"
+                        style="height: 10px; width: 10px;"
+                        ></div>
+                        {{ payment.status }}
+                    </span>
+                    </td>
+                    <td>
+                    <img src="../assets/Payment_Sales/more.png" alt="">
+>>>>>>> b890a47bf04bc21a69c7c0fb0b42bca10f6b0317:src/views/Cleaningquotes.vue
                 </td>
               </tr>
             </tbody>
@@ -78,6 +116,7 @@
       <ViewAssign v-if="viewAssign === 'view' || viewAssign === 'assign'" :assign="viewAssign" @close="viewAssign = null" />
 
     </div>
+<<<<<<< HEAD:src/views/Bookings.vue
   </AdminLayout>
 </template>
 
@@ -117,6 +156,75 @@ export default {
       itemsPerPage: 14, // Items per page, with a default value of 14
       currentPage: 1,    // Current page number
       totalItems: 12400, // Total number of items (example)
+=======
+  </template>
+  
+  <script>
+  import Sidebar from '../components/Sidebar.vue'
+    import Nav from '@/components/Nav.vue';
+    export default {
+      components:{
+        Sidebar, Nav
+      },
+      data() {
+        return {
+          payments: [
+            {clientName: 'Charlie Brakus',  post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Paid'},
+            {clientName: 'Jamie Schroeder',  post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Paid'},
+            {clientName: 'Alexander O\'Conner', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Pending'},
+            {clientName: 'Anne Stanton', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Paid'},
+            {clientName: 'Abel Brown', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Paid'},
+            {clientName: 'Lorene Nienow',post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Draft'},
+            {clientName: 'Abel Turcotte', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Draft'},
+            {clientName: 'Rosa Kohler',post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Pending'},
+            {clientName: 'Mike Sporer', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Paid'},
+            {clientName: 'Elena Okuneva', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Paid'},
+            {clientName: 'Darrell Brown', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Draft'},
+            {clientName: 'Lillian Mohr', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Pending'},
+            {clientName: 'Kelvin Johnson', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM',  PhoneNumber:'+44 012 9904 9944', status: 'Pending'},
+            {clientName: 'Rosemary Howe', post:'B455AT', cleaningType:'Weekly', hours:8, bookingDate:'1/1/2022', time:'10:00 AM', PhoneNumber:'+44 012 9904 9944',  status: 'Pending'},
+          ],
+          searchQuery: '',
+          itemsPerPage: 14, 
+          currentPage: 1,  
+          totalItems: 12400,
+        };
+      },
+      computed: {
+        totalPages() {
+          return Math.ceil(this.totalItems / this.itemsPerPage);
+        },
+        displayedStartIndex() {
+          return (this.currentPage - 1) * this.itemsPerPage + 1;
+        },
+        displayedEndIndex() {
+          return Math.min(this.displayedStartIndex + this.itemsPerPage - 1, this.totalItems);
+        },
+        visiblePages() {
+          // Only show the first few and last pages with ellipsis in between
+          const range = [];
+          if (this.totalPages <= 5) {
+            for (let i = 1; i <= this.totalPages; i++) {
+              range.push(i);
+            }
+          } else if (this.currentPage <= 3) {
+            range.push(1, 2, 3, 4, '...', this.totalPages);
+          } else if (this.currentPage > this.totalPages - 3) {
+            range.push(1, '...', this.totalPages - 3, this.totalPages - 2, this.totalPages - 1, this.totalPages);
+          } else {
+            range.push(1, '...', this.currentPage - 1, this.currentPage, this.currentPage + 1, '...', this.totalPages);
+          }
+          return range;
+        },
+      },
+      methods: {
+        changePage(page) {
+          if (page !== '...' && page >= 1 && page <= this.totalPages) {
+            this.currentPage = page;
+          }
+        },
+      },
+>>>>>>> b890a47bf04bc21a69c7c0fb0b42bca10f6b0317:src/views/Cleaningquotes.vue
     };
   },
   computed: {

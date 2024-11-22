@@ -21,7 +21,6 @@ const routes = [
   { path: "/admin", component: Admin, name: "Admin" },
   { path: "/parameter", component: Parameter, name: "Parameter" },
 ];
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes, // Assign the routes array here

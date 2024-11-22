@@ -206,9 +206,35 @@ import AdminLayout from '@/layouts/AdminLayout.vue';
             { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Rosemary Howe', email: 'Santos_Corkery17@gmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
           ],
           searchQuery: '',
-          itemsPerPage: 14, // Items per page, with a default value of 14
-          currentPage: 1,    // Current page number
-          totalItems: 12400, // Total number of items (example)
+          itemsPerPage: 14,
+          currentPage: 1,  
+          totalItems: 12400,
+          isDriverDetailsVisible: false,
+          isDriverAddDetailsVisible: false,
+          user: { 
+            firstName: '',
+            lastName: '',
+            email: '',
+            gender: '',
+            country: '',
+            city: '',
+            address: '',
+            language: ''
+          },
+          isDriverDetailsVisible: true,
+          drivers: Array.from({ length: 13 }, (_, i) => ({
+            image: new URL(`../assets/Drivers/${String(i + 1).padStart(2, '0')}.png`, import.meta.url).href,
+            name: [
+              'Charlie Brakus', 'Jamie Schroeder', 'Alexander O\'Conner', 'Anne Stanton', 'Abel Brown', 
+              'Lorene Nienow', 'Abel Turcotte', 'Rosa Kohler', 'Mike Sporer', 'Elena Okuneva', 
+              'Darrell Brown', 'Lillian Mohr', 'Kelvin Johnson'
+            ][i],
+            email: `user${i}@example.com`,
+            movesCompleted: 232,
+            age: 45,
+            dateAdded: '11/6/2022',
+            status: ['Active', 'Inactive', 'Active', 'Inactive', 'Active'][i % 5]
+          }))
         };
       },
       computed: {
@@ -251,6 +277,10 @@ import AdminLayout from '@/layouts/AdminLayout.vue';
           if (page !== '...' && page >= 1 && page <= this.totalPages) {
             this.currentPage = page;
           }
+        },
+        statusClass(status, isCircle = false) {
+          if (status === 'Active') return isCircle ? 'active-circle' : 'active-status';
+          if (status === 'Inactive') return isCircle ? 'inactive-circle' : 'inactive-status';
         },
       },
     };
@@ -334,6 +364,57 @@ import AdminLayout from '@/layouts/AdminLayout.vue';
       border:1px solid white;
       border-radius: 5px;
     }
+    .driver-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+.status-circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.active {
+  background-color: rgba(236, 253, 239, 1);
+  color: rgba(76, 149, 108, 1);
+}
+.active-circle {
+  background-color: rgba(76, 149, 108, 1);
+}
+.inactive {
+  background-color: rgba(234, 236, 240, 1);
+  color: rgba(0, 0, 0, 1);
+}
+.inactive-circle {
+  background-color: rgba(0, 0, 0, 1);
+}
+.cleaner-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.btn-green {
+  background-color: #28a745;
+  color: #fff;
+}
   
-    </style>
+</style>
     

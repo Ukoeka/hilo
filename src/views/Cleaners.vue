@@ -12,6 +12,7 @@
       <!-- Main Content Section -->
       <div v-if="!viewAssign" class="flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
         <!-- Quotes Table Section -->
+  
         <div class="card p-3 mb-3">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <div class="d-flex align-items-center gap-2 p-3">
@@ -34,7 +35,9 @@
                 <th>Name <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th>Email <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th>Age<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>City<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th>Date Added<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Gender<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th>Status <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th></th>
               </tr>
@@ -48,8 +51,9 @@
                 <td>{{ payment.name }}</td>
                 <td>{{ payment.email }}</td>
                 <td>{{ payment.age }}</td>
+                <td>{{ payment.city }}</td>
                 <td>{{ payment.dateAdded }}</td>
-                <td>{{ payment.status }}</td>
+                <td>{{ payment.gender }}</td>
                 <td>
                   <span :class="[
                     'd-flex align-items-center justify-content-center gap-2 rounded p-2',
