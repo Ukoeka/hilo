@@ -1,13 +1,19 @@
 <template>
-    <div class="d-flex vh-100">
-      <Sidebar class="flex-grow-1 overflow-auto" />
-  
-      <div class="container flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
+  <AdminLayout >
+    <div class="vh-100 w-100 bg d-flex flex-column p-3">
+      <div class="d-flex justify-content-between px-3 sizing mb-5">
+        <h2>Drivers</h2>
+        <div class="d-flex gap-3 align-items-center profile">
+          <img src="../assets/Dashbordicons/3d_avatar_3.png" alt="" class="">
+          <span>Favour Udoh</span>
+        </div>
+      </div>
+
+      <div class=" flex-grow-1 position-relative pt-2 px-5 h-100 ">
+
+
             <!-- First Section: Items List -->
-        <div v-if="!showDetailedView" class="row">
-            <!-- Header Section -->
-            <Nav title='Parameters'  />
-    
+        <div v-if="!showDetailedView" class="row">    
             <!-- Left Section: Items Cards -->
             <div class="col-md-8">
                 <div class="d-flex justify-content-between align-items-center my-4">
@@ -41,8 +47,8 @@
             </div>
     
             <!-- Right Section: General Parameters Form -->
-            <div class="col-4" v-if="showRightSection">
-                <div class="card p-3">
+            <div class="col-4 " v-if="showRightSection">
+                <div class="card bg-black text-white p-3">
                     <h5>General Parameters</h5>
                     <form>
                         <div class="mb-3" v-for="(param, index) in generalParams" :key="index">
@@ -56,8 +62,7 @@
         </div>
     
         <!-- Detailed View Section -->
-        <div v-if="showDetailedView" class="container mt-4">
-          <Nav title='Parameters' />
+        <div v-if="showDetailedView" class=" w-100 mt-4">
           <div class="row gap-4">
             <div class="col-md-1 rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; background-color: rgba(255, 255, 255, 1);">
               <button class="btn btn-link text-decoration-none" @click="goBack">
@@ -178,10 +183,10 @@
         </div>
       </div>
     </div>
+  </AdminLayout>
   </template>
   
   <script>
-  import Sidebar from '@/components/Sidebar.vue';
   import { Icon } from '@iconify/vue';
   import Nav from '@/components/Nav.vue'
   import livingRoomIcon from '../assets/Parameter/livingroom.png';
@@ -191,9 +196,12 @@
   import kitchenIcon from '../assets/Parameter/kitchen.png';
   import bathroomIcon from '../assets/Parameter/bathroom.png';
   import more from '@/assets/Payment_Sales/more.png';
+import AdminLayout from '@/layouts/AdminLayout.vue';
   export default {
     components: {
-        Sidebar, Icon, Nav
+        Icon,
+         Nav,
+         AdminLayout
     },
     data() {
       return {

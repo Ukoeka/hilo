@@ -3,7 +3,7 @@ import Login from "../views/Login.vue";
 import Payments from "../views/Payments.vue";
 import Quotes from "@/views/Quotes.vue";
 import Drivers from "@/views/Drivers.vue";
-import Bookings from "@/views/Bookings.vue";
+import Bookings from "@/views/Booking.vue";
 import Cleaners from "@/views/Cleaners.vue";
 import Admin from "@/views/Admin.vue";
 import Parameter from "@/views/Parameter.vue";

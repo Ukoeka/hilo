@@ -80,7 +80,6 @@
   </div>
 </template>
 
-<<<<<<< HEAD
 <style scoped>
 .sidebar {
   width: 300px;
@@ -102,64 +101,6 @@
   margin-bottom: 40px;
   padding: 20px;
 }
-=======
-<script>
-  import payments from '../assets/Dashbordicons/payments.png';
-  import movingquotes from '../assets/Dashbordicons/quotes.png';
-  import drivers from '../assets/Dashbordicons/drivers.png';
-  import cleaners from '../assets/Dashbordicons/cleaners.png';
-  import bookings from '../assets/Dashbordicons/bookings.png';
-  import parameters from '../assets/Dashbordicons/parameters.png';
-  import admin from '../assets/Dashbordicons/admin.png';
-export default {
-  data() {
-    return {
-      menuItems: [
-        { name: 'Payments', image: payments, active: true, },
-        { name: 'Moving Quotes', image: movingquotes, active: false, },
-        { name: 'Drivers', image: drivers, active: false, },
-        { name: 'Cleaners', image: cleaners, active: false, },
-        { name: 'Cleaning Quotes', image: bookings, active: false, },
-        { name: 'Parameters', image: parameters, active: false, },
-        { name: 'Admins', image: admin, active: false, },
-      ],
-    };
-  },
-  methods: {
-    setActive(name) {
-      this.menuItems.forEach((item) => {
-        item.active = item.name === name;
-      });
-    },
-    logout() {
-      console.log("User  logged out");
-    },
-  }
-};
-</script>
-
-  
-<style>
-  .sidebar {
-    width: 15%;
-  }
-  
-  .nav-link.active {
-    background-color: rgba(76, 149, 108, 1);
-    color: white;
-    border-radius: 5px;
-  }
-  .logout{
-    border: 1px solid rgba(255, 0, 0, 0.3);
-    color: white;
-    background-color: transparent;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-  }
-  .nav{
-    margin-top: 150px;
-  }
->>>>>>> b890a47bf04bc21a69c7c0fb0b42bca10f6b0317
 
 .nav-link {
   color: white !important;

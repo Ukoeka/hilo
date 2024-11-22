@@ -22,7 +22,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-<<<<<<< HEAD
 .inputs{
   display: block;
   width: 100%;
@@ -41,5 +40,3 @@ body {
 .bg {
   background-color: #f0f0f0 !important;
 }
-=======
->>>>>>> b890a47bf04bc21a69c7c0fb0b42bca10f6b0317

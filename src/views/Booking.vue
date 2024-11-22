@@ -1,11 +1,17 @@
 <template>
-    <div class="d-flex justify-content-between vh-100">
-      <!-- Sidebar Section -->
-      <Sidebar class="flex-grow-1 overflow-auto" />
+  <AdminLayout >
+    <div class="vh-100 w-100 bg d-flex flex-column p-3">
+      <div class="d-flex justify-content-between px-3 sizing mb-5">
+        <h2>Drivers</h2>
+        <div class="d-flex gap-3 align-items-center profile">
+          <img src="../assets/Dashbordicons/3d_avatar_3.png" alt="" class="">
+          <span>Favour Udoh</span>
+        </div>
+      </div>
   
       <!-- Main Content Section -->
-      <div class="container flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto" v-show="display">
-        <Nav title="Assigned Movings" />
+      <div class=" flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto" v-show="display">
+
   
         <!-- Quotes Table Section -->
         <div class="card p-3 mb-3">
@@ -207,14 +213,16 @@
       </div>
       </div>
     </div>
+  </AdminLayout>
   </template>
   
   <script>
     import Sidebar from '../components/Sidebar.vue'
     import Nav from '../components/Nav.vue';
+import AdminLayout from '@/layouts/AdminLayout.vue';
     export default {
       components:{
-        Sidebar, Nav
+        Sidebar, Nav, AdminLayout
       },
       data() {
         return {
