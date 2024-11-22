@@ -246,7 +246,7 @@ import AdminLayout from '@/layouts/AdminLayout.vue';
           itemsPerPage: 14,
           currentPage: 1,    
           totalItems: 12400, 
-          display:false
+          display:true
         };
       },
       computed: {
