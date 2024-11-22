@@ -32,7 +32,7 @@
         Drivers
       </RouterLink>
 
-      <RouterLink to="/bookings" class="nav-link">
+      <RouterLink to="/cleaners" class="nav-link">
         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M20.51 3L21.93 4.42L16.21 10.13C17.28 11.67 17.43 13.52 16.53 14.72L10.21 8.4C11.41 7.5 13.26 7.65 14.8 8.72L20.51 3ZM7.08 17.85C5.07 15.84 3.84 13.44 3.5 11.2L8.38 9.11L15.82 16.55L13.73 21.43C11.49 21.09 9.09 19.86 7.08 17.85Z"
@@ -41,7 +41,7 @@
         Cleaners
       </RouterLink>
 
-      <RouterLink to="cleaners" class="nav-link">
+      <RouterLink to="/bookings" class="nav-link">
         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M7.25 21C6.76875 21 6.35692 20.8337 6.0145 20.501C5.67208 20.1684 5.50058 19.7681 5.5 19.3V5.7C5.5 5.2325 5.6715 4.83243 6.0145 4.4998C6.3575 4.16717 6.76933 4.00057 7.25 4H17.75C18.2312 4 18.6434 4.1666 18.9864 4.4998C19.3294 4.833 19.5006 5.23307 19.5 5.7V19.3C19.5 19.7675 19.3288 20.1678 18.9864 20.501C18.644 20.8342 18.2318 21.0006 17.75 21H7.25ZM11.625 11.65L13.8125 10.375L16 11.65V5.7H11.625V11.65Z"
@@ -50,7 +50,7 @@
         Cleaning Quotes
       </RouterLink>
 
-      <RouterLink to="#" class="nav-link">
+      <RouterLink to="parameter" class="nav-link">
         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M7.125 8.75C6.82663 8.75 6.54048 8.63147 6.3295 8.4205C6.11853 8.20952 6 7.92337 6 7.625C6 7.32663 6.11853 7.04048 6.3295 6.8295C6.54048 6.61853 6.82663 6.5 7.125 6.5C7.42337 6.5 7.70952 6.61853 7.9205 6.8295C8.13147 7.04048 8.25 7.32663 8.25 7.625C8.25 7.92337 8.13147 8.20952 7.9205 8.4205C7.70952 8.63147 7.42337 8.75 7.125 8.75ZM19.0575 12.185L12.3075 5.435C12.0375 5.165 11.6625 5 11.25 5H6C5.1675 5 4.5 5.6675 4.5 6.5V11.75C4.5 12.1625 4.665 12.5375 4.9425 12.8075L11.685 19.5575C11.9625 19.8275 12.3375 20 12.75 20C13.1625 20 13.5375 19.8275 13.8075 19.5575L19.0575 14.3075C19.335 14.0375 19.5 13.6625 19.5 13.25C19.5 12.83 19.3275 12.455 19.0575 12.185Z"
@@ -59,7 +59,7 @@
         Parameters
       </RouterLink>
 
-      <RouterLink to="#" class="nav-link">
+      <RouterLink to="admin" class="nav-link">
         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M12.5 4L5.5 7.09091V11.7273C5.5 16.0159 8.48667 20.0264 12.5 21C16.5133 20.0264 19.5 16.0159 19.5 11.7273V7.09091L12.5 4ZM12.5 7.01364C12.9615 7.01364 13.4126 7.1496 13.7963 7.40432C14.18 7.65905 14.4791 8.0211 14.6557 8.44469C14.8323 8.86828 14.8785 9.33439 14.7885 9.78407C14.6985 10.2338 14.4762 10.6468 14.1499 10.971C13.8236 11.2952 13.4078 11.516 12.9552 11.6055C12.5026 11.6949 12.0334 11.649 11.6071 11.4735C11.1807 11.2981 10.8163 11.001 10.5599 10.6197C10.3035 10.2385 10.1667 9.79031 10.1667 9.33182C10.1667 8.717 10.4125 8.12736 10.8501 7.69262C11.2877 7.25787 11.8812 7.01364 12.5 7.01364ZM12.5 13.1182C14.0556 13.1182 17.1667 13.9605 17.1667 15.4982C16.6558 16.2633 15.9624 16.8909 15.1481 17.325C14.3339 17.7592 13.4241 17.9864 12.5 17.9864C11.5759 17.9864 10.6661 17.7592 9.85188 17.325C9.03762 16.8909 8.34416 16.2633 7.83333 15.4982C7.83333 13.9605 10.9444 13.1182 12.5 13.1182Z"
@@ -80,6 +80,7 @@
   </div>
 </template>
 
+<<<<<<< HEAD
 <style scoped>
 .sidebar {
   width: 300px;
@@ -101,6 +102,64 @@
   margin-bottom: 40px;
   padding: 20px;
 }
+=======
+<script>
+  import payments from '../assets/Dashbordicons/payments.png';
+  import movingquotes from '../assets/Dashbordicons/quotes.png';
+  import drivers from '../assets/Dashbordicons/drivers.png';
+  import cleaners from '../assets/Dashbordicons/cleaners.png';
+  import bookings from '../assets/Dashbordicons/bookings.png';
+  import parameters from '../assets/Dashbordicons/parameters.png';
+  import admin from '../assets/Dashbordicons/admin.png';
+export default {
+  data() {
+    return {
+      menuItems: [
+        { name: 'Payments', image: payments, active: true, },
+        { name: 'Moving Quotes', image: movingquotes, active: false, },
+        { name: 'Drivers', image: drivers, active: false, },
+        { name: 'Cleaners', image: cleaners, active: false, },
+        { name: 'Cleaning Quotes', image: bookings, active: false, },
+        { name: 'Parameters', image: parameters, active: false, },
+        { name: 'Admins', image: admin, active: false, },
+      ],
+    };
+  },
+  methods: {
+    setActive(name) {
+      this.menuItems.forEach((item) => {
+        item.active = item.name === name;
+      });
+    },
+    logout() {
+      console.log("User  logged out");
+    },
+  }
+};
+</script>
+
+  
+<style>
+  .sidebar {
+    width: 15%;
+  }
+  
+  .nav-link.active {
+    background-color: rgba(76, 149, 108, 1);
+    color: white;
+    border-radius: 5px;
+  }
+  .logout{
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    color: white;
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+  }
+  .nav{
+    margin-top: 150px;
+  }
+>>>>>>> b890a47bf04bc21a69c7c0fb0b42bca10f6b0317
 
 .nav-link {
   color: white !important;
