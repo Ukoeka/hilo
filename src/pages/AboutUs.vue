@@ -13,34 +13,56 @@
           <p>Join a team that values your skills, offers flexible hours, and provides great opportunities to grow.</p>
         </div>
     </div>
-
-    <div class="expertise">
-      <div class="right">
-        <h2>Why Choose Hilogisticz for Your Packing Needs?</h2>
-        <p>Experience expert packing, premium materials, and a truly stress-free moving experience with Hilogisticz.</p>
-        
+    <h2 class="text-center give-space">Who We Are</h2>
+    <div class="whoweare">
+      <div class="left-image">
+        <img src="@/assets/images/femaleavatar.png" alt="">
+        <div class="small-text">
+          <p>Jane Doe</p>
+        </div>
       </div>
+      <div class="text">
+        <p>Lorem ipsum dolor sit amet consectetur. Ac vitae aliquam gravida fringilla placerat aliquet. Donec maecenas ipsum blandit nunc id pretium. Facilisi ut in vel semper aliquam. Felis purus molestie lectus nulla sed amet mi cursus. Amet facilisi pellentesque habitant nec in aliquet proin ullamcorper auctor. In dignissim sollicitudin orci neque dis morbi. Auctor sagittis in odio volutpat enim gravida integer. Imperdiet vel vel hendrerit massa adipiscing. Non consectetur nulla in pulvinar ultrices purus egestas. Sed nec viverra sem platea leo tristique ut ac.</p>
+      </div>
+      <div class="right-image">
+        <img src="@/assets/images/maleavatar.png" alt="">
+        <div class="small-text">
+          <p>John Doe</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ourmission">
       <div class="left">
-        <div class="card">
-          <img src="@/assets/icons/black-tick.png" alt="">
-          <h3>Expertise You Can Trust</h3>
-          <p>Our skilled team is trained to handle all types of items, ensuring safe and efficient packing.</p>
-        </div>
-        <div class="card">
-          <img src="@/assets/icons/high-quality.png" alt="">
-          <h3>High Quality Materials</h3>
-          <p>We provide premium, eco-friendly packing supplies tailored to protect your belongings during transit.</p>
-        </div>
-        <div class="card">
-          <img src="@/assets/icons/tailored.png" alt="">
-          <h3>Tailored Services</h3>
-          <p>Choose from full, partial, or specialty packing options to fit your specific needs and preferences.</p>
-        </div>
-        <div class="card">
-          <img src="@/assets/icons/peace.png" alt="">
-          <h3>Peace of Mind</h3>
-          <p>Enjoy a stress-free moving experience with our professional and reliable packing services, designed to simplify your relocation.</p>
-        </div>
+        <button>Our Mission</button>
+        <p>Lorem ipsum dolor sit amet consectetur. Pharetra a eu condimentum quis.</p>
+      </div>
+      <div class="right">
+        <div class="circle-container">
+          <div class="center-image">
+            <h2>LOGO</h2>
+          </div>
+          <div class="circle-images">
+            <div class="image-1">
+              <img src="@/assets/images/avatar1.png" alt="Image 1">
+            </div>
+            <div class="image-2">
+              <img src="@/assets/images/avatar2.png" alt="Image 2">
+            </div>
+            <div class="image-3">
+              <img src="@/assets/images/avatar3.png" alt="Image 3">
+            </div>
+            <div class="image-4">
+              <img src="@/assets/images/avatar4.png" alt="Image 4">
+            </div>
+            <div class="image-5">
+              <img src="@/assets/images/avatar5.png" alt="Image 5">
+            </div>
+            <div class="image-6">
+              <img src="@/assets/images/avatar6.png" alt="Image 6">
+            </div>
+          </div>
+</div>
       </div>
     </div>
 
@@ -66,20 +88,17 @@
       </div>
       <div class="right">
         <div class="top">
-          <img src="@/assets/images/cleanwindow.png" alt="">
+          <img src="@/assets/images/truck.png" alt="">
         </div>
         <div class="bottom">
-          <img class="img-60" src="@/assets/images/black-girl.png" alt="">
-          <img class="img-40" src="@/assets/images/threemen.png" alt="">
+          <img class="img-60" src="@/assets/images/truck1.png" alt="">
+          <img class="img-40" src="@/assets/images/truck2.png" alt="">
         </div>
       </div>
     </div>
    
     
     <div class="get-in-touch">
-      <div class="left">
-        <img src="@/assets/images/guys-lift.png" alt="">
-      </div>
       <div class="right">
         <p>Ready for a stress-Free Move?</p>
         <h2>Focus on your move while we handle the packing. Get a personalized quote from Hilogisticz.</h2>
@@ -87,6 +106,9 @@
           <button class="quote">Start Your Application</button>
           <button class="contact">Learn More About Opportunities</button>
         </div>
+      </div>
+      <div class="left">
+        <p>Lorem ipsum dolor sit amet consectetur. Malesuada tellus id tempus et turpis maecenas pellentesque nam. Dolor faucibus curabitur libero a.</p>
       </div>
     </div>
     <Footer></Footer>
@@ -122,7 +144,7 @@
       width: 99%;
       height: 97vh;
       border-radius: 15px;
-      background: url('@/assets/images/cleaner.png');
+      background: url('@/assets/images/about.png');
       background-size:100%;
       background-repeat: no-repeat;
       margin: 1% 0.5%;
@@ -180,80 +202,187 @@
         }
       }
     }
+    .give-space{
+      margin-top: 150px;
+    }
 
-    .expertise{
-    background: white;
-    width: 100%;
-    padding: 4% 4%;
-    margin-top: 80px;
+   .whoweare{
+    padding: 3% 20%;
     display: flex;
-    gap: 30px;
-    margin-bottom: 50px;
-    justify-content: space-around;
+    text-align: center;
 
-      .left{
-        width: 50%;
-        display: flex;
-        gap: 12px;
-        border-radius: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 2% 2%;
-        margin-right: 0px;
+    .left-image{
+      margin-top: 12%;
+      margin-right: -10%;
 
-
-        .card{
-          border-radius: 10px;
-          padding: 30px 15px;
-          width: 48%;
-          background-color: black;
-          color: white;
-
-          img{
-            width: 32px;
-            height: 32px;
-          }
-          h3{
-            font-family: Lato;
-            font-size: 20px;
-            font-weight: 700;
-            margin: 10px 0px;
-            margin-bottom: 20px;
-
-
-          }
-          p{
-            font-size: 16px;
-            font-weight: 300;
-            line-height: 24px;
-          }
-        }
-      }
-      .right{
-        display: flex;
-        flex-direction: column;
-        padding: 50px;
-        background-image: url('@/assets/images/pack-needs.png');
-        padding: 2% 2%;
-        border-radius: 20px;
-        background-repeat: no-repeat;
-        background-size: 100%;
-        justify-content: center;
+      .small-text{
+        background: #2E7D32;
+        width: 150px;
         color: white;
-
-        h2{
-            font-family: Lato;
-            font-size: 35px;
-            font-weight: 700;
-            line-height: 49px;
-            text-align: left;
-
-        }
-
-
+        padding: 10px 5px;
+        border-radius: 5px;
+        margin-top: -30px;
+        z-index: 10;
+        position: relative;
         
+        p{
+          margin: 0px;
+        }
       }
     }
+    .text{
+      text-align: center;
+      
+      p{
+        font-family: Lato;
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 21.6px;
+
+      }
+    }
+    .right-image{
+      margin-top: -18%;
+      margin-right: 0%;
+
+      .small-text{
+        background: #3380DC;
+        width: 150px;
+        color: white;
+        padding: 10px 5px;
+        border-radius: 5px;
+        margin-top: -30px;
+        z-index: 10;
+        position: relative;
+        margin-left: 50%;
+        
+        p{
+          margin: 0px;
+        }
+      }
+    }
+   }
+
+   .ourmission{
+    width: 80%;
+    margin-left: 10%;
+    display: flex;
+    margin-bottom: 100px;
+    gap: 20px;
+    .left{
+      width: 50%;
+      background: url("@/assets/images/mission.png");
+      background-repeat: no-repeat;
+      padding: 5%;
+      border-radius: 20px;
+      text-align: center;
+      color: white;
+      
+      button{
+        background: white;
+        border-radius: 10px;
+        border: none;
+        padding: 10px 10px;
+      }
+      p{
+        font-family: Lato;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 42px;
+        margin-top: 40px;
+
+      }
+
+    }
+    .right{
+      width: 50%;
+      background: #000000;
+      padding: 20px;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      box-sizing: border-box;
+
+      .circle-container {
+          position: relative;
+          width: 400px;
+          height: 400px;
+          border-radius: 50%;
+          overflow: hidden;
+        }
+
+        .center-image {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 1;
+        }
+
+        .center-image img {
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+        }
+
+        .circle-images {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        .circle-images div {
+          position: absolute;
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+        }
+
+        .circle-images div img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
+
+        .image-1 {
+          top: 20%;
+          left: 35%;
+          transform: rotate(60deg);
+        }
+
+        .image-2 {
+          top: 20%;
+          left: 65%;
+          transform: rotate(120deg);
+        }
+
+        .image-3 {
+          top: 50%;
+          left: 80%;
+          transform: rotate(180deg);
+        }
+
+        .image-4 {
+          top: 80%;
+          left: 65%;
+          transform: rotate(240deg);
+        }
+
+        .image-5 {
+          top: 80%;
+          left: 35%;
+          transform: rotate(300deg);
+        }
+
+        .image-6 {
+          top: 50%;
+          left: 20%;
+          transform: rotate(360deg);
+        }
+    }
+   }
 
    .cleaner-requirement{
     width: 92%;
@@ -375,12 +504,13 @@
       margin-left: 3%;
       padding: 3%;
       display: flex;
-      background: url("@/assets/images/greenback.png");
       border-radius: 25px;
       gap: 4%;
 
       .left{
-        width: 38%;
+        width: 28%;
+        border: 0.5px solid rgb(105, 103, 103);
+        padding: 20px;
 
         img{
           width: 100%;
@@ -388,8 +518,8 @@
         }
       }
       .right{
-          width: 58%;
-          color: white;
+          width: 68%;
+          color: black;
           padding: 3%;
 
           p{
@@ -403,7 +533,7 @@
             font-size: 55px;
             font-weight: 800;
             line-height: 52px;
-            color: white;
+            color: black;
 
           }
           .btn-contain{
@@ -416,7 +546,8 @@
               height: 54px;
               border-radius: 10px;
               color: black;
-              background-color: white;
+              background-color: #2E7D32;
+              color: white;
               padding: 0px 18px;
               font-family: Lato;
               font-size: 20px;
@@ -424,10 +555,10 @@
 
             }
             .contact{
-              border: 1px solid white;
+              border: 1px solid black;
               height: 54px;
               border-radius: 10px;
-              color: white;
+              color: black;
               background-color: transparent;
               padding: 0px 18px;
               font-family: Lato;
