@@ -20,10 +20,10 @@
         <div class="navigation">
           <h3>Navigation</h3>
           <div class="links">
-          <a href="">Home</a>
+          <a href="/">Home</a>
           <a href="">Resources</a>
           <a href="">Contact Us</a>
-          <a href="">About Us</a>
+          <a href="/about">About Us</a>
           <a href="">Partner</a>
           </div>
         </div>

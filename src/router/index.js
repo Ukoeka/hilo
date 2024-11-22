@@ -17,6 +17,7 @@ import PrivacyPolicy from "@/pages/PrivacyPolicy.vue";
 import GetQuote from "@/pages/GetQuote.vue";
 import GetHired from "@/pages/GetHired.vue";
 import Business from "@/pages/Business.vue";
+import DriverRecruitment from "@/pages/DriverRecruitment.vue";
 
 const routes = [
   
@@ -25,7 +26,11 @@ const routes = [
     name: "Home",
     component: Home,
   },
-  { path: "/login", component: Login, name: "Login" },
+  { 
+    path: "/login", 
+    component: Login, 
+    name: "Login"
+   },
   { path: "/payments", component: Payments, name: "Payments" },
   { path: "/quotes", component: Quotes, name: "Quotes" },
   { path: "/drivers", component: Drivers, name: "Drivers" },
@@ -78,29 +83,16 @@ const routes = [
     name: "Business",
     component: Business,
   },
+  {
+    path: "/onboard-driver",
+    name: "Business",
+    component: DriverRecruitment,
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
 });
-  routes: [
-    {
-      path: "/",
-      name: "Home",
-      component: Home,
-    },
-    {
-      path: "/cleaning",
-      name: "Cleaning",
-      component: Cleaning,
-    },
-    {
-      path: "/packaging",
-      name: "Packaging",
-      component: Packaging,
-    },
-    
-  ]
 
 export default router;
