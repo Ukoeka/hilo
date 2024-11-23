@@ -1,23 +1,14 @@
 <template>
-<<<<<<< HEAD
   <!-- Used by both payments and Qoutes -->
   <div  class="page-container w-100">
-=======
-  <div class="page-container w-100">
->>>>>>> f1500711511191858c66b4007377590db863a28f
     <header class="header">
       <button class="back-button" @click="back">
         ← Back
       </button>
       <div class="driver-section">
         <div>
-<<<<<<< HEAD
           <a href="javascript:void(0);" class="fw-bold me-3 text-decoration-none text-black" @click="assignDriver">Assigned Driver</a>
           <span class="bg-white text-gray p-3">Charlie Brakus</span>
-=======
-          <span class="me-3">Assigned Driver</span>
-          <span class="fw-bold">Charlie Brakus</span>
->>>>>>> f1500711511191858c66b4007377590db863a28f
         </div>
         <button class="driver-profile-btn">Driver Profile</button>
       </div>
@@ -81,15 +72,10 @@
       </div>
     </div>
   </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> f1500711511191858c66b4007377590db863a28f
 </template>
 
 <script>
 export default {
-<<<<<<< HEAD
 
   data() {
     return {
@@ -97,10 +83,6 @@ export default {
       // manages Component rendering
       openDriversTable: false,
 
-=======
-  data() {
-    return {
->>>>>>> f1500711511191858c66b4007377590db863a28f
       clientName: 'Charlie Brakus',
       phoneNumber: '+44 012 9904 9944',
       postCode: 'B455AT',
@@ -125,12 +107,9 @@ export default {
   methods: {
     back() {
       this.$emit('payment')
-<<<<<<< HEAD
     },
     assignDriver() {
       this.openDriversTable = !this.openDriversTable
-=======
->>>>>>> f1500711511191858c66b4007377590db863a28f
     }
   }
 }
