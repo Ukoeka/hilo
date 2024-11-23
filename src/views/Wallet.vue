@@ -1,10 +1,8 @@
 <template>
-    <div class="d-flex justify-content-between vh-100">
-      <!-- Sidebar Section -->
-      <Sidebar class="flex-grow-1 overflow-auto" />
-  
+    <UserLayout >
+      <div class="vh-100 w-100 bg d-flex flex-column ">
       <!-- Main Content Section -->
-      <div class="container flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
+      <div class="flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
         <div class="d-flex justify-content-between px-3 sizing mb-5">
           <h2>Wallet</h2>
           <div class="d-flex gap-3 align-items-center profile">
@@ -13,7 +11,7 @@
           </div>
         </div>
         <div class="d-flex mb-5 justify-content-end">
-          <button @click="openModal" style="background-color: rgba(36, 36, 36, 0.11); color: white; width: 20%; border: none" class="rounded-3 p-2">Withdraw</button>
+          <button @click="openModal" style="background-color: rgba(36, 36, 36, 0.11); color: white; width: 20%; border: none" class="rounded-3 p-2 bg-black">Withdraw Funds</button>
         </div>
         <!-- Card Section -->
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -42,7 +40,7 @@
             <div class="card p-4 payment-description">
               <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                 <span>
-                  <h6 class="txt-color">Withdrawn</h6>
+                  <h6 class="txt-color ">Withdrawn</h6>
                   <p class="mb-0 txt-danger fw-bold">$3,945.55</p>
                 </span>
 
@@ -137,13 +135,17 @@
           </div>
         </div>
     </div>
+    </UserLayout>
+
   </template>
   
 <script>
-    import Sidebar from '../components/Sidebar.vue'
+import UserLayout from '@/layouts/UserLayout.vue';
+
+    
     export default {
       components:{
-        Sidebar
+        UserLayout
       },
       data() {
         return {

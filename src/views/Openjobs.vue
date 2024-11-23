@@ -1,7 +1,7 @@
 <template>
-  <div class="d-flex vh-100">
-    <Sidebar2 class="flex-grow-1 overflow-auto" />
-    <div class="container flex-grow-1 h-100 overflow-auto position-relative pt-2 px-5">
+  <UserLayout >
+    <div class="vh-100 w-100 bg d-flex flex-column ">
+      <div class=" flex-grow-1 h-100 position-relative pt-2 px-5">
       <Nav title="Open Jobs" />
 
       <div class="filter-section d-flex justify-content-between align-items-center bg-white p-3 rounded mb-3">
@@ -9,66 +9,31 @@
         <img src="../assets/Drivers/dropdown.png" alt="">
       </div>
 
-      <div v-for="(job, index) in jobs" :key="index" class="job-card bg-white border rounded p-3 mb-3">
-        <div class="job-details">
-          <div class="border border-danger-subtle">
-            <div class="row">
-              <div class="col-10">
-                <p class="bg-light-green text-dark fw-bold p-2 rounded">
-                  {{ job.details }}
-                </p>
-                <table class="table table-striped table-bordered">
-                  <thead>
-                    <tr>
-                      <th>From</th>
-                      <th>To</th>
-                      <th>Date</th>
-                      <th>Time</th>
-                      <th>Distance</th>
-                      <th>Duration</th>
-                      <th>Price</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{{ job.from }}</td>
-                      <td>{{ job.to }}</td>
-                      <td>{{ job.date }}</td>
-                      <td>{{ job.time }}</td>
-                      <td>{{ job.distance }}</td>
-                      <td><img src="../assets/Drivers/Vector2.png" alt=""> {{ job.duration }}</td>
-                      <td>£{{ job.price }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="col-2 border border-danger">
-                <div class="row border border-success">
-                  <div class="col-12 jus">
-                    <button class="btn btn-outline-success w-50 m-auto">View</button>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12">
-                    <button class="btn btn-success w-50 mt-4">Claim</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- <div class="d-flex justify-content-between align-items-center">
-          <span class="price text-success fw-bold">£{{ job.price }}</span>
-        </div> -->
-      </div>
+        <Jobs v-for="i in 3"  class="w-100 mb-3" @view="viewAssigned" v-if="!display"/>
+        <ClaimJob  v-if="display" @close="viewAssigned"/> 
     </div>
   </div>
+  </UserLayout>
+
 </template>
 
 <script>
+import ClaimJob from '@/components/Dashboard/ClaimJob.vue';
+import Jobs from '@/components/Dashboard/Jobs.vue';
+import Nav from '@/components/Nav.vue';
+import UserLayout from '@/layouts/UserLayout.vue';
+
+
 export default {
+  components: {
+    UserLayout,
+    Nav,
+    ClaimJob,
+    Jobs
+  },
   data() {
     return {
+      display: false,
       jobs: [
         {
           details: "2 Beds, 4 Couches, 8 Chairs, 1 Kitchen Cabinet, 1 Small Box, 1 Small Bed",
@@ -103,6 +68,11 @@ export default {
       ],
     };
   },
+  methods: {
+    viewAssigned() {
+      this.display = !this.display
+    }
+  }
 };
 </script>
 
