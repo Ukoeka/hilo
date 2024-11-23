@@ -94,7 +94,7 @@ const routes = [
   },
   {
     path: "/onboard-driver",
-    name: "Business",
+    name: "DriverRecruitmentg",
     component: DriverRecruitment,
   },
   

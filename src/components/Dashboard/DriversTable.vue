@@ -25,14 +25,14 @@
           <table class="table">
             <thead>
               <tr>
-                <th>Serial Number <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Image <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Name <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Email <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Moves Completed<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Age<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Date Added<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Status <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Serial Number <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Image <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Name <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Email <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Moves Completed<img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Age<img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Date Added<img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Status <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th></th>
               </tr>
             </thead>
