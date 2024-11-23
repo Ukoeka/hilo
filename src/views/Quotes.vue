@@ -11,6 +11,7 @@
             <span>Favour Udoh</span>
           </div>
         </div>
+<<<<<<< HEAD
         <!-- Main Content Section -->
         <div class=" flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto" v-if="!showMovingDetails">
           <!-- Card Section -->
@@ -132,12 +133,174 @@
                   </button>
                 </li>
               </ul>
+=======
+
+        <!-- Card Section -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div class="d-flex w-100 gap-3">
+            <!-- 1 -->
+            <div class="card p-4 payment-description">
+              <div class="w-100 h-100 d-flex align-items-center justify-content-between">
+                <span>
+                  <h6>All Quotes</h6>
+                  <p class="mb-0">10,000</p>
+                </span>
+                <span class="d-flex align-items-center justify-content-between p-3 rounded-3"
+                  style="background-color: rgba(94, 166, 244, 0.1); height: 50px;">
+                  <img src="../assets/Payment_Sales/shop.png" alt="">
+                </span>
+              </div>
+            </div>
+            <!-- 2 -->
+            <div class="card p-4 payment-description">
+              <div class="w-100 h-100 d-flex align-items-center justify-content-between">
+                <span>
+                  <h6>Quotes Value</h6>
+                  <p class="mb-0">NGN 99,500,000</p>
+                </span>
+                <span class="d-flex align-items-center justify-content-between p-3 rounded-3"
+                  style="background-color: rgba(94, 244, 136, 0.1); height: 50px;">
+                  <img src="../assets/Payment_Sales/card-pos.png" alt="">
+                </span>
+              </div>
+            </div>
+            <!-- 3 -->
+            <div class="card p-4 payment-description">
+              <div class="w-100 h-100 d-flex align-items-center justify-content-between">
+                <span>
+                  <h6>Paid</h6>
+                  <p class="mb-0">NGN 4,500,900</p>
+                </span>
+                <span class="d-flex align-items-center justify-content-between p-3 rounded-3"
+                  style="background-color: rgba(94, 244, 136, 0.1); height: 50px;">
+                  <img src="../assets/Payment_Sales/card-pos.png" alt="">
+                </span>
+              </div>
+            </div>
+            <!-- 4 -->
+            <div class="card p-4 payment-description">
+              <div class="w-100 h-100 d-flex align-items-center justify-content-between">
+                <span>
+                  <h6>Pending</h6>
+                  <p class="mb-0">500</p>
+                </span>
+                <span class="d-flex align-items-center justify-content-between p-3 rounded-3"
+                  style="background-color: rgba(255, 254, 206, 1); height: 50px;">
+                  <img src="../assets/Payment_Sales/convertshape.png" alt="">
+                </span>
+              </div>
+>>>>>>> f1500711511191858c66b4007377590db863a28f
             </div>
           </div>
         </div>
 
+<<<<<<< HEAD
         <!-- MOving Details -->
         <DriversPaymentRequest v-if="showMovingDetails" @payment="handlePR"  />
+=======
+        <!-- Quotes Table Section -->
+        <div class="card p-3 mb-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="d-flex align-items-center gap-2 p-3">
+              <h2>Quotes</h2>
+              <p class="p-1 rounded-1 m-0"
+                style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">10,000
+                Quotes</p>
+            </div>
+            <div class="d-flex align-items-center right gap-3 justify-content-between">
+              <div class="d-flex align-items-center justify-content-center search">
+                <img src="../assets/Payment_Sales/search.png" alt="" class="search-img">
+                <input type="text" class="inputs" placeholder="Search" v-model="searchQuery" />
+              </div>
+              <button class="d-flex gap-2 btn">
+                <img src="../assets/Payment_Sales/filter-lines.png" alt="">
+                Filters
+              </button>
+              <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center">
+                <span><img src="../assets/Payment_Sales/plus.png" alt=""></span>
+                Add New
+              </button>
+            </div>
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Serial Number <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Customer <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Pickup location <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Drop-off location <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Date<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Amount<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th>Status <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(payment, index) in payments" :key="index">
+                <td>{{ index + 1 }}</td>
+                <td>{{ payment.customer }}</td>
+                <td>{{ payment.pickup }}</td>
+                <td>{{ payment.dropoff }}</td>
+                <td>{{ payment.date }}</td>
+                <td>{{ payment.amount }}</td>
+                <td>
+                  <span :class="[
+                    'd-flex align-items-center justify-content-center gap-2 rounded p-2',
+                    payment.status === 'Paid' ? 'completed' : '',
+                    payment.status === 'Pending' ? 'ongoing' : '',
+                    payment.status === 'Draft' ? 'draft' : ''
+                  ]" style="width: fit-content">
+                    <div :class="[
+                      payment.status === 'Paid' ? 'completed-circle' : '',
+                      payment.status === 'Pending' ? 'ongoing-circle' : '',
+                      payment.status === 'Draft' ? 'draft-circle' : ''
+                    ]" class="rounded-circle" style="height: 10px; width: 10px;"></div>
+                    {{ payment.status }}
+                  </span>
+                </td>
+                <td>
+                  <img src="../assets/Payment_Sales/more.png" alt="">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination and Items Per Page Controls -->
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex gap-3 align-items-center">
+            <span>Number Of Items displayed per page</span>
+            <select v-model="itemsPerPage" class="form-select"
+              style="width: 65px; background-color: #28a745; color: white; border: none;">
+              <option value="10">10</option>
+              <option value="14">14</option>
+              <option value="20">20</option>
+            </select>
+            <p class="mb-0">
+              {{ displayedStartIndex }}-{{ displayedEndIndex }} of {{ totalItems }} items
+            </p>
+          </div>
+          <div>
+            <ul class="pagination mb-0">
+              <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                <button class="page-link" @click="changePage(currentPage - 1)">
+                  <img src="../assets/Payment_Sales/pageleft.png" alt="">
+                </button>
+              </li>
+              <li v-for="page in visiblePages" :key="page" class="page-item" :class="{ active: currentPage === page }">
+                <button class="page-link" @click="changePage(page)">{{ page }}</button>
+              </li>
+              <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                <button class="page-link" @click="changePage(currentPage + 1)">
+                  <img src="../assets/Payment_Sales/pageright.png" alt="">
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+>>>>>>> f1500711511191858c66b4007377590db863a28f
       </div>
     </div>
   </AdminLayout>
@@ -147,6 +310,7 @@
 <script>
 import Sidebar from '../components/Sidebar.vue'
 import AdminLayout from '@/layouts/AdminLayout.vue';
+<<<<<<< HEAD
 import QuotesTable from '@/components/Dashboard/QuotesTable.vue';
 import DriversPaymentRequest from '@/components/Dashboard/DriversPaymentRequest.vue';
 
@@ -185,12 +349,39 @@ export default {
           status: "Draft",
         },
         // Add more data here
+=======
+export default {
+  components: {
+    Sidebar,
+    AdminLayout
+  },
+  data() {
+    return {
+      payments: [
+        { customer: 'Raman Ismail', pickup: 'Burmingham', dropoff: 'Central Square', date: '7/7/2024', amount: 'NGN 439,000', status: 'Paid' },
+        { customer: 'Raman Ismail', pickup: 'Burmingham', dropoff: 'Central Square', date: '7/7/2024', amount: 'NGN 439,000', status: 'Paid' },
+        { customer: 'Raman Ismail', pickup: 'Burmingham', dropoff: 'Central Square', date: '7/7/2024', amount: 'NGN 439,000', status: 'Pending' },
+        { customer: 'Raman Ismail', pickup: 'Burmingham', dropoff: 'Central Square', date: '7/7/2024', amount: 'NGN 439,000', status: 'Paid' },
+        { customer: 'Raman Ismail', pickup: 'Burmingham', dropoff: 'Central Square', date: '7/7/2024', amount: 'NGN 439,000', status: 'Paid' },
+        { customer: 'Raman Ismail', pickup: 'Burmingham', dropoff: 'Central Square', date: '7/7/2024', amount: 'NGN 439,000', status: 'Draft' },
+        { customer: 'Raman Ismail', pickup: 'Burmingham', dropoff: 'Central Square', date: '7/7/2024', amount: 'NGN 439,000', status: 'Draft' },
+        { customer: 'Raman Ismail', pickup: 'Burmingham', dropoff: 'Central Square', date: '7/7/2024', amount: 'NGN 439,000', status: 'Pending' },
+        { customer: 'Raman Ismail', pickup: 'Burmingham', dropoff: 'Central Square', date: '7/7/2024', amount: 'NGN 439,000', status: 'Paid' },
+        { customer: 'Raman Ismail', pickup: 'Burmingham', dropoff: 'Central Square', date: '7/7/2024', amount: 'NGN 439,000', status: 'Paid' },
+        { customer: 'Raman Ismail', pickup: 'Burmingham', dropoff: 'Central Square', date: '7/7/2024', amount: 'NGN 439,000', status: 'Draft' },
+        { customer: 'Raman Ismail', pickup: 'Burmingham', dropoff: 'Central Square', date: '7/7/2024', amount: 'NGN 439,000', status: 'Pending' },
+        { customer: 'Raman Ismail', pickup: 'Burmingham', dropoff: 'Central Square', date: '7/7/2024', amount: 'NGN 439,000', status: 'Pending' },
+        { customer: 'Raman Ismail', pickup: 'Burmingham', dropoff: 'Central Square', date: '7/7/2024', amount: 'NGN 439,000', status: 'Pending' },
+>>>>>>> f1500711511191858c66b4007377590db863a28f
       ],
       searchQuery: '',
       itemsPerPage: 14, // Items per page, with a default value of 14
       currentPage: 1,    // Current page number
       totalItems: 12400, // Total number of items (example)
+<<<<<<< HEAD
       showMovingDetails: false,
+=======
+>>>>>>> f1500711511191858c66b4007377590db863a28f
     };
   },
   computed: {
@@ -221,11 +412,14 @@ export default {
     },
   },
   methods: {
+<<<<<<< HEAD
     handlePR() {
       console.log('called')
       // Toggle between main and detail views
       this.showMovingDetails = !this.showMovingDetails
     },
+=======
+>>>>>>> f1500711511191858c66b4007377590db863a28f
     changePage(page) {
       if (page !== '...' && page >= 1 && page <= this.totalPages) {
         this.currentPage = page;

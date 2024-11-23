@@ -5,7 +5,6 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
-import './assets/global.css';
 
 import "bootstrap"
 import 'bootstrap/js/dist/button'
