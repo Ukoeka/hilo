@@ -17,7 +17,7 @@
                 <p class="p-1 rounded-1 m-0" style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">13 Drivers</p>
               </div>
               <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center">
-                <span><img src="../assets/Payment_Sales/plus.png" alt=""></span>
+                <span><img src="@/assets/Payment_Sales/plus.png" alt=""></span>
                 Add New
               </button>
           </div>
@@ -69,7 +69,7 @@
                     </span>
                     </td>
                     <td>
-                    <img src="../assets/Payment_Sales/more.png" alt="">
+                    <img src="@/assets/Payment_Sales/more.png" alt="">
                 </td>
               </tr>
             </tbody>
@@ -93,7 +93,7 @@
             <ul class="pagination mb-0">
               <li class="page-item" :class="{ disabled: currentPage === 1 }">
                 <button class="page-link" @click="changePage(currentPage - 1)">
-                  <img src="../assets/Payment_Sales/pageleft.png" alt="">
+                  <img src="@/assets/Payment_Sales/pageleft.png" alt="">
                 </button>
               </li>
               <li
@@ -106,7 +106,7 @@
               </li>
               <li class="page-item" :class="{ disabled: currentPage === totalPages }">
                 <button class="page-link" @click="changePage(currentPage + 1)">
-                  <img src="../assets/Payment_Sales/pageright.png" alt="">
+                  <img src="@/assets/Payment_Sales/pageright.png" alt="">
                 </button>
               </li>
             </ul>
@@ -165,18 +165,18 @@
               range.push(i);
             }
           } else if (this.currentPage <= 3) {
-            range.push(1, 2, 3, 4, '...', this.totalPages);
+            range.push(1, 2, 3, 4, '@.', this.totalPages);
           } else if (this.currentPage > this.totalPages - 3) {
-            range.push(1, '...', this.totalPages - 3, this.totalPages - 2, this.totalPages - 1, this.totalPages);
+            range.push(1, '@.', this.totalPages - 3, this.totalPages - 2, this.totalPages - 1, this.totalPages);
           } else {
-            range.push(1, '...', this.currentPage - 1, this.currentPage, this.currentPage + 1, '...', this.totalPages);
+            range.push(1, '@.', this.currentPage - 1, this.currentPage, this.currentPage + 1, '@.', this.totalPages);
           }
           return range;
         },
       },
       methods: {
         changePage(page) {
-          if (page !== '...' && page >= 1 && page <= this.totalPages) {
+          if (page !== '@.' && page >= 1 && page <= this.totalPages) {
             this.currentPage = page;
           }
         },
