@@ -1,6 +1,6 @@
 <template>
   <!-- Used by both payments and Qoutes -->
-  <div  class="page-container w-100">
+  <div v-if="!openDriversTable" class="page-container w-100">
     <header class="header">
       <button class="back-button" @click="back">
         ← Back
@@ -72,11 +72,16 @@
       </div>
     </div>
   </div>
+
+    <DriversTable v-if="openDriversTable" @payment="assignDriver"></DriversTable>
 </template>
 
 <script>
+import DriversTable from './DriversTable.vue';
 export default {
-
+  components: {
+    DriversTable
+  },
   data() {
     return {
 

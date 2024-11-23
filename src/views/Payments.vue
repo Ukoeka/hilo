@@ -10,7 +10,7 @@
         </div>
       </div>
       <!-- Main Content Section -->
-      <div class=" flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto" v-if="showDetails">
+      <div class=" flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto" v-if="showDetails || showCleanerDetails">
 
 
         <!-- Filter Tabs -->
@@ -52,7 +52,7 @@
               </button>
             </div>
           </div>
-          <TableDetails @paymentRequest="handlePR"/>
+          <TableDetails @paymentRequest="handlePR" />
 
         </div>
 
@@ -60,7 +60,8 @@
       </div>
       <!-- Details Moving -->
 
-      <PaymentRequest v-if="!showDetails"  @payment="handlePR"/>
+      <PaymentRequest v-if="!showDetails" @payment="handlePR" />
+      <CleanersPaymentRequest v-if="!showCleanerDetails" @payment="handlePR" />
     </div>
   </AdminLayout>
 
@@ -76,13 +77,15 @@ import PaymentRequest from '@/components/Dashboard/PaymentRequest.vue';
 // Images
 import pos from '../assets/Payment_Sales/card-pos.png'
 import shop from '../assets/Payment_Sales/shop.png'
+import CleanersPaymentRequest from '@/components/Dashboard/CleanersPaymentRequest.vue';
 
 export default {
   components: {
     OverView,
     AdminLayout,
     TableDetails,
-    PaymentRequest
+    PaymentRequest,
+    CleanersPaymentRequest
   },
   data() {
     return {
@@ -93,6 +96,7 @@ export default {
       totalItems: 12400,
       filterType: 'all',
       showDetails: true,
+      showCleanerDetails: true,
       cards: [
         {
           title: 'All Payments',
@@ -123,50 +127,125 @@ export default {
     handlePR() {
       console.log('called')
       // Toggle between main and detail views
-      this.showDetails = !this.showDetails;
+      if (this.filterType === 'cleaners') {
+
+        this.showCleanerDetails = !this.showCleanerDetails;
+      } else {
+        this.showDetails = !this.showDetails;
+
+      }
     },
   },
 };
 </script>
 
 <style scoped>
-
-.toggle-active.active {
-  border-bottom: 3px solid rgba(76, 149, 108, 1);
-  color: rgba(76, 149, 108, 1);
-}
-
-.toggle-active {
-  cursor: pointer;
-}
-
-.inputs {
-  display: block;
-  width: 100%;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: var(--bs-body-color);
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  outline: none;
-  border: 1px transparent;
-}
-
-.search {
-  width: 80%;
-  border: 1px solid rgba(208, 213, 221, 1);
-  border-radius: 5px;
-  padding: 5px 0;
-}
-
-.search-img {
-  padding-left: 5px;
-}
-
-.card {
-  border: 1px solid white;
-  border-radius: 5px;
-}
+    .body-area{
+      box-sizing: border-box
+    }
+    .title{
+      color: rgba(102, 112, 133, 1);
+      font-weight:500;
+    }
+    .description{
+      color: rgba(16, 24, 40, 1);
+      font-weight: 800;
+    }
+    .list li{
+      color: rgba(16, 24, 40, 1);
+    }
+    .icon-background{
+      height: 50px;
+      width: 50px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(94, 166, 244, 0.1); 
+    }
+    .icon-background-2{
+      background: rgba(244, 94, 94, 0.1);
+      height: 50px;
+      width: 50px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .toggle-active.active {
+      border-bottom:1px solid rgba(76, 149, 108, 1); /* Active background color */
+      color: rgba(76, 149, 108, 1); 
+    }
+    .toggle-active{
+      cursor: pointer;
+    }
+   .table{
+      vertical-align: middle;
+    }
+    .completed{
+      background-color: rgba(236, 253, 240, 1);
+      color: rgba(76, 149, 108, 1)
+    }
+    .ongoing{
+      color: rgba(155, 93, 0, 1);
+      background-color: rgba(255, 254, 206, 1);
+    }
+    .ongoing-circle{
+      background-color:rgba(255, 106, 0, 1) ;
+    }
+    .completed-circle{
+      background: rgba(76, 149, 108, 1);
+    }
+    .container {
+      background-color: rgba(240, 240, 240, 1);
+      width: 100%;
+    }
+    .payment-description{
+      width: 100%;
+    }
+    .inputs{
+      display: block;
+      width: 100%;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--bs-body-color);
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      outline: none;
+      border: 1px transparent;
+    }
+    .search{
+      width: 80%;
+      border: 1px solid  rgba(208, 213, 221, 1);
+      border-radius: 5px;
+      padding: 5px 0;
+    }
+    .search-img{
+      padding-left: 5px;
+    }
+    .right{
+      width: 55%;
+      /* background-color: gray; */
+    }
+  
+    /* .btn-success{
+      width: 15%;
+    } */
+    .pagination .page-item.active .page-link {
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+    .pagination .page-link {
+      color: #28a745;
+    }
+    .pagination .page-item.disabled .page-link {
+      color: #ccc;
+    }
+    .card{
+      border:1px solid white;
+      border-radius: 5px;
+    }
+  
 </style>

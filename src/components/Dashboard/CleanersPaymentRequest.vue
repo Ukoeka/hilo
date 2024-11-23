@@ -1,13 +1,13 @@
 <template>
   <!-- Used by both payments and Qoutes -->
-  <div  class="page-container w-100">
+  <div v-if="!openDriversTable" class="page-container w-100">
     <header class="header">
       <button class="back-button" @click="back">
         ← Back
       </button>
       <div class="driver-section">
         <div>
-          <a href="javascript:void(0);" class="fw-bold me-3 text-decoration-none text-black" @click="assignDriver">Assigned Driver</a>
+          <a href="javascript:void(0);" class="fw-bold me-3 text-decoration-none text-black" @click="assignDriver">Assigned Cleaner</a>
           <span class="bg-white text-gray p-3">Charlie Brakus</span>
         </div>
         <button class="driver-profile-btn">Driver Profile</button>
@@ -72,11 +72,16 @@
       </div>
     </div>
   </div>
+
+    <DriversTable v-if="openDriversTable"></DriversTable>
 </template>
 
 <script>
+import DriversTable from './DriversTable.vue';
 export default {
-
+  components: {
+    DriversTable
+  },
   data() {
     return {
 

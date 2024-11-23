@@ -3,10 +3,14 @@ import Login from "../views/Login.vue";
 import Payments from "../views/Payments.vue";
 import Quotes from "@/views/Quotes.vue";
 import Drivers from "@/views/Drivers.vue";
-import Bookings from "@/views/Bookings.vue";
+import Cleaningquotes from "@/views/Cleaningquotes.vue";
 import Cleaners from "@/views/Cleaners.vue";
 import Admin from "@/views/Admin.vue";
 import Parameter from "@/views/Parameter.vue";
+import Wallet from "@/views/Wallet.vue";
+import Openjobs from "@/views/Openjobs.vue";
+import Myaccount from "@/views/Myaccount.vue";
+import Booking from "@/views/Booking.vue";
 import Home from "@/pages/Home.vue";
 import Cleaning from "@/pages/Cleaning.vue";
 import Packaging from "@/pages/Packaging.vue";
@@ -34,10 +38,15 @@ const routes = [
   { path: "/payments", component: Payments, name: "Payments" },
   { path: "/quotes", component: Quotes, name: "Quotes" },
   { path: "/drivers", component: Drivers, name: "Drivers" },
-  { path: "/bookings", component: Bookings, name: "Bookings" },
+  { path: "/cleaningquotes", component: Cleaningquotes, name: "Cleaningquotes" },
   { path: "/cleaners", component: Cleaners, name: "Cleaners" },
   { path: "/admin", component: Admin, name: "Admin" },
   { path: "/parameter", component: Parameter, name: "Parameter" },
+  { path: "/bookings", component: Booking, name: "Booking" },
+  { path: "/wallet", component: Wallet, name: "Wallet" },
+  { path: "/openjobs", component: Openjobs, name: "Openjobs" },
+  { path: "/myaccount", component: Myaccount, name: "Myaccount" },
+
   {
     path: "/cleaning",
     name: "Cleaning", 
@@ -88,8 +97,8 @@ const routes = [
     name: "Business",
     component: DriverRecruitment,
   },
+  
 ];
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes

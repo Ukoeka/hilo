@@ -3,7 +3,7 @@
 
     <div class="vh-100 w-100 bg d-flex flex-column p-3">
       <div class="d-flex justify-content-between px-3 sizing mb-5">
-        <h2>Cleaners</h2>
+        <h2>Cleaning Quotes</h2>
         <div class="d-flex gap-3 align-items-center profile">
           <img src="../assets/Dashbordicons/3d_avatar_3.png" alt="" class="">
           <span>Favour Udoh</span>
@@ -12,13 +12,12 @@
       <!-- Main Content Section -->
       <div v-if="!viewAssign" class="flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
         <!-- Quotes Table Section -->
-  
         <div class="card p-3 mb-3">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <div class="d-flex align-items-center gap-2 p-3">
-              <h2>Cleaners</h2>
+              <h5>Cleanings</h5>
               <p class="p-1 rounded-1 m-0"
-                style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">13 Drivers
+                style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">13 quotes
               </p>
             </div>
             <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center" @click="AssignDriver('Assign')">
@@ -35,9 +34,7 @@
                 <th>Name <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th>Email <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th>Age<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>City<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th>Date Added<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Gender<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th>Status <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th></th>
               </tr>
@@ -51,9 +48,8 @@
                 <td>{{ payment.name }}</td>
                 <td>{{ payment.email }}</td>
                 <td>{{ payment.age }}</td>
-                <td>{{ payment.city }}</td>
                 <td>{{ payment.dateAdded }}</td>
-                <td>{{ payment.gender }}</td>
+                <td>{{ payment.status }}</td>
                 <td>
                   <span :class="[
                     'd-flex align-items-center justify-content-center gap-2 rounded p-2',
@@ -86,13 +82,15 @@
 </template>
 
 <script>
+import Quotes from './Quotes.vue'
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import ViewAssign from '@/components/Dashboard/ViewAssign.vue';
 
 export default {
   components: {
     AdminLayout,
-    ViewAssign
+    ViewAssign,
+    Quotes,
   },
 
   data() {
