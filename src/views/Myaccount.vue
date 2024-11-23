@@ -41,53 +41,48 @@
                     </div>
                   </div>
                 </div>
-                <div class="">
+                <div class="inputs-container">
                   <form>
                     <div class="row">
-                      <div class="col-md-6  mb-3">
-                        <label class="mb-2 label">First Name</label>
-                        <input v-if="!isEditing" type="text" class="inputs p-2" :value="user.firstName" disabled />
-                        <input v-else type="text" class="inputs p-2" v-model="user.firstName"
-                          placeholder="Enter first name" />
+                      <div class="col-md-6 mb-3">
+                        <label for="firstName" class="mb-2 label">First Name</label>
+                        <input id="firstName" v-if="!isEditing" type="text" class="form-control inputs" :value="user.firstName" disabled />
+                        <input id="firstName" v-else type="text" class="form-control inputs" v-model="user.firstName" placeholder="Enter first name" />
                       </div>
-                      <div class="col-md-6   mb-3">
-                        <label class="mb-2 label">Last Name</label>
-                        <input v-if="!isEditing" type="text" class="inputs p-2" :value="user.lastName" disabled />
-                        <input v-else type="text" class="inputs p-2" v-model="user.lastName"
-                          placeholder="Enter last name" />
+                      <div class="col-md-6 mb-3">
+                        <label for="lastName" class="mb-2 label">Last Name</label>
+                        <input id="lastName" v-if="!isEditing" type="text" class="form-control inputs" :value="user.lastName" disabled />
+                        <input id="lastName" v-else type="text" class="form-control inputs" v-model="user.lastName" placeholder="Enter last name" />
                       </div>
-                      <div class="col-md-6   mb-3">
-                        <label class="mb-2 label">Email</label>
-                        <input v-if="!isEditing" type="email" class="inputs p-2" :value="user.email" disabled />
-                        <input v-else type="email" class="inputs p-2" v-model="user.email" placeholder="Enter email" />
+                      <div class="col-md-6 mb-3">
+                        <label for="email" class="mb-2 label">Email</label>
+                        <input id="email" v-if="!isEditing" type="email" class="form-control inputs" :value="user.email" disabled />
+                        <input id="email" v-else type="email" class="form-control inputs" v-model="user.email" placeholder="Enter email" />
                       </div>
-                      <div class="col-md-6   mb-3">
-                        <label class="mb-2 label">Gender</label>
-                        <input v-if="!isEditing" type="text" class="inputs p-2" :value="user.gender" disabled />
-                        <input v-else type="text" class="inputs p-2" v-model="user.gender" placeholder="Enter gender" />
+                      <div class="col-md-6 mb-3">
+                        <label for="gender" class="mb-2 label">Gender</label>
+                        <input id="gender" v-if="!isEditing" type="text" class="form-control inputs" :value="user.gender" disabled />
+                        <input id="gender" v-else type="text" class="form-control inputs" v-model="user.gender" placeholder="Enter gender" />
                       </div>
-                      <div class="col-md-6   mb-3">
-                        <label class="mb-2 label">Country</label>
-                        <input v-if="!isEditing" type="text" class="inputs p-2" :value="user.country" disabled />
-                        <input v-else type="text" class="inputs p-2" v-model="user.country"
-                          placeholder="Enter country" />
+                      <div class="col-md-6 mb-3">
+                        <label for="country" class="mb-2 label">Country</label>
+                        <input id="country" v-if="!isEditing" type="text" class="form-control inputs" :value="user.country" disabled />
+                        <input id="country" v-else type="text" class="form-control inputs" v-model="user.country" placeholder="Enter country" />
                       </div>
-                      <div class="col-md-6   mb-3">
-                        <label class="mb-2 label">City</label>
-                        <input v-if="!isEditing" type="text" class="inputs p-2" :value="user.city" disabled />
-                        <input v-else type="text" class="inputs p-2" v-model="user.city" placeholder="Enter city" />
+                      <div class="col-md-6 mb-3">
+                        <label for="city" class="mb-2 label">City</label>
+                        <input id="city" v-if="!isEditing" type="text" class="form-control inputs" :value="user.city" disabled />
+                        <input id="city" v-else type="text" class="form-control inputs" v-model="user.city" placeholder="Enter city" />
                       </div>
-                      <div class="col-md-6   mb-3">
-                        <label class="mb-2 label">Address</label>
-                        <input v-if="!isEditing" type="text" class="inputs p-2" :value="user.address" disabled />
-                        <input v-else type="text" class="inputs p-2" v-model="user.address"
-                          placeholder="Enter address" />
+                      <div class="col-md-6 mb-3">
+                        <label for="address" class="mb-2 label">Address</label>
+                        <input id="address" v-if="!isEditing" type="text" class="form-control inputs" :value="user.address" disabled />
+                        <input id="address" v-else type="text" class="form-control inputs" v-model="user.address" placeholder="Enter address" />
                       </div>
-                      <div class="col-md-6   mb-3">
-                        <label class="mb-2 label">Language</label>
-                        <input v-if="!isEditing" type="text" class="inputs p-2" :value="user.language" disabled />
-                        <input v-else type="text" class="inputs p-2" v-model="user.language"
-                          placeholder="Enter language" />
+                      <div class="col-md-6 mb-3">
+                        <label for="language" class="mb-2 label">Language</label>
+                        <input id="language" v-if="!isEditing" type="text" class="form-control inputs" :value="user.language" disabled />
+                        <input id="language" v-else type="text" class="form-control inputs" v-model="user.language" placeholder="Enter language" />
                       </div>
                     </div>
                   </form>

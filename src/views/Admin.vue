@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <AdminLayout >
     <div class="vh-100 w-100 bg d-flex flex-column p-3">
       <div class="d-flex justify-content-between px-3 sizing mb-5">
@@ -322,7 +321,3 @@ import AdminLayout from '@/layouts/AdminLayout.vue';
   
     </style>
     
-=======
-
-</template>
->>>>>>> f1500711511191858c66b4007377590db863a28f
