@@ -8,18 +8,18 @@
     </div>
 
     <div class="main-content">
-          <div class="left">
+          <a href="/cleaner-recruitment" class="left">
             <img class="mb-3" src="@/assets/icons/broom.png" alt="">
             <p>Become a Cleaner</p>
             <h2>Are you passionate about delivering top-notch cleaning services? Apply now to join our team of cleaning professionals.</h2>
             <img class="img-down" src="@/assets/icons/black-arrow.png" alt="">
-          </div>
-          <div class="right">
+          </a>
+          <a href="/driver-recruitment" class="right">
             <img class="mb-3" src="@/assets/icons/steering.png" alt="">
             <p>Become a Driver</p>
             <h2>Looking for flexible work as a driver? Join us and help clients with their moving and transportation needs.</h2>
             <img class="img-down" src="@/assets/icons/black-arrow.png" alt="">
-          </div>
+          </a>
         </div>
 
         <div class="get-in-touch">
@@ -113,12 +113,15 @@
         border-radius: 20px;
         position: relative;
         height: 70vh;
+        text-decoration: none;
+        color: black;
 
         p{
           font-family: Lato;
           font-size: 20px;
           font-weight: 300;
           line-height: 30px;
+          
         }
         h2{
           font-family: Lato;
@@ -140,6 +143,8 @@
         border: 1px solid #2E7D324D;
         border-radius: 20px;
         position: relative;
+        text-decoration: none;
+        color: black;
 
         p{
           font-family: Lato;

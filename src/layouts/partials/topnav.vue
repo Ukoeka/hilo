@@ -2,16 +2,16 @@
     <div class="tops">
       <div class="left">
         <RouterLink to="/payments">
-          <h3>Logo</h3>
+          <img class="logo" src="@/assets/images/logo/logo-small.png" alt="">
         </RouterLink>
        
-        <a href="">Removals</a>
         <a href="/cleaning">Cleaning</a>
-        <a href="">Businesses</a>
+        <a href="/business">Businesses</a>
+        <a href="/packaging">Packaging</a>
       </div>
       <div class="right">
-        <a href="">Get Hired</a>
-        <button>Get Quote</button>
+        <a href="/gethired">Get Hired</a>
+        <a class="green-btn" href="/getquote">Get Quote</a>
       </div>
     </div>
   </template>
@@ -37,9 +37,9 @@
   <style scoped lang="scss">
     .tops{
       width: 80%;
-      padding: 0px 15px;
+      padding: 0px 25px;
       background: white;
-      height: 64px;
+      height: 70px;
       border-radius: 15px;
       position: absolute;
       top: 30px;
@@ -57,8 +57,12 @@
 
       .left{
         display: flex;
-        gap: 15px;
+        gap: 20px;
         align-items: center;
+
+        .logo{
+          width: 120px;
+        }
       }
 
       .right{
@@ -66,7 +70,7 @@
         gap: 15px;
         align-items: center;
 
-        button{
+        .green-btn{
           width: 100px;
           height: 34px;
           background: #2E7D32;
@@ -76,7 +80,9 @@
           font-family: Lato;
           font-size: 18px;
           font-weight: 700;
-
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
       }
     }

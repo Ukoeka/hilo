@@ -21,6 +21,7 @@ import PrivacyPolicy from "@/pages/PrivacyPolicy.vue";
 import GetQuote from "@/pages/GetQuote.vue";
 import GetHired from "@/pages/GetHired.vue";
 import Business from "@/pages/Business.vue";
+import DriverRecruitment from "@/pages/DriverRecruitment.vue";
 
 const routes = [
   
@@ -29,7 +30,11 @@ const routes = [
     name: "Home",
     component: Home,
   },
-  { path: "/login", component: Login, name: "Login" },
+  { 
+    path: "/login", 
+    component: Login, 
+    name: "Login"
+   },
   { path: "/payments", component: Payments, name: "Payments" },
   { path: "/quotes", component: Quotes, name: "Quotes" },
   { path: "/drivers", component: Drivers, name: "Drivers" },
@@ -61,63 +66,42 @@ const routes = [
     path: "/cleaner-recruitment",
     name: "Cleaner",
     component: Cleaner,
-  }
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: About,
+  },
+  {
+    path: "/privacypolicy",
+    name: "PrivacyPolicy",
+    component: PrivacyPolicy,
+  },
+  {
+    path: "/getquote",
+    name: "GetQuote",
+    component: GetQuote,
+  },
+  {
+    path: "/getHired",
+    name: "GetHired",
+    component: GetHired,
+  },
+  {
+    path: "/business",
+    name: "Business",
+    component: Business,
+  },
+  {
+    path: "/onboard-driver",
+    name: "DriverRecruitmentg",
+    component: DriverRecruitment,
+  },
+  
 ];
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
 });
-  routes: [
-    {
-      path: "/",
-      name: "Home",
-      component: Home,
-    },
-    {
-      path: "/cleaning",
-      name: "Cleaning",
-      component: Cleaning,
-    },
-    {
-      path: "/packaging",
-      name: "Packaging",
-      component: Packaging,
-    },
-    {
-      path: "/driver-recruitment",
-      name: "Driver",
-      component: Driver,
-    },
-    {
-      path: "/cleaner-recruitment",
-      name: "Cleaner",
-      component: Cleaner,
-    },
-    {
-      path: "/about",
-      name: "About",
-      component: About,
-    },
-    {
-      path: "/privacypolicy",
-      name: "PrivacyPolicy",
-      component: PrivacyPolicy,
-    },
-    {
-      path: "/getquote",
-      name: "GetQuote",
-      component: GetQuote,
-    },
-    {
-      path: "/getHired",
-      name: "GetHired",
-      component: GetHired,
-    },
-    {
-      path: "/business",
-      name: "Business",
-      component: Business,
-    },
-  ]
 
 export default router;

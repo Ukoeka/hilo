@@ -202,6 +202,7 @@
       </div>
     </div>
   </AdminLayout>
+<<<<<<< HEAD
 </template>
 
 <script>
@@ -286,6 +287,26 @@ export default {
 
       const resp = postToApi(url, formdata)
       console.log('log res', resp)  
+=======
+  </template>
+  
+  <script>
+  // import { Icon } from '@iconify/vue';
+  import Nav from '@/components/Nav.vue'
+  import livingRoomIcon from '../assets/Parameter/livingroom.png';
+  import bedroomIcon from '../assets/Parameter/bedroom.png';
+  import diningIcon from '../assets/Parameter/dining.png';
+  import packagingIcon from '../assets/Parameter/packaging.png';
+  import kitchenIcon from '../assets/Parameter/kitchen.png';
+  import bathroomIcon from '../assets/Parameter/bathroom.png';
+  import more from '@/assets/Payment_Sales/more.png';
+import AdminLayout from '@/layouts/AdminLayout.vue';
+  export default {
+    components: {
+        // Icon,
+         Nav,
+         AdminLayout
+>>>>>>> d3558865898af9f3ea773596d19235668bbdfc19
     },
     onImageSelected(event) {
       const file = event.target.files[0];

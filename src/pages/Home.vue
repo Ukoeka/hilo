@@ -4,8 +4,8 @@
         <div class="content">
           <h1>Efficient and <br> Affordable Removals & Logistics in the UK</h1>
           <div class="btn-container">
-            <button class="service">Book Service</button>
-            <button class="quote">Get Quote</button>
+            <a href="" class="service">Book Service</a>
+            <a href="/getquote" class="quote">Get Quote</a>
             
           </div>
         </div>
@@ -28,8 +28,8 @@
         <h1>Committed to Delivering Stress-Free Removals and Logistics</h1>
         <p>At Hilogisticz, our commitment to professionalism means every move is planned with precision and executed flawlessly. We pride ourselves on efficiency, delivering fast, reliable services that respect your deadlines. Above all, we focus on customer satisfaction, offering personalized solutions tailored to your unique needs, ensuring a stress-free experience from start to finish.</p>
         <div class="btn-contain">
-        <button class="quote">Get Quote</button>
-        <button class="learn">Learn More</button>
+        <a href="/getquote" class="quote">Get Quote</a>
+        <a href="" class="learn">Learn More</a>
       </div>
       </div>
     </div>
@@ -199,8 +199,8 @@
         <p>Ready to Make Your Move Easy?</p>
         <h2>Get in touch with us today and <br> experience hassle-free removals and logistics.</h2>
         <div class="btn-contain">
-          <button class="quote">Get a Free Quote</button>
-          <button class="contact">Contact us for More Information</button>
+          <a href="/getquote" class="quote">Get a Free Quote</a>
+          <a class="contact">Contact us for More Information</a>
         </div>
       </div>
     </div>
@@ -276,7 +276,8 @@
           display: flex;
           gap: 13px;
           margin-top: 20px;
-          button{
+
+          a{
           height: 47px;
           color: white;
           border-radius: 8px;
@@ -285,6 +286,10 @@
           font-size: 18px;
           font-weight: 700;
           padding: 0px 20px;
+          text-decoration: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           }
 
           .service{
@@ -363,7 +368,7 @@
           gap: 13px;
           margin-top: 80px;
 
-          button{
+          a{
           height: 47px;
           color: white;
           border-radius: 8px;
@@ -372,6 +377,10 @@
           font-size: 18px;
           font-weight: 700;
           padding: 0px 20px;
+          text-decoration: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           }
 
           .quote{
@@ -655,6 +664,10 @@
               font-family: Lato;
               font-size: 20px;
               font-weight: 700;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              text-decoration: none;
 
             }
             .contact{
@@ -667,6 +680,10 @@
               font-family: Lato;
               font-size: 20px;
               font-weight: 700;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              text-decoration: none;
 
             }
           }
