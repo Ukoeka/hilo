@@ -21,7 +21,9 @@ import PrivacyPolicy from "@/pages/PrivacyPolicy.vue";
 import GetQuote from "@/pages/GetQuote.vue";
 import GetHired from "@/pages/GetHired.vue";
 import Business from "@/pages/Business.vue";
-import DriverRecruitment from "@/pages/DriverRecruitment.vue";
+import OnboardDriver from "@/pages/OnboardDriver.vue";
+import OnboardCleaner from "@/pages/OnboardCleaner.vue";
+import BookCleaning from "@/pages/BookCleaning.vue";
 
 const routes = [
   
@@ -94,8 +96,18 @@ const routes = [
   },
   {
     path: "/onboard-driver",
-    name: "DriverRecruitmentg",
-    component: DriverRecruitment,
+    name: "OnboardDriver",
+    component: OnboardDriver,
+  },
+  {
+    path: "/onboard-cleaner",
+    name: "OnboardCleaner",
+    component: OnboardCleaner,
+  },
+  {
+    path: "/book-cleaning",
+    name: "BookCleaning",
+    component: BookCleaning,
   },
   
 ];

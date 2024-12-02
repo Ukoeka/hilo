@@ -41,12 +41,14 @@
       background: white;
       height: 70px;
       border-radius: 15px;
-      position: absolute;
+      position: fixed;
+      z-index: 1000;
       top: 30px;
       margin-left: 10%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border: 0.35px solid rgb(194, 191, 191);
 
       a{
           text-decoration: none;

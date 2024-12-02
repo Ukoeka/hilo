@@ -155,33 +155,45 @@
                 <div class="upload" v-if="display == 4">
                     <h2 class="text-center mt-5 mb-4">Upload Documents</h2>
                     <div class="row mb-3">
-                        <div class="form-group col-md-12">
-                        <label for="first_name">Number of Vehicles</label>
-                        
-                          
-                        <div class="drop-zone">
-                          <span class="drop-zone__prompt">Drop file or click to upload</span>
-                          <!-- <div class="drop-zone__thumb" data-label="myfile.txt"></div> -->
-                          <input type="file" onchange="previewImage()" name="myFile" class="drop-zone__input" />
-                          <!-- add multiple attribute to input to support uploading more than one file-->
-                        </div>
-
-                        
-                      
+                        <div class="form-group col-md-12">                      
                       </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="form-group col-md-3">
-                        <label for="inputEmail4">Country Code</label>
-                        <select class="form-control" name="" id="">
-                          <option value="">Nigeria</option>
-                        </select>
+                    <div class="mb-5 w-100 m-auto" >
+                      <h3 class="">Identity</h3>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <p class="txt mb-3">Driving License</p>
+                          <div class="card d-flex py-4 mb-5 cursor" @click="handleClick()" style="background-color: rgba(240, 245, 243, 1);">
+                            <img src="../assets/Drivers/Vector.png" class="m-auto mb-3" alt="" width="60" height="60">
+                            <input type="file" ref="fileInput" @change="handleFileChange()" hidden>
+                            <p class="file-info browse-link">Browse<br />.jpg, .png
+                              or .pdf files Accepted</p>
+                            <!-- <img v-if="document.preview" :src="document.preview" alt="Document Preview" class="preview-img" /> -->
+                          </div>
                         </div>
-                        <div class="form-group col-md-9">
-                        <label for="post_code">Phone Number</label>
-                        <input type="text" class="form-control" id="post_code" placeholder="Phone Number">
+                        <div class="col-md-4">
+                          <p class="txt mb-3">Utility Bill</p>
+                          <div class="card d-flex py-4 mb-5 cursor" style="background-color: rgba(240, 245, 243, 1);">
+                            <img src="../assets/Drivers/Vector.png" class="m-auto mb-3" alt="" width="60" height="60">
+                            <input type="file" hidden>
+                            <p class="file-info browse-link">Browse<br />.jpg, .png
+                              or .pdf files Accepted</p>
+                            <!-- <img v-if="document.preview" :src="document.preview" alt="Document Preview" class="preview-img" /> -->
+                          </div>
                         </div>
+                        <div class="col-md-4">
+                          <p class="txt mb-3">Utility Bill</p>
+                          <div class="card d-flex py-4 mb-5 cursor" style="background-color: rgba(240, 245, 243, 1);">
+                            <img src="../assets/Drivers/Vector.png" class="m-auto mb-3" alt="" width="60" height="60">
+                            <input type="file" hidden>
+                            <p class="file-info browse-link">Browse<br />.jpg, .png
+                              or .pdf files Accepted</p>
+                            <!-- <img v-if="document.preview" :src="document.preview" alt="Document Preview" class="preview-img" /> -->
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                    
                     
 
                 
@@ -252,7 +264,7 @@
     import Footer from '@/layouts/partials/footer.vue';
     import TopNav from '@/layouts/partials/topnav.vue'
   export default {
-    name: 'Home',  
+    name: 'OnboardDriver',  
     components: {
     TopNav,
     Footer
@@ -280,77 +292,14 @@
       showCard4(){
         this.display = 4;
       },
-      // previewImage(){
-      //   document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
-      //   const dropZoneElement = inputElement.closest(".drop-zone");
-
-      //   dropZoneElement.addEventListener("click", (event) => {
-      //     inputElement.click(); /*clicking on input element whenever the dropzone is clicked so file browser is opened*/
-      //   });
-
-      //   inputElement.addEventListener("change", (event) => {
-      //     if (inputElement.files.length) {
-      //       updateThumbnail(dropZoneElement, inputElement.files[0]);
-      //     }
-      //   });
-
-      //   dropZoneElement.addEventListener("dragover", (event) => {
-      //     event.preventDefault(); /*this along with prevDef in drop event prevent browser from opening file in a new tab*/
-      //     dropZoneElement.classList.add("drop-zone--over");
-      //   });
-      //   ["dragleave", "dragend"].forEach((type) => {
-      //     dropZoneElement.addEventListener(type, (event) => {
-      //       dropZoneElement.classList.remove("drop-zone--over");
-      //     });
-      //   });
-      //   dropZoneElement.addEventListener("drop", (event) => {
-      //     event.preventDefault();
-      //     console.log(
-      //       event.dataTransfer.files
-      //     ); /*if you console.log only event and check the same data location, you won't see the file due to a chrome bug!*/
-      //     if (event.dataTransfer.files.length) {
-      //       inputElement.files =
-      //         event.dataTransfer.files; /*asigns dragged file to inputElement*/
-
-      //       updateThumbnail(
-      //         dropZoneElement,
-      //         event.dataTransfer.files[0]
-      //       ); /*thumbnail will only show first file if multiple files are selected*/
-      //     }
-      //     dropZoneElement.classList.remove("drop-zone--over");
-      //   });
-      // });
-      // function updateThumbnail(dropZoneElement, file) {
-      //   let thumbnailElement = dropZoneElement.querySelector(
-      //     ".drop-zone__thumb"
-      //   );
-      //   /*remove text prompt*/
-      //   if (dropZoneElement.querySelector(".drop-zone__prompt")) {
-      //     dropZoneElement.querySelector(".drop-zone__prompt").remove();
-      //   }
-
-      //   /*first time there won't be a thumbnailElement so it has to be created*/
-      //   if (!thumbnailElement) {
-      //     thumbnailElement = document.createElement("div");
-      //     thumbnailElement.classList.add("drop-zone__thumb");
-      //     dropZoneElement.appendChild(thumbnailElement);
-      //   }
-      //   thumbnailElement.dataset.label =
-      //     file.name; /*takes file name and sets it as dataset label so css can display it*/
-
-      //   /*show thumbnail for images*/
-      //   if (file.type.startsWith("image/")) {
-      //     const reader = new FileReader(); /*lets us read files to data URL*/
-      //     reader.readAsDataURL(file); /*base 64 format*/
-      //     reader.onload = () => {
-      //       thumbnailElement.style.backgroundImage = `url('${reader.result}')`; /*asynchronous call. This function runs once reader is done reading file. reader.result is the base 64 format*/
-      //       thumbnailElement.style.backgroundPosition = "center";
-      //     };
-      //   } else {
-      //     thumbnailElement.style.backgroundImage = null; /*plain background for non image type files*/
-      //   }
-      // }
-      // }
+      handleClick() {
+      this.$refs.fileInput.click();
+    },
+    handleFileChange(event) {
+      const file = event.target.files[0];
+      console.log(file);
+      // Handle file upload logic here
+    }
       
       
     },
@@ -408,7 +357,7 @@
       .left{
         width: 60%;
         background: white;
-        padding: 5%;
+        padding: 4%;
         border-radius: 10px;
 
         .bars{
@@ -451,6 +400,13 @@
             justify-content: space-between;
           }
         }
+        .browse-link {
+          color: rgba(76, 149, 108, 1);
+          text-align: center;
+        }
+        .cursor{
+          cursor: pointer;
+        }
       }
       .right{
         width: 40%;
@@ -485,47 +441,5 @@
         }
       }
     }
-    // .drop-zone {
-    //     max-width: 200px; /*max to make it responsive*/
-    //     height: 200px;
-    //     padding: 25px;
-    //     display: flex;
-    //     align-items: center;
-    //     justify-items: center;
-    //     text-align: center;
-    //     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    //     font-weight: 500;
-    //     font-size: 20px;
-    //     cursor: pointer;
-    //     color: lightgrey;
-    //     border: 4px dashed seagreen;
-    //     border-radius: 10px;
-    //   }
-    //   .drop-zone--over {
-    //     border-style: solid;
-    //   }
-    //   .drop-zone__input {
-    //     display: none;
-    //   }
-    //   .drop-zone__thumb {
-    //     width: 100%;
-    //     height: 100%;
-    //     border-radius: 10px;
-    //     overflow: hidden;
-    //     background-color: #ccc;
-    //     background-size: cover;
-    //     position: relative;
-    //   }
-    //   .drop-zone__thumb::after {
-    //     content: attr(data-label); /*  displays text of data-lable*/
-    //     position: absolute;
-    //     bottom: 0;
-    //     left: 0;
-    //     width: 100%;
-    //     padding: 5px 0;
-    //     color: white;
-    //     background: rgba(0, 0, 0, 0.75);
-    //     text-align: center;
-    //     font-size: 14px;
-    //   }
+   
     </style>
