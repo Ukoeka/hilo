@@ -202,92 +202,6 @@
       </div>
     </div>
   </AdminLayout>
-<<<<<<< HEAD
-</template>
-
-<script>
-import { Icon } from '@iconify/vue';
-import Nav from '@/components/Nav.vue'
-import livingRoomIcon from '../assets/Parameter/livingroom.png';
-import bedroomIcon from '../assets/Parameter/bedroom.png';
-import diningIcon from '../assets/Parameter/dining.png';
-import packagingIcon from '../assets/Parameter/packaging.png';
-import kitchenIcon from '../assets/Parameter/kitchen.png';
-import bathroomIcon from '../assets/Parameter/bathroom.png';
-import more from '@/assets/Payment_Sales/more.png';
-import AdminLayout from '@/layouts/AdminLayout.vue';
-
-import { fetchFromApi, postToApi } from '@/services/baseApi'
-
-
-export default {
-  components: {
-    Icon,
-    Nav,
-    AdminLayout
-  },
-  data() {
-    return {
-      items: [
-        { name: "Living Room", count: 12, icon: livingRoomIcon, price: 1000 },
-        { name: "Bedroom", count: 13, icon: bedroomIcon, price: 1200 },
-        { name: "Dining", count: 12, icon: diningIcon, price: 800 },
-        { name: "Packaging", count: 12, icon: packagingIcon, price: 500 },
-        { name: "Kitchen", count: 12, icon: kitchenIcon, price: 1500 },
-        { name: "Bathroom", count: 12, icon: bathroomIcon, price: 700 },
-      ],
-      itemDetails: [
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more }
-      ],
-      generalParams: [
-        { label: "Cost Per Mile", value: "" },
-        { label: "Cost Per Hour", value: "" },
-        { label: "Base Rate", value: "" },
-        { label: "Disassembly Fee", value: "" },
-        { label: "Reassembly Fee", value: "" },
-        { label: "Cost Per Extra Floor", value: "" },
-      ],
-      showDetails: true,
-      showModal1: false,
-      showModal2: false,
-
-      addCategory: {
-        name: "",
-        cost: ""
-      },
-
-      showDetailedView: false,
-      selectedItem: {},
-      showRightSection: true,
-      selectedIcon: '',
-    };
-  },
-  methods: {
-
-    // create parameter
-    createParameter() {
-      const url = 'parameters'
-      if(this.addCategory.name == '' || this.addCategory.cost == '' || this.selectIcon == '') return
-      const formdata = new FormData()
-      formdata.append('name', this.addCategory.name)
-      formdata.append('cost', this.addCategory.cost)
-      formdata.append('icon', this.selectIcon)
-
-      const resp = postToApi(url, formdata)
-      console.log('log res', resp)  
-=======
   </template>
   
   <script>
@@ -306,7 +220,6 @@ import AdminLayout from '@/layouts/AdminLayout.vue';
         // Icon,
          Nav,
          AdminLayout
->>>>>>> d3558865898af9f3ea773596d19235668bbdfc19
     },
     onImageSelected(event) {
       const file = event.target.files[0];
@@ -369,7 +282,6 @@ import AdminLayout from '@/layouts/AdminLayout.vue';
       this.showModal2 = true;
     },
   }
-};
 </script>
 
 <style scoped>

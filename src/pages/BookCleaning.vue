@@ -42,14 +42,14 @@
                     <div class="row radios mb-3">
 
                     <label for="first_name" class="mb-3">Do you have pets?</label>
-                    <div class="form-group de-flex mb-3 col-md-8">
+                    <div class="form-group dee-flex mb-3 col-md-8">
                         <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="pets" id="inlineRadio1" value="option1">
-                        <label class="form-check-label" for="inlineRadio1">YES</label>
+                          <input class="form-check-input" type="radio" name="pets" id="inlineRadio1" value="option1">
+                          <label class="form-check-label" for="inlineRadio1">YES</label>
                         </div>
                         <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="pets" id="inlineRadio2" value="option2">
-                        <label class="form-check-label" for="inlineRadio2">NO</label>
+                          <input class="form-check-input" type="radio" name="pets" id="inlineRadio2" value="option2">
+                          <label class="form-check-label" for="inlineRadio2">NO</label>
                         </div>
                     </div>
 
@@ -161,8 +161,24 @@
 
                 
                     <div class="form-group mt-5 buttons">
-                        <button @click="showCard1()" type="button" class="btn white-btn">Back</button>
-                        <button @click="showCard3()" type="button" class="btn green-btn">Next</button>
+                        <button @click="showCard3()" type="button" class="btn white-btn">Back</button>
+                        <button @click="showCard5()" type="button" class="btn green-btn">Next</button>
+                    </div>
+                
+                </div>
+                <div class="upload col-md-12" v-if="display == 5">
+                    <h2 class="text-center mt-5 mb-4">Book Additional Service</h2>
+                    <div class="row mb-3">
+                      <VCalendar :attributes="attributes" expanded />
+                    
+                  </div>
+                    
+                    
+
+                
+                    <div class="form-group mt-5 buttons">
+                        <button @click="showCard4()" type="button" class="btn white-btn">Back</button>
+                        <button @click="showCard6()" type="button" class="btn green-btn">Next</button>
                     </div>
                 
                 </div>
@@ -204,6 +220,8 @@
   <script>
     import Footer from '@/layouts/partials/footer.vue';
     import TopNav from '@/layouts/partials/topnav.vue'
+    import { ref } from 'vue';
+
   export default {
     name: 'OnboardDriver',  
     components: {
@@ -226,6 +244,7 @@
       };
     },
     methods: {
+
       showCard1(){
         this.display = 1;
       },
@@ -237,6 +256,9 @@
       },
       showCard4(){
         this.display = 4;
+      },
+      showCard4(){
+        this.display = 5;
       },
       
       handleClick() {
@@ -251,7 +273,12 @@
       
     },
     mounted(){
-      
+      const attributes = ref([
+  {
+    highlight: true,
+    dates: new Date(),
+  },
+]);
     }
  
   };
