@@ -23,24 +23,26 @@
               </button>
             </div>
             <div class="row">
-              <div v-for="(item, index) in items" :key="index" class="mb-3 col-4">
-                <div class="card shadow-sm text-center">
-                  <div class="card-body">
+              <div v-for="(item, index) in parameters" :key="item.id" class="mb-3 col-4 " >
+                <div class="card shadow-sm text-center" style="height: 330px;">
+                  <div class="card-body" >
                     <div class="d-flex justify-content-end gap-2 mb-4">
                       <span class="d-flex align-items-center justify-content-center rounded-circle border"
                         style="width: 40px; height: 40px;">
                         <img src="../assets/Parameter/edit.png" alt="">
                       </span>
-                      <span class="d-flex align-items-center justify-content-center rounded-circle border"
+                      <a href="javascrippt:void(0)" class="d-flex align-items-center justify-content-center rounded-circle border"
+                      @click="deleteItem(item.id)"
                         style="width: 40px; height: 40px;">
                         <img src="../assets/Parameter/trash.png" alt="">
-                      </span>
+                        
+                      </a>
                     </div>
                     <div class="icon">
-                      <img :src="item.icon" alt="Icon" width="50" height="50" />
+                      <img :src="item.icon" alt="Icon" width="100" height="100" />
                     </div>
-                    <h6 class="mt-2">{{ item.name }}</h6>
-                    <p>Items <span class="count">{{ item.count }}</span></p>
+                    <h6 class="mt-2">{{ item.category }}</h6>
+                    <p>{{ item.name  }} <span class="count">{{ item.items.length }}</span></p>
                     <button class="btn btn-outline-success w-100 btn-outline-green"
                       @click="openDetailedView(item)">View</button>
                   </div>
@@ -78,8 +80,7 @@
             <div class="col-md-3">
               <div class="card text-center border-white rounded-2 pt-5 p-3">
                 <img :src="selectedItem.icon" alt="Category Icon" class="img-fluid mx-auto" width="60" height="60" />
-                <h4 class="mt-3">{{ selectedItem.name }}</h4>
-                <p>Items {{ selectedItem.count }}</p>
+                <h4 class="my-3">{{ selectedItem.name }}</h4>
                 <button class="btn btn-success btn-green w-100 mb-2" @click="editCategory">Edit Category</button>
                 <button class="btn btn-outline-danger btn-outline-red w-100" @click="deleteCategory">Delete
                   Category</button>
@@ -89,7 +90,11 @@
             <!-- Right Column - Items Table -->
             <div class="col-md-6 bg-white p-3 rounded-2 border-white">
               <div class="d-flex justify-content-between align-items-center mb-2">
-                <h5>{{ selectedItem.name }}</h5>
+              <div>
+                <span class="fw-bold item-name me-2">{{ selectedItem.name }}</span>
+                <span class="text-muted item-count">{{ selectedItem.items.length }}</span>
+              </div>
+              
                 <button class="btn btn-success" @click="openModal2">
                   <i class="bi bi-plus"></i> Add New
                 </button>
@@ -104,7 +109,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(item, index) in itemDetails" :key="index">
+                  <tr v-for="(item, index) in selectedItem.items" :key="index">
                     <td class="">{{ index + 1 }}</td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.email }}</td>
@@ -161,7 +166,10 @@
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-outline-danger btn-outline-red col-5 p-2"
                   @click="closeModal1">Cancel</button>
-                <button type="button" class="btn btn-success col-5 p-2 btn-green" @click="createParameter">Add Now</button>
+                <button type="button" class="btn btn-success col-5 p-2 btn-green" @click="createParameter">
+                  <loader v-if="Loader" />
+                  <span v-else>Add New</span>
+                </button>
               </div>
             </div>
           </div>
@@ -181,12 +189,12 @@
                 <form>
                   <div class="form-group mb-3">
                     <label for="itemName" class="mb-2 label">Item Name</label>
-                    <input type="text" class="inputs p-3" id="itemName" v-model="itemName"
+                    <input type="text" class="inputs p-3" id="itemName" v-model="movingItems.name"
                       placeholder="Enter item name" />
                   </div>
                   <div class="form-group">
                     <label for="movingCost" class="mb-2 label">Moving Cost</label>
-                    <input type="text" class="inputs p-3" id="movingCost" v-model="movingCost"
+                    <input type="text" class="inputs p-3" id="movingCost" v-model="movingItems.cost"
                       placeholder="Enter moving cost" />
                   </div>
                 </form>
@@ -194,7 +202,7 @@
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-outline-danger btn-outline-red col-5 p-2"
                   @click="closeModal2">Cancel</button>
-                <button type="button" class="btn btn-success col-5 p-2 btn-green" @click="addCategory">Add Now</button>
+                <button type="button" class="btn btn-success col-5 p-2 btn-green" @click="addItems">Add Now</button>
               </div>
             </div>
           </div>
@@ -202,7 +210,6 @@
       </div>
     </div>
   </AdminLayout>
-<<<<<<< HEAD
 </template>
 
 <script>
@@ -217,17 +224,22 @@ import bathroomIcon from '../assets/Parameter/bathroom.png';
 import more from '@/assets/Payment_Sales/more.png';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 
-import { fetchFromApi, postToApi } from '@/services/baseApi'
+import loader from '@/components/loader.vue';
+import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
+import Loader from '@/components/loader.vue';
 
 
 export default {
   components: {
     Icon,
     Nav,
-    AdminLayout
+    AdminLayout,
+    loader
   },
   data() {
     return {
+      Loader: false,
+
       items: [
         { name: "Living Room", count: 12, icon: livingRoomIcon, price: 1000 },
         { name: "Bedroom", count: 13, icon: bedroomIcon, price: 1200 },
@@ -267,53 +279,138 @@ export default {
         name: "",
         cost: ""
       },
+      movingItems: {
+        name: "",
+        cost: ""
+      },
 
       showDetailedView: false,
       selectedItem: {},
       showRightSection: true,
       selectedIcon: '',
+      selectImageFile: '',
+      // API DATA
+      parameters: [],
     };
   },
+  mounted() {
+    this.fetchParameter();  
+  },
   methods: {
+    addItems() {
+      this.Loader = true
+      if(!this.movingItems.name || !this.movingItems.cost) {
+        console.error("Validation failed: Missing required fields");
+        return;
+      }
 
+      const url = ` /parameters/${this.selectedItem.id}/items`
+
+      postToApi(url, this.movingItems).then(resp => {
+        if (resp.status) {
+          swal({
+            text: "Item added successfully!",
+            icon: "success",
+          });
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('Item Response:', resp);
+      }).catch(error => { 
+        console.error('API call failed:', error);
+      }).finally(() => {
+        this.Loader = false
+      })
+    },
+    
+    async deleteItem(id) {
+      this.Loader = true
+      const url = `parameters/${id}`;
+      try {
+        const resp = await deleteFromApi(url);
+        if (resp.status) {
+          swal({
+            text: "Parameter deleted successfully!",
+            icon: "success",
+          });
+          this.fetchParameter();
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      } finally {
+        this.Loader = false
+      }
+    },
     // create parameter
-    createParameter() {
-      const url = 'parameters'
-      if(this.addCategory.name == '' || this.addCategory.cost == '' || this.selectIcon == '') return
-      const formdata = new FormData()
-      formdata.append('name', this.addCategory.name)
-      formdata.append('cost', this.addCategory.cost)
-      formdata.append('icon', this.selectIcon)
+    async createParameter() {
+      this.Loader = true
+      console.log("Selected Image File:", this.selectImageFile);
+      if (!this.addCategory.name || !this.addCategory.cost || !this.selectImageFile) {
+        console.error("Validation failed: Missing required fields");
+        return;
+      }
 
-      const resp = postToApi(url, formdata)
-      console.log('log res', resp)  
-=======
-  </template>
-  
-  <script>
-  // import { Icon } from '@iconify/vue';
-  import Nav from '@/components/Nav.vue'
-  import livingRoomIcon from '../assets/Parameter/livingroom.png';
-  import bedroomIcon from '../assets/Parameter/bedroom.png';
-  import diningIcon from '../assets/Parameter/dining.png';
-  import packagingIcon from '../assets/Parameter/packaging.png';
-  import kitchenIcon from '../assets/Parameter/kitchen.png';
-  import bathroomIcon from '../assets/Parameter/bathroom.png';
-  import more from '@/assets/Payment_Sales/more.png';
-import AdminLayout from '@/layouts/AdminLayout.vue';
-  export default {
-    components: {
-        // Icon,
-         Nav,
-         AdminLayout
->>>>>>> d3558865898af9f3ea773596d19235668bbdfc19
+      const url = 'parameters';
+
+      const parameterData = {
+        name: this.addCategory.name,
+        movingCost: this.addCategory.cost,
+        icon: this.selectedIcon // Send as data string
+      };
+      try {
+        const resp = await postToApi(url, parameterData);
+
+        if (resp.status) {
+          swal({
+            text: "Parameter created successfully!",
+            icon: "success",
+          });
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      } finally {
+        this.Loader = false
+      }
+    },
+    // fetch parameter
+    async fetchParameter() {
+      this.Loader = true
+      const url = 'parameters';
+      try {
+        const resp = await fetchFromApi(url);
+        console.log('Response:', resp);
+        this.parameters = resp.data
+      } catch (error) {
+        console.error('API call failed:', error);
+      } finally {
+        this.Loader = false
+      }
     },
     onImageSelected(event) {
       const file = event.target.files[0];
+
       if (file) {
+        this.selectImageFile = file;
+
+         // Convert image to Base64 data string
         const reader = new FileReader();
         reader.onload = (e) => {
-          this.selectedIcon = e.target.result; // Set the selected image as the icon
+          this.selectedIcon = e.target.result;  // This is your data string
         };
         reader.readAsDataURL(file);
       }
@@ -413,5 +510,17 @@ import AdminLayout from '@/layouts/AdminLayout.vue';
   background-color: inherit;
   color: inherit;
   border-color: inherit;
+}
+.item-count {
+  background-color: #F7FAFF;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color:#4C956C;
+
+}
+.item-name {
+  font-size: 30px;
 }
 </style>

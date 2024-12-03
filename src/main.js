@@ -11,6 +11,8 @@ import 'bootstrap/js/dist/button'
 import 'bootstrap/js/dist/modal'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+
+
 const app = createApp(App)
 
 app.use(createPinia())
