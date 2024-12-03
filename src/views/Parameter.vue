@@ -18,31 +18,32 @@
           <div class="col-md-8">
             <div class="d-flex justify-content-between align-items-center my-4">
               <h5>Individual Item Cost</h5>
-              <button class="btn btn-success btn-green text-white rounded-2" @click="openModal1">
+              <button class="btn btn-success btn-green text-white rounded-2" @click="openModal1('add')">
                 <img src="../assets/Payment_Sales/plus.png" alt=""> Add new
               </button>
             </div>
             <div class="row">
-              <div v-for="(item, index) in parameters" :key="item.id" class="mb-3 col-4 " >
+              <div v-for="(item, index) in parameters" :key="item.id" class="mb-3 col-4 ">
                 <div class="card shadow-sm text-center" style="height: 330px;">
-                  <div class="card-body" >
+                  <div class="card-body">
                     <div class="d-flex justify-content-end gap-2 mb-4">
-                      <span class="d-flex align-items-center justify-content-center rounded-circle border"
-                        style="width: 40px; height: 40px;">
+                      <a href="javascript:void(0)"
+                        class="d-flex align-items-center justify-content-center rounded-circle border"
+                        style="width: 40px; height: 40px;" @click="openModal1('edit', item.id)">
                         <img src="../assets/Parameter/edit.png" alt="">
-                      </span>
-                      <a href="javascrippt:void(0)" class="d-flex align-items-center justify-content-center rounded-circle border"
-                      @click="deleteItem(item.id)"
-                        style="width: 40px; height: 40px;">
+                      </a>
+                      <a href="javascrippt:void(0)"
+                        class="d-flex align-items-center justify-content-center rounded-circle border"
+                        @click="deleteParameter(item.id)" style="width: 40px; height: 40px;">
                         <img src="../assets/Parameter/trash.png" alt="">
-                        
+
                       </a>
                     </div>
                     <div class="icon">
                       <img :src="item.icon" alt="Icon" width="100" height="100" />
                     </div>
                     <h6 class="mt-2">{{ item.category }}</h6>
-                    <p>{{ item.name  }} <span class="count">{{ item.items.length }}</span></p>
+                    <p>{{ item.name }} <span class="count">{{ item.items.length }}</span></p>
                     <button class="btn btn-outline-success w-100 btn-outline-green"
                       @click="openDetailedView(item)">View</button>
                   </div>
@@ -81,8 +82,9 @@
               <div class="card text-center border-white rounded-2 pt-5 p-3">
                 <img :src="selectedItem.icon" alt="Category Icon" class="img-fluid mx-auto" width="60" height="60" />
                 <h4 class="my-3">{{ selectedItem.name }}</h4>
-                <button class="btn btn-success btn-green w-100 mb-2" @click="editCategory">Edit Category</button>
-                <button class="btn btn-outline-danger btn-outline-red w-100" @click="deleteCategory">Delete
+                <button class="btn btn-success btn-green w-100 mb-2"@click="openModal1('edit', selectedItem.id)">Edit Category</button>
+                <button class="btn btn-outline-danger btn-outline-red w-100"
+                  @click="deleteParameter(selectedItem.id)">Delete
                   Category</button>
               </div>
             </div>
@@ -90,13 +92,17 @@
             <!-- Right Column - Items Table -->
             <div class="col-md-6 bg-white p-3 rounded-2 border-white">
               <div class="d-flex justify-content-between align-items-center mb-2">
-              <div>
-                <span class="fw-bold item-name me-2">{{ selectedItem.name }}</span>
-                <span class="text-muted item-count">{{ selectedItem.items.length }}</span>
-              </div>
-              
-                <button class="btn btn-success" @click="openModal2">
-                  <i class="bi bi-plus"></i> Add New
+                <div>
+                  <span class="fw-bold item-name me-2">{{ selectedItem.name }}</span>
+                  <span class="text-muted item-count">{{ selectedItem.items.length }}</span>
+                </div>
+
+                <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center"
+                  @click="openModal2">
+                  <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.83444 3.56836V13.2568M3.99023 8.41256H13.6786" stroke="white" stroke-width="1.38683"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </svg> Add New
                 </button>
               </div>
               <table class="table">
@@ -113,11 +119,16 @@
                     <td class="">{{ index + 1 }}</td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.email }}</td>
-                    <td>
-                      <img :src="item.image" alt="">
-                      <!-- <button class="btn btn-link p-0" @click="itemOptions(item)">
-                            
-                        </button> -->
+                    <td class="menu-container">
+                      <svg @click="item.showMenu = !item.showMenu" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
+                        class="menu-icon" viewBox="0 0 16 16">
+                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                      </svg>
+                      
+                      <div v-if="item.showMenu" class="menu">
+                        <div @click="editItem(item)">Edit</div>
+                        <div @click="deleteItem(item)">Delete</div>
+                      </div>
                     </td>
                   </tr>
                 </tbody>
@@ -132,7 +143,7 @@
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content p-4">
               <div class="modal-header">
-                <h5 class="modal-title m-auto">Add Category</h5>
+                <h5 class="modal-title m-auto">{{ this.addNewParameter ? 'Add' : 'Edit' }} Category</h5>
               </div>
 
               <div class="modal-body">
@@ -180,8 +191,8 @@
           <!-- Modal content here -->
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content p-4">
-              <div class="modal-header">addCategory
-                <h5 class="modal-title m-auto">Add Category</h5>
+              <div class="modal-header">
+                <h5 class="modal-title m-auto">Add Item</h5>
               </div>
 
               <div class="modal-body">
@@ -189,12 +200,12 @@
                 <form>
                   <div class="form-group mb-3">
                     <label for="itemName" class="mb-2 label">Item Name</label>
-                    <input type="text" class="inputs p-3" id="itemName" v-model="movingItems.name"
+                    <input type="text" class="form-control inputs p-3" id="itemName" v-model="movingItems.name"
                       placeholder="Enter item name" />
                   </div>
-                  <div class="form-group">
+                  <div class="form-group mb-4">
                     <label for="movingCost" class="mb-2 label">Moving Cost</label>
-                    <input type="text" class="inputs p-3" id="movingCost" v-model="movingItems.cost"
+                    <input type="text" class="form-control inputs p-3" id="movingCost" v-model="movingItems.movingCost"
                       placeholder="Enter moving cost" />
                   </div>
                 </form>
@@ -202,7 +213,10 @@
               <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-outline-danger btn-outline-red col-5 p-2"
                   @click="closeModal2">Cancel</button>
-                <button type="button" class="btn btn-success col-5 p-2 btn-green" @click="addItems">Add Now</button>
+                <button type="button" class="btn btn-success col-5 p-2 btn-green" @click="addItems">
+                  <loader v-if="Loader" />
+                  <span v-else>Add Now</span>
+                </button>
               </div>
             </div>
           </div>
@@ -281,7 +295,7 @@ export default {
       },
       movingItems: {
         name: "",
-        cost: ""
+        movingCost: ""
       },
 
       showDetailedView: false,
@@ -291,27 +305,60 @@ export default {
       selectImageFile: '',
       // API DATA
       parameters: [],
+      addNewParameter: true,
+      editParameter: null,
     };
   },
   mounted() {
-    this.fetchParameter();  
+    this.fetchParameter();
   },
   methods: {
-    addItems() {
+    
+    async deleteItem(item) {
+      console.log(item)
       this.Loader = true
-      if(!this.movingItems.name || !this.movingItems.cost) {
+
+      const url = `parameters/${this.selectedItem.id}/items/${item.id}`;
+
+      try {
+        const resp = await deleteFromApi(url);
+        if (resp.status) {
+          swal({
+            text: "Item deleted successfully!",
+            icon: "success",
+          });
+          this.fetchParameter();
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      } finally {
+        this.Loader = false
+      }
+    },
+    async addItems() {
+      this.Loader = true;
+      if (!this.movingItems.name || !this.movingItems.movingCost) {
         console.error("Validation failed: Missing required fields");
+        this.Loader = false;
         return;
       }
 
-      const url = ` /parameters/${this.selectedItem.id}/items`
+      const url = `parameters/${this.selectedItem.id}/items`;
 
-      postToApi(url, this.movingItems).then(resp => {
+      try {
+        const resp = await postToApi(url, this.movingItems);
         if (resp.status) {
           swal({
             text: "Item added successfully!",
             icon: "success",
           });
+          this.fetchParameter();
         } else {
           swal({
             text: resp.message,
@@ -319,14 +366,18 @@ export default {
           });
         }
         console.log('Item Response:', resp);
-      }).catch(error => { 
+      } catch (error) {
         console.error('API call failed:', error);
-      }).finally(() => {
-        this.Loader = false
-      })
+      } finally {
+        this.Loader = false;
+      }
     },
-    
-    async deleteItem(id) {
+    async updateParameter() {
+      this.Loader = true
+      const url = `parameters/${id}`;
+
+    },
+    async deleteParameter(id) {
       this.Loader = true
       const url = `parameters/${id}`;
       try {
@@ -352,39 +403,39 @@ export default {
     },
     // create parameter
     async createParameter() {
-      this.Loader = true
-      console.log("Selected Image File:", this.selectImageFile);
       if (!this.addCategory.name || !this.addCategory.cost || !this.selectImageFile) {
         console.error("Validation failed: Missing required fields");
         return;
       }
 
-      const url = 'parameters';
+      this.Loader = true;
+      console.log("Selected Image File:", this.selectImageFile);
 
       const parameterData = {
         name: this.addCategory.name,
         movingCost: this.addCategory.cost,
         icon: this.selectedIcon // Send as data string
       };
-      try {
-        const resp = await postToApi(url, parameterData);
+      const parameter = this.editParameter ?? this.selectedItem.id
+      const url = this.addNewParameter ? 'parameters' : `parameters/${parameter}`;
 
-        if (resp.status) {
-          swal({
-            text: "Parameter created successfully!",
-            icon: "success",
-          });
-        } else {
-          swal({
-            text: resp.message,
-            icon: "error",
-          });
+      try {
+        const resp = this.addNewParameter ? await postToApi(url, parameterData) : await patchToApi(url, parameterData);
+        swal({
+          text: resp.status ? "Parameter created successfully!" : resp.message,
+          icon: resp.status ? "success" : "error",
+        });
+
+        this.addNewParameter = resp.status
+        if(resp.status) {
+          this.fetchParameter()
         }
+
         console.log('Response:', resp);
       } catch (error) {
         console.error('API call failed:', error);
       } finally {
-        this.Loader = false
+        this.Loader = false;
       }
     },
     // fetch parameter
@@ -407,7 +458,7 @@ export default {
       if (file) {
         this.selectImageFile = file;
 
-         // Convert image to Base64 data string
+        // Convert image to Base64 data string
         const reader = new FileReader();
         reader.onload = (e) => {
           this.selectedIcon = e.target.result;  // This is your data string
@@ -458,8 +509,15 @@ export default {
     itemOptions(item) {
       console.log("Item options clicked", item);
     },
-    openModal1() {
+    openModal1(value, id) {
+
       this.showModal1 = true;
+      if (value == 'edit') {
+        this.addNewParameter = false
+        this.editParameter =  id
+      } else {
+        this.addNewParameter = true
+      }
       // this.showRightSection = !this.showRightSection;
     },
     openModal2() {
@@ -511,16 +569,39 @@ export default {
   color: inherit;
   border-color: inherit;
 }
+
 .item-count {
   background-color: #F7FAFF;
   font-weight: bold;
   font-size: 14px;
   padding: 2px 8px;
   border-radius: 4px;
-  color:#4C956C;
+  color: #4C956C;
 
 }
+
 .item-name {
   font-size: 30px;
+}
+
+.menu-container {
+  position: relative;
+}
+.menu-icon {
+  cursor: pointer;
+}
+.menu {
+  position: absolute;
+  right: 20px;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  padding: 8px;
+}
+.menu div {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.menu div:hover {
+  background: #f5f5f5;
 }
 </style>
