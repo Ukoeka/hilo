@@ -227,14 +227,7 @@
 </template>
 
 <script>
-import { Icon } from 'iconify/vue';
 import Nav from '@/components/Nav.vue'
-import livingRoomIcon from '@/assets/Parameter/livingroom.png';
-import bedroomIcon from '@/assets/Parameter/bedroom.png';
-import diningIcon from '@/assets/Parameter/dining.png';
-import packagingIcon from '@/assets/Parameter/packaging.png';
-import kitchenIcon from '@/assets/Parameter/kitchen.png';
-import bathroomIcon from '@/assets/Parameter/bathroom.png';
 import more from '@/assets/Payment_Sales/more.png';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 
@@ -245,7 +238,7 @@ import Loader from '@/components/loader.vue';
 
 export default {
   components: {
-    Icon,
+    // Icon,
     Nav,
     AdminLayout,
     loader
@@ -255,27 +248,10 @@ export default {
       Loader: false,
 
       items: [
-        { name: "Living Room", count: 12, icon: livingRoomIcon, price: 1000 },
-        { name: "Bedroom", count: 13, icon: bedroomIcon, price: 1200 },
-        { name: "Dining", count: 12, icon: diningIcon, price: 800 },
-        { name: "Packaging", count: 12, icon: packagingIcon, price: 500 },
-        { name: "Kitchen", count: 12, icon: kitchenIcon, price: 1500 },
-        { name: "Bathroom", count: 12, icon: bathroomIcon, price: 700 },
+        
       ],
       itemDetails: [
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more },
-        { name: 'Chest Drawer', email: 'NGN 13,000', image: more }
+        
       ],
       generalParams: [
         { label: "Cost Per Mile", value: "" },
