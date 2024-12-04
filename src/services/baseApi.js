@@ -1,10 +1,6 @@
 const base_url = 'https://holigisticz-server.onrender.com/api/'
 export const fetchFromApi = async (url, params = {}, contentType = "application/json") => {
   const token = sessionStorage.getItem('MVtoken');
-  if (!token) {
-    window.location.href = '/login';
-    return;
-  }
   const queryString = new URLSearchParams(params).toString();
   const response = await fetch(`${base_url}${url}?${queryString}`, {
     method: "GET",
@@ -13,21 +9,12 @@ export const fetchFromApi = async (url, params = {}, contentType = "application/
       "Authorization": `Bearer ${token}`,
     },
   });
-  if (response.status === 401) {
-    window.location.href = '/login';
-    return;
-  }
   const data = await response.json();
   return data;
 }; 
 
 export const postToApi = async (url, data, contentType = "application/json") => {
   const token = sessionStorage.getItem('MVtoken');
-  if (!token) {
-    window.location.href = '/login';
-    return;
-  }
-  
   const headers = {
     "Authorization": `Bearer ${token}`
   };
@@ -45,20 +32,11 @@ export const postToApi = async (url, data, contentType = "application/json") => 
       : (contentType === 'multipart/form-data' ? data : JSON.stringify(data)),
   });
   
-  if (response.status === 401) {
-    window.location.href = '/login';
-    return;
-  }
-  
   const result = await response.json();
   return result;
 };
 export const patchToApi = async (url, data, contentType = "application/json") => {
   const token = sessionStorage.getItem('MVtoken');
-  if (!token) {
-    window.location.href = '/login';
-    return;
-  }
   
   const headers = {
     "Authorization": `Bearer ${token}`
@@ -76,11 +54,7 @@ export const patchToApi = async (url, data, contentType = "application/json") =>
       ? new URLSearchParams(data).toString() 
       : (contentType === 'multipart/form-data' ? data : JSON.stringify(data)),
   });
-  
-  if (response.status === 401) {
-    window.location.href = '/login';
-    return;
-  }
+
   
   const result = await response.json();
   return result;
@@ -88,10 +62,6 @@ export const patchToApi = async (url, data, contentType = "application/json") =>
 
 export const deleteFromApi = async (url) => {
   const token = sessionStorage.getItem('MVtoken');
-  if (!token) {
-    window.location.href = '/login';
-    return;
-  }
   const response = await fetch(`${base_url}${url}`, {
     method: "DELETE",
     headers: {
@@ -99,10 +69,6 @@ export const deleteFromApi = async (url) => {
       "Authorization": `Bearer ${token}`,
     },
   });
-  if (response.status === 401) {
-    window.location.href = '/login';
-    return;
-  }
   const data = await response.json();
   return data;
 };

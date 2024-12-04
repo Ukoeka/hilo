@@ -37,7 +37,10 @@
               </div>
               <a href="#" class="text-decoration-none text-primary fw-medium">Forgot password?</a>
             </div>
-            <button type="button" @click="login" class="btn btn-success w-100 py-3 fw-medium mb-4">Sign in</button>
+            <button type="button" @click="login" class="btn btn-success w-100 py-3 fw-medium mb-4">
+              <span v-if="Loader">... loading</span>
+              <span v-else>Sign in</span>
+            </button>
           </form>
 
           <!-- Divider -->
@@ -62,6 +65,7 @@
 </template>
 
 <script>
+import Loader from '@/components/loader.vue';
 import { fetchFromApi, postToApi } from '@/services/baseApi'
 export default {
   name: 'Login',
@@ -71,27 +75,46 @@ export default {
         email: '',
         password: ''
       },
+      Loader: false,
 
     };
   },
   methods: {
     async login() {
-      const url = 'auth/login'
-      const resp = await postToApi(url, this.Login)
-      console.log('login res', resp)
+      try {
+        this.Loader = true
+        const url = 'auth/login'
+        const resp = await postToApi(url, this.Login)
+        console.log('login res', resp)
 
-      if (resp.status && resp.token) {
-        const token = resp.token
-        const data = resp.data
+        if (resp.status && resp.token) {
+          const token = resp.token
+          const data = resp.data
 
-        sessionStorage.setItem('MVtoken', token)
-        localStorage.setItem('MVdata', JSON.stringify(data))
+          sessionStorage.setItem('MVtoken', token)
+          localStorage.setItem('MVdata', JSON.stringify(data))
+          swal({
+            title: `Welcome!`, 
+            text: "You have successfully logged in!",
+            icon: "success",
+          });
+          this.$router.push('/payments')
+        } else {
+          swal({
+            title: "Error",
+            text: "Invalid credentials",
+            icon: "error"
+          });
+        }
+      } catch (error) {
+        console.error('Login error:', error)
         swal({
-          title: `Welcome!`,
-          text: "You have successfully logged in!",
-          icon: "success",
+          title: "Error",
+          text: "An error occurred during login",
+          icon: "error"
         });
-        this.$router.push('/payments')
+      } finally {
+        this.Loader = false
       }
     }
   }
