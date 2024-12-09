@@ -32,7 +32,7 @@
         Drivers
       </RouterLink>
 
-      <RouterLink to="/cleaners" class="nav-link" :class="{ 'active': $route.path === '/bookings' }">
+      <RouterLink to="/cleaners" class="nav-link" :class="{ 'active': $route.path === '/cleaners' }">
         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M20.51 3L21.93 4.42L16.21 10.13C17.28 11.67 17.43 13.52 16.53 14.72L10.21 8.4C11.41 7.5 13.26 7.65 14.8 8.72L20.51 3ZM7.08 17.85C5.07 15.84 3.84 13.44 3.5 11.2L8.38 9.11L15.82 16.55L13.73 21.43C11.49 21.09 9.09 19.86 7.08 17.85Z"
@@ -41,7 +41,7 @@
         Cleaners
       </RouterLink>
 
-      <RouterLink to=" /cleaningquotes" class="nav-link" :class="{ 'active': $route.path === '/cleaners' }">
+      <RouterLink to=" /cleaningquotes" class="nav-link" :class="{ 'active': $route.path === '/cleaningquotes' }">
         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M7.25 21C6.76875 21 6.35692 20.8337 6.0145 20.501C5.67208 20.1684 5.50058 19.7681 5.5 19.3V5.7C5.5 5.2325 5.6715 4.83243 6.0145 4.4998C6.3575 4.16717 6.76933 4.00057 7.25 4H17.75C18.2312 4 18.6434 4.1666 18.9864 4.4998C19.3294 4.833 19.5006 5.23307 19.5 5.7V19.3C19.5 19.7675 19.3288 20.1678 18.9864 20.501C18.644 20.8342 18.2318 21.0006 17.75 21H7.25ZM11.625 11.65L13.8125 10.375L16 11.65V5.7H11.625V11.65Z"
