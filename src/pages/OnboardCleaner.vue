@@ -20,34 +20,44 @@
                   <div class="row mb-3">
                       <div class="div-group col-md-6">
                       <label for="first_name">First Name</label>
-                      <input type="text" class="form-control" id="first_name" placeholder="First Name">
+                      <input type="text" class="form-control" id="first_name" placeholder="First Name" v-model="cleanerDetails.firstName">
                       </div>
                       <div class="form-group col-md-6">
                       <label for="last_name">Last Name</label>
-                      <input type="text" class="form-control" id="last_name" placeholder="Last Name">
+                      <input type="text" class="form-control" id="last_name" placeholder="Last Name" v-model="cleanerDetails.lastName">
                       </div>
                   </div>
                   <div class="row mb-3">
                       <div class="div-group col-md-6">
                       <label for="first_name">Email</label>
-                      <input type="text" class="form-control" id="first_name" placeholder="First Name">
+                      <input type="text" class="form-control" id="email" placeholder="Email" v-model="cleanerDetails.email">
                       </div>
                       <div class="form-group col-md-6">
                       <label for="last_name">Gender</label>
-                      <select name="" class="form-control" id="">
-                        <option value="">Male</option>
-                        <option value="">Female</option>
+                      <select name="" class="form-control" id="" v-model="cleanerDetails.gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
                       </select>
                       </div>
                   </div>
                   <div class="row mb-3">
                       <div class="div-group col-md-6">
-                      <label for="first_name">Post Code</label>
-                      <input type="text" class="form-control" id="first_name" placeholder="First Name">
+                      <label for="first_name">Country</label>
+                      <input type="text" class="form-control" id="country" placeholder="country" v-model="cleanerDetails.country">
+                      </div>
+                      <div class="form-group col-md-6">
+                      <label for="last_name">City</label>
+                      <input type="text" class="form-control" id="city" placeholder="city" v-model="cleanerDetails.city">
+                      </div>
+                  </div>
+                  <div class="row mb-3">
+                      <div class="div-group col-md-6">
+                      <label for="first_name">Address</label>
+                      <input type="text" class="form-control" id="address" placeholder="address" v-model="cleanerDetails.address">
                       </div>
                       <div class="form-group col-md-6">
                       <label for="last_name">Language</label>
-                      <input type="text" class="form-control" id="last_name" placeholder="Last Name">
+                      <input type="text" class="form-control" id="language" placeholder="Language" v-model="cleanerDetails.language">
                       </div>
                   </div>
                   
@@ -107,7 +117,7 @@
                 
                     <div class="form-group mt-5 buttons">
                         <button @click="showCard1()" type="submit" class="btn white-btn">Back</button>
-                        <button type="submit" class="btn green-btn">submit</button>
+                        <button type="button" @click="addCleaner()" class="btn green-btn">Register Now</button>
                     </div>
                 
                   </div>
@@ -148,7 +158,9 @@
   
   <script>
     import Footer from '@/layouts/partials/footer.vue';
-    import TopNav from '@/layouts/partials/topnav.vue'
+    import TopNav from '@/layouts/partials/topnav.vue';
+    import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi';
+
   export default {
     name: 'OnboardDriver',  
     components: {
@@ -163,6 +175,16 @@
     data() {
       return {
         display: 1,
+        cleanerDetails: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        gender: "",
+        country: "",
+        city: "",
+        address: "",
+        language: "",
+        },
       };
     },
     methods: {
@@ -172,14 +194,41 @@
       showCard2(){
         this.display = 2;
       },
-      handleClick() {
-      this.$refs.fileInput.click();
+    async addCleaner() {
+      // console.log("Selected Image File:", this.selectImageFile);
+
+      const cleanerData = {
+        firstName: this.cleanerDetails.firstName,
+        lastName: this.cleanerDetails.lastName,
+        email: this.cleanerDetails.email,
+        gender: this.cleanerDetails.gender,
+        country: this.cleanerDetails.country,
+        city: this.cleanerDetails.city,
+        address: this.cleanerDetails.address,
+        language: this.cleanerDetails.language,
+      };
+      const url = this.addNewCleaner ? 'cleaner' : `registration/cleaner`;
+
+      try {
+        const resp = this.addNewCleaner ? await postToApi(url, cleanerData) : await patchToApi(url, cleanerData);
+        swal({
+          text: resp.status ? "Your registration is successful!" : resp.message,
+          icon: resp.status ? "success" : "error",
+        });
+
+        this.addNewCleaner = resp.status
+        console.log('addNew', this.addNewCleaner)
+        if(resp.status) {
+          console.log('hello')
+        }
+
+        console.log('Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      } finally {
+        this.Loader = false;
+      }
     },
-    handleFileChange(event) {
-      const file = event.target.files[0];
-      console.log(file);
-      // Handle file upload logic here
-    }
       
       
     },

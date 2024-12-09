@@ -403,6 +403,7 @@ export default {
         });
 
         this.addNewParameter = resp.status
+        console.log('addNew', this.addNewParameter)
         if(resp.status) {
           this.fetchParameter()
         }

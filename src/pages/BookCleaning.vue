@@ -7,7 +7,7 @@
     </div>
 
     <div class="main-content">
-          <div class="left">
+          <div class="clean-info" v-if="bigDisplay == 1">
             <div class="bars mb-3">
                 <div :class="[this.display  > 0 ? 'active-bar each-bar' : 'each-bar']"></div>
                 <div :class="[this.display > 1 ? 'active-bar each-bar' : 'each-bar']"></div>
@@ -178,11 +178,65 @@
                 
                     <div class="form-group mt-5 buttons">
                         <button @click="showCard4()" type="button" class="btn white-btn">Back</button>
-                        <button @click="showCard6()" type="button" class="btn green-btn">Next</button>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn green-btn">Next</button>
                     </div>
                 
                 </div>
             </form>
+          </div>
+          <div class="payment-info" v-if="bigDisplay == 2">
+            <div class="left">
+              <h2 class="mt-4 mb-4">Payment Summary</h2>
+              <div class="text-contain mt-3 mb-3">
+                <h5>Mon 4 Dec, 2pm</h5>
+              </div>
+              <div class="time-area mt-3">
+                <div class="top-text">
+                  <p>Booking Time</p>
+                  <h5>7am to 3pm</h5>
+                </div>
+                <div class="button-area mb-3">
+                  <button>Change Time Set</button>
+                </div>
+              </div>
+              <div class="top-textss mt-3">
+                <p>Total</p>
+                <h5>$91</h5>
+              </div>
+            </div>
+            <div class="right">
+              <div class="big-card">
+                <div class="card-head mb-3">
+                  <input type="radio">
+                  <h4>Card Payment</h4>
+                </div>
+                <form action="" class="mt-3">
+                  <div class="row mb-3 mt-3">
+                      <div class="col-md-12">
+                      <label for="first_name">Card Number</label>
+                      <input type="text" class="form-control" id="card_number" placeholder="Card Number">
+                      </div>
+                  </div>
+                  <div class="row mb-3 mt-4">
+                      <div class="col-md-12">
+                      <label for="first_name">Expiry Date</label>
+                      <input type="text" class="form-control" id="expiry_date" placeholder="Expiry Date">
+                      </div>
+                  </div>
+                  <div class="row mb-3 mt-4">
+                      <div class="col-md-12">
+                      <label for="first_name">CVV</label>
+                      <input type="text" class="form-control" id="cvv" placeholder="CVV">
+                      </div>
+                  </div>
+                  <button class="mt-4">Confirm Payment and Book</button>
+                </form>
+              </div>
+              <div class="small-card mt-3">
+                <input type="radio">
+                  <h2>Klarna</h2>
+              </div>
+            </div>
           </div>
           
     </div>
@@ -193,22 +247,48 @@
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Documents Required</h5>
+        <h5 class="modal-title text-center" id="exampleModalLabel">Please input Contact information
+          for Instant Prices</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h5>Driving License</h5>
-        <p>Hilogisticz requires you to have a full valid UK driving license for at least one consecutive year. If you are under 22 years old you will need a a minimum of 3 years driving experience.
-        </p>
-        <h5>Vehicle Insurance</h5>
-        <p>Hilogisticz requires you to supply your commercial van insurance which covers you for the carriage of goods for hire and reward.
-        </p>
-        <h5>Good In Transit</h5>
-        <p>Your Goods in Transit Insurance must be have a minimum cover of £50,000 and be for the purpose of removals.
-        </p>
-        <h5>Motor Trade Insurance(if applicable)</h5>
-        <p>If you are transporting vehicles, AnyVan requires your motor trade insurance. This is a mandatory requirement when transporting any vehicle.
-        </p>
+        <h5>Why Add Your Email?</h5>
+        <ul>
+          <li>
+            <h5>Get Instant Booking Confirmation</h5>
+            <p>Receive a detailed summary of your move and all key details right in your inbox.</p>
+          </li>
+          <li>
+            <h5>Stay Updated with Real-Time Notifications</h5>
+            <p>Track your booking status, receive reminders, and stay informed about any changes.</p>
+          </li>
+          <li>
+            <h5>Access Exclusive Discounts</h5>
+            <p>Get notified about special offers and seasonal discounts available only to email subscribers.</p>
+          </li>
+          <li>
+            <h5>Receive Helpful Moving Tips & Checklists</h5>
+            <p>Prepare with expert advice to make your move as smooth and stress-free as possible.</p>
+          </li>
+          <li>
+            <h5>Easily Modify or Cancel Your Booking</h5>
+            <p>Quickly manage your reservation through a convenient link in your confirmation email.</p>
+          </li>
+        </ul>
+        <form action="" class="mb-3 mt-5">
+          <div class="row mb-3">
+              <div class="div-group col-md-6">
+              <label for="first_name">Email</label>
+              <input type="text" class="form-control" id="email" placeholder="Email">
+              </div>
+              <div class="form-group col-md-6">
+              <label for="last_name">Phone Number</label>
+              <input type="text" class="form-control" id="Phone Number" placeholder="Phone Number">
+              </div>
+          </div>
+          <button class="view-button mt-3">View Instant Prices</button>
+        </form>
+        
       </div>
     </div>
   </div>
@@ -235,6 +315,7 @@
     },
     data() {
       return {
+        bigDisplay: 2,
         display: 1,
         bedroom: 1,
         bathroom:1,
@@ -257,7 +338,7 @@
       showCard4(){
         this.display = 4;
       },
-      showCard4(){
+      showCard5(){
         this.display = 5;
       },
       
@@ -324,15 +405,16 @@
       display: flex;
       margin-top: 20px;
       gap: 20px;
-      padding: 5% 20%;
+      padding: 5% 15%;
       gap: 30px;
       box-sizing: border-box;
 
-      .left{
-        width: 100%;
+      .clean-info{
+        width: 90%;
         background: white;
         padding: 4%;
         border-radius: 10px;
+        margin: auto;
 
         .bars{
             width: 100%;
@@ -418,5 +500,110 @@
       margin: auto;
       font-size: 30px;
     }
-   
+    .view-button{
+      background: #2E7D32;
+        color: white;
+        width: 100%;
+        height: 48px;
+        border: none;
+        border-radius: 10px;
+    }
+   .payment-info{
+        width: 100%;
+        background: white;
+        padding: 4% 2%;
+        border-radius: 15px;
+        display: flex;
+        gap: 5%;
+
+        .left{
+          width: 55%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+
+          .text-contain{
+            background: #DFEEFF;
+            display: flex;
+            justify-content: center;
+            padding: 15px 20px;
+            border-radius: 10px;
+          }
+          .time-area{
+            background: #F0F5F3;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0px 10px 24px 0px #058DB840;
+
+            .top-text{
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              padding: 15px;
+            }
+            .button-area{
+              display: flex;
+              justify-content: center;
+              button{
+              width: 80%;
+              background: #F0F2F5;
+              color: #2E7D32;
+              height: 48px;
+              border: 1px solid #2E7D32;
+              border-radius: 15px;
+              margin: auto;
+            }
+            }
+          }
+          .top-textss{
+            width: 80%;
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+          }
+        }
+        .right{
+          width: 40%;
+          border: 0.3px solid rgb(212, 212, 212);
+          border-radius: 10px;
+          padding: 35px;
+
+          .big-card{
+            border: 0.3px solid rgb(212, 212, 212);
+            border-radius: 10px;
+            padding: 18px;
+
+            .card-head{
+              border: 0.3px solid rgb(212, 212, 212);
+              border-radius: 10px;
+              padding: 18px;
+              display: flex;
+              gap: 15px;
+              align-items: center;
+
+              h4{
+                margin: 0px;
+              }
+            }
+            button{
+              background: #2E7D32;
+              color: white;
+              width: 100%;
+              height: 48px;
+              border: none;
+              border-radius: 10px;
+            }
+            
+          }
+        }
+        .small-card{
+          border: 0.3px solid rgb(212, 212, 212);
+          border-radius: 10px;
+          padding: 6px 18px;
+          display: flex;
+          gap: 15px;
+          align-items: center;
+        }
+   }
     </style>

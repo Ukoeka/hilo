@@ -20,21 +20,21 @@
                   <div class="row mb-3">
                       <div class="div-group col-md-6">
                       <label for="first_name">First Name</label>
-                      <input type="text" class="form-control" id="first_name" placeholder="First Name">
+                      <input type="text" class="form-control" id="firstName" placeholder="First Name" v-model="driverDetails.firstName">
                       </div>
                       <div class="form-group col-md-6">
                       <label for="last_name">Last Name</label>
-                      <input type="text" class="form-control" id="last_name" placeholder="Last Name">
+                      <input type="text" class="form-control" id="last_name" placeholder="Last Name" v-model="driverDetails.lastName">
                       </div>
                   </div>
                   <div class="row mb-3">
                       <div class="form-group col-md-6">
-                      <label for="inputEmail4">Business Name</label>
-                      <input type="text" class="form-control" id="business_name" placeholder="Business Name">
+                        <label for="inputEmail4">Email</label>
+                        <input type="text" class="form-control" id="email" placeholder="email" v-model="driverDetails.email">
                       </div>
                       <div class="form-group col-md-6">
-                      <label for="post_code">Password</label>
-                      <input type="text" class="form-control" id="post_code" placeholder="Post Code">
+                        <label for="inputEmail4">Business Name</label>
+                        <input type="text" class="form-control" id="businessName" placeholder="Business Name" v-model="driverDetails.businessName">
                       </div>
                   </div>
                   
@@ -50,20 +50,15 @@
                     <h2 class="text-center mt-5 mb-4">Contact Details</h2>
                     <div class="row mb-3">
                         <div class="form-group col-md-12">
-                        <label for="first_name">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Email">
+                        <label for="first_name">Post Code</label>
+                        <input type="email" class="form-control" id="email" placeholder="Post Code" v-model="driverDetails.postCode">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="form-group col-md-3">
-                        <label for="inputEmail4">Country Code</label>
-                        <select class="form-control" name="" id="">
-                          <option value="">Nigeria</option>
-                        </select>
-                        </div>
-                        <div class="form-group col-md-9">
-                        <label for="post_code">Phone Number</label>
-                        <input type="text" class="form-control" id="post_code" placeholder="Phone Number">
+                        <div class="form-group col-md-12">
+                        <label for="inputEmail4">Phone Number</label>
+                        <vue-tel-input v-model="driverDetails.phoneNumber"></vue-tel-input>
+                        <!-- <vue-country-code @onSelect="onSelect"></vue-country-code> -->
                         </div>
                     </div>
                     
@@ -199,7 +194,7 @@
                 
                     <div class="form-group mt-5 buttons">
                         <button @click="showCard3()" type="submit" class="btn white-btn">Back</button>
-                        <button type="submit" class="btn green-btn">submit</button>
+                        <button type="button" @click="addDriver()" class="btn green-btn">submit</button>
                     </div>
                 
                   </div>
@@ -263,6 +258,7 @@
   <script>
     import Footer from '@/layouts/partials/footer.vue';
     import TopNav from '@/layouts/partials/topnav.vue'
+    import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
   export default {
     name: 'OnboardDriver',  
     components: {
@@ -277,9 +273,22 @@
     data() {
       return {
         display: 1,
+        driverDetails: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        businessName: "",
+        postCode: "",
+        phoneNumber: "",
+        additionalData: "",
+        },
+        selectImageFiles: '',
       };
     },
     methods: {
+      onSelect({name, iso2, dialCode}) {
+       console.log(name, iso2, dialCode);
+     },
       showCard1(){
         this.display = 1;
       },
@@ -299,8 +308,43 @@
       const file = event.target.files[0];
       console.log(file);
       // Handle file upload logic here
-    }
+    },
       
+    async addDriver() {
+      // console.log("Selected Image File:", this.selectImageFile);
+
+      const driverData = {
+        firstName: this.driverDetails.firstName,
+        lastName: this.driverDetails.lastName,
+        email: this.driverDetails.email,
+        businessName: this.driverDetails.businessName,
+        postCode: this.driverDetails.postCode,
+        phoneNumber: this.driverDetails.phoneNumber,
+        additionalData: "",
+      };
+      const url = this.addNewDriver ? 'driver' : `registration/driver`;
+
+      try {
+        const resp = this.addNewDriver ? await postToApi(url, driverData) : await patchToApi(url, driverData);
+        swal({
+          text: resp.status ? "Parameter created successfully!" : resp.message,
+          icon: resp.status ? "success" : "error",
+        });
+
+        this.addNewDriver = resp.status
+        console.log('addNew', this.addNewDriver)
+        if(resp.status) {
+          console.log('hello')
+        }
+
+        console.log('Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      } finally {
+        // this.Loader = false;
+        console.log('abeg')
+      }
+    },
       
     },
     mounted(){
