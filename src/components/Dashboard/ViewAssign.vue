@@ -28,10 +28,10 @@
         </div>
         <div class="profile-actions">
           <button class="btn btn-outline-danger btn-sm" @click="handleDelete">
-            {{ isEditing || isDeleting ? 'Cancel' : 'Delete' }}
+            {{ formaAction === 'add' ? 'Cancel' : 'Delete' }}
           </button>
           <button class="btn btn-outline-primary btn-sm ms-2" @click="handleEdit">
-            {{ isEditing || isDeleting ? 'Save' : 'Edit' }}
+            {{ formaAction === 'add' ? 'Save' : 'Edit' }}
           </button>
         </div>
 
@@ -109,9 +109,15 @@
 
 <script>
 import AssignedTable from './AssignedTable.vue';
+import loader from '@/components/loader.vue';
+import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
+import Loader from '@/components/loader.vue';
 
 export default {
   name: 'UserProfileForm',
+  props: {
+    formaAction: String,
+  },
   components: {
     AssignedTable
   },

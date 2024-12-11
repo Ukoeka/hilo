@@ -385,20 +385,17 @@ export default {
         formData.append('businessName', this.driverDetails.businessName);
         formData.append('postCode', this.driverDetails.postCode);
         formData.append('phoneNumber', this.driverDetails.phoneNumber);
-        formData.append('gender', 'male');
-        formData.append('country', 'Nigeria');
-
-
+  
 
         // Stringify and append additionalData
         formData.append('additionalData', JSON.stringify(this.driverDetails.additionalData)); // { "numberOfVehicle": 1 }
 
         // Append vehicle-related data
-        formData.append('vehicleTypes', JSON.stringify(this.form.additional.vehicleTypes)); // Vehicle types as JSON
-        formData.append('numberOfVehicle', this.form.additional.numberOfVehicle);
-        formData.append('vatRegistered', this.form.additional.vatRegistered);
+        formData.append('vehicle_types', JSON.stringify(this.form.additional.vehicleTypes)); // Vehicle types as JSON
+        formData.append('number_of_vehicle', this.form.additional.numberOfVehicle);
+        formData.append('vat_registered', this.form.additional.vatRegistered);
 
-        // Append documents as per the request body example
+        // Append documents as per the request body mmeyene
         this.appendFilesToFormData(formData, 'documents', this.documents);
         this.appendFilesToFormData(formData, 'documents1', this.documents1);
         this.appendFilesToFormData(formData, 'documents2', this.document2);

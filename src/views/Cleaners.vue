@@ -12,7 +12,7 @@
       <!-- Main Content Section -->
       <div v-if="!viewAssign" class="flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
         <!-- Quotes Table Section -->
-  
+
         <div class="card p-3 mb-3">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <div class="d-flex align-items-center gap-2 p-3">
@@ -21,7 +21,8 @@
                 style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">13 Drivers
               </p>
             </div>
-            <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center" @click="AssignDriver('Assign')">
+            <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center"
+              @click="AssignDriver('add')">
               <span><img src="../assets/Payment_Sales/plus.png" alt=""></span>
               Add New
             </button>
@@ -67,7 +68,7 @@
                     {{ payment.status }}
                   </span>
                 </td>
-                <td @click="AssignDriver('View')">
+                <td @click="AssignDriver('view')">
                   <img src="../assets/Payment_Sales/more.png" alt="">
                 </td>
               </tr>
@@ -79,7 +80,8 @@
 
 
       </div>
-      <ViewAssign v-if="viewAssign === 'view' || viewAssign === 'assign'" :assign="viewAssign" @close="viewAssign = null" />
+      <ViewAssign v-if="viewAssign" :formaAction="viewAssign"
+        @close="viewAssign = null" />
 
     </div>
   </AdminLayout>
@@ -150,13 +152,9 @@ export default {
   },
   methods: {
     AssignDriver(view) {
-          if(view == 'Assign'){
-            console.log('assign');
-            this.viewAssign = 'assign';
-          } else {
-            this.viewAssign = 'view';
-          }
-        },
+      console.log('assign', view);
+      this.viewAssign = view;
+    },
     changePage(page) {
       if (page !== '...' && page >= 1 && page <= this.totalPages) {
         this.currentPage = page;
