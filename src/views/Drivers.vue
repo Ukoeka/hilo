@@ -80,7 +80,7 @@
               </p>
             </div>
             <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center"
-              @click="AssignDriver('Assign')">
+              @click="AssignDriver('add')">
               <span><img src="../assets/Payment_Sales/plus.png" alt=""></span>
               Add New
             </button>
@@ -155,7 +155,7 @@
         </div> -->
 
       </div>
-      <ViewAssign v-if="viewAssign === 'view' || viewAssign === 'assign'" :assign="viewAssign"
+      <ViewAssign v-if="viewAssign " :assign="viewAssign"
         @close="viewAssign = null" />
     </div>
   </AdminLayout>
@@ -288,12 +288,7 @@ export default {
       }
     },
     AssignDriver(view) {
-      if (view == 'Assign') {
-        console.log('assign');
-        this.viewAssign = 'assign';
-      } else {
-        this.viewAssign = 'view';
-      }
+      this.viewAssign = view;
     },
     changePage(page) {
       if (page !== '...' && page >= 1 && page <= this.totalPages) {
