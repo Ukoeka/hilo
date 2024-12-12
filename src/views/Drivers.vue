@@ -289,6 +289,7 @@ export default {
     },
     AssignDriver(view) {
       this.viewAssign = view;
+      console.log(view)
     },
     changePage(page) {
       if (page !== '...' && page >= 1 && page <= this.totalPages) {
