@@ -42,28 +42,28 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(payment, index) in payments" :key="index">
+              <tr v-for="(item, index) in admins" :key="item.id">
                 <td>{{ index + 1 }}</td>
-                <td><img :src="payment.image" alt=""></td>
-                <td>{{ payment.adminName }}</td>
-                <td>{{ payment.email }}</td>
-                <td>{{ payment.joindate }}</td>
-                <td :class="[payment.role === 'Super Admin' ? 'text-success text-green' : '']">{{ payment.role }}</td>
-                <td>{{ payment.lastseen }}</td>
+                <td><img :src="item.image" alt="N/A"></td>
+                <td>{{ item.firstName }} {{ item.lastName }}</td>
+                <td>{{ item.email }}</td>
+                <td>12/12/12</td>
+                <td :class="[item.role === 'Super Admin' ? 'text-success text-green' : '']">{{ item.role }}</td>
+                <td>2 Hours</td>
                 <td>
                   <span :class="[
                     'd-flex align-items-center justify-content-center gap-2 rounded p-2',
-                    payment.status === 'Active' ? 'completed' : '',
-                    payment.status === 'Inactive' ? 'draft' : '',
+                    item.status === 'Active' ? 'completed' : '',
+                    item.status === 'Inactive' ? 'draft' : '',
                     //   payment.status === 'Pending'? 'ongoing': ''
 
                   ]" style="width: fit-content">
                     <div :class="[
-                      payment.status === 'Active' ? 'completed-circle' : '',
-                      payment.status === 'Inactive' ? 'draft-circle' : '',
+                      item.status === 'Active' ? 'completed-circle' : '',
+                      item.status === 'Inactive' ? 'draft-circle' : '',
                       // payment.status === 'Pending' ? 'ongoing-circle' : '',
                     ]" class="rounded-circle" style="height: 10px; width: 10px;"></div>
-                    {{ payment.status }}
+                    {{ item.status }}
                   </span>
                 </td>
                 <td>
@@ -209,8 +209,8 @@ export default {
         firstName: '',
         lastName: '',
         email: '',
-
-      }
+      },
+      admins: [],
     };
   },
   computed: {
@@ -240,7 +240,27 @@ export default {
       return range;
     },
   },
+  mounted() {
+    this.fetchAdmin( 1, 10)
+  },
   methods: {
+    async fetchAdmin(page, pageSize) {
+      try {  
+        const url = `account/admins?page=${page}&pageSize=${pageSize}`; 
+        const resp = await fetchFromApi(url);
+        if (resp.status) {
+          this.admins = resp.data;
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('admin Response:', resp);
+    } catch (error) {
+        console.error('API call failed:', error);
+      } 
+    },
 
     async addAdmin() {
       this.Loader = true;
@@ -252,7 +272,7 @@ export default {
         formdata.append('firstName', this.adminData.firstName);
         formdata.append('lastName', this.adminData.lastName);
         formdata.append('email', this.adminData.email);
-        formdata.append('image', this.selectedImage);
+        formdata.append('profilePic', this.selectedImage);
 
         const resp = await postToApi(url, formdata, 'multipart/form-data');
         if (resp.status) {
@@ -282,12 +302,12 @@ export default {
       // Handle file selection and create a preview
       const file = event.target.files[0];
       if (file) {
-        // this.selectedImage = file;
+        this.selectedImage = file;
         this.preview = URL.createObjectURL(file);
         // Convert image to Base64 data string
         const reader = new FileReader();
         reader.onload = (e) => {
-          this.selectedImage = e.target.result;  // This is your data string
+          // this.selectedImage = e.target.result;  // This is your data string
         };
         reader.readAsDataURL(file);
       }

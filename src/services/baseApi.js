@@ -2,7 +2,7 @@ const base_url = 'https://holigisticz-server.onrender.com/api/'
 export const fetchFromApi = async (url, params = {}, contentType = "application/json") => {
   const token = sessionStorage.getItem('MVtoken');
   const queryString = new URLSearchParams(params).toString();
-  const response = await fetch(`${base_url}${url}?${queryString}`, {
+  const response = await fetch(`${base_url}${url}${queryString}`, {
     method: "GET",
     headers: {
       "Content-Type": contentType,

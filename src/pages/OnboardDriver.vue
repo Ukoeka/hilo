@@ -138,15 +138,16 @@
             <div class="mb-5 w-100 m-auto">
               <h3>Identity</h3>
               <div class="row">
-                <div class="col-md-4" v-for="(document, index) in documents" :key="'identity-' + index">
+                <div class="col-md-4" v-for="(document, index) in documents.slice(0, 3)"
+                  :key="'identity-' + document.id">
                   <p class="txt mb-3">{{ document.label }}</p>
-                  <div class="card d-flex py-4 mb-5 cursor" @click="triggerFileInput(index, 'documents')"
+                  <div class="card d-flex py-4 mb-5 cursor" @click="triggerFileInput(document.id, `documents`)"
                     style="background-color: rgba(240, 245, 243, 1);">
                     <img v-if="document.preview" :src="document.preview" alt="Document Preview"
                       class="m-auto mb-3 preview-img" width="60" height="60" />
                     <img v-else src="../assets/Drivers/Vector.png" class="m-auto mb-3" alt="" width="60" height="60" />
-                    <input type="file" :ref="'fileInput' + index" @change="handleFileChange($event, index, 'documents')"
-                      hidden />
+                    <input type="file" :ref="'fileInput' + document.id"
+                      @change="handleFileChange($event, document.id, 'documents')" hidden />
                     <p class="file-info browse-link">
                       Browse<br />.jpg, .png or .pdf files Accepted
                     </p>
@@ -159,15 +160,16 @@
             <div class="mb-5 w-100 m-auto">
               <h3>Insurance</h3>
               <div class="row">
-                <div class="col-md-4" v-for="(document, index) in documents1" :key="'insurance-' + index">
+                <div class="col-md-4" v-for="(document, index) in documents.slice(3, 8)"
+                  :key="'identity-' + document.id">
                   <p class="txt mb-3">{{ document.label }}</p>
-                  <div class="card d-flex py-4 mb-5 cursor" @click="triggerFileInput(index, 'documents1')"
+                  <div class="card d-flex py-4 mb-5 cursor" @click="triggerFileInput(document.id, `documents`)"
                     style="background-color: rgba(240, 245, 243, 1);">
                     <img v-if="document.preview" :src="document.preview" alt="Document Preview"
                       class="m-auto mb-3 preview-img" width="60" height="60" />
                     <img v-else src="../assets/Drivers/Vector.png" class="m-auto mb-3" alt="" width="60" height="60" />
-                    <input type="file" :ref="'fileInput' + index"
-                      @change="handleFileChange($event, index, 'documents1')" hidden />
+                    <input type="file" :ref="'fileInput' + document.id"
+                      @change="handleFileChange($event, document.id, 'documents')" hidden />
                     <p class="file-info browse-link">
                       Browse<br />.jpg, .png or .pdf files Accepted
                     </p>
@@ -177,20 +179,22 @@
             </div>
 
             <!-- Other -->
-            <!-- Other Section -->
             <div class="mb-5 w-100 m-auto">
               <h3>Other</h3>
               <div class="row">
-                <div class="col-md-4" v-for="(document, index) in document2" :key="'other-' + index">
+                <div class="col-md-4" v-for="(document, index) in documents.slice(8, 9)"
+                  :key="'identity-' + document.id">
                   <p class="txt mb-3">{{ document.label }}</p>
-                  <div class="card d-flex py-4 mb-5 cursor" @click="triggerFileInput(index, 'document2')"
+                  <div class="card d-flex py-4 mb-5 cursor" @click="triggerFileInput(document.id, `documents`)"
                     style="background-color: rgba(240, 245, 243, 1);">
                     <img v-if="document.preview" :src="document.preview" alt="Document Preview"
                       class="m-auto mb-3 preview-img" width="60" height="60" />
                     <img v-else src="../assets/Drivers/Vector.png" class="m-auto mb-3" alt="" width="60" height="60" />
-                    <input type="file" :ref="'fileInputdocument2' + index"
-                      @change="handleFileChange($event, index, 'document2')" hidden />
-                    <p class="file-info browse-link">Browse<br />.jpg, .png or .pdf files Accepted</p>
+                    <input type="file" :ref="'fileInput' + document.id"
+                      @change="handleFileChange($event, document.id, 'documents')" hidden />
+                    <p class="file-info browse-link">
+                      Browse<br />.jpg, .png or .pdf files Accepted
+                    </p>
                   </div>
                 </div>
               </div>
@@ -314,40 +318,47 @@ export default {
         { label: "Bike", value: "bike" },
       ],
       documents: [
-        { label: "Driving License", file: null, preview: null },
-        { label: "Utility Bill 1", file: null, preview: null },
-        { label: "Utility Bill 2", file: null, preview: null },
-      ],
-      documents1: [
-        { label: "Vehicle insurance (Hire and Reward)", file: null, preview: null },
+        { label: "Driving License", file: null, preview: null, id: 1 },
+        { label: "Utility Bill 1", file: null, preview: null, id: 2 },
+        { label: "Utility Bill 2", file: null, preview: null, id: 3 },
+        { label: "Vehicle insurance (Hire and Reward)", file: null, preview: null, id: 4 },
         {
           label:
             "Goods in Transit (minimum cover £10,000 for the purpose of removals)",
           file: null,
           preview: null,
+          id: 5
         },
-        { label: "Public Liability (minimum £1M)", file: null, preview: null },
-        { label: "Motor Trade Insurance(where applicable)", file: null, preview: null },
-        { label: "CMR (minimum £50,000 where applicable)", file: null, preview: null },
+        { label: "Public Liability (minimum £1M)", file: null, preview: null, id: 6 },
+        { label: "Motor Trade Insurance(where applicable)", file: null, preview: null, id: 7 },
+        { label: "CMR (minimum £50,000 where applicable)", file: null, preview: null, id: 8 },
+        { label: "Vat Certificate", file: null, preview: null, id: 9 },
       ],
-      document2: [
-        { label: "Vat Certificate", file: null, preview: null },
-      ]
     };
   },
   methods: {
     triggerFileInput(index, listName) {
+      event.stopPropagation(); // Prevents the click event from propagating further
       // Trigger the file input programmatically
       this.$refs['fileInput' + index][0].click();
+
     },
     handleFileChange(event, index, listName) {
+      console.log(index, listName);
+
       const file = event.target.files[0];
       if (file) {
+
         const reader = new FileReader();
         reader.onload = (e) => {
           // Ensure the preview URL is correctly set
-          this[listName][index].preview = e.target.result;  // Base64 image preview
-          this[listName][index].file = file;
+          this.documents.forEach((doc) => {
+            console.log(doc)
+            if (doc.id === index) {
+              doc.preview = e.target.result
+              doc.file = file
+            }
+          })
         };
         reader.readAsDataURL(file); // This will load the image or file
       }
@@ -377,7 +388,6 @@ export default {
 
       try {
         const formData = new FormData();
-
         // Append basic fields as per the request body example
         formData.append('firstName', this.driverDetails.firstName);
         formData.append('lastName', this.driverDetails.lastName);
@@ -385,24 +395,29 @@ export default {
         formData.append('businessName', this.driverDetails.businessName);
         formData.append('postCode', this.driverDetails.postCode);
         formData.append('phoneNumber', this.driverDetails.phoneNumber);
-  
-
-        // Stringify and append additionalData
-        formData.append('additionalData', JSON.stringify(this.driverDetails.additionalData)); // { "numberOfVehicle": 1 }
-
-        // Append vehicle-related data
-        formData.append('vehicle_types', JSON.stringify(this.form.additional.vehicleTypes)); // Vehicle types as JSON
-        formData.append('number_of_vehicle', this.form.additional.numberOfVehicle);
-        formData.append('vat_registered', this.form.additional.vatRegistered);
+        formData.append('additionalData', JSON.stringify(this.additional)); // { "numberOfVehicle": 1 }
 
         // Append documents as per the request body mmeyene
         this.appendFilesToFormData(formData, 'documents', this.documents);
-        this.appendFilesToFormData(formData, 'documents1', this.documents1);
-        this.appendFilesToFormData(formData, 'documents2', this.document2);
 
         // Send the data via API call
         const response = await postToApi('registration/driver', formData, 'multipart/form-data');
         console.log(response);
+        if (response.status) {
+          swal({
+            title: "Success",
+            text: "Driver has been successfully added",
+            icon: "success",
+            button: "Ok",
+          })
+        } else {
+          swal({
+            title: "Error",
+            text: response.message,
+            icon: "error",
+            button: "Ok",
+          })
+        }
       } catch (error) {
         console.error(error);
       }
@@ -414,10 +429,6 @@ export default {
         if (document.file) {
           // Append the actual file using the correct name pattern
           formData.append(`${keyPrefix}[${index}][file]`, document.file);
-        }
-        if (document.label) {
-          // Append the label (optional)
-          formData.append(`${keyPrefix}[${index}][label]`, document.label);
         }
       });
     },
@@ -451,7 +462,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style scoped >
 .cursor {
   cursor: pointer;
 }
