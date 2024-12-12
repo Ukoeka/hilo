@@ -2,7 +2,7 @@
   <AdminLayout>
     <div class="vh-100 w-100 bg d-flex flex-column p-3">
       <div class="d-flex justify-content-between px-3 sizing mb-5">
-        <h2>Drivers</h2>
+        <h2>Admins</h2>
         <div class="d-flex gap-3 align-items-center profile">
           <img src="../assets/Dashbordicons/3d_avatar_3.png" alt="" class="">
           <span>Favour Udoh</span>
@@ -18,7 +18,7 @@
             <div class="d-flex align-items-center gap-2 p-3">
               <h2>Account Managers</h2>
               <p class="p-1 rounded-1 m-0"
-                style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">13 Admins
+                style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">{{adminPagination?.totalRecords }} Admins
               </p>
             </div>
             <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center" @click="openModal()">
@@ -47,7 +47,7 @@
                 <td><img :src="item.image" alt="N/A"></td>
                 <td>{{ item.firstName }} {{ item.lastName }}</td>
                 <td>{{ item.email }}</td>
-                <td>12/12/12</td>
+                <td>{{formatDate(item.createdAt)}}</td>
                 <td :class="[item.role === 'Super Admin' ? 'text-success text-green' : '']">{{ item.role }}</td>
                 <td>2 Hours</td>
                 <td>
@@ -174,11 +174,11 @@ import admin1 from '../assets/Admin/admin.png';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import loader from '@/components/loader.vue';
 import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
-import Loader from '@/components/loader.vue';
+
 
 export default {
   components: {
-    Sidebar, Nav, loader
+    Sidebar, Nav, loader, AdminLayout
   },
   data() {
     return {
@@ -241,15 +241,27 @@ export default {
     },
   },
   mounted() {
-    this.fetchAdmin( 1, 10)
+    this.fetchAdmin(1, 10)
   },
   methods: {
+    formatDate(data, lastSeen = false) {
+      let processedData = data
+
+      if (lastSeen) {
+        const splitData = data.split(',')
+        processedData = splitData[0] // Assuming you want the first part after splitting
+      }
+
+      const date = new Date(processedData)
+      return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
+    },
     async fetchAdmin(page, pageSize) {
-      try {  
-        const url = `account/admins?page=${page}&pageSize=${pageSize}`; 
+      try {
+        const url = `account/admins?page=${page}&pageSize=${pageSize}`;
         const resp = await fetchFromApi(url);
         if (resp.status) {
           this.admins = resp.data;
+          this.adminPagination = resp.pagination
         } else {
           swal({
             text: resp.message,
@@ -257,9 +269,9 @@ export default {
           });
         }
         console.log('admin Response:', resp);
-    } catch (error) {
+      } catch (error) {
         console.error('API call failed:', error);
-      } 
+      }
     },
 
     async addAdmin() {
@@ -280,7 +292,7 @@ export default {
             text: "Admin added successfully!",
             icon: "success",
           });
-          // this.fetchParameter();
+          this.fetchAdmin(1, 10)
         } else {
           swal({
             text: resp.message,

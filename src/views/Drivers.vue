@@ -101,33 +101,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(payment, index) in payments" :key="index">
+              <tr v-for="(payment, index) in driversData" :key="index">
                 <td>{{ index + 1 }}</td>
                 <td>
-                  <img :src="payment.image" alt="Driver Image" style="width: 50px; height: auto;">
+                  <img :src="payment.profilePic" alt="Driver Image" style="width: 50px; height: auto;">
                 </td>
-                <td>{{ payment.name }}</td>
+                <td>{{ payment.firstName }} {{ payment.lastName }}</td>
                 <td>{{ payment.email }}</td>
-                <td>{{ payment.completedMove }}</td>
+                <td>{{  }}</td>
                 <td>{{ payment.age }}</td>
-                <td>{{ payment.dateAdded }}</td>
+                <td>{{ formatDate(payment.createdAt) }}</td>
                 <td>{{ payment.status }}</td>
-                <td>
-                  <span :class="[
-                    'd-flex align-items-center justify-content-center gap-2 rounded p-2',
-                    payment.status === 'Active' ? 'completed' : '',
-                    payment.status === 'Inactive' ? 'draft' : ''
-                  ]" style="width: fit-content">
-                    <div :class="[
-                      payment.status === 'Active' ? 'completed-circle' : '',
-                      payment.status === 'Inactive' ? 'draft-circle' : ''
-                    ]" class="rounded-circle" style="height: 10px; width: 10px;"></div>
-                    {{ payment.status }}
-                  </span>
-                </td>
-                <td @click="AssignDriver('View')">
-                  <img src="../assets/Payment_Sales/more.png" alt="">
-                </td>
               </tr>
             </tbody>
           </table>
@@ -181,6 +165,8 @@
 <script>
 import ViewAssign from '@/components/Dashboard/ViewAssign.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
+import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
+
 
 export default {
   components: {
@@ -235,7 +221,10 @@ export default {
         age: 45,
         dateAdded: '11/6/2022',
         status: ['Active', 'Inactive', 'Active', 'Inactive', 'Active'][i % 5]
-      }))
+      })),
+      Loader: false,
+      driversData: [],
+      driversPagination: {}
     };
   },
   computed: {
@@ -265,7 +254,39 @@ export default {
       return range;
     },
   },
+  mounted() {
+    this.fetchDrivers(1, 10)
+  },
   methods: {
+    formatDate(data, lastSeen = false) {
+      let processedData = data
+
+      if (lastSeen) {
+        const splitData = data.split(',')
+        processedData = splitData[0] // Assuming you want the first part after splitting
+      }
+
+      const date = new Date(processedData)
+      return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
+    },
+    async fetchDrivers(page, pageSize) {
+      try {
+        const url = `account/drivers?page=${page}&pageSize=${pageSize}`;
+        const resp = await fetchFromApi(url);
+        if (resp.status) {
+          this.driversData = resp.data;
+          this.driversPagination = resp.pagination
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('admin Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      }
+    },
     AssignDriver(view) {
       if (view == 'Assign') {
         console.log('assign');

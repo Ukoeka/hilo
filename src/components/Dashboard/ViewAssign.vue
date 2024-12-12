@@ -18,9 +18,10 @@
     <div class="profile-section">
       <div class="d-flex justify-content-between align-items-center">
         <div class="profile-info">
-          <div class="profile-image">
-            <img :src="profileData.imageUrl" alt="Profile" />
-          </div>
+          <a href="javascript:void(0);"  class="profile-image" @click="handleClick">
+            <img v-if="draggedFile" :src="draggedFile" alt="">
+            <img v-else :src="profileData.imageUrl" alt="Profile" />
+          </a>
           <div class="profile-details">
             <h5>{{ profileData.name }}</h5>
             <p>{{ profileData.email }}</p>
@@ -30,7 +31,7 @@
           <button class="btn btn-outline-danger btn-sm" @click="handleDelete">
             {{ formaAction === 'add' ? 'Cancel' : 'Delete' }}
           </button>
-          <button class="btn btn-outline-primary btn-sm ms-2" @click="handleEdit">
+          <button class="btn btn-outline-primary btn-sm ms-2" @click="addDrivers">
             {{ formaAction === 'add' ? 'Save' : 'Edit' }}
           </button>
         </div>
@@ -82,13 +83,6 @@
             <label class="form-label">City</label>
             <input type="text" class="form-control" v-model="formData.city" placeholder="Placeholder" />
           </div>
-
-          <!-- Placeholder Field -->
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Placeholder</label>
-            <input type="text" class="form-control" v-model="formData.placeholder" placeholder="Placeholder" />
-          </div>
-
           <!-- Language -->
           <div class="col-md-6 mb-3">
             <label class="form-label">Language</label>
@@ -103,15 +97,13 @@
       </form>
     </div>
   </div>
-  <AssignedTable  v-if="assignedTable" />
+  <AssignedTable v-if="assignedTable" />
 
 </template>
 
 <script>
 import AssignedTable from './AssignedTable.vue';
-import loader from '@/components/loader.vue';
 import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
-import Loader from '@/components/loader.vue';
 
 export default {
   name: 'UserProfileForm',
@@ -138,7 +130,6 @@ export default {
         gender: '',
         country: '',
         city: '',
-        placeholder: '',
         language: ''
       },
       genderOptions: [
@@ -150,11 +141,69 @@ export default {
         { value: 'en', label: 'English' },
         { value: 'es', label: 'Spanish' },
         { value: 'fr', label: 'French' }
-      ]
+      ],
+      draggedFile: null,
+      Image: null,
+      Loader: false,
+      drivers: [],
+      driversPagination: {}
     }
   },
-
+  mounted() {
+  },
   methods: {
+    handleClick() {
+      const input = document.createElement('input')
+      input.type = 'file'
+      input.accept = ''
+      input.onchange = (e) => {
+        const file = (e.target).files?.[0]
+        if (file) {
+          this.Image = file
+          const imgUrl = URL.createObjectURL(file)
+          this.draggedFile = imgUrl
+        }
+      }
+      input.click()
+    },
+    
+    async addDrivers() {
+      this.Loader = true;
+
+      const url = `/account/drivers`;
+
+      try {
+        const formdata = new FormData();
+        formdata.append('firstName', this.formData.firstName);
+        formdata.append('lastName', this.formData.lastName);
+        formdata.append('email', this.formData.email);
+        formdata.append('gender', this.formData.gender);
+        formdata.append('country', this.formData.country);
+        formdata.append('city', this.formData.city);
+        formdata.append('language', this.formData.language);
+        formdata.append('profilePic', this.Image);
+
+
+        const resp = await postToApi(url, formdata, 'multipart/form-data');
+        if (resp.status) {
+          swal({
+            text: "Admin added successfully!",
+            icon: "success",
+          });
+          fetchDrivers(1, 10)
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('admin Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      } finally {
+        this.Loader = false;
+      }
+    },
     goBack() {
       this.$emit('close')
       // Implement navigation logic
