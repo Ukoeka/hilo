@@ -41,7 +41,7 @@
         Cleaners
       </RouterLink>
 
-      <RouterLink to=" /cleaningquotes" class="nav-link" :class="{ 'active': $route.path === '/cleaningquotes' }">
+      <RouterLink to="cleaningquotes" class="nav-link" :class="{ 'active': $route.path === '/cleaningquotes' }">
         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M7.25 21C6.76875 21 6.35692 20.8337 6.0145 20.501C5.67208 20.1684 5.50058 19.7681 5.5 19.3V5.7C5.5 5.2325 5.6715 4.83243 6.0145 4.4998C6.3575 4.16717 6.76933 4.00057 7.25 4H17.75C18.2312 4 18.6434 4.1666 18.9864 4.4998C19.3294 4.833 19.5006 5.23307 19.5 5.7V19.3C19.5 19.7675 19.3288 20.1678 18.9864 20.501C18.644 20.8342 18.2318 21.0006 17.75 21H7.25ZM11.625 11.65L13.8125 10.375L16 11.65V5.7H11.625V11.65Z"

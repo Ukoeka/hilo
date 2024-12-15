@@ -76,7 +76,7 @@
             <div class="d-flex align-items-center gap-2 p-3">
               <h2>Drivers</h2>
               <p class="p-1 rounded-1 m-0"
-                style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">13 Drivers
+                style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">{{ driversPagination?.totalRecords }} Drivers
               </p>
             </div>
             <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center"
@@ -111,7 +111,22 @@
                 <td>{{  }}</td>
                 <td>{{ payment.age }}</td>
                 <td>{{ formatDate(payment.createdAt) }}</td>
-                <td>{{ payment.status }}</td>
+                <td>
+                  <span :class="[
+                    'd-flex align-items-center justify-content-center gap-2 rounded p-2',
+                    payment.status === 'active' ? 'completed' : '',
+                    payment.status === 'inactive' ? 'draft' : ''
+                  ]" style="width: fit-content">
+                    <div :class="[
+                      payment.status === 'active' ? 'completed-circle' : '',
+                      payment.status === 'inactive' ? 'draft-circle' : ''
+                    ]" class="rounded-circle" style="height: 10px; width: 10px;"></div>
+                    {{ payment.status }}
+                  </span>
+                </td>
+                <td @click="AssignDriver('view')">
+                  <img src="../assets/Payment_Sales/more.png" class="cursor-pointer w-25" alt="">
+                </td>
               </tr>
             </tbody>
           </table>
@@ -155,7 +170,7 @@
         </div> -->
 
       </div>
-      <ViewAssign v-if="viewAssign " :assign="viewAssign"
+      <ViewAssign v-if="viewAssign " :formAction="viewAssign" :CompType="'driver'"
         @close="viewAssign = null" />
     </div>
   </AdminLayout>
@@ -175,23 +190,8 @@ export default {
   },
   data() {
     return {
-      viewAssign: null,
-      payments: [
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Charlie Brakus', email: 'Erin33@hotmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Jamie Schroeder', email: 'Ernest_Altenwerth@gmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Alexander O\'Conner', email: 'Lori.Rodriguez@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Inactive', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Anne Stanton', email: 'Clarence69@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Abel Brown', email: 'Carole.McCullough@hotmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Inactive', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Lorene Nienow', email: 'Javier.Olson@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Abel Turcotte', email: 'Wilma.Crona@hotmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Rosa Kohler', email: 'Micheal_Hane@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Inactive', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Mike Sporer', email: 'Veronica_Reynolds36@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Elena Okuneva', email: 'Marlon_Hills14@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Darrell Brown', email: 'Kathleen_Bode@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Inactive', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Lillian Mohr', email: 'Shane71@yahoo.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Kelvin Johnson', email: 'Katherine.VonRueden@gmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Inactive', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Rosemary Howe', email: 'Santos_Corkery17@gmail.com', completedMove: 232, age: 45, dateAdded: '11/6/2022', status: 'Active', accountType: 'Driver' },
-      ],
+      viewAssign: '',
+      
       searchQuery: '',
       itemsPerPage: 14,
       currentPage: 1,

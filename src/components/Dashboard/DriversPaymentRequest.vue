@@ -7,7 +7,8 @@
       </button>
       <div class="driver-section">
         <div>
-          <a href="javascript:void(0);" class="fw-bold me-3 text-decoration-none text-black" @click="assignDriver">Assigned Driver</a>
+          <a href="javascript:void(0);" class="fw-bold me-3 text-decoration-none text-black"
+            @click="assignDriver">Assigned Driver</a>
           <span class="bg-white text-gray p-3">Charlie Brakus</span>
         </div>
         <button class="driver-profile-btn">Driver Profile</button>
@@ -19,11 +20,11 @@
         <div class="info-grid">
           <div class="info-item">
             <div class="info-label">Client Name</div>
-            <div class="info-value">{{ clientName }}</div>
+            <div class="info-value">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Phone Number</div>
-            <div class="info-value">{{ phoneNumber }}</div>
+            <div class="info-value">{{ movingDetails.phoneNumber }}</div>
           </div>
           <div class="info-item">
             <div class="info-label">Post Code</div>
@@ -31,54 +32,69 @@
           </div>
           <div class="info-item">
             <div class="info-label">Booking Date</div>
-            <div class="info-value">{{ bookingDate }}</div>
+            <div class="info-value">{{formatDate(movingDetails.bookingDate) }}</div>
           </div>
           <div class="info-item">
             <div class="info-label">Pickup Location</div>
-            <div class="info-value">{{ pickupLocation }}</div>
+            <div class="info-value">{{ movingDetails.pickUp?.name }}</div>
           </div>
           <div class="info-item">
             <div class="info-label">Delivery Location</div>
-            <div class="info-value">{{ deliveryLocation }}</div>
+            <div class="info-value">{{ movingDetails.dropOff?.name }}</div>
           </div>
           <div class="info-item">
             <div class="info-label">Pickup Property Type</div>
-            <div class="info-value">{{ pickupPropertyType }}</div>
+            <div class="info-value">{{ movingDetails.type }}</div>
           </div>
           <div class="info-item">
             <div class="info-label">Delivery Property Type</div>
-            <div class="info-value">{{ deliveryPropertyType }}</div>
+            <div class="info-value">{{movingDetails.serviceType }}</div>
           </div>
           <div class="info-item">
             <div class="info-label">Pickup Property Floor</div>
-            <div class="info-value">{{ pickupPropertyFloor }}</div>
+            <div class="info-value">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Email</div>
-            <div class="info-value">{{ email }}</div>
+            <div class="info-value">{{ movingDetails.email }}</div>
           </div>
           <div class="info-item additional-info">
             <div class="info-label">Additional Information</div>
-            <div class="info-value">{{ additionalInfo }}</div>
+            <div class="info-value">N/A</div>
           </div>
         </div>
       </div>
 
       <div class="recent-deliveries">
         <h2>Recent Deliveries</h2>
-        <div v-for="item in deliveryItems" :key="item.id" class="delivery-item">
+        <!-- <div v-for="item in deliveryItems" :key="item.id" class="delivery-item">
           {{ item.quantity }} {{ item.name }}
-        </div>
+        </div> -->
+        <span>N/A</span>
       </div>
     </div>
   </div>
 
-    <DriversTable v-if="openDriversTable" @payment="assignDriver"></DriversTable>
+  <DriversTable v-if="openDriversTable" @payment="assignDriver" type='moving' :userId="userId"></DriversTable>
 </template>
 
 <script>
 import DriversTable from './DriversTable.vue';
+import loader from "@/components/loader.vue";
+import {
+  fetchFromApi,
+  postToApi,
+  deleteFromApi,
+  patchToApi,
+} from "@/services/baseApi";
+
 export default {
+  name: 'DriversPaymentRequest',
+  props: {
+    userId: {
+      type: String,
+    }
+  },
   components: {
     DriversTable
   },
@@ -106,10 +122,43 @@ export default {
         { id: 4, quantity: '1', name: 'Kitchen Cabinet' },
         { id: 5, quantity: '1', name: 'Small Box' },
         { id: 6, quantity: '1', name: 'Small Bed' }
-      ]
+      ],
+      movingDetails: {}
     }
   },
+  mounted() {
+    this.fetchDetails(this.userId)
+  },
   methods: {
+    formatDate(data, lastSeen = false) {
+      let processedData = data
+
+      if (lastSeen) {
+        const splitData = data.split(',')
+        processedData = splitData[0] // Assuming you want the first part after splitting
+      }
+
+      const date = new Date(processedData)
+      return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
+    },
+
+    async fetchDetails(quoteId) {
+      try {
+        const url = `quotes/${quoteId}?type=moving`;
+        const resp = await fetchFromApi(url);
+        if (resp.status) {
+          this.movingDetails = resp.data;
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log("Response:", resp);
+      } catch (error) {
+        console.error("API call failed:", error);
+      }
+    },
     back() {
       this.$emit('payment')
     },

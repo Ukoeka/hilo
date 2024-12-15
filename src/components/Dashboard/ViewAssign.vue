@@ -18,7 +18,7 @@
     <div class="profile-section">
       <div class="d-flex justify-content-between align-items-center">
         <div class="profile-info">
-          <a href="javascript:void(0);"  class="profile-image" @click="handleClick">
+          <a href="javascript:void(0);" class="profile-image" @click="handleClick">
             <img v-if="draggedFile" :src="draggedFile" alt="">
             <img v-else :src="profileData.imageUrl" alt="Profile" />
           </a>
@@ -29,10 +29,10 @@
         </div>
         <div class="profile-actions">
           <button class="btn btn-outline-danger btn-sm" @click="handleDelete">
-            {{ formaAction === 'add' ? 'Cancel' : 'Delete' }}
+            {{ formAction === 'add' ? 'Cancel' : 'Delete' }}
           </button>
-          <button class="btn btn-outline-primary btn-sm ms-2" @click="addDrivers">
-            {{ formaAction === 'add' ? 'Save' : 'Edit' }}
+          <button class="btn btn-outline-primary btn-sm ms-2" @click="handleEdit">
+            {{ formAction === 'add' ? 'Save' : 'Edit' }}
           </button>
         </div>
 
@@ -93,6 +93,11 @@
               </option>
             </select>
           </div>
+          <!-- Address -->
+          <div v-if="CompType === 'cleaner'"class="col-md-6 mb-3">
+            <label class="form-label">Address</label>
+            <input type="text" class="form-control" v-model="formData.address" placeholder="Placeholder" />
+          </div>
         </div>
       </form>
     </div>
@@ -108,11 +113,20 @@ import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/b
 export default {
   name: 'UserProfileForm',
   props: {
-    formaAction: String,
+    formAction: {
+      type: String,
+      default: 'add'
+    },
+    CompType: {
+      type: String,
+    }
+  },
+  computed: {
   },
   components: {
     AssignedTable
   },
+
   data() {
     return {
       assignedTable: false,
@@ -130,7 +144,8 @@ export default {
         gender: '',
         country: '',
         city: '',
-        language: ''
+        language: '',
+        address: ''
       },
       genderOptions: [
         { value: 'male', label: 'Male' },
@@ -152,6 +167,23 @@ export default {
   mounted() {
   },
   methods: {
+
+    handleDelete() {
+      if (this.formAction === 'add') {
+        this.goBack();
+      }
+      // Implement delete logic
+      console.log('Deleting profile')
+    },
+
+    handleEdit() {
+      if (this.formAction === 'add') {
+        this.addDrivers()
+      }
+      // Implement edit logic
+      console.log('Editing profile')
+    },
+
     handleClick() {
       const input = document.createElement('input')
       input.type = 'file'
@@ -166,11 +198,13 @@ export default {
       }
       input.click()
     },
-    
+
     async addDrivers() {
       this.Loader = true;
+      const driverUrl = `/account/drivers`;
+      const cleanerUrl = `/account/cleaners`;
 
-      const url = `/account/drivers`;
+      const url = this.CompType === 'driver' ? driverUrl : cleanerUrl
 
       try {
         const formdata = new FormData();
@@ -182,12 +216,15 @@ export default {
         formdata.append('city', this.formData.city);
         formdata.append('language', this.formData.language);
         formdata.append('profilePic', this.Image);
+        if(this.CompType === 'cleaner'){
+          formdata.append('address', this.formData.address);
+        }
 
 
         const resp = await postToApi(url, formdata, 'multipart/form-data');
         if (resp.status) {
           swal({
-            text: "Admin added successfully!",
+            text: resp.message,
             icon: "success",
           });
           fetchDrivers(1, 10)
@@ -215,17 +252,6 @@ export default {
       // Implement view assigned logic
       console.log('Viewing assigned')
     },
-
-    handleDelete() {
-      // Implement delete logic
-      console.log('Deleting profile')
-    },
-
-    handleEdit() {
-      // Implement edit logic
-      console.log('Editing profile')
-    },
-
     handleSubmit() {
       // Implement form submission logic
       console.log('Form submitted', this.formData)

@@ -18,7 +18,7 @@
             <div class="d-flex align-items-center gap-2 p-3">
               <h2>Cleaners</h2>
               <p class="p-1 rounded-1 m-0"
-                style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">13 Drivers
+                style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">{{ cleanersPagination?.totalRecords }} Drivers
               </p>
             </div>
             <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center"
@@ -44,26 +44,26 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(payment, index) in payments" :key="index">
+              <tr v-for="(payment, index) in cleanersData" :key="index">
                 <td>{{ index + 1 }}</td>
                 <td>
-                  <img :src="payment.image" alt="Driver Image" style="width: 50px; height: auto;">
+                  <img :src="payment.profilePic" alt="Driver Image" style="width: 50px; height: auto;">
                 </td>
-                <td>{{ payment.name }}</td>
+                <td>{{ payment.firstName }} {{ payment.lastName }}</td>
                 <td>{{ payment.email }}</td>
                 <td>{{ payment.age }}</td>
                 <td>{{ payment.city }}</td>
-                <td>{{ payment.dateAdded }}</td>
+                <td>{{ formatDate(payment.createdAt) }}</td>
                 <td>{{ payment.gender }}</td>
                 <td>
                   <span :class="[
                     'd-flex align-items-center justify-content-center gap-2 rounded p-2',
-                    payment.status === 'Active' ? 'completed' : '',
-                    payment.status === 'Inactive' ? 'draft' : ''
+                    payment.status === 'active' ? 'completed' : '',
+                    payment.status === 'inactive' ? 'draft' : ''
                   ]" style="width: fit-content">
                     <div :class="[
-                      payment.status === 'Active' ? 'completed-circle' : '',
-                      payment.status === 'Inactive' ? 'draft-circle' : ''
+                      payment.status === 'active' ? 'completed-circle' : '',
+                      payment.status === 'inactive' ? 'draft-circle' : ''
                     ]" class="rounded-circle" style="height: 10px; width: 10px;"></div>
                     {{ payment.status }}
                   </span>
@@ -80,7 +80,7 @@
 
 
       </div>
-      <ViewAssign v-if="viewAssign" :formaAction="viewAssign"
+      <ViewAssign v-if="viewAssign" :formaAction="viewAssign" :CompType="'cleaner'"
         @close="viewAssign = null" />
 
     </div>
@@ -90,6 +90,8 @@
 <script>
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import ViewAssign from '@/components/Dashboard/ViewAssign.vue';
+import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
+
 
 export default {
   components: {
@@ -121,6 +123,9 @@ export default {
       itemsPerPage: 14, // Items per page, with a default value of 14
       currentPage: 1,    // Current page number
       totalItems: 12400, // Total number of items (example)
+      Loader: false,
+      cleanersData: [],
+      cleanersPagination: {}
     };
   },
   computed: {
@@ -150,7 +155,39 @@ export default {
       return range;
     },
   },
+  mounted() {
+    this.fetchCleaners(1, 10)
+  },
   methods: {
+    formatDate(data, lastSeen = false) {
+      let processedData = data
+
+      if (lastSeen) {
+        const splitData = data.split(',')
+        processedData = splitData[0] // Assuming you want the first part after splitting
+      }
+
+      const date = new Date(processedData)
+      return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
+    },
+    async fetchCleaners(page, pageSize) {
+      try {
+        const url = `account/cleaners?page=${page}&pageSize=${pageSize}`;
+        const resp = await fetchFromApi(url);
+        if (resp.status) {
+          this.cleanersData = resp.data;
+          this.cleanersPagination = resp.pagination
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('Cleaners Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      }
+    },
     AssignDriver(view) {
       console.log('assign', view);
       this.viewAssign = view;
