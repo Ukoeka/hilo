@@ -32,7 +32,7 @@
           </div>
           <div class="info-item">
             <div class="info-label">Booking Date</div>
-            <div class="info-value">{{ movingDetails.bookingDate ? formatDate(movingDetails.bookingDate) :  parseDateTime(movingDetails.startTime).date }}</div>
+            <!-- <div class="info-value">{{ movingDetails.bookingDate ? formatDate(movingDetails.bookingDate) :  parseDateTime(movingDetails.startTime).date }}</div> -->
           </div>
           <div v-if="type == 'moving'" class="info-item">
             <div class="info-label" >Pickup Location</div>

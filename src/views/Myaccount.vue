@@ -133,6 +133,8 @@
 <script>
 import Nav from '@/components/Nav.vue';
 import UserLayout from '@/layouts/UserLayout.vue';
+import { fetchFromApi, postToApi } from '@/services/baseApi'
+
 
 export default {
   components: {
@@ -183,7 +185,31 @@ export default {
       ],
     };
   },
+  mounted() {
+    this.fetchUser() 
+  },
   methods: {
+    async fetchUser() {
+      try {
+        const url = `profile`;
+        const resp = await fetchFromApi(url);
+        console.log('Response:', resp)
+        if(resp.status) {
+          swal({
+            text: resp.message, 
+            icon: "success",
+          })
+          this.user = resp.data
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        } 
+      }catch (error) {
+        console.error("API call failed:", error);
+      }
+    },
     setActiveSection(section) {
       this.activeSection = section;
       this.selectedTab = !this.selectedTab;
