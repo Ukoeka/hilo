@@ -20,18 +20,18 @@
         <div class="profile-info">
           <a href="javascript:void(0);" class="profile-image" @click="handleClick">
             <img v-if="draggedFile" :src="draggedFile" alt="">
-            <img v-else :src="profileData.imageUrl" alt="Profile" />
+            <img v-else :src="AccountDetails.profilePic || profileData.imageUrl" alt="Profile" />
           </a>
           <div class="profile-details">
-            <h5>{{ profileData.name }}</h5>
-            <p>{{ profileData.email }}</p>
+            <h5>{{ AccountDetails.firstName }} {{ AccountDetails.lastName }}</h5>
+            <p>{{ AccountDetails.email }}</p>
           </div>
         </div>
         <div class="profile-actions">
           <button class="btn btn-outline-danger btn-sm" @click="handleDelete">
             {{ formAction === 'add' ? 'Cancel' : 'Delete' }}
           </button>
-          <button class="btn btn-outline-primary btn-sm ms-2" @click="handleEdit">
+          <button class="btn btn-outline-primary btn-sm ms-2" @click="handleDrivers">
             {{ formAction === 'add' ? 'Save' : 'Edit' }}
           </button>
         </div>
@@ -94,7 +94,7 @@
             </select>
           </div>
           <!-- Address -->
-          <div v-if="CompType === 'cleaner'"class="col-md-6 mb-3">
+          <div v-if="CompType === 'cleaner'" class="col-md-6 mb-3">
             <label class="form-label">Address</label>
             <input type="text" class="form-control" v-model="formData.address" placeholder="Placeholder" />
           </div>
@@ -115,9 +115,11 @@ export default {
   props: {
     formAction: {
       type: String,
-      default: 'add'
     },
     CompType: {
+      type: String,
+    },
+    userId: {
       type: String,
     }
   },
@@ -133,8 +135,8 @@ export default {
       isEditing: false,
       isDeleting: false,
       profileData: {
-        name: 'Charlie Brakus',
-        email: 'Erin33@hotmail.com',
+        name: 'add name',
+        email: 'add email',
         imageUrl: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'
       },
       formData: {
@@ -161,10 +163,14 @@ export default {
       Image: null,
       Loader: false,
       drivers: [],
-      driversPagination: {}
+      driversPagination: {},
+      AccountDetails: {}
     }
   },
   mounted() {
+    if (this.formAction === 'view') {
+      this.fetchDetails()
+    }
   },
   methods: {
 
@@ -174,14 +180,6 @@ export default {
       }
       // Implement delete logic
       console.log('Deleting profile')
-    },
-
-    handleEdit() {
-      if (this.formAction === 'add') {
-        this.addDrivers()
-      }
-      // Implement edit logic
-      console.log('Editing profile')
     },
 
     handleClick() {
@@ -199,13 +197,46 @@ export default {
       input.click()
     },
 
-    async addDrivers() {
+
+    async fetchDetails() {
+      this.AccountLoader = true;
+      const url = `account/${this.userId}`
+      try {
+
+        const resp = await fetchFromApi(url);
+        if (resp.status) {
+          swal({
+            text: resp.message,
+            icon: "success",
+          });
+          this.AccountDetails = resp.data
+          const data = Object.keys(resp.data)
+          data.forEach((key) => {
+            this.formData[key] = key
+            console.log(key)
+            this.formData[key] = resp.data[key]
+          })
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('admin Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      } finally {
+        this.AccountLoader = false;
+
+      }
+    },
+    async handleDrivers() {
       this.Loader = true;
-      const driverUrl = `/account/drivers`;
-      const cleanerUrl = `/account/cleaners`;
+      const driverUrl = `account/drivers`;
+      const cleanerUrl = `account/cleaners`;
 
-      const url = this.CompType === 'driver' ? driverUrl : cleanerUrl
-
+      const addUrl = this.CompType === 'driver' ? driverUrl : cleanerUrl
+      const updateUrl = `${addUrl}/${this.userId}`
       try {
         const formdata = new FormData();
         formdata.append('firstName', this.formData.firstName);
@@ -216,23 +247,28 @@ export default {
         formdata.append('city', this.formData.city);
         formdata.append('language', this.formData.language);
         formdata.append('profilePic', this.Image);
-        if(this.CompType === 'cleaner'){
+        if(this.CompType === 'cleaner') {
           formdata.append('address', this.formData.address);
+
         }
 
 
-        const resp = await postToApi(url, formdata, 'multipart/form-data');
+        const resp = this.formAction === 'add' ? await postToApi(addUrl, formdata, 'multipart/form-data') : await patchToApi(updateUrl, formdata, 'multipart/form-data');
         if (resp.status) {
-          swal({
-            text: resp.message,
-            icon: "success",
-          });
-          fetchDrivers(1, 10)
-        } else {
-          swal({
-            text: resp.message,
-            icon: "error",
-          });
+          if (this.formAction === 'view') {
+            this.fetchDetails()
+
+            swal({
+              text: resp.message,
+              icon: "success",
+            });
+            fetchDrivers(1, 10)
+          } else {
+            swal({
+              text: resp.message,
+              icon: "error",
+            });
+          }
         }
         console.log('admin Response:', resp);
       } catch (error) {

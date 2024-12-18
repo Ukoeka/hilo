@@ -68,8 +68,9 @@
                     {{ payment.status }}
                   </span>
                 </td>
-                <td @click="AssignDriver('view')">
-                  <img src="../assets/Payment_Sales/more.png" alt="">
+                <td @click="AssignDriver('view', payment.id)">
+                  <!-- <img src="../assets/Payment_Sales/more.png" alt=""> -->
+                   <button class="btn btn-sm btn-success text-white rounded-full">view</button>
                 </td>
               </tr>
             </tbody>
@@ -80,8 +81,8 @@
 
 
       </div>
-      <ViewAssign v-if="viewAssign" :formaAction="viewAssign" :CompType="'cleaner'"
-        @close="viewAssign = null" />
+      <ViewAssign v-if="viewAssign" :form-action="viewAssign" :CompType="'cleaner'"
+        @close="viewAssign = null" :userId="userId" />
 
     </div>
   </AdminLayout>
@@ -156,7 +157,7 @@ export default {
     },
   },
   mounted() {
-    this.fetchCleaners(1, 10)
+    this.fetchCleaners(1, 20)
   },
   methods: {
     formatDate(data, lastSeen = false) {
@@ -188,9 +189,10 @@ export default {
         console.error('API call failed:', error);
       }
     },
-    AssignDriver(view) {
+    AssignDriver(view, id) {
       console.log('assign', view);
       this.viewAssign = view;
+      this.userId = id
     },
     changePage(page) {
       if (page !== '...' && page >= 1 && page <= this.totalPages) {
