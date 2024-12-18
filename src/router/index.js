@@ -24,6 +24,7 @@ import Business from "@/pages/Business.vue";
 import OnboardDriver from "@/pages/OnboardDriver.vue";
 import OnboardCleaner from "@/pages/OnboardCleaner.vue";
 import BookCleaning from "@/pages/BookCleaning.vue";
+import UserCleaner from "@/views/UserCleaner.vue";
 
 const routes = [
   
@@ -36,6 +37,11 @@ const routes = [
     path: "/login", 
     component: Login, 
     name: "Login"
+   },
+   {
+    path : "/user/cleaner",
+    component: UserCleaner,
+    name: "UserCleaner"
    },
   { path: "/payments", component: Payments, name: "Payments" },
   { path: "/quotes", component: Quotes, name: "Quotes" },
