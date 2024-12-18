@@ -18,20 +18,21 @@
     <div class="profile-section">
       <div class="d-flex justify-content-between align-items-center">
         <div class="profile-info">
-          <div class="profile-image">
-            <img :src="profileData.imageUrl" alt="Profile" />
-          </div>
+          <a href="javascript:void(0);" class="profile-image" @click="handleClick">
+            <img v-if="draggedFile" :src="draggedFile" alt="">
+            <img v-else :src="AccountDetails.profilePic || profileData.imageUrl" alt="Profile" />
+          </a>
           <div class="profile-details">
-            <h5>{{ profileData.name }}</h5>
-            <p>{{ profileData.email }}</p>
+            <h5>{{ AccountDetails.firstName }} {{ AccountDetails.lastName }}</h5>
+            <p>{{ AccountDetails.email }}</p>
           </div>
         </div>
         <div class="profile-actions">
           <button class="btn btn-outline-danger btn-sm" @click="handleDelete">
             {{ formaAction === 'add' ? 'Cancel' : 'Delete' }}
           </button>
-          <button class="btn btn-outline-primary btn-sm ms-2" @click="handleEdit">
-            {{ formaAction === 'add' ? 'Save' : 'Edit' }}
+          <button class="btn btn-outline-primary btn-sm ms-2" @click="handleDrivers">
+            {{ formAction === 'add' ? 'Save' : 'Edit' }}
           </button>
         </div>
 
@@ -99,6 +100,11 @@
               </option>
             </select>
           </div>
+          <!-- Address -->
+          <div v-if="CompType === 'cleaner'" class="col-md-6 mb-3">
+            <label class="form-label">Address</label>
+            <input type="text" class="form-control" v-model="formData.address" placeholder="Placeholder" />
+          </div>
         </div>
       </form>
     </div>
@@ -116,7 +122,17 @@ import Loader from '@/components/loader.vue';
 export default {
   name: 'UserProfileForm',
   props: {
-    formaAction: String,
+    formAction: {
+      type: String,
+    },
+    CompType: {
+      type: String,
+    },
+    userId: {
+      type: String,
+    }
+  },
+  computed: {
   },
   components: {
     AssignedTable
@@ -127,8 +143,8 @@ export default {
       isEditing: false,
       isDeleting: false,
       profileData: {
-        name: 'Charlie Brakus',
-        email: 'Erin33@hotmail.com',
+        name: 'add name',
+        email: 'add email',
         imageUrl: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'
       },
       formData: {
@@ -150,11 +166,125 @@ export default {
         { value: 'en', label: 'English' },
         { value: 'es', label: 'Spanish' },
         { value: 'fr', label: 'French' }
-      ]
+      ],
+      draggedFile: null,
+      Image: null,
+      Loader: false,
+      drivers: [],
+      driversPagination: {},
+      AccountDetails: {}
     }
   },
-
+  mounted() {
+    if (this.formAction === 'view') {
+      this.fetchDetails()
+    }
+  },
   methods: {
+
+    handleDelete() {
+      if (this.formAction === 'add') {
+        this.goBack();
+      }
+      // Implement delete logic
+      console.log('Deleting profile')
+    },
+
+    handleClick() {
+      const input = document.createElement('input')
+      input.type = 'file'
+      input.accept = ''
+      input.onchange = (e) => {
+        const file = (e.target).files?.[0]
+        if (file) {
+          this.Image = file
+          const imgUrl = URL.createObjectURL(file)
+          this.draggedFile = imgUrl
+        }
+      }
+      input.click()
+    },
+
+
+    async fetchDetails() {
+      this.AccountLoader = true;
+      const url = `account/${this.userId}`
+      try {
+
+        const resp = await fetchFromApi(url);
+        if (resp.status) {
+          swal({
+            text: resp.message,
+            icon: "success",
+          });
+          this.AccountDetails = resp.data
+          const data = Object.keys(resp.data)
+          data.forEach((key) => {
+            this.formData[key] = key
+            console.log(key)
+            this.formData[key] = resp.data[key]
+          })
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('admin Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      } finally {
+        this.AccountLoader = false;
+
+      }
+    },
+    async handleDrivers() {
+      this.Loader = true;
+      const driverUrl = `account/drivers`;
+      const cleanerUrl = `account/cleaners`;
+
+      const addUrl = this.CompType === 'driver' ? driverUrl : cleanerUrl
+      const updateUrl = `${addUrl}/${this.userId}`
+      try {
+        const formdata = new FormData();
+        formdata.append('firstName', this.formData.firstName);
+        formdata.append('lastName', this.formData.lastName);
+        formdata.append('email', this.formData.email);
+        formdata.append('gender', this.formData.gender);
+        formdata.append('country', this.formData.country);
+        formdata.append('city', this.formData.city);
+        formdata.append('language', this.formData.language);
+        formdata.append('profilePic', this.Image);
+        if(this.CompType === 'cleaner') {
+          formdata.append('address', this.formData.address);
+
+        }
+
+
+        const resp = this.formAction === 'add' ? await postToApi(addUrl, formdata, 'multipart/form-data') : await patchToApi(updateUrl, formdata, 'multipart/form-data');
+        if (resp.status) {
+          if (this.formAction === 'view') {
+            this.fetchDetails()
+
+            swal({
+              text: resp.message,
+              icon: "success",
+            });
+            fetchDrivers(1, 10)
+          } else {
+            swal({
+              text: resp.message,
+              icon: "error",
+            });
+          }
+        }
+        console.log('admin Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      } finally {
+        this.Loader = false;
+      }
+    },
     goBack() {
       this.$emit('close')
       // Implement navigation logic

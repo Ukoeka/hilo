@@ -12,63 +12,6 @@
 
       <!-- Main Content Section -->
       <div v-if="!viewAssign" class="flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
-        <!-- Card Section -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <div class="d-flex w-100 gap-3">
-            <!-- 1 -->
-            <div class="card p-4 payment-description">
-              <div class="w-100 h-100 d-flex align-items-center justify-content-between">
-                <span>
-                  <h6>All Quotes</h6>
-                  <p class="mb-0">10,000</p>
-                </span>
-                <span class="d-flex align-items-center justify-content-between p-3 rounded-3"
-                  style="background-color: rgba(94, 166, 244, 0.1); height: 50px;">
-                  <img src="../assets/Payment_Sales/shop.png" alt="">
-                </span>
-              </div>
-            </div>
-            <!-- 2 -->
-            <div class="card p-4 payment-description">
-              <div class="w-100 h-100 d-flex align-items-center justify-content-between">
-                <span>
-                  <h6>Quotes Value</h6>
-                  <p class="mb-0">NGN 99,500,000</p>
-                </span>
-                <span class="d-flex align-items-center justify-content-between p-3 rounded-3"
-                  style="background-color: rgba(94, 244, 136, 0.1); height: 50px;">
-                  <img src="../assets/Payment_Sales/card-pos.png" alt="">
-                </span>
-              </div>
-            </div>
-            <!-- 3 -->
-            <div class="card p-4 payment-description">
-              <div class="w-100 h-100 d-flex align-items-center justify-content-between">
-                <span>
-                  <h6>Paid</h6>
-                  <p class="mb-0">NGN 4,500,900</p>
-                </span>
-                <span class="d-flex align-items-center justify-content-between p-3 rounded-3"
-                  style="background-color: rgba(94, 244, 136, 0.1); height: 50px;">
-                  <img src="../assets/Payment_Sales/card-pos.png" alt="">
-                </span>
-              </div>
-            </div>
-            <!-- 4 -->
-            <div class="card p-4 payment-description">
-              <div class="w-100 h-100 d-flex align-items-center justify-content-between">
-                <span>
-                  <h6>Pending</h6>
-                  <p class="mb-0">500</p>
-                </span>
-                <span class="d-flex align-items-center justify-content-between p-3 rounded-3"
-                  style="background-color: rgba(255, 254, 206, 1); height: 50px;">
-                  <img src="../assets/Payment_Sales/convertshape.png" alt="">
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <!-- Quotes Table Section -->
         <div class="card p-3 mb-3">
@@ -104,12 +47,13 @@
               <tr v-for="(payment, index) in driversData" :key="index">
                 <td>{{ index + 1 }}</td>
                 <td>
-                  <img :src="payment.profilePic" alt="Driver Image" style="width: 50px; height: auto;">
-                </td>
+                <img :src="payment.profilePic" alt="Driver Image"
+                  style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+              </td>
                 <td>{{ payment.firstName }} {{ payment.lastName }}</td>
                 <td>{{ payment.email }}</td>
-                <td>{{  }}</td>
-                <td>{{ payment.age }}</td>
+                <td>N/A</td>
+                <td>N/A</td>
                 <td>{{ formatDate(payment.createdAt) }}</td>
                 <td>
                   <span :class="[
@@ -124,7 +68,7 @@
                     {{ payment.status }}
                   </span>
                 </td>
-                <td @click="AssignDriver('view')">
+                <td @click="AssignDriver('view', payment.id)">
                   <img src="../assets/Payment_Sales/more.png" class="cursor-pointer w-25" alt="">
                 </td>
               </tr>
@@ -170,8 +114,8 @@
         </div> -->
 
       </div>
-      <ViewAssign v-if="viewAssign " :formAction="viewAssign"
-        @close="viewAssign = null" />
+      <ViewAssign v-if="viewAssign " :formAction="viewAssign" :CompType="'driver'"
+        @close="viewAssign = null"  :userId="userId"/>
     </div>
   </AdminLayout>
 
@@ -191,7 +135,7 @@ export default {
   data() {
     return {
       viewAssign: '',
-      
+      userId: '',
       searchQuery: '',
       itemsPerPage: 14,
       currentPage: 1,
@@ -287,8 +231,9 @@ export default {
         console.error('API call failed:', error);
       }
     },
-    AssignDriver(view) {
+    AssignDriver(view, id) {
       this.viewAssign = view;
+      this.userId = id
       console.log(view)
     },
     changePage(page) {

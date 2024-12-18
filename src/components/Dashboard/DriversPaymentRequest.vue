@@ -8,10 +8,10 @@
       <div class="driver-section">
         <div>
           <a href="javascript:void(0);" class="fw-bold me-3 text-decoration-none text-black"
-            @click="assignDriver">Assigned Driver</a>
-          <span class="bg-white text-gray p-3">Charlie Brakus</span>
+          >Assigned Driver</a>
+          <span class="bg-white text-gray p-3">N/A</span>
         </div>
-        <button class="driver-profile-btn">Driver Profile</button>
+        <button class="driver-profile-btn"   @click="assignDriver">{{ type == 'moving' ? 'Assign Driver' : 'Assign Cleaner' }}</button>
       </div>
     </header>
 
@@ -28,31 +28,35 @@
           </div>
           <div class="info-item">
             <div class="info-label">Post Code</div>
-            <div class="info-value">{{ postCode }}</div>
+            <div class="info-value">{{movingDetails.pickUp?.postcode || movingDetails.postCode }}</div>
           </div>
           <div class="info-item">
             <div class="info-label">Booking Date</div>
-            <div class="info-value">{{formatDate(movingDetails.bookingDate) }}</div>
+            <div class="info-value">{{ movingDetails.bookingDate ? formatDate(movingDetails.bookingDate) :  parseDateTime(movingDetails.startTime).date }}</div>
           </div>
-          <div class="info-item">
-            <div class="info-label">Pickup Location</div>
+          <div v-if="type == 'moving'" class="info-item">
+            <div class="info-label" >Pickup Location</div>
             <div class="info-value">{{ movingDetails.pickUp?.name }}</div>
           </div>
-          <div class="info-item">
+          <div v-if="type == 'moving'" class="info-item">
             <div class="info-label">Delivery Location</div>
             <div class="info-value">{{ movingDetails.dropOff?.name }}</div>
           </div>
           <div class="info-item">
-            <div class="info-label">Pickup Property Type</div>
-            <div class="info-value">{{ movingDetails.type }}</div>
+            <div class="info-label">{{ type == 'moving' ? 'Pickup Property Type' : 'Cleaning Type' }}</div>
+            <div class="info-value">{{ movingDetails.type || movingDetails.cleaningType }}</div>
           </div>
-          <div class="info-item">
+          <div v-if="type == 'moving'" class="info-item">
             <div class="info-label">Delivery Property Type</div>
             <div class="info-value">{{movingDetails.serviceType }}</div>
           </div>
-          <div class="info-item">
+          <div  class="info-item">
             <div class="info-label">Pickup Property Floor</div>
             <div class="info-value">N/A</div>
+          </div>
+          <div v-if="type == 'moving'"  class="info-item">
+            <div class="info-label">Hours</div>
+            <div class="info-value">{{ movingDetails.hours }}</div>
           </div>
           <div class="info-item">
             <div class="info-label">Email</div>
@@ -60,22 +64,23 @@
           </div>
           <div class="info-item additional-info">
             <div class="info-label">Additional Information</div>
-            <div class="info-value">N/A</div>
+            <div  class="info-value d-flex flex-wrap gap-2">
+              <span class="text-gray "v-for="item in movingDetails.additionalServices" :key="item.id">{{ item }}</span>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="recent-deliveries">
-        <h2>Recent Deliveries</h2>
-        <!-- <div v-for="item in deliveryItems" :key="item.id" class="delivery-item">
-          {{ item.quantity }} {{ item.name }}
-        </div> -->
-        <span>N/A</span>
+        <h2>{{ type == 'moving' ? 'Items' : 'Service Details' }}</h2>
+        <div v-for="item in movingDetails.rooms || movingDetails.items" :key="item.id" class="delivery-item">
+          {{ item.number }} {{ item.name }}
+        </div>
       </div>
     </div>
   </div>
 
-  <DriversTable v-if="openDriversTable" @payment="assignDriver" type='moving' :userId="userId"></DriversTable>
+  <DriversTable v-if="openDriversTable" @payment="assignDriver" :type='type' :quotesId="quotesId"></DriversTable>
 </template>
 
 <script>
@@ -91,8 +96,11 @@ import {
 export default {
   name: 'DriversPaymentRequest',
   props: {
-    userId: {
+    quotesId: {
       type: String,
+    },
+    type: {
+      type: String
     }
   },
   components: {
@@ -103,18 +111,6 @@ export default {
 
       // manages Component rendering
       openDriversTable: false,
-
-      clientName: 'Charlie Brakus',
-      phoneNumber: '+44 012 9904 9944',
-      postCode: 'B455AT',
-      bookingDate: '1/1/2001',
-      pickupLocation: 'Birmingham',
-      deliveryLocation: 'London',
-      pickupPropertyType: 'House',
-      deliveryPropertyType: 'House',
-      pickupPropertyFloor: 'Ground Floor',
-      email: 'Phamo@gmail.com',
-      additionalInfo: 'Placeholder',
       deliveryItems: [
         { id: 1, quantity: '2', name: 'beds' },
         { id: 2, quantity: '4', name: 'couches' },
@@ -127,9 +123,23 @@ export default {
     }
   },
   mounted() {
-    this.fetchDetails(this.userId)
+    this.fetchDetails(this.quotesId)
   },
   methods: {
+    parseDateTime(datetimeString) {
+      const date = new Date(datetimeString); // Parse the datetime string into a Date object
+
+      // Format the date as YYYY-MM-DD
+      const formattedDate = date.toISOString().split('T')[0];
+
+      // Format the time as HH:mm:ss
+      const formattedTime = date.toISOString().split('T')[1].split('.')[0];
+
+      return {
+        date: formattedDate,
+        time: formattedTime,
+      }
+    },
     formatDate(data, lastSeen = false) {
       let processedData = data
 
@@ -144,7 +154,7 @@ export default {
 
     async fetchDetails(quoteId) {
       try {
-        const url = `quotes/${quoteId}?type=moving`;
+        const url = `quotes/${quoteId}?type=${this.type}`;
         const resp = await fetchFromApi(url);
         if (resp.status) {
           this.movingDetails = resp.data;

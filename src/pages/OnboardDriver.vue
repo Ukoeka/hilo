@@ -2,7 +2,7 @@
   <div class="hero">
     <TopNav></TopNav>
     <div class="content">
-      <h2 class="text-center">Become a Driver</h2>
+      <h2>Become a Driver</h2>
     </div>
   </div>
 
@@ -462,7 +462,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped >
+<style scoped >
 .cursor {
   cursor: pointer;
 }
@@ -482,12 +482,15 @@ export default {
   margin: 1% 0.5%;
   position: relative;
   display: flex;
+  justify-content: center;
 
   .content {
-    width: 100%;
     position: relative;
+    margin-left: 4%;
     display: flex;
-    justify-content: center; 
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
     color: white;
     margin-top: 100px;
 
@@ -500,6 +503,7 @@ export default {
     }
   }
 }
+
 .give-space {
   margin-top: 150px;
 }

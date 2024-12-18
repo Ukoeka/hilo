@@ -18,7 +18,8 @@
             <div class="d-flex align-items-center gap-2 p-3">
               <h2>Account Managers</h2>
               <p class="p-1 rounded-1 m-0"
-                style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">{{adminPagination?.totalRecords }} Admins
+                style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">
+                {{ adminPagination?.totalRecords }} Admins
               </p>
             </div>
             <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center" @click="openModal()">
@@ -44,12 +45,14 @@
             <tbody>
               <tr v-for="(item, index) in admins" :key="item.id">
                 <td>{{ index + 1 }}</td>
-                <td><img :src="item.image" alt="N/A"></td>
+                <td><img :src="item.profilePic"
+                    style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" alt="N/A">
+                </td>
                 <td>{{ item.firstName }} {{ item.lastName }}</td>
                 <td>{{ item.email }}</td>
-                <td>{{formatDate(item.createdAt)}}</td>
-                <td :class="[item.role === 'Super Admin' ? 'text-success text-green' : '']">{{ item.role }}</td>
-                <td>2 Hours</td>
+                <td>{{ formatDate(item.createdAt) }}</td>
+                <td :class="[item.role === 'Super Admin' ? 'text-success text-green' : '']">N/A</td>
+                <td>N/A</td>
                 <td>
                   <span :class="[
                     'd-flex align-items-center justify-content-center gap-2 rounded p-2',
@@ -66,9 +69,7 @@
                     {{ item.status }}
                   </span>
                 </td>
-                <td>
-                  <img src="../assets/Payment_Sales/more.png" alt="">
-                </td>
+
               </tr>
             </tbody>
           </table>
@@ -182,22 +183,7 @@ export default {
   },
   data() {
     return {
-      payments: [
-        { image: admin, adminName: 'Pharaoh Moses', email: 'Phamo@gmail.com', joindate: '11/6/2001', lastseen: '8/7/2024', role: 'Super Admin', status: 'Active' },
-        { image: admin1, adminName: 'Darla Schroeder', email: 'Darla@gmail.com', joindate: '11/6/2022', lastseen: '8/7/2024', role: 'Admin', status: 'Active' },
-        { image: admin1, adminName: 'Ryan Russel', email: 'Ryan@yahoo.com', joindate: '11/6/2022', lastseen: '8/7/2024', role: 'Admin', status: 'Inactive' },
-        { image: admin1, adminName: 'Lynn Kuhlman', email: 'Lynn@hotmail.com', joindate: '11/6/2022', lastseen: '8/7/2024', role: 'Admin', status: 'Active' },
-        { image: admin1, adminName: 'Phil Steuber', email: 'Phi9@yahoo.com', joindate: '11/6/2022', lastseen: '8/7/2024', role: 'Admin', status: 'Inactive' },
-        { image: admin1, adminName: 'Muriel Gulgowski', email: 'Muriel@yahoo.com', joindate: '11/6/2022', lastseen: '8/7/2024', role: 'Admin', status: 'Active' },
-        { image: admin1, adminName: 'Andrew Boyer', email: 'Andrew27@yahoo.com', joindate: '11/6/2022', lastseen: '8/7/2024', role: 'Admin', status: 'Active' },
-        { image: admin1, adminName: 'Heidi Weissnat', email: 'Heidi@yahoo.com', joindate: '11/6/2022', lastseen: '8/7/2024', role: 'Admin', status: 'Inactive' },
-        { image: admin1, adminName: 'Gabriel Nader-Blick', email: 'Gabriel@gmail.com', joindate: '11/6/2022', lastseen: '8/7/2024', role: 'Admin', status: 'Active' },
-        { image: admin1, adminName: 'Madeline Kuphal', email: 'Madeline@yahoo.com', joindate: '11/6/2022', lastseen: '8/7/2024', role: 'Admin', status: 'Active' },
-        { image: admin1, adminName: 'Isaac Hartmann', email: 'Isaac96@yahoo.com', joindate: '11/6/2022', lastseen: '8/7/2024', role: 'Admin', status: 'Inactive' },
-        { image: admin1, adminName: 'Angelina Wyman', email: 'Angelina90@yahoo.com', joindate: '11/6/2022', lastseen: '8/7/2024', role: 'Admin', status: 'Active' },
-        { image: admin1, adminName: 'Courtney Von', email: 'Courtney@yahoo.com', joindate: '11/6/2022', lastseen: '8/7/2024', role: 'Admin', status: 'Inactive' },
-        { image: admin1, adminName: 'Kayla Will', email: 'Kayla41@gmail.com', joindate: '11/6/2022', lastseen: '8/7/2024', role: 'Admin', status: 'Active' }
-      ],
+
       searchQuery: '',
       itemsPerPage: 14,
       currentPage: 1,

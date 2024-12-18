@@ -9,7 +9,7 @@
         </div>
       </div>
       <!-- Main Content Section -->
-      <div v-if="!viewAssign" class="flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
+      <div v-if="!showMovingDetails" class="flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
         <!-- Quotes Table Section -->
         <div class="card p-3 mb-3">
           <div class="d-flex justify-content-between align-items-center mb-2">
@@ -29,123 +29,64 @@
             </button>
           </div>
           <div class="container mt-4">
-  <table class="table align-middle text-center">
-    <thead>
-      <tr class="text-secondary">
-        <th>Serial Number</th>
-        <th>Client Name</th>
-        <th>Post Code</th>
-        <th>Cleaning Type</th>
-        <th>Hours</th>
-        <th>Booking Date</th>
-        <th>Time</th>
-        <th>Phone Number</th>
-        <th>Status</th>
-        <th></th> <!-- Empty column for action menu -->
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Single Row -->
-      <tr v-for="item in cleaningQuotes">
-        <td>1</td>
-        <td>N/A</td>
-        <td class="fw-bold">{{ item.postCode }}</td>
-        <td class="text-primary">{{item.cleaningType}}</td>
-        <td>8</td>
-        <td>1/1/2001</td>
-        <td>10:00 AM</td>
-        <td>{{item.phoneNumber}}</td>
-        <td>
-          <span class="badge bg-success rounded-pill px-2 py-1">
-            <span class="me-1" style="font-size: 0.8rem;">●</span> {{ item.status }}
-          </span>
-        </td>
-        <td>
-          <!-- Action menu -->
-          <div class="dropdown">
-            <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-three-dots-vertical"></i>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">View</a></li>
-              <li><a class="dropdown-item" href="#">Edit</a></li>
-              <li><a class="dropdown-item" href="#">Delete</a></li>
-            </ul>
+            <table class="table align-middle text-center">
+              <thead>
+                <tr class="text-secondary">
+                  <th>Serial Number</th>
+                  <th>Client Name</th>
+                  <th>Post Code</th>
+                  <th>Cleaning Type</th>
+                  <th>Hours</th>
+                  <th>Booking Date</th>
+                  <th>Time</th>
+                  <th>Phone Number</th>
+                  <th>Status</th>
+                  <th></th> <!-- Empty column for action menu -->
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Single Row -->
+                <tr v-for="item in cleaningQuotes">
+                  <td>1</td>
+                  <td>N/A</td>
+                  <td class="fw-bold">{{ item.postCode }}</td>
+                  <td class="text-primary">{{ item.cleaningType }}</td>
+                  <td>8</td>
+                  <td>1/1/2001</td>
+                  <td>10:00 AM</td>
+                  <td>{{ item.phoneNumber }}</td>
+                  <td>
+                    <span class="badge bg-success rounded-pill px-2 py-1">
+                      <span class="me-1" style="font-size: 0.8rem;">●</span> {{ item.status }}
+                    </span>
+                  </td>
+                  <td>
+                    <!-- Action menu -->
+                    <div class="dropdown">
+                      <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                          <path
+                            d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                        </svg>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" @click="showDetails(item.id) ">View</a></li>
+                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                        <li><a class="dropdown-item" href="#">Delete</a></li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-          <table class="table d-none">
-            <thead>
-              <tr>
-                <th>
-                  Serial Number
-                  <img src="../assets/Payment_Sales/arrowdown.png" alt="" />
-                </th>
-                <th>
-                  Image
-                  <img src="../assets/Payment_Sales/arrowdown.png" alt="" />
-                </th>
-                <th>
-                  Name
-                  <img src="../assets/Payment_Sales/arrowdown.png" alt="" />
-                </th>
-                <th>
-                  Email
-                  <img src="../assets/Payment_Sales/arrowdown.png" alt="" />
-                </th>
-                <th>
-                  Age<img src="../assets/Payment_Sales/arrowdown.png" alt="" />
-                </th>
-                <th>
-                  Date Added<img src="../assets/Payment_Sales/arrowdown.png" alt="" />
-                </th>
-                <th>
-                  Status
-                  <img src="../assets/Payment_Sales/arrowdown.png" alt="" />
-                </th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(payment, index) in cleaningQuotes" :key="index">
-                <td>{{ index + 1 }}</td>
-                <td>
-                  <img :src="payment.image" alt="N/A" style="width: 50px; height: auto" />
-                </td>
-                <td>{{ payment.name }}</td>
-                <td>{{ payment.email }}</td>
-                <td>{{ payment.age }}</td>
-                <td>{{ payment.dateAdded }}</td>
-                <td>{{ payment.status }}</td>
-                <td>
-                  <span :class="[
-                    'd-flex align-items-center justify-content-center gap-2 rounded p-2',
-                    payment.status === 'Active' ? 'completed' : '',
-                    payment.status === 'Inactive' ? 'draft' : '',
-                  ]" style="width: fit-content">
-                    <div :class="[
-                      payment.status === 'Active' ? 'completed-circle' : '',
-                      payment.status === 'Inactive' ? 'draft-circle' : '',
-                    ]" class="rounded-circle" style="height: 10px; width: 10px"></div>
-                    {{ payment.status }}
-                  </span>
-                </td>
-                <td @click="AssignDriver('View')">
-                  <img src="../assets/Payment_Sales/more.png" alt="" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
         </div>
 
         <!-- Details Cleaning -->
       </div>
-      <ViewAssign v-if="viewAssign === 'view' || viewAssign === 'assign'" :assign="viewAssign"
-        @close="viewAssign = null" />
+      <DriversPaymentRequest v-if="showMovingDetails" @payment="handlePR" type="cleaning" :quotesId="quotesId" />
+
     </div>
   </AdminLayout>
 
@@ -243,7 +184,7 @@
               <button type="button" class="btn btn-secondary mt-2" @click="addRoom">Add Room</button>
             </fieldset>
 
-           
+
           </form>
         </div>
         <div class="modal-footer justify-content-between">
@@ -262,7 +203,7 @@
 <script>
 import Quotes from "./Quotes.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
-import ViewAssign from "@/components/Dashboard/ViewAssign.vue";
+import DriversPaymentRequest from "@/components/Dashboard/DriversPaymentRequest.vue";
 import loader from "@/components/loader.vue";
 import {
   fetchFromApi,
@@ -275,13 +216,14 @@ import {
 export default {
   components: {
     AdminLayout,
-    ViewAssign,
+    DriversPaymentRequest,
     Quotes,
   },
 
   data() {
     return {
-      viewAssign: null,
+      showMovingDetails: false,
+
       cleaningData: {
         postCode: "41020",
         cleaningType: "oneTime",
@@ -299,176 +241,7 @@ export default {
         ],
       },
       availableServices: ["ironning", "laundry", "carpet cleaned", "window cleaning", "dusting"],
-      payments: [
-        {
-          image:
-            "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-          name: "Charlie Brakus",
-          email: "Erin33@hotmail.com",
-          city: "Glasgow",
-          age: 45,
-          dateAdded: "11/6/2022",
-          gender: "Female",
-          status: "Active",
-          accountType: "Driver",
-        },
-        {
-          image:
-            "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-          name: "Jamie Schroeder",
-          email: "Ernest_Altenwerth@gmail.com",
-          city: "Glasgow",
-          age: 45,
-          dateAdded: "11/6/2022",
-          gender: "Female",
-          status: "Active",
-          accountType: "Driver",
-        },
-        {
-          image:
-            "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-          name: "Alexander O'Conner",
-          email: "Lori.Rodriguez@yahoo.com",
-          city: "Glasgow",
-          age: 45,
-          dateAdded: "11/6/2022",
-          gender: "Female",
-          status: "Inactive",
-          accountType: "Driver",
-        },
-        {
-          image:
-            "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-          name: "Anne Stanton",
-          email: "Clarence69@yahoo.com",
-          city: "Glasgow",
-          age: 45,
-          dateAdded: "11/6/2022",
-          gender: "Female",
-          status: "Active",
-          accountType: "Driver",
-        },
-        {
-          image:
-            "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-          name: "Abel Brown",
-          email: "Carole.McCullough@hotmail.com",
-          city: "Glasgow",
-          age: 45,
-          dateAdded: "11/6/2022",
-          gender: "Female",
-          status: "Inactive",
-          accountType: "Driver",
-        },
-        {
-          image:
-            "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-          name: "Lorene Nienow",
-          email: "Javier.Olson@yahoo.com",
-          city: "Glasgow",
-          age: 45,
-          dateAdded: "11/6/2022",
-          gender: "Male",
-          status: "Active",
-          accountType: "Driver",
-        },
-        {
-          image:
-            "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-          name: "Abel Turcotte",
-          email: "Wilma.Crona@hotmail.com",
-          city: "Glasgow",
-          age: 45,
-          dateAdded: "11/6/2022",
-          gender: "Male",
-          status: "Active",
-          accountType: "Driver",
-        },
-        {
-          image:
-            "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-          name: "Rosa Kohler",
-          email: "Micheal_Hane@yahoo.com",
-          city: "Glasgow",
-          age: 45,
-          dateAdded: "11/6/2022",
-          gender: "Female",
-          status: "Inactive",
-          accountType: "Driver",
-        },
-        {
-          image:
-            "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-          name: "Mike Sporer",
-          email: "Veronica_Reynolds36@yahoo.com",
-          city: "Glasgow",
-          age: 45,
-          dateAdded: "11/6/2022",
-          gender: "Female",
-          status: "Active",
-          accountType: "Driver",
-        },
-        {
-          image:
-            "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-          name: "Elena Okuneva",
-          email: "Marlon_Hills14@yahoo.com",
-          city: "Glasgow",
-          age: 45,
-          dateAdded: "11/6/2022",
-          gender: "Male",
-          status: "Active",
-          accountType: "Driver",
-        },
-        {
-          image:
-            "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-          name: "Darrell Brown",
-          email: "Kathleen_Bode@yahoo.com",
-          city: "Glasgow",
-          age: 45,
-          dateAdded: "11/6/2022",
-          gender: "Male",
-          status: "Inactive",
-          accountType: "Driver",
-        },
-        {
-          image:
-            "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-          name: "Lillian Mohr",
-          email: "Shane71@yahoo.com",
-          city: "Glasgow",
-          age: 45,
-          dateAdded: "11/6/2022",
-          gender: "Female",
-          status: "Active",
-          accountType: "Driver",
-        },
-        {
-          image:
-            "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-          name: "Kelvin Johnson",
-          email: "Katherine.VonRueden@gmail.com",
-          city: "Glasgow",
-          age: 45,
-          dateAdded: "11/6/2022",
-          gender: "Female",
-          status: "Inactive",
-          accountType: "Driver",
-        },
-        {
-          image:
-            "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-          name: "Rosemary Howe",
-          email: "Santos_Corkery17@gmail.com",
-          city: "Glasgow",
-          age: 45,
-          dateAdded: "11/6/2022",
-          gender: "Female",
-          status: "Active",
-          accountType: "Driver",
-        },
-      ],
+
       searchQuery: "",
       itemsPerPage: 14, // Items per page, with a default value of 14
       currentPage: 1, // Current page number
@@ -526,6 +299,21 @@ export default {
     this.fetchQuotes(1, 10);
   },
   methods: {
+    showDetails(id) {
+      this.quotesId = id;
+      if (this.quotesId) this.showMovingDetails = true;
+    },
+    handlePR(id) {
+      console.log("called");
+      this.quotesId = id;
+      if (this.quotesId) {
+        // Toggle between main and detail views
+        this.showMovingDetails = !this.showMovingDetails;
+      } else {
+        this.showMovingDetails = false;
+      }
+    },
+
     async fetchQuotes(page, pageSize) {
       try {
         const url = `quotes?type=cleaning&page=${page}&pageSize=${pageSize}`;
@@ -565,14 +353,6 @@ export default {
     },
     addRoom() {
       cleaningData.rooms.push({ name: "", number: 1 });
-    },
-    AssignDriver(view) {
-      if (view == "Assign") {
-        console.log("assign");
-        this.viewAssign = "assign";
-      } else {
-        this.viewAssign = "view";
-      }
     },
     changePage(page) {
       if (page !== "..." && page >= 1 && page <= this.totalPages) {

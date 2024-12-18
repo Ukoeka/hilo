@@ -4,7 +4,7 @@
       <!-- Main Content Section -->
       <div class="flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
         <div class="d-flex justify-content-between px-3 sizing mb-5">
-          <h2>Moving Quotes</h2>
+          <h2>{{showMovingDetails ? "Details" : 'Moving Quotes'}}</h2>
           <div class="d-flex gap-3 align-items-center profile">
             <img src="../assets/Dashbordicons/3d_avatar_3.png" alt="" class="" />
             <span>Favour Udoh</span>
@@ -88,7 +88,7 @@
                     color: rgba(76, 149, 108, 1);
                     line-height: none;
                   ">
-                  10,000 Quotes
+                 {{movingQuotesStats.allQuotes}} Quotes
                 </p>
               </div>
               <div class="d-flex align-items-center right gap-3 justify-content-between">
@@ -155,7 +155,7 @@
         </div>
 
         <!-- MOving Details -->
-        <DriversPaymentRequest v-if="showMovingDetails" @payment="handlePR" type="moving" :userId="userId" />
+        <DriversPaymentRequest v-if="showMovingDetails" @payment="handlePR" type="moving" :quotesId="quotesId" />
       </div>
     </div>
   </AdminLayout>
@@ -324,7 +324,7 @@ export default {
         email: "Shaun80@gmail.com",
         phoneNumber: "332-834-2149",
       },
-      userId: null,
+      quotesId: null,
     };
   },
   mounted() {
@@ -434,8 +434,8 @@ export default {
     },
     handlePR(id) {
       console.log("called");
-      this.userId = id;
-      if (this.userId) {
+      this.quotesId = id;
+      if (this.quotesId) {
         // Toggle between main and detail views
         this.showMovingDetails = !this.showMovingDetails;
       } else {
