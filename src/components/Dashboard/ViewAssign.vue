@@ -9,7 +9,7 @@
       </div>
       <div class="view-assigned">
         <button class="btn btn-success btn-sm" @click="viewAssigned">
-          View Assigned 
+          View Assigned
         </button>
       </div>
     </div>
@@ -18,21 +18,20 @@
     <div class="profile-section">
       <div class="d-flex justify-content-between align-items-center">
         <div class="profile-info">
-          <a href="javascript:void(0);" class="profile-image" @click="handleClick">
-            <img v-if="draggedFile" :src="draggedFile" alt="">
-            <img v-else :src="profileData.imageUrl" alt="Profile" />
-          </a>
+          <div class="profile-image">
+            <img :src="profileData.imageUrl" alt="Profile" />
+          </div>
           <div class="profile-details">
-            <h5>{{ profileData.name }} {{formaAction }}</h5>
+            <h5>{{ profileData.name }}</h5>
             <p>{{ profileData.email }}</p>
           </div>
         </div>
         <div class="profile-actions">
           <button class="btn btn-outline-danger btn-sm" @click="handleDelete">
-            {{ formAction === 'add' ? 'Cancel' : 'Delete' }}
+            {{ formaAction === 'add' ? 'Cancel' : 'Delete' }}
           </button>
           <button class="btn btn-outline-primary btn-sm ms-2" @click="handleEdit">
-            {{ formAction === 'add' ? 'Save' : 'Edit' }}
+            {{ formaAction === 'add' ? 'Save' : 'Edit' }}
           </button>
         </div>
 
@@ -83,6 +82,13 @@
             <label class="form-label">City</label>
             <input type="text" class="form-control" v-model="formData.city" placeholder="Placeholder" />
           </div>
+
+          <!-- Placeholder Field -->
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Placeholder</label>
+            <input type="text" class="form-control" v-model="formData.placeholder" placeholder="Placeholder" />
+          </div>
+
           <!-- Language -->
           <div class="col-md-6 mb-3">
             <label class="form-label">Language</label>
@@ -93,44 +99,28 @@
               </option>
             </select>
           </div>
-          <!-- Address -->
-          <div v-if="CompType === 'cleaner'"class="col-md-6 mb-3">
-            <label class="form-label">Address</label>
-            <input type="text" class="form-control" v-model="formData.address" placeholder="Placeholder" />
-          </div>
         </div>
       </form>
     </div>
   </div>
-  <AssignedTable v-if="assignedTable" />
+  <AssignedTable  v-if="assignedTable" />
 
 </template>
 
 <script>
 import AssignedTable from './AssignedTable.vue';
+import loader from '@/components/loader.vue';
 import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
+import Loader from '@/components/loader.vue';
 
 export default {
   name: 'UserProfileForm',
   props: {
-<<<<<<< HEAD
-    formAction: {
-      type: String,
-      default: 'add'
-    },
-    CompType: {
-      type: String,
-    }
-  },
-  computed: {
-=======
-    formAction: String,
->>>>>>> f03dd7af52345db87980ff597920fc3008006606
+    formaAction: String,
   },
   components: {
     AssignedTable
   },
-
   data() {
     return {
       assignedTable: false,
@@ -148,8 +138,8 @@ export default {
         gender: '',
         country: '',
         city: '',
-        language: '',
-        address: ''
+        placeholder: '',
+        language: ''
       },
       genderOptions: [
         { value: 'male', label: 'Male' },
@@ -160,91 +150,11 @@ export default {
         { value: 'en', label: 'English' },
         { value: 'es', label: 'Spanish' },
         { value: 'fr', label: 'French' }
-      ],
-      draggedFile: null,
-      Image: null,
-      Loader: false,
-      drivers: [],
-      driversPagination: {}
+      ]
     }
   },
-  mounted() {
-  },
+
   methods: {
-
-    handleDelete() {
-      if (this.formAction === 'add') {
-        this.goBack();
-      }
-      // Implement delete logic
-      console.log('Deleting profile')
-    },
-
-    handleEdit() {
-      if (this.formAction === 'add') {
-        this.addDrivers()
-      }
-      // Implement edit logic
-      console.log('Editing profile')
-    },
-
-    handleClick() {
-      const input = document.createElement('input')
-      input.type = 'file'
-      input.accept = ''
-      input.onchange = (e) => {
-        const file = (e.target).files?.[0]
-        if (file) {
-          this.Image = file
-          const imgUrl = URL.createObjectURL(file)
-          this.draggedFile = imgUrl
-        }
-      }
-      input.click()
-    },
-
-    async addDrivers() {
-      this.Loader = true;
-      const driverUrl = `/account/drivers`;
-      const cleanerUrl = `/account/cleaners`;
-
-      const url = this.CompType === 'driver' ? driverUrl : cleanerUrl
-
-      try {
-        const formdata = new FormData();
-        formdata.append('firstName', this.formData.firstName);
-        formdata.append('lastName', this.formData.lastName);
-        formdata.append('email', this.formData.email);
-        formdata.append('gender', this.formData.gender);
-        formdata.append('country', this.formData.country);
-        formdata.append('city', this.formData.city);
-        formdata.append('language', this.formData.language);
-        formdata.append('profilePic', this.Image);
-        if(this.CompType === 'cleaner'){
-          formdata.append('address', this.formData.address);
-        }
-
-
-        const resp = await postToApi(url, formdata, 'multipart/form-data');
-        if (resp.status) {
-          swal({
-            text: resp.message,
-            icon: "success",
-          });
-          fetchDrivers(1, 10)
-        } else {
-          swal({
-            text: resp.message,
-            icon: "error",
-          });
-        }
-        console.log('admin Response:', resp);
-      } catch (error) {
-        console.error('API call failed:', error);
-      } finally {
-        this.Loader = false;
-      }
-    },
     goBack() {
       this.$emit('close')
       // Implement navigation logic
@@ -256,6 +166,17 @@ export default {
       // Implement view assigned logic
       console.log('Viewing assigned')
     },
+
+    handleDelete() {
+      // Implement delete logic
+      console.log('Deleting profile')
+    },
+
+    handleEdit() {
+      // Implement edit logic
+      console.log('Editing profile')
+    },
+
     handleSubmit() {
       // Implement form submission logic
       console.log('Form submitted', this.formData)

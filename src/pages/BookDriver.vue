@@ -405,16 +405,19 @@
   
           <div class="upload" v-if="display == 4">
             <h2 class="text-center mt-5 mb-4">Service Details</h2>
+
+            <span class="some-text">Vehicle Type and Capacity <img src="@/assets/icons/question.png" alt=""></span>
             <div class="row mb-3">
+
               <div class="form-group col-md-12">
                 <div class="row radios mb-3">
-            <label for="number_of_vehicle">Number of Vehicles</label>
-            <div class="form-group de-flex col-md-12">
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="number_of_vehicle" :id="'vehicle_' + index"
-                  >
-                <label class="form-check-label" >jjj</label>
-              </div>
+                  <label for="number_of_vehicle">Number of Vehicles</label>
+                  <div class="form-group de-flex col-md-12">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="number_of_vehicle" :id="'vehicle_' + index"
+                        >
+                      <label class="form-check-label" >jjj</label>
+                    </div>
             </div>
           </div>
 
@@ -817,5 +820,19 @@
       }
     }
   }
+.some-text{
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #6E7191;
+
+  img{
+    width: 13px;
+    margin-left: 12px;
+  }
+
+
+}
   </style>
   
