@@ -214,8 +214,8 @@
     <div class="right">
       <div class="heading">
         <h2>Documents Required</h2>
-        <a href="javascript:void(0)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><img
-            src="@/assets/icons/question.png" alt=""></a>
+        <a href="javascript:void(0)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <img src="@/assets/icons/question.png" alt=""></a>
       </div>
       <h3>Identity</h3>
       <ul>

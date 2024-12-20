@@ -2,9 +2,8 @@
     <div class="hero">
         <TopNav></TopNav>
         <div class="content">
-          <h1>Exceptional Cleaning Solutions for Your Home and Business</h1>
+          <h1>Your Space, Elevated Beyond Expectations – Cleaned to Perfection</h1>
           <div class="btn-container">
-            <button class="service">Book Service</button>
             <button class="quote">Get Quote</button>
           </div>
         </div>
@@ -35,7 +34,7 @@
         </div>
         </div>
     </div>
-    <h1 class="text-center">Comprehensive Cleaning Services</h1>
+    <h1 class="text-center">Our Cleaning Services</h1>
     <div class="images">
       <div class="card card1">
         <div class="content">
@@ -61,7 +60,7 @@
         <img src="@/assets/images/cleaning.png" alt="">
       </div>
       <div class="left">
-        <h2>Our Cleaning Services: Tailored Solutions for Every Space.</h2>
+        <h2>Our Cleaning Services: Tailored cleaning solutions for every space.</h2>
         <p>Professional, reliable, and efficient services designed to make your move seamless.</p>
         <div class="details">
           <div class="each-detail">
