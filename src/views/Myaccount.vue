@@ -28,8 +28,8 @@
                 <div class="col-12 mb-2">
                   <div class="row">
                     <div class="col-6">
-                      <h5 class="">Yelvin Johnson</h5>
-                      <p>YelvinJohnson@hotmail.com</p>
+                      <h5 class="">{{user.firstName}} {{user.lastName}}</h5>
+                      <p>{{user.email}}</p>
                     </div>
                     <div class="col-6 d-flex gap-2 align-items-center justify-content-end">
                       <button v-if="!isEditing" class="btn btn-outline-success btn-outline-green p-2 col-3 "
@@ -109,19 +109,73 @@
               </div>
             </div>
           </div>
-          <div class="mb-5 w-75 m-auto" v-for="(category, index) in categories" :key="index">
-            <h3 class="">{{ category.name }}</h3>
-            <div class="row">
-              <div class="col-md-4" v-for="(document, index) in category.documents" :key="index">
-                <p class="txt mb-3">{{ document.name }}<span style="font-size: 12px;">{{ document.span }}</span></p>
-                <div class="card d-flex py-4 mb-5" style="background-color: rgba(240, 245, 243, 1);">
-                  <img src="../assets/Drivers/Vector.png" class="m-auto mb-3" alt="" width="60" height="60">
-                  <p class="file-info m-auto">Drag and drop or <span class="browse-link">Browse</span><br />.jpg, .png
-                    or .pdf files Accepted</p>
-                  <!-- <img v-if="document.preview" :src="document.preview" alt="Document Preview" class="preview-img" /> -->
+          <div class="p-5">
+            <!-- Identity -->
+            <div class="mb-5 w-100 m-auto">
+              <h3>Identity</h3>
+              <div class="row">
+                <div class="col-md-4" v-for="(document, index) in documents.slice(0, 3)"
+                  :key="'identity-' + document.id">
+                  <p class="txt mb-3">{{ document.label }}</p>
+                  <div class="card d-flex py-4 mb-5 cursor" @click="triggerFileInput(document.id, `documents`)"
+                    style="background-color: rgba(240, 245, 243, 1);">
+                    <img v-if="document.preview" :src="document.preview" alt="Document Preview"
+                      class="m-auto mb-3 preview-img" width="60" height="60" />
+                    <img v-else src="../assets/Drivers/Vector.png" class="m-auto mb-3" alt="" width="60" height="60" />
+                    <input type="file" :ref="'fileInput' + document.id"
+                      @change="handleFileChange($event, document.id, 'documents')" hidden />
+                    <p class="file-info browse-link">
+                      Browse<br />.jpg, .png or .pdf files Accepted
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
+
+            <!-- Insurance -->
+            <div class="mb-5 w-100 m-auto">
+              <h3>Insurance</h3>
+              <div class="row">
+                <div class="col-md-4" v-for="(document, index) in documents.slice(3, 8)"
+                  :key="'identity-' + document.id">
+                  <p class="txt mb-3">{{ document.label }}</p>
+                  <div class="card d-flex py-4 mb-5 cursor" @click="triggerFileInput(document.id, `documents`)"
+                    style="background-color: rgba(240, 245, 243, 1);">
+                    <img v-if="document.preview" :src="document.preview" alt="Document Preview"
+                      class="m-auto mb-3 preview-img" width="60" height="60" />
+                    <img v-else src="../assets/Drivers/Vector.png" class="m-auto mb-3" alt="" width="60" height="60" />
+                    <input type="file" :ref="'fileInput' + document.id"
+                      @change="handleFileChange($event, document.id, 'documents')" hidden />
+                    <p class="file-info browse-link">
+                      Browse<br />.jpg, .png or .pdf files Accepted
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Other -->
+            <div class="mb-5 w-100 m-auto">
+              <h3>Other</h3>
+              <div class="row">
+                <div class="col-md-4" v-for="(document, index) in documents.slice(8, 9)"
+                  :key="'identity-' + document.id">
+                  <p class="txt mb-3">{{ document.label }}</p>
+                  <div class="card d-flex py-4 mb-5 cursor" 
+                    style="background-color: rgba(240, 245, 243, 1);">
+                    <img v-if="document.preview" :src="document.preview" alt="Document Preview"
+                      class="m-auto mb-3 preview-img" width="60" height="60" />
+                    <img v-else src="../assets/Drivers/Vector.png" class="m-auto mb-3" alt="" width="60" height="60" />
+                    <input type="file" :ref="'fileInput' + document.id"
+                      @change="handleFileChange($event, document.id, 'documents')" hidden />
+                    <p class="file-info browse-link">
+                      Browse<br />.jpg, .png or .pdf files Accepted
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -157,31 +211,22 @@ export default {
         address: '',
         language: ''
       },
-      categories: [
+      documents: [
+        { label: "Driving License", file: null, preview: 'https://firebasestorage.googleapis.com/v0/b/devhilogisticz.appspot.com/o/dev%2Fcleaners%2FmotorInsurance_announce%202%20(1).png.image%2Fpng?alt=media&token=aa20d203-311b-41b3-9894-fc8793189d0d', id: 1 },
+        { label: "Utility Bill 1", file: null, preview: null, id: 2 },
+        { label: "Utility Bill 2", file: null, preview: null, id: 3 },
+        { label: "Vehicle insurance (Hire and Reward)", file: null, preview: null, id: 4 },
         {
-          name: 'Identity',
-          documents: [
-            { span: '', name: 'Driving Licence', preview: null },
-            { span: '', name: 'Utility Bill', preview: null },
-            { span: '', name: 'Utility Bill', preview: '' },
-          ],
+          label:
+            "Goods in Transit (minimum cover £10,000 for the purpose of removals)",
+          file: null,
+          preview: null,
+          id: 5
         },
-        {
-          name: 'Insurance',
-          documents: [
-            { span: '(Hire and Reward)', name: 'Vehicle insurance', preview: null },
-            { span: '(minimum cover £10,000 for the purpose of removals)', name: 'Goods in Transit', preview: null },
-            { span: ' (minimum £50,000 where applicable)', name: 'Public Liability', preview: null },
-            { span: '(minimum £1M)', name: 'Motor Trade Insurance ', preview: null },
-            { span: '(where applicable)', name: 'CMR', preview: null },
-          ],
-        },
-        {
-          name: 'Other',
-          documents: [
-            { span: '', name: 'VAT Certificate', preview: null },
-          ],
-        },
+        { label: "Public Liability (minimum £1M)", file: null, preview: null, id: 6 },
+        { label: "Motor Trade Insurance(where applicable)", file: null, preview: null, id: 7 },
+        { label: "CMR (minimum £50,000 where applicable)", file: null, preview: null, id: 8 },
+        { label: "Vat Certificate", file: null, preview: null, id: 9 },
       ],
     };
   },
@@ -189,6 +234,7 @@ export default {
     this.fetchUser() 
   },
   methods: {
+    
     async fetchUser() {
       try {
         const url = `profile`;
@@ -200,6 +246,9 @@ export default {
             icon: "success",
           })
           this.user = resp.data
+          resp.data.documents.forEach((doc, index) => {
+            this.documents[index].preview = doc.profilePic
+          })
         } else {
           swal({
             text: resp.message,
