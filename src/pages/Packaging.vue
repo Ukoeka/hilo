@@ -2,15 +2,14 @@
     <div class="hero">
         <TopNav></TopNav>
         <div class="content">
-          <h1>Efficient and <br> Affordable Removals & Logistics in the UK</h1>
+          <h1>Pack Like a Pro - <br> Everything You Need for a Safe Move!</h1>
           <div class="btn-container">
-            <button class="service">Order Packaging</button>
             <button class="quote">Get Quote</button>
             
           </div>
         </div>
         <div class="white-shape">
-          <p>Professional, eco-friendly cleaning tailored to your home or business. We deliver spotless results, customized to fit your schedule.</p>
+          <p>(Planning your move? Proper packing is essential to protect your belongings. ) Export packing…</p>
         </div>
     </div>
     <div class="why-chose">

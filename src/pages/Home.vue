@@ -2,15 +2,21 @@
     <div class="hero">
         <TopNav></TopNav>
         <div class="content">
-          <h1>Efficient and <br> Affordable Removals & Logistics in the UK</h1>
+          <h1>Efficient and Affordable <br> Removals & Logistics in the UK</h1>
           <div class="btn-container">
-            <a href="" class="service">Book Service</a>
             <a href="/getquote" class="quote">Get Quote</a>
             
           </div>
+          <div class="btn-container">
+            <img class="men" src="@/assets/icons/Men.png" alt="">
+            <div class="star-container">
+              <span>4.5 <img src="@/assets/icons/Star.png" alt=""></span>
+              <p>325k Satisfied Customers</p>
+            </div>
+          </div>
         </div>
         <div class="white-shape">
-          <p>Professional, eco-friendly cleaning tailored to your home or business. We deliver spotless results, customized to fit your schedule.</p>
+          <p>From planning to delivery, we handle your move with care and precision</p>
         </div>
     </div>
     <div class="committed">
@@ -25,11 +31,10 @@
         
       </div>
       <div class="right">
-        <h1>Committed to Delivering Stress-Free Removals and Logistics</h1>
-        <p>At Hilogisticz, our commitment to professionalism means every move is planned with precision and executed flawlessly. We pride ourselves on efficiency, delivering fast, reliable services that respect your deadlines. Above all, we focus on customer satisfaction, offering personalized solutions tailored to your unique needs, ensuring a stress-free experience from start to finish.</p>
+        <h1>Committed to Delivering Hassle-Free Removals and Logistics</h1>
+        <p>At Hilogisticz, we’re dedicated to delivering professional and stress-free moving and logistics services. Every move is meticulously planned and executed with precision to ensure seamless, efficient delivery that meets your deadlines. Our top priority is customer satisfaction, with tailored solutions that adapt to your unique needs—ensuring a smooth, worry-free experience from beginning to end.</p>
         <div class="btn-contain">
         <a href="/getquote" class="quote">Get Quote</a>
-        <a href="" class="learn">Learn More</a>
       </div>
       </div>
     </div>
@@ -37,23 +42,23 @@
       <div class="left">
         <div class="card">
           <img src="@/assets/icons/team.png" alt="">
-          <h3>Experienced Team</h3>
-          <p>With years of hands-on experience, our team of skilled professionals ensures that every move is seamless.</p>
+          <h3>Efficient Office Removals</h3>
+          <p>Our experts disassemble and pack your items, maximizing space for up to 25% fewer trips. Each item is padded for protection, ensuring 100% safety during transport.</p>
         </div>
         <div class="card">
           <img src="@/assets/icons/money.png" alt="">
-          <h3>Affordable Rates</h3>
+          <h3>Best Rates Guaranteed</h3>
           <p>We believe quality service shouldn’t break the bank. Our competitive pricing comes with transparency—no hidden fees or surprises.</p>
         </div>
         <div class="card">
           <img src="@/assets/icons/friendly.png" alt="">
-          <h3>Eco-friendly Solutions</h3>
-          <p>We are committed to environmentally friendly practices, offering responsible clearance and disposal options to minimize waste and maximize recycling.</p>
+          <h3>Instant Quotes</h3>
+          <p>Get your removal quote in under 60 seconds and have a team at your door in 45 minutes anywhere in London. Whether it’s home or office, we save you time and money on every move.</p>
         </div>
         <div class="card">
           <img src="@/assets/icons/stress.png" alt="">
-          <h3>Stress-free Service</h3>
-          <p>Moving can be overwhelming, but we make it easy. From planning and packing to transportation and delivery, we take care of every detail.</p>
+          <h3>Reliable Home Removals</h3>
+          <p>Fully insured and trained, our movers handle over 1,000 home moves every month with a focus on safety and precision.</p>
         </div>
       </div>
       <div class="right">
@@ -63,7 +68,7 @@
         <img src="@/assets/images/whychose.png" alt="">
       </div>
     </div>
-    <h1 class="text-center">Comprehensive Moving and Logistics Solutions</h1>
+    <h1 class="text-center">Our Services</h1>
     <div class="images">
       <div class="card card1">
         <div class="content">
@@ -110,8 +115,8 @@
     </div>
     <div class="tailored">
       <div class="left">
-        <h2>Tailored moving and logistics <br> services to meet your unique needs.</h2>
-        <p>Professional, reliable, and efficient services designed to make your move seamless.</p>
+        <h2>Tailored Moving and Logistics Services to meet Your Unique Needs</h2>
+        <p>Instant pricing for your next move, all at your fingertips.</p>
         <div class="details">
           <div class="each-detail">
             <img src="@/assets/icons/furniture.png" alt="">
@@ -135,53 +140,53 @@
     <div class="faqs">
       <div class="left">
         <h2 class="faq">FAQs</h2>
-        <p class="detail">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>
+        <p class="detail">Hey there! Here are some common questions our customers often ask:</p>
         <div class="accordion" id="accordionExample">
           <div class="accordion-item">
             <h2 class="accordion-header">
               <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Accordion Item #1
+                How quickly can I get a home removal quote?
               </button>
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                You can receive an instant quote in under 60 seconds through our online system or by calling our friendly customer service team.
               </div>
             </div>
           </div>
           <div class="accordion-item">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Accordion Item #2
+                How long does an office move typically take?
               </button>
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                The time depends on the size of your office, but most small to mid-sized moves are completed within a single day. We work efficiently to minimize downtime and get your office back up and running quickly.
               </div>
             </div>
           </div>
           <div class="accordion-item">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Accordion Item #3
+                Are my office items insured during the move?
               </button>
             </h2>
             <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                Yes, all office items are covered under our basic compensation insurance, ensuring peace of mind in case of any unforeseen damage.
               </div>
             </div>
           </div>
           <div class="accordion-item">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                Accordion Item #4
+                How do you price your services?
               </button>
             </h2>
             <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                Our pricing is based on factors such as property type, access, floor levels, time of day, number of movers required, and any additional services like assembly. Get a fast, transparent quote online with no hidden fees!
               </div>
             </div>
           </div>
@@ -197,10 +202,9 @@
       </div>
       <div class="right">
         <p>Ready to Make Your Move Easy?</p>
-        <h2>Get in touch with us today and <br> experience hassle-free removals and logistics.</h2>
+        <h2>Get the Best Deal for Your Next Move – Let’s Make It Effortless!</h2>
         <div class="btn-contain">
-          <a href="/getquote" class="quote">Get a Free Quote</a>
-          <a class="contact">Contact us for More Information</a>
+          <a href="/getquote" class="quote">Get Quote</a>
         </div>
       </div>
     </div>
@@ -276,6 +280,21 @@
           display: flex;
           gap: 13px;
           margin-top: 20px;
+          color: white;
+
+          span{
+            font-family: Outfit;
+            font-size: 21.32px;
+            font-weight: 600;
+            line-height: 29.84px;
+            color: #30EB3A;
+
+          }
+
+          .men{
+            width: 150px;
+            height: 50px;
+          }
 
           a{
           height: 47px;

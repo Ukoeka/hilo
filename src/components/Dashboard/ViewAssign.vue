@@ -29,7 +29,7 @@
         </div>
         <div class="profile-actions">
           <button class="btn btn-outline-danger btn-sm" @click="handleDelete">
-            {{ formAction === 'add' ? 'Cancel' : 'Delete' }}
+            {{ formaAction === 'add' ? 'Cancel' : 'Delete' }}
           </button>
           <button class="btn btn-outline-primary btn-sm ms-2" @click="handleDrivers">
             {{ formAction === 'add' ? 'Save' : 'Edit' }}
@@ -83,6 +83,13 @@
             <label class="form-label">City</label>
             <input type="text" class="form-control" v-model="formData.city" placeholder="Placeholder" />
           </div>
+
+          <!-- Placeholder Field -->
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Placeholder</label>
+            <input type="text" class="form-control" v-model="formData.placeholder" placeholder="Placeholder" />
+          </div>
+
           <!-- Language -->
           <div class="col-md-6 mb-3">
             <label class="form-label">Language</label>
@@ -102,13 +109,15 @@
       </form>
     </div>
   </div>
-  <AssignedTable v-if="assignedTable" />
+  <AssignedTable  v-if="assignedTable" />
 
 </template>
 
 <script>
 import AssignedTable from './AssignedTable.vue';
+import loader from '@/components/loader.vue';
 import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
+import Loader from '@/components/loader.vue';
 
 export default {
   name: 'UserProfileForm',
@@ -128,7 +137,6 @@ export default {
   components: {
     AssignedTable
   },
-
   data() {
     return {
       assignedTable: false,
@@ -146,8 +154,8 @@ export default {
         gender: '',
         country: '',
         city: '',
-        language: '',
-        address: ''
+        placeholder: '',
+        language: ''
       },
       genderOptions: [
         { value: 'male', label: 'Male' },
@@ -288,6 +296,17 @@ export default {
       // Implement view assigned logic
       console.log('Viewing assigned')
     },
+
+    handleDelete() {
+      // Implement delete logic
+      console.log('Deleting profile')
+    },
+
+    handleEdit() {
+      // Implement edit logic
+      console.log('Editing profile')
+    },
+
     handleSubmit() {
       // Implement form submission logic
       console.log('Form submitted', this.formData)
