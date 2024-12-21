@@ -54,9 +54,9 @@
               <div class="div-group col-md-8">
                 <label for="first_name">Cleaning Type</label>
                 <select name="" id="" class="form-control" v-model="bookCleaning.cleaningType">
-                  <option >Regular Cleaning</option>
-                  <option >End of tenancy Cleaning</option>
-                  <option >After Builders Cleaning</option>
+                  <option>Regular Cleaning</option>
+                  <option>End of tenancy Cleaning</option>
+                  <option>After Builders Cleaning</option>
                 </select>
               </div>
             </div>
@@ -209,7 +209,11 @@
                 <input type="text" class="form-control" id="cvv" placeholder="CVV" />
               </div>
             </div>
-            <button class="mt-4">Confirm Payment and Book</button>
+            <div class="row mb-3 mt-4">
+              <stripe-checkout ref="checkoutRef" mode="payment" :pk="publishableKey" :line-items="lineItems"
+                :success-url="successURL" :cancel-url="cancelURL" @loading="v => loading = v" />
+              <button @click="submit" type="button" >Confirm Payment and Book!</button>
+            </div>
           </form>
         </div>
         <div class="small-card mt-3">
