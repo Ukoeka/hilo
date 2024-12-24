@@ -482,59 +482,68 @@
       </div>
       </div>
       <div class="payment-info" v-if="bigDisplay == 2">
-              <div class="left">
-                <h2 class="mt-4 mb-4">Payment Summary</h2>
-                <div class="text-contain mt-3 mb-3">
-                  <h5>Mon 4 Dec, 2pm</h5>
+            <div class="left">
+              <h2 class="mt-4 mb-4">Payment Summary</h2>
+              <div class="text-contain mt-3 mb-3">
+                <h5>Mon 4 Dec, 2pm</h5>
+              </div>
+              <div class="time-area mt-3">
+                <div class="top-text">
+                  <p>Booking Time</p>
+                  <h5>7am to 3pm</h5>
                 </div>
-                <div class="time-area mt-3">
-                  <div class="top-text">
-                    <p>Booking Time</p>
-                    <h5>7am to 3pm</h5>
+                <div class="button-area mb-3">
+
+                  <div class="change-time col-md-12">
+                      
+                   
                   </div>
-                  <div class="button-area mb-3">
-                    <button>Change Time Set</button>
-                  </div>
-                </div>
-                <div class="top-textss mt-3">
-                  <p>Total</p>
-                  <h5>$91</h5>
+                  <div class="button"></div>
+                  <button>Change Time Slot</button>
                 </div>
               </div>
-              <div class="right">
-                <div class="big-card">
-                  <div class="card-head mb-3">
-                    <input type="radio">
-                    <h4>Card Payment</h4>
-                  </div>
-                  <form action="" class="mt-3">
-                    <div class="row mb-3 mt-3">
-                        <div class="col-md-12">
-                        <label for="first_name">Card Number</label>
-                        <input type="text" class="form-control" id="card_number" placeholder="Card Number">
-                        </div>
-                    </div>
-                    <div class="row mb-3 mt-4">
-                        <div class="col-md-12">
-                        <label for="first_name">Expiry Date</label>
-                        <input type="text" class="form-control" id="expiry_date" placeholder="Expiry Date">
-                        </div>
-                    </div>
-                    <div class="row mb-3 mt-4">
-                        <div class="col-md-12">
-                        <label for="first_name">CVV</label>
-                        <input type="text" class="form-control" id="cvv" placeholder="CVV">
-                        </div>
-                    </div>
-                    <button class="mt-4">Confirm Payment and Book</button>
-                  </form>
-                </div>
-                <div class="small-card mt-3">
+              <div class="top-textss mt-3">
+                <p>Total</p>
+                <h5>$91</h5>
+              </div>
+
+              
+              <button class="pay-btn mt-3">Pay now</button>
+            </div>
+            <!-- <div class="right">
+              <div class="big-card">
+                <div class="card-head mb-3">
                   <input type="radio">
-                    <h2>Klarna</h2>
+                  <h4>Card Payment</h4>
                 </div>
+                <form action="" class="mt-3">
+                  <div class="row mb-3 mt-3">
+                      <div class="col-md-12">
+                      <label for="first_name">Card Number</label>
+                      <input type="text" class="form-control" id="card_number" placeholder="Card Number">
+                      </div>
+                  </div>
+                  <div class="row mb-3 mt-4">
+                      <div class="col-md-12">
+                      <label for="first_name">Expiry Date</label>
+                      <input type="text" class="form-control" id="expiry_date" placeholder="Expiry Date">
+                      </div>
+                  </div>
+                  <div class="row mb-3 mt-4">
+                      <div class="col-md-12">
+                      <label for="first_name">CVV</label>
+                      <input type="text" class="form-control" id="cvv" placeholder="CVV">
+                      </div>
+                  </div>
+                  <button class="mt-4">Confirm Payment and Book</button>
+                </form>
               </div>
-      </div>
+              <div class="small-card mt-3">
+                <input type="radio">
+                  <h2>Klarna</h2>
+              </div>
+            </div> -->
+    </div>
     </div>
   
     <!-- MODAL -->
@@ -728,6 +737,7 @@
     padding: 5%;
     gap: 30px;
     box-sizing: border-box;
+    justify-content: center;
   
     .drive-info{
           width: 90%;
@@ -938,103 +948,136 @@
       }
   
       .payment-info{
+        width: 60%;
+        background: white;
+        padding: 4% 2%;
+        border-radius: 15px;
+        display: flex;
+        gap: 5%;
+
+        .left{
           width: 100%;
-          background: white;
-          padding: 4% 2%;
-          border-radius: 15px;
           display: flex;
-          gap: 5%;
-  
-          .left{
-            width: 55%;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+
+          .text-contain{
+            background: #DFEEFF;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-  
-            .text-contain{
-              background: #DFEEFF;
-              display: flex;
-              justify-content: center;
-              padding: 15px 20px;
-              border-radius: 10px;
-            }
-            .time-area{
-              background: #F0F5F3;
-              width: 80%;
-              border-radius: 10px;
-              box-shadow: 0px 10px 24px 0px #058DB840;
-  
-              .top-text{
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
-                padding: 15px;
-              }
-              .button-area{
-                display: flex;
-                justify-content: center;
-                button{
-                width: 80%;
-                background: #F0F2F5;
-                color: #2E7D32;
-                height: 48px;
-                border: 1px solid #2E7D32;
-                border-radius: 15px;
-                margin: auto;
-              }
-              }
-            }
-            .top-textss{
-              width: 80%;
+            padding: 15px 20px;
+            border-radius: 10px;
+          }
+          .time-area{
+            background: #F0F5F3;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0px 10px 24px 0px #058DB840;
+
+            .top-text{
+              width: 100%;
               display: flex;
               justify-content: space-between;
               padding: 15px;
             }
-          }
-          .right{
-            width: 40%;
-            border: 0.3px solid rgb(212, 212, 212);
-            border-radius: 10px;
-            padding: 35px;
-  
-            .big-card{
-              border: 0.3px solid rgb(212, 212, 212);
-              border-radius: 10px;
-              padding: 18px;
-  
-              .card-head{
-                border: 0.3px solid rgb(212, 212, 212);
-                border-radius: 10px;
-                padding: 18px;
-                display: flex;
-                gap: 15px;
-                align-items: center;
-  
-                h4{
-                  margin: 0px;
-                }
-              }
+            .button-area{
+              display: flex;
+              justify-content: center;
+              flex-direction: column;
+              align-items: center;
+
+             
               button{
-                background: #2E7D32;
-                color: white;
-                width: 100%;
-                height: 48px;
-                border: none;
-                border-radius: 10px;
-              }
-              
+              width: 80%;
+              background: #F0F2F5;
+              color: #2E7D32;
+              height: 48px;
+              border: 1px solid #2E7D32;
+              border-radius: 15px;
+            }
             }
           }
-          .small-card{
-            border: 0.3px solid rgb(212, 212, 212);
-            border-radius: 10px;
-            padding: 6px 18px;
+          .top-textss{
+            width: 80%;
             display: flex;
-            gap: 15px;
-            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
           }
-     }
+          .more-details{
+            background: #F0F5F3;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0px 10px 24px 0px #058DB840;
+            padding: 20px;
+
+            .top-text{
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              padding: 15px;
+            }
+            .button-area{
+              display: flex;
+              justify-content: center;
+              flex-direction: column;
+              align-items: center;
+
+             
+              button{
+              width: 80%;
+              background: #F0F2F5;
+              color: #2E7D32;
+              height: 48px;
+              border: 1px solid #2E7D32;
+              border-radius: 15px;
+            }
+            }
+          }
+        }
+        // .right{
+        //   width: 40%;
+        //   border: 0.3px solid rgb(212, 212, 212);
+        //   border-radius: 10px;
+        //   padding: 35px;
+
+        //   .big-card{
+        //     border: 0.3px solid rgb(212, 212, 212);
+        //     border-radius: 10px;
+        //     padding: 18px;
+
+        //     .card-head{
+        //       border: 0.3px solid rgb(212, 212, 212);
+        //       border-radius: 10px;
+        //       padding: 18px;
+        //       display: flex;
+        //       gap: 15px;
+        //       align-items: center;
+
+        //       h4{
+        //         margin: 0px;
+        //       }
+        //     }
+        //     button{
+        //       background: #2E7D32;
+        //       color: white;
+        //       width: 100%;
+        //       height: 48px;
+        //       border: none;
+        //       border-radius: 10px;
+        //     }
+            
+        //   }
+        // }
+        .small-card{
+          border: 0.3px solid rgb(212, 212, 212);
+          border-radius: 10px;
+          padding: 6px 18px;
+          display: flex;
+          gap: 15px;
+          align-items: center;
+        }
+   }
 
     .each-row{
       width: 100%;
@@ -1064,5 +1107,13 @@
         }
       }
     }
+    .pay-btn{
+    width: 70%;
+    background: #2E7D32;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+  }
   </style>
   

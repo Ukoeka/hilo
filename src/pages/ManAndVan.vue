@@ -149,7 +149,7 @@
                   <button>Change Time Slot</button>
                 </div>
               </div>
-              <div class="more-details mt-5">
+              <!-- <div class="more-details mt-5">
                 <h5>Moving Service</h5>
                 <div class="row mb-3">
                   <div class="form-group d-flex give-gap col-md-12">
@@ -163,7 +163,7 @@
                     <label class="labelled" for="first_name">Complete Removal Service <br> <span></span></label>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="top-textss mt-3">
                 <p>Total</p>
                 <h5>$91</h5>
