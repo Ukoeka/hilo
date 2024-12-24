@@ -311,7 +311,11 @@
                 <input type="text" class="form-control" id="cvv" placeholder="CVV" />
               </div>
             </div>
-            <button class="mt-4">Confirm Payment and Book</button>
+            <div class="row mb-3 mt-4">
+              <!-- <stripe-checkout ref="checkoutRef" mode="payment" :pk="publishableKey" :line-items="lineItems"
+                :success-url="successURL" :cancel-url="cancelURL" @loading="v => loading = v" /> -->
+              <button @click="submit" type="button" >Confirm Payment and Book!</button>
+            </div>
           </form>
         </div>
         <div class="small-card mt-3">
@@ -428,14 +432,16 @@ export default {
       loading: false,
       lineItems: [
         {
-          price: 'some-price-id', // The id of the one-time price you created in your Stripe dashboard
+          price: 'pi_3QYPfYHE9bpD2o7j08piGsqA_secret_ddLnnpj5igyXuApXId7j4czfY', // The id of the one-time price you created in your Stripe dashboard
           quantity: 1,
         },
       ],
+      successURL: 'your-success-url',
+      cancelURL: 'your-cancel-url',
       publishableKey: 'pk_test_51JhfO5HE9bpD2o7jw1NV5msrol1VBzjvtERfw1bAsDQpS35e8QAwZxQaQjAUVGVZPeWTNJdmDwupUSh53ZlisnOz00e9rgxChT',
             // APp
       bigDisplay: 2,
-      display: 4,
+      display: 1,
       doubleBed: 1,
       kingBed: 1,
       wardrobe: 1,
