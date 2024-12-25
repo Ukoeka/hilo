@@ -4,6 +4,7 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import VCalendar from 'v-calendar';
 import VueTelInput from 'vue-tel-input';
+import { plugin, defaultConfig } from '@formkit/vue';
 
 
 import App from './App.vue'
@@ -22,8 +23,8 @@ const app = createApp(App)
 
 app.use(VCalendar, {})
 app.use(createPinia())
-// app.use(VueCountryCode);
 app.use(VueTelInput);
+app.use(plugin, defaultConfig);
 app.use(router)
 
 app.mount('#app')

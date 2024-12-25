@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@formkit/vue": "^1.6.9",
     "@popperjs/core": "^2.11.8",
     "@vue-stripe/vue-stripe": "^4.5.0",
     "bootstrap": "^5.3.3",

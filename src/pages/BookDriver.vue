@@ -10,11 +10,21 @@
     <div class="drive-info" v-if="bigDisplay == 1">
       <div class="left">
         <div class="bars mb-3">
-          <div :class="[this.display > 0 ? 'active-bar each-bar' : 'each-bar']"></div>
-          <div :class="[this.display > 1 ? 'active-bar each-bar' : 'each-bar']"></div>
-          <div :class="[this.display > 2 ? 'active-bar each-bar' : 'each-bar']"></div>
-          <div :class="[this.display > 3 ? 'active-bar each-bar' : 'each-bar']"></div>
-          <div :class="[this.display == 5 ? 'active-bar each-bar' : 'each-bar']"></div>
+          <div
+            :class="[this.display > 0 ? 'active-bar each-bar' : 'each-bar']"
+          ></div>
+          <div
+            :class="[this.display > 1 ? 'active-bar each-bar' : 'each-bar']"
+          ></div>
+          <div
+            :class="[this.display > 2 ? 'active-bar each-bar' : 'each-bar']"
+          ></div>
+          <div
+            :class="[this.display > 3 ? 'active-bar each-bar' : 'each-bar']"
+          ></div>
+          <div
+            :class="[this.display == 5 ? 'active-bar each-bar' : 'each-bar']"
+          ></div>
         </div>
         <form action="">
           <div v-if="display == 1">
@@ -22,31 +32,56 @@
             <div class="row mb-3">
               <div class="div-group col-md-6">
                 <label for="first_name">Pick-up Address</label>
-                <input type="text" class="form-control" id="pickupAddress" placeholder="Pick-up Address"
-                  v-model="bookDriver.pickUp.name" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pickupAddress"
+                  placeholder="Pick-up Address"
+                  v-model="bookDriver.pickUp.name"
+                />
               </div>
               <div class="form-group col-md-6">
                 <label for="last_name">Drop-off Address</label>
-                <input type="text" class="form-control" id="" placeholder="Drop-off Address"
-                  v-model="bookDriver.dropOff.name" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id=""
+                  placeholder="Drop-off Address"
+                  v-model="bookDriver.dropOff.name"
+                />
               </div>
             </div>
             <div class="row mb-3 d-none">
               <div class="form-group col-md-6">
                 <label for="inputEmail4">Property Type</label>
-                <input type="text" class="form-control" id="" placeholder="Property Type"
-                  v-model="bookDriver.propertyType" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id=""
+                  placeholder="Property Type"
+                  v-model="bookDriver.propertyType"
+                />
               </div>
               <div class="form-group col-md-6">
                 <label for="inputEmail4">Vehicle Type</label>
-                <input type="text" class="form-control" id="" placeholder="Property Type"
-                  v-model="bookDriver.vehicleType" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id=""
+                  placeholder="Property Type"
+                  v-model="bookDriver.vehicleType"
+                />
               </div>
             </div>
             <div class="row mb-3 d-none">
               <div class="form-group col-md-6">
                 <label for="inputEmail4">Floor</label>
-                <input type="text" class="form-control" id="" placeholder="Property Type" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id=""
+                  placeholder="Property Type"
+                />
               </div>
             </div>
 
@@ -61,19 +96,36 @@
             <h2 class="text-center mt-5 mb-4">Select Property Type</h2>
             <div class="row mb-3">
               <div class="form-group d-flex give-gap col-md-12">
-                <input type="radio" id="small_to_mid" name="property_type" value="small_to_mid" checked
-                  @change="selectPropertyType($event.target.value, 'property')" />
-                <label class="labelled" for="small_to_mid">Small to Mid Size Property <br />
-                  <span>Ideal for this booking type</span></label>
+                <input
+                  type="radio"
+                  id="small_to_mid"
+                  name="property_type"
+                  value="small_to_mid"
+                  checked
+                  @change="selectPropertyType($event.target.value, 'property')"
+                />
+                <label class="labelled" for="small_to_mid"
+                  >Small to Mid Size Property <br />
+                  <span>Ideal for this booking type</span></label
+                >
               </div>
             </div>
             <div class="row mb-3">
               <div class="form-group d-flex give-gap col-md-12">
-                <input type="radio" id="large" name="property_type" value="large"
-                  @change="selectPropertyType($event.target.value, 'property')" />
-                <label class="labelled" for="large">Large Property <br />
-                  <span>You need to book, no obligation property survey to be able
-                    to get a precise quote</span></label>
+                <input
+                  type="radio"
+                  id="large"
+                  name="property_type"
+                  value="large"
+                  @change="selectPropertyType($event.target.value, 'property')"
+                />
+                <label class="labelled" for="large"
+                  >Large Property <br />
+                  <span
+                    >You need to book, no obligation property survey to be able
+                    to get a precise quote</span
+                  ></label
+                >
               </div>
             </div>
 
@@ -91,27 +143,63 @@
 
             <!-- Number of Vehicles -->
             <nav class="big-tabs">
-              <div class="nav nav-tabs tabs-container" id="nav-tab" role="tablist">
-                <div v-for="(tab, index) in tabs" :key="index" class="nav-lin" :class="{ active: activeTab === tab.id }"
-                  :id="`${tab.id}-tab`" data-bs-toggle="tab" :data-bs-target="`#${tab.id}`" type="div" role="tab"
-                  :aria-controls="tab.id" :aria-selected="activeTab === tab.id" @click="setActiveTab(tab.id)">
+              <div
+                class="nav nav-tabs tabs-container"
+                id="nav-tab"
+                role="tablist"
+              >
+                <div
+                  v-for="(tab, index) in tabs"
+                  :key="index"
+                  class="nav-lin"
+                  :class="{ active: activeTab === tab.id }"
+                  :id="`${tab.id}-tab`"
+                  data-bs-toggle="tab"
+                  :data-bs-target="`#${tab.id}`"
+                  type="div"
+                  role="tab"
+                  :aria-controls="tab.id"
+                  :aria-selected="activeTab === tab.id"
+                  @click="setActiveTab(tab.id)"
+                >
                   {{ tab.name }}
                 </div>
               </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
-              <div v-for="(tab, index) in tabs" :key="index" class="tab-pane fade"
-                :class="{ show: activeTab === tab.id, active: activeTab === tab.id }" :id="tab.id" role="tabpanel"
-                :aria-labelledby="`${tab.id}-tab`">
+              <div
+                v-for="(tab, index) in tabs"
+                :key="index"
+                class="tab-pane fade"
+                :class="{
+                  show: activeTab === tab.id,
+                  active: activeTab === tab.id,
+                }"
+                :id="tab.id"
+                role="tabpanel"
+                :aria-labelledby="`${tab.id}-tab`"
+              >
                 <div class="row each-tab mb-3">
-                  <div v-for="(item, idx) in tab.items" :key="idx" class="each-row mt-3">
+                  <div
+                    v-for="(item, idx) in tab.items"
+                    :key="idx"
+                    class="each-row mt-3"
+                  >
                     <p>{{ item.name }}</p>
                     <div class="rights">
-                      <button @click="item.quantity > 0 ? item.quantity-- : null" type="button" class="red-btn">
+                      <button
+                        @click="item.quantity > 0 ? item.quantity-- : null"
+                        type="button"
+                        class="red-btn"
+                      >
                         -
                       </button>
                       <p>{{ item.quantity }}</p>
-                      <button @click="item.quantity++" type="button" class="green-btn">
+                      <button
+                        @click="item.quantity++"
+                        type="button"
+                        class="green-btn"
+                      >
                         +
                       </button>
                     </div>
@@ -137,29 +225,65 @@
             <div class="row mb-3">
               <div class="form-group col-md-12">
                 <div class="row radios mb-3">
-                  <label class="faded mb-2" for="number_of_vehicle">Vehicle Type and Capacity
-                    <img class="question-modal" src="@/assets/icons/question.png" alt="" /></label>
+                  <label class="faded mb-2" for="number_of_vehicle"
+                    >Vehicle Type and Capacity
+                    <img
+                      class="question-modal"
+                      src="@/assets/icons/question.png"
+                      alt=""
+                  /></label>
                   <div class="d-flexe mb-3">
                     <div class="form-group radio-btn">
-                      <input type="radio" id="email" value="small"
-                        @change="selectPropertyType($event.target.value, 'vehicle_type')" />
+                      <input
+                        type="radio"
+                        id="email"
+                        value="small"
+                        @change="
+                          selectPropertyType(
+                            $event.target.value,
+                            'vehicle_type'
+                          )
+                        "
+                      />
                       <label class="labelle" for="first_name">Small Van</label>
                     </div>
                     <div class="form-group radio-btn">
-                      <input type="radio" id="email" value="medium"
-                        @change="selectPropertyType($event.target.value, 'vehicle_type')" />
+                      <input
+                        type="radio"
+                        id="email"
+                        value="medium"
+                        @change="
+                          selectPropertyType(
+                            $event.target.value,
+                            'vehicle_type'
+                          )
+                        "
+                      />
                       <label class="labelle" for="first_name">Luton Van</label>
                     </div>
                     <div class="form-group radio-btn">
-                      <input type="radio" id="email" value="large"
-                        @change="selectPropertyType($event.target.value, 'vehicle_type')" />
+                      <input
+                        type="radio"
+                        id="email"
+                        value="large"
+                        @change="
+                          selectPropertyType(
+                            $event.target.value,
+                            'vehicle_type'
+                          )
+                        "
+                      />
                       <label class="labelld" for="first_name">Large Van</label>
                     </div>
                   </div>
 
                   <div class="form-group mt-3 col-md-12">
-                    <label class="faded" for="number_of_vehicle">Do you require additional services?<img
-                        class="question-modal" src="@/assets/icons/question.png" alt="" /></label>
+                    <label class="faded" for="number_of_vehicle"
+                      >Do you require additional services?<img
+                        class="question-modal"
+                        src="@/assets/icons/question.png"
+                        alt=""
+                    /></label>
                   </div>
                 </div>
 
@@ -168,46 +292,116 @@
                   <div class="form-group col-md-8">
                     <div class="checkers mt-2 mb-3">
                       <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="packing assistance"
-                          @change="updateAdditionalService($event.target.value, $event.target.checked)" />
-                        <label class="form-check-label">Packing Assistance</label>
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value="packing assistance"
+                          @change="
+                            updateAdditionalService(
+                              $event.target.value,
+                              $event.target.checked
+                            )
+                          "
+                        />
+                        <label class="form-check-label"
+                          >Packing Assistance</label
+                        >
                       </div>
                       <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="unpacking assistance"
-                          @change="updateAdditionalService($event.target.value, $event.target.checked)" />
-                        <label class="form-check-label">Unpacking Assistance</label>
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value="unpacking assistance"
+                          @change="
+                            updateAdditionalService(
+                              $event.target.value,
+                              $event.target.checked
+                            )
+                          "
+                        />
+                        <label class="form-check-label"
+                          >Unpacking Assistance</label
+                        >
                       </div>
                     </div>
                     <div class="checkers mt-2 mb-3">
                       <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="furniture assembly"
-                          @change="updateAdditionalService($event.target.value, $event.target.checked)" />
-                        <label class="form-check-label">Furniture Assembly</label>
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value="furniture assembly"
+                          @change="
+                            updateAdditionalService(
+                              $event.target.value,
+                              $event.target.checked
+                            )
+                          "
+                        />
+                        <label class="form-check-label"
+                          >Furniture Assembly</label
+                        >
                       </div>
                       <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="furniture disassembly" 
-                          @change="updateAdditionalService($event.target.value, $event.target.checked)" />
-                        <label class="form-check-label">Furniture disassembly</label>
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value="furniture disassembly"
+                          @change="
+                            updateAdditionalService(
+                              $event.target.value,
+                              $event.target.checked
+                            )
+                          "
+                        />
+                        <label class="form-check-label"
+                          >Furniture disassembly</label
+                        >
                       </div>
                     </div>
                     <div class="checkers mt-2 mb-3">
                       <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="loading assistance" 
-                          @change="updateAdditionalService($event.target.value, $event.target.checked)" />
-                        <label class="form-check-label">Loading Assistance</label>
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value="loading assistance"
+                          @change="
+                            updateAdditionalService(
+                              $event.target.value,
+                              $event.target.checked
+                            )
+                          "
+                        />
+                        <label class="form-check-label"
+                          >Loading Assistance</label
+                        >
                       </div>
                       <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" value="loading assistance" 
-                          @change="updateAdditionalService($event.target.value, $event.target.checked)" />
-                        <label class="form-check-label">Unloading Assistance</label>
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value="loading assistance"
+                          @change="
+                            updateAdditionalService(
+                              $event.target.value,
+                              $event.target.checked
+                            )
+                          "
+                        />
+                        <label class="form-check-label"
+                          >Unloading Assistance</label
+                        >
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div class="form-group mt-3 col-md-12">
-                  <label class="faded mb-3" for="number_of_vehicle">Do you require additional services?<img
-                      class="question-modal" src="@/assets/icons/question.png" alt="" /></label>
+                  <label class="faded mb-3" for="number_of_vehicle"
+                    >Do you require additional services?<img
+                      class="question-modal"
+                      src="@/assets/icons/question.png"
+                      alt=""
+                  /></label>
                   <input type="text" class="form-control" />
                 </div>
               </div>
@@ -227,14 +421,24 @@
           <div class="upload col-md-12" v-if="display == 5">
             <h2 class="text-center mt-5 mb-4">Time and Date</h2>
             <div class="row mb-3">
-              <VDatePicker v-model="bookDate" mode="dateTime" is-required expanded />
+              <VDatePicker
+                v-model="bookDate"
+                mode="dateTime"
+                is-required
+                expanded
+              />
             </div>
 
             <div class="form-group mt-5 buttons">
               <button @click="showCard4()" type="button" class="btn white-btn">
                 Back
               </button>
-              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn green-btn">
+              <button
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                class="btn green-btn"
+              >
                 Next
               </button>
             </div>
@@ -278,64 +482,92 @@
             <h5>7am to 3pm</h5>
           </div>
           <div class="button-area mb-3">
-            <button>Change Time Set</button>
+            <div class="change-time col-md-12"></div>
+            <div class="button"></div>
+            <button>Change Time Slot</button>
           </div>
         </div>
+        <!-- <div class="more-details mt-5">
+                <h5>Moving Service</h5>
+                <div class="row mb-3">
+                  <div class="form-group d-flex give-gap col-md-12">
+                    <input type="radio" id="email"  name="service" placeholder="Post Code">
+                    <label class="labelled" for="first_name">Driver and Van Alone <br> <span>Your are responsible for  loading and unloading van</span></label>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group d-flex give-gap col-md-12">
+                    <input type="radio" id="email" name="service" placeholder="Post Code">
+                    <label class="labelled" for="first_name">Complete Removal Service <br> <span></span></label>
+                  </div>
+                </div>
+              </div> -->
         <div class="top-textss mt-3">
           <p>Total</p>
-          <h5>$91</h5>
+          <h5>$ {{ estimatedPrice }}</h5>
         </div>
+
+        <button type="button" class="pay-btn mt-3" @click="redirectStripes">
+          Pay now
+        </button>
       </div>
-      <div class="right">
-        <div class="big-card">
-          <div class="card-head mb-3">
-            <input type="radio" />
-            <h4>Card Payment</h4>
-          </div>
-          <form action="" class="mt-3">
-            <div class="row mb-3 mt-3">
-              <div class="col-md-12">
-                <label for="first_name">Card Number</label>
-                <input type="text" class="form-control" id="card_number" placeholder="Card Number" />
+      <!-- <div class="right">
+              <div class="big-card">
+                <div class="card-head mb-3">
+                  <input type="radio">
+                  <h4>Card Payment</h4>
+                </div>
+                <form action="" class="mt-3">
+                  <div class="row mb-3 mt-3">
+                      <div class="col-md-12">
+                      <label for="first_name">Card Number</label>
+                      <input type="text" class="form-control" id="card_number" placeholder="Card Number">
+                      </div>
+                  </div>
+                  <div class="row mb-3 mt-4">
+                      <div class="col-md-12">
+                      <label for="first_name">Expiry Date</label>
+                      <input type="text" class="form-control" id="expiry_date" placeholder="Expiry Date">
+                      </div>
+                  </div>
+                  <div class="row mb-3 mt-4">
+                      <div class="col-md-12">
+                      <label for="first_name">CVV</label>
+                      <input type="text" class="form-control" id="cvv" placeholder="CVV">
+                      </div>
+                  </div>
+                  <button class="mt-4">Confirm Payment and Book</button>
+                </form>
               </div>
-            </div>
-            <div class="row mb-3 mt-4">
-              <div class="col-md-12">
-                <label for="first_name">Expiry Date</label>
-                <input type="text" class="form-control" id="expiry_date" placeholder="Expiry Date" />
+              <div class="small-card mt-3">
+                <input type="radio">
+                  <h2>Klarna</h2>
               </div>
-            </div>
-            <div class="row mb-3 mt-4">
-              <div class="col-md-12">
-                <label for="first_name">CVV</label>
-                <input type="text" class="form-control" id="cvv" placeholder="CVV" />
-              </div>
-            </div>
-            <div class="row mb-3 mt-4">
-              <!-- <stripe-checkout ref="checkoutRef" mode="payment" :pk="publishableKey" :line-items="lineItems"
-                :success-url="successURL" :cancel-url="cancelURL" @loading="v => loading = v" /> -->
-              <button @click="submit" type="button" >Confirm Payment and Book!</button>
-            </div>
-          </form>
-        </div>
-        <div class="small-card mt-3">
-          <input type="radio" />
-          <h2>Klarna</h2>
-        </div>
-      </div>
+            </div> -->
     </div>
   </div>
 
   <!-- MODAL -->
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title text-center" id="exampleModalLabel">
             Please input Contact information for Instant Prices
           </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
           <h5>Why Add Your Email?</h5>
@@ -380,19 +612,34 @@
             <div class="row mb-3">
               <div class="div-group col-md-6">
                 <label for="first_name">Email</label>
-                <input type="text" class="form-control" id="email" placeholder="Email" v-model="bookDriver.email" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="email"
+                  placeholder="Email"
+                  v-model="bookDriver.email"
+                />
               </div>
               <div class="form-group col-md-6">
-                <label for="last_name" >Phone Number</label>
-                <input type="text" class="form-control" id="Phone Number" placeholder="Phone Number"  v-model="bookDriver.phoneNumber"/>
+                <label for="last_name">Phone Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="Phone Number"
+                  placeholder="Phone Number"
+                  v-model="bookDriver.phoneNumber"
+                />
               </div>
             </div>
-            <button type="button" @click="bookDrivingService()" class="view-button mt-3" data-bs-dismiss="modal"
-              aria-label="Close">
+            <button
+              type="button"
+              @click="bookDrivingService()"
+              class="view-button mt-3"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
               <loader v-if="loading"></loader>
-              <span v-else>
-              View Instant Prices
-              </span>
+              <span v-else> View Instant Prices </span>
             </button>
           </form>
         </div>
@@ -406,7 +653,7 @@
 <script>
 import Footer from "@/layouts/partials/footer.vue";
 import TopNav from "@/layouts/partials/topnav.vue";
-import { StripeCheckout } from '@vue-stripe/vue-stripe';
+import { StripeCheckout } from "@vue-stripe/vue-stripe";
 import {
   fetchFromApi,
   postToApi,
@@ -414,6 +661,7 @@ import {
   patchToApi,
 } from "@/services/baseApi";
 import loader from "@/components/loader.vue";
+import router from "@/router";
 export default {
   name: "OnboardDriver",
   components: {
@@ -432,15 +680,16 @@ export default {
       loading: false,
       lineItems: [
         {
-          price: 'pi_3QYPfYHE9bpD2o7j08piGsqA_secret_ddLnnpj5igyXuApXId7j4czfY', // The id of the one-time price you created in your Stripe dashboard
+          price: "pi_3QYPfYHE9bpD2o7j08piGsqA_secret_ddLnnpj5igyXuApXId7j4czfY", // The id of the one-time price you created in your Stripe dashboard
           quantity: 1,
         },
       ],
-      successURL: 'your-success-url',
-      cancelURL: 'your-cancel-url',
-      publishableKey: 'pk_test_51JhfO5HE9bpD2o7jw1NV5msrol1VBzjvtERfw1bAsDQpS35e8QAwZxQaQjAUVGVZPeWTNJdmDwupUSh53ZlisnOz00e9rgxChT',
-            // APp
-      bigDisplay: 2,
+      successURL: "your-success-url",
+      cancelURL: "your-cancel-url",
+      publishableKey:
+        "pk_test_51JhfO5HE9bpD2o7jw1NV5msrol1VBzjvtERfw1bAsDQpS35e8QAwZxQaQjAUVGVZPeWTNJdmDwupUSh53ZlisnOz00e9rgxChT",
+      // APp
+      bigDisplay: 1,
       display: 1,
       doubleBed: 1,
       kingBed: 1,
@@ -527,18 +776,28 @@ export default {
         },
       ],
       bookDate: null,
-
+      stripesUrl: "",
+      estimatedPrice: 0,
     };
   },
   watch: {
     tabs: {
       handler(newValue, oldValue) {
         if (newValue) {
-          const items = newValue.reduce((acc, tab) => acc.concat(tab.items.map(item => ({ id: item.name, quantity: item.quantity }))), []);
+          const items = newValue.reduce(
+            (acc, tab) =>
+              acc.concat(
+                tab.items.map((item) => ({
+                  id: item.name,
+                  quantity: item.quantity,
+                }))
+              ),
+            []
+          );
           this.bookDriver.items = items;
         }
       },
-      deep: true
+      deep: true,
     },
     bookDate(newValue) {
       if (newValue) {
@@ -546,25 +805,27 @@ export default {
         const formattedDate = date.toISOString(); // Convert to ISO 8601 format
         this.bookDriver.bookingDate = formattedDate;
       }
-    }
+    },
   },
   methods: {
-    submit () {
+    redirectStripes() {
       // You will be redirected to Stripe's secure checkout page
-      this.$refs.checkoutRef.redirectToCheckout();
+      if (this.stripesUrl) window.location.assign(this.stripesUrl);
     },
     async bookDrivingService() {
-      console.log(this.bookDriver)
+      console.log(this.bookDriver);
       try {
         const url = "booking/driver";
         const resp = await postToApi(url, this.bookDriver);
         console.log(resp);
         if (resp.status) {
-          this.paymentView()
+          this.stripesUrl = resp.data.url;
+          this.estimatedPrice = resp.data.estimated_price
+          this.paymentView();
           swal({
             text: resp.message,
             icon: "success",
-          })
+          });
         } else {
           swal({
             text: resp.message,
@@ -580,7 +841,7 @@ export default {
     },
     selectPropertyType(serviceName, type) {
       console.log(serviceName);
-      if (type == 'property') {
+      if (type == "property") {
         this.bookDriver.propertyType = serviceName;
       } else {
         this.bookDriver.vehicleType = serviceName;
@@ -588,7 +849,8 @@ export default {
     },
     updateAdditionalService(serviceName, isChecked) {
       console.log(serviceName, isChecked);
-      const serviceIndex = this.bookDriver.extraData.additionalServices.indexOf(serviceName);
+      const serviceIndex =
+        this.bookDriver.extraData.additionalServices.indexOf(serviceName);
 
       if (isChecked && serviceIndex === -1) {
         this.bookDriver.extraData.additionalServices.push(serviceName);
@@ -634,7 +896,6 @@ export default {
       this.bigDisplay = 2;
     },
   },
-  mounted() { },
 };
 </script>
 
@@ -690,6 +951,7 @@ export default {
   padding: 5%;
   gap: 30px;
   box-sizing: border-box;
+  justify-content: center;
 
   .drive-info {
     width: 90%;
@@ -906,7 +1168,7 @@ export default {
 }
 
 .payment-info {
-  width: 100%;
+  width: 60%;
   background: white;
   padding: 4% 2%;
   border-radius: 15px;
@@ -914,7 +1176,7 @@ export default {
   gap: 5%;
 
   .left {
-    width: 55%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -927,7 +1189,6 @@ export default {
       padding: 15px 20px;
       border-radius: 10px;
     }
-
     .time-area {
       background: #f0f5f3;
       width: 80%;
@@ -940,10 +1201,11 @@ export default {
         justify-content: space-between;
         padding: 15px;
       }
-
       .button-area {
         display: flex;
         justify-content: center;
+        flex-direction: column;
+        align-items: center;
 
         button {
           width: 80%;
@@ -952,54 +1214,79 @@ export default {
           height: 48px;
           border: 1px solid #2e7d32;
           border-radius: 15px;
-          margin: auto;
         }
       }
     }
-
     .top-textss {
       width: 80%;
       display: flex;
       justify-content: space-between;
       padding: 15px;
     }
-  }
-
-  .right {
-    width: 40%;
-    border: 0.3px solid rgb(212, 212, 212);
-    border-radius: 10px;
-    padding: 35px;
-
-    .big-card {
-      border: 0.3px solid rgb(212, 212, 212);
+    .more-details {
+      background: #f0f5f3;
+      width: 80%;
       border-radius: 10px;
-      padding: 18px;
+      box-shadow: 0px 10px 24px 0px #058db840;
+      padding: 20px;
 
-      .card-head {
-        border: 0.3px solid rgb(212, 212, 212);
-        border-radius: 10px;
-        padding: 18px;
+      .top-text {
+        width: 100%;
         display: flex;
-        gap: 15px;
+        justify-content: space-between;
+        padding: 15px;
+      }
+      .button-area {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
         align-items: center;
 
-        h4 {
-          margin: 0px;
+        button {
+          width: 80%;
+          background: #f0f2f5;
+          color: #2e7d32;
+          height: 48px;
+          border: 1px solid #2e7d32;
+          border-radius: 15px;
         }
-      }
-
-      button {
-        background: #2e7d32;
-        color: white;
-        width: 100%;
-        height: 48px;
-        border: none;
-        border-radius: 10px;
       }
     }
   }
+  // .right{
+  //   width: 40%;
+  //   border: 0.3px solid rgb(212, 212, 212);
+  //   border-radius: 10px;
+  //   padding: 35px;
 
+  //   .big-card{
+  //     border: 0.3px solid rgb(212, 212, 212);
+  //     border-radius: 10px;
+  //     padding: 18px;
+
+  //     .card-head{
+  //       border: 0.3px solid rgb(212, 212, 212);
+  //       border-radius: 10px;
+  //       padding: 18px;
+  //       display: flex;
+  //       gap: 15px;
+  //       align-items: center;
+
+  //       h4{
+  //         margin: 0px;
+  //       }
+  //     }
+  //     button{
+  //       background: #2E7D32;
+  //       color: white;
+  //       width: 100%;
+  //       height: 48px;
+  //       border: none;
+  //       border-radius: 10px;
+  //     }
+
+  //   }
+  // }
   .small-card {
     border: 0.3px solid rgb(212, 212, 212);
     border-radius: 10px;
@@ -1008,5 +1295,13 @@ export default {
     gap: 15px;
     align-items: center;
   }
+}
+.pay-btn {
+  width: 70%;
+  background: #2e7d32;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  color: white;
 }
 </style>
