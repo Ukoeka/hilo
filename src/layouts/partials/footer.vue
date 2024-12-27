@@ -21,18 +21,18 @@
           <h3>Navigation</h3>
           <div class="links">
           <a href="/">Home</a>
-          <a href="">Resources</a>
-          <a href="">Contact Us</a>
+          <a href="/cleaning">Cleaning</a>
+          <a href="/packaging">Packaging</a>
+          <a href="/business">Business</a>
           <a href="/about">About Us</a>
-          <a href="">Partner</a>
           </div>
         </div>
         <div class="solutions">
           <h3>Solutions</h3>
           <div class="links">
-            <a href="">Products</a>
-          <a href="">Solutions</a>
-          <a href="">Services</a>
+            <a href="/gethired">Get Hired</a>
+          <a href="/getquote">Get Quote</a>
+          <a href="/book-driver">Book Driver</a>
           </div>
         </div>
       </div>

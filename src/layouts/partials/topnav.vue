@@ -1,7 +1,7 @@
 <template>
     <div class="tops">
       <div class="left">
-        <RouterLink to="/payments">
+        <RouterLink to="/">
           <img class="logo" src="@/assets/images/logo/logo-small.png" alt="">
         </RouterLink>
        
