@@ -13,7 +13,6 @@ import "bootstrap";
 import 'bootstrap/js/dist/button';
 import 'bootstrap/js/dist/modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'v-calendar/style.css';
 import 'vue-tel-input/vue-tel-input.css';
