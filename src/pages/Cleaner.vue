@@ -2,66 +2,77 @@
     <div class="hero">
         <TopNav></TopNav>
         <div class="content">
-          <h1>Efficient and <br> Affordable Removals & Logistics in the UK</h1>
+          <h1>Join a dedicated team <br> where your work truly makes a difference</h1>
           <div class="btn-container">
-            <button class="service">Order Packaging</button>
-            <button class="quote">Get Quote</button>
-            
+            <a href="/onboard-cleaner" class="service">Get Started</a>
+          </div>
+          <div class="btn-container">
+            <img class="men" src="@/assets/icons/Men.png" alt="">
+            <div class="star-container">
+              <span>5.0 <img src="@/assets/icons/Star.png" alt=""></span>
+              <p>18k Satisfied Customers</p>
+            </div>
           </div>
         </div>
         <div class="white-shape">
-          <p>Join a team that values your skills, offers flexible hours, and provides great opportunities to grow.</p>
+          <p>Make a difference in people's lives while enjoying flexible work and competitive pay.</p>
         </div>
     </div>
 
     <div class="expertise">
       <div class="right">
-        <h2>Why Choose Hilogisticz for Your Packing Needs?</h2>
-        <p>Experience expert packing, premium materials, and a truly stress-free moving experience with Hilogisticz.</p>
+        <h2>Why partner with Us?</h2>
+        <p>At Hilogisticz, we believe in making every clean count. With reliable jobs, flexible schedules, and fast payments, we help cleaners maximize their earnings and build their own schedules.</p>
         
       </div>
       <div class="left">
         <div class="card">
           <img src="@/assets/icons/black-tick.png" alt="">
-          <h3>Expertise You Can Trust</h3>
-          <p>Our skilled team is trained to handle all types of items, ensuring safe and efficient packing.</p>
+          <h3>Earn for Every Clean</h3>
+          <p>Boost your income with steady job opportunities that keep your schedule full and your earnings high.
+          </p>
         </div>
         <div class="card">
           <img src="@/assets/icons/high-quality.png" alt="">
-          <h3>High Quality Materials</h3>
-          <p>We provide premium, eco-friendly packing supplies tailored to protect your belongings during transit.</p>
+          <h3>Flexible Scheduling</h3>
+          <p>Whether you're looking for full-time work or part-time jobs to fit around other commitments, our platform gives you the flexibility to choose jobs that suit your availability.</p>
         </div>
         <div class="card">
           <img src="@/assets/icons/tailored.png" alt="">
-          <h3>Tailored Services</h3>
-          <p>Choose from full, partial, or specialty packing options to fit your specific needs and preferences.</p>
+          <h3>Easy Sign-Up and Onboarding</h3>
+          <p>Start working with us quickly and hassle-free. Our onboarding process is straightforward, getting you up and running in no time.</p>
         </div>
         <div class="card">
           <img src="@/assets/icons/peace.png" alt="">
-          <h3>Peace of Mind</h3>
-          <p>Enjoy a stress-free moving experience with our professional and reliable packing services, designed to simplify your relocation.</p>
+          <h3>Prompt, Reliable Payments</h3>
+          <p>We ensure fast, reliable payment cycles so you’re rewarded for your hard work without delays, letting you focus on delivering top-notch service.</p>
         </div>
       </div>
     </div>
 
     <div class="cleaner-requirement">
       <div class="left">
-        <h2>Cleaner Requirements: What <br> You Need to Join Our Team</h2>
+        <h2> What You Need to Join Our Team</h2>
         <p>Meeting these essential criteria ensures you're ready <br> to work with us and join our professional cleaning community.</p>
-        <button>Register Now</button>
+        <a href="/onboard-cleaner">Register Now</a>
         <div class="details">
           <div class="each-detail">
             <img src="@/assets/icons/furniture.png" alt="">
-            <h4>Furniture Assembly & Disassembly</h4>
+            <h4>Educational Background</h4>
           </div>
           <div class="each-detail">
             <img src="@/assets/icons/packing.png" alt="">
-            <h4>Packing and Unpacking</h4>
+            <h4>Skills and Qualities</h4>
           </div>
           <div class="each-detail">
             <img src="@/assets/icons/disposal.png" alt="">
-            <h4>Clearance and Disposal</h4>
+            <h4>Physical Ability</h4>
           </div>
+          <div class="each-detail">
+            <img src="@/assets/icons/disposal.png" alt="">
+            <h4>Experience</h4>
+          </div>
+
         </div>
       </div>
       <div class="right">
@@ -159,7 +170,23 @@
           display: flex;
           gap: 13px;
           margin-top: 20px;
-          button{
+          color: white;
+
+          span{
+            font-family: Outfit;
+            font-size: 21.32px;
+            font-weight: 600;
+            line-height: 29.84px;
+            color: #30EB3A;
+
+          }
+
+          .men{
+            width: 150px;
+            height: 50px;
+          }
+
+          a{
           height: 47px;
           color: white;
           border-radius: 8px;
@@ -168,6 +195,10 @@
           font-size: 18px;
           font-weight: 700;
           padding: 0px 20px;
+          text-decoration: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           }
 
           .service{
@@ -185,7 +216,6 @@
     background: white;
     width: 100%;
     padding: 4% 4%;
-    margin-top: 80px;
     display: flex;
     gap: 30px;
     margin-bottom: 50px;
@@ -283,14 +313,19 @@
         line-height: 30px
       }
       
-      button{
+      a{
         padding: 0px 15px;
         background-color: #2E7D32;
         color: white;
         border: none;
         border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         height: 48px;
         margin-bottom: 30px;
+        width: 200px;
+        text-decoration: none;
       }
       .each-detail{
         display: flex;

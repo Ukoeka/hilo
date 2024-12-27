@@ -2,7 +2,7 @@
     <div class="main-footer">
       <div class="top">
         <div class="left">
-        <h2>Logo</h2>
+        <img class="footer-img" src="@/assets/images/logo/logo-white.png" alt="">
         <div class="detail">
           <img src="@/assets/icons/location.png" alt="">
           <p>123 Security Lane, Secure City, ST 45678</p>
@@ -132,6 +132,10 @@
         }
         
       }
+    }
+
+    .footer-img{
+      width: 100px;
     }
   </style>
   
