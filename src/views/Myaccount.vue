@@ -21,7 +21,8 @@
           </div>
           <div class="row px-4 pb-5">
             <div class="col-md-2 text-center">
-              <img src="../assets/Drivers/Ellipse11.png" alt="Profile" class="rounded-circle img-fluid" width="120" />
+
+              <img :src="user.profilePic" alt="Profile" class="rounded-circle img-fluid" width="120" />
             </div>
             <div class="col-md-10">
               <div class="row">

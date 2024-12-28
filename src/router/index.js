@@ -30,26 +30,29 @@ import ManAndVan from "@/pages/ManAndVan.vue";
 import UserCleaner from "@/views/UserCleaner.vue";
 
 const routes = [
-  
   {
     path: "/",
     name: "Home",
     component: Home,
   },
-  { 
-    path: "/login", 
-    component: Login, 
-    name: "Login"
-   },
-   {
-    path : "/user/cleaner",
+  {
+    path: "/login",
+    component: Login,
+    name: "Login",
+  },
+  {
+    path: "/user/cleaner",
     component: UserCleaner,
-    name: "UserCleaner"
-   },
+    name: "UserCleaner",
+  },
   { path: "/payments", component: Payments, name: "Payments" },
   { path: "/quotes", component: Quotes, name: "Quotes" },
   { path: "/drivers", component: Drivers, name: "Drivers" },
-  { path: "/cleaningquotes", component: Cleaningquotes, name: "Cleaningquotes" },
+  {
+    path: "/cleaningquotes",
+    component: Cleaningquotes,
+    name: "Cleaningquotes",
+  },
   { path: "/cleaners", component: Cleaners, name: "Cleaners" },
   { path: "/admin", component: Admin, name: "Admin" },
   { path: "/parameter", component: Parameter, name: "Parameter" },
@@ -60,7 +63,7 @@ const routes = [
 
   {
     path: "/cleaning",
-    name: "Cleaning", 
+    name: "Cleaning",
     component: Cleaning,
   },
   {
@@ -133,11 +136,10 @@ const routes = [
     name: "ManAndVan",
     component: ManAndVan,
   },
-  
 ];
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes,
 });
 
 export default router;

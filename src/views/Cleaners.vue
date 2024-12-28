@@ -18,10 +18,10 @@
             <div class="d-flex align-items-center gap-2 p-3">
               <h2>Cleaners</h2>
               <p class="p-1 rounded-1 m-0"
-                style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">{{ cleanersPagination?.totalRecords }} Drivers
+                style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">{{ cleanersPagination?.totalRecords }} Cleaners
               </p>
             </div>
-            <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center"
+            <button class="d-none btn btn-success d-flex align-items-center gap-2 justify-content-center"
               @click="AssignDriver('add')">
               <span><img src="../assets/Payment_Sales/plus.png" alt=""></span>
               Add New
@@ -77,7 +77,39 @@
           </table>
         </div>
 
-        <!-- Details Cleaning -->
+              <!-- Pagination and Items Per Page Controls -->
+              <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex gap-3 align-items-center">
+            <span>Number Of Items displayed per page</span>
+            <select v-model="itemsPerPage" class="form-select"
+              style="width: 65px; background-color: #28a745; color: white; border: none;">
+              <option value="10">10</option>
+              <option value="14">14</option>
+              <option value="20">20</option>
+            </select>
+            <p class="mb-0">
+              {{ displayedStartIndex }}-{{ displayedEndIndex }} of {{ totalItems }} items
+            </p>
+          </div>
+          <div>
+            <ul class="pagination mb-0">
+              <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                <button class="page-link" @click="changePage(currentPage - 1)">
+                  <img src="../assets/Payment_Sales/pageleft.png" alt="">
+                </button>
+              </li>
+              <li v-for="page in visiblePages" :key="page" class="page-item" :class="{ active: currentPage === page }">
+                <button class="page-link" @click="changePage(page)">{{ page }}</button>
+              </li>
+              <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                <button class="page-link" @click="changePage(currentPage + 1)">
+                  <img src="../assets/Payment_Sales/pageright.png" alt="">
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
 
 
       </div>
@@ -156,8 +188,15 @@ export default {
       return range;
     },
   },
+  watch: {
+    itemsPerPage(newVal, oldVal) {
+      if (newVal ) {
+        this.fetchCleaners(this.currentPage, newVal)
+      }
+    }
+  },
   mounted() {
-    this.fetchCleaners(1, 20)
+    this.fetchCleaners(1, this.itemsPerPage);
   },
   methods: {
     formatDate(data, lastSeen = false) {
@@ -195,6 +234,7 @@ export default {
       this.userId = id
     },
     changePage(page) {
+      this.fetchCleaners(page, this.itemsPerPage)
       if (page !== '...' && page >= 1 && page <= this.totalPages) {
         this.currentPage = page;
       }
@@ -282,6 +322,7 @@ export default {
 .pagination .page-item.active .page-link {
   background-color: #28a745;
   border-color: #28a745;
+  color: #fff;
 }
 
 .pagination .page-link {

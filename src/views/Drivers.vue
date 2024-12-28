@@ -19,10 +19,11 @@
             <div class="d-flex align-items-center gap-2 p-3">
               <h2>Drivers</h2>
               <p class="p-1 rounded-1 m-0"
-                style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">{{ driversPagination?.totalRecords }} Drivers
+                style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">{{
+                  driversPagination?.totalRecords }} Drivers
               </p>
             </div>
-            <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center"
+            <button class="d-none btn btn-success d-flex align-items-center gap-2 justify-content-center"
               @click="AssignDriver('add')">
               <span><img src="../assets/Payment_Sales/plus.png" alt=""></span>
               Add New
@@ -47,9 +48,9 @@
               <tr v-for="(payment, index) in driversData" :key="index">
                 <td>{{ index + 1 }}</td>
                 <td>
-                <img :src="payment.profilePic" alt="Driver Image"
-                  style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-              </td>
+                  <img :src="payment.profilePic" alt="Driver Image"
+                    style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                </td>
                 <td>{{ payment.firstName }} {{ payment.lastName }}</td>
                 <td>{{ payment.email }}</td>
                 <td>N/A</td>
@@ -68,8 +69,9 @@
                     {{ payment.status }}
                   </span>
                 </td>
-                <td @click="AssignDriver('view', payment.id)">
-                  <img src="../assets/Payment_Sales/more.png" class="cursor-pointer w-25" alt="">
+                <td>
+                  <button class="btn btn-sm btn-success text-white rounded-full"
+                    @click="AssignDriver('view', payment.id)">view</button>
                 </td>
               </tr>
             </tbody>
@@ -77,10 +79,11 @@
         </div>
 
         <!-- Pagination and Items Per Page Controls -->
-        <!-- <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center justify-content-between">
           <div class="d-flex gap-3 align-items-center">
             <span>Number Of Items displayed per page</span>
-            <select v-model="itemsPerPage" class="form-select" style="width: 65px; background-color: #28a745; color: white; border: none;">
+            <select v-model="itemsPerPage" class="form-select"
+              style="width: 65px; background-color: #28a745; color: white; border: none;">
               <option value="10">10</option>
               <option value="14">14</option>
               <option value="20">20</option>
@@ -96,12 +99,7 @@
                   <img src="../assets/Payment_Sales/pageleft.png" alt="">
                 </button>
               </li>
-              <li
-                v-for="page in visiblePages"
-                :key="page"
-                class="page-item"
-                :class="{ active: currentPage === page }"
-              >
+              <li v-for="page in visiblePages" :key="page" class="page-item" :class="{ active: currentPage === page }">
                 <button class="page-link" @click="changePage(page)">{{ page }}</button>
               </li>
               <li class="page-item" :class="{ disabled: currentPage === totalPages }">
@@ -111,11 +109,11 @@
               </li>
             </ul>
           </div>
-        </div> -->
+        </div>
 
       </div>
-      <ViewAssign v-if="viewAssign " :formAction="viewAssign" :CompType="'driver'"
-        @close="viewAssign = null"  :userId="userId"/>
+      <ViewAssign v-if="viewAssign" :formAction="viewAssign" :CompType="'driver'" @close="viewAssign = null"
+        :userId="userId" />
     </div>
   </AdminLayout>
 
@@ -199,7 +197,14 @@ export default {
     },
   },
   mounted() {
-    this.fetchDrivers(1, 10)
+    this.fetchDrivers(1, this.itemsPerPage)
+  },
+  watch: {
+    itemsPerPage(newVal, oldVal) {
+      if (newVal ) {
+        this.fetchDrivers(this.currentPage, newVal)
+      }
+    }
   },
   methods: {
     formatDate(data, lastSeen = false) {
@@ -237,6 +242,7 @@ export default {
       console.log(view)
     },
     changePage(page) {
+      this.fetchDrivers(page, this.itemsPerPage)
       if (page !== '...' && page >= 1 && page <= this.totalPages) {
         this.currentPage = page;
       }
@@ -328,6 +334,7 @@ export default {
 .pagination .page-item.active .page-link {
   background-color: #28a745;
   border-color: #28a745;
+  color: white;
 }
 
 .pagination .page-link {

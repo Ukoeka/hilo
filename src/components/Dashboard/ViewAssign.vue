@@ -21,7 +21,15 @@
           <a href="javascript:void(0);" class="profile-image" @click="handleClick">
             <img v-if="draggedFile" :src="draggedFile" alt="">
             <img v-else :src="AccountDetails.profilePic || profileData.imageUrl" alt="Profile" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-pencil-square position-absolute " viewBox="0 0 16 16" style="left: 100px;">
+              <path
+                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+              <path fill-rule="evenodd"
+                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+            </svg>
           </a>
+
           <div class="profile-details">
             <h5>{{ AccountDetails.firstName }} {{ AccountDetails.lastName }}</h5>
             <p>{{ AccountDetails.email }}</p>
@@ -84,11 +92,11 @@
             <input type="text" class="form-control" v-model="formData.city" placeholder="Placeholder" />
           </div>
 
-          <!-- Placeholder Field -->
+          <!-- Placeholder Field
           <div class="col-md-6 mb-3">
             <label class="form-label">Placeholder</label>
             <input type="text" class="form-control" v-model="formData.placeholder" placeholder="Placeholder" />
-          </div>
+          </div> -->
 
           <!-- Language -->
           <div class="col-md-6 mb-3">
@@ -106,10 +114,12 @@
             <input type="text" class="form-control" v-model="formData.address" placeholder="Placeholder" />
           </div>
         </div>
+
       </form>
+
     </div>
   </div>
-  <AssignedTable  v-if="assignedTable" />
+  <AssignedTable v-if="assignedTable" @close="assignedTable = false" />
 
 </template>
 
@@ -172,7 +182,7 @@ export default {
       Loader: false,
       drivers: [],
       driversPagination: {},
-      AccountDetails: {}
+      AccountDetails: {},
     }
   },
   mounted() {
@@ -180,6 +190,7 @@ export default {
       this.fetchDetails()
     }
   },
+
   methods: {
 
     handleDelete() {
@@ -205,6 +216,31 @@ export default {
       input.click()
     },
 
+    async deleteAccount() {
+      const url = `account/${this.userId}`
+      try {
+
+        const resp = await deleteFromApi(url);
+        if (resp.status) {
+          swal({
+            text: resp.message,
+            icon: "success",
+          })
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000);
+
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('admin Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      }
+    },
 
     async fetchDetails() {
       this.AccountLoader = true;
@@ -213,10 +249,6 @@ export default {
 
         const resp = await fetchFromApi(url);
         if (resp.status) {
-          swal({
-            text: resp.message,
-            icon: "success",
-          });
           this.AccountDetails = resp.data
           const data = Object.keys(resp.data)
           data.forEach((key) => {
@@ -255,7 +287,7 @@ export default {
         formdata.append('city', this.formData.city);
         formdata.append('language', this.formData.language);
         formdata.append('profilePic', this.Image);
-        if(this.CompType === 'cleaner') {
+        if (this.CompType === 'cleaner') {
           formdata.append('address', this.formData.address);
 
         }
@@ -263,20 +295,19 @@ export default {
 
         const resp = this.formAction === 'add' ? await postToApi(addUrl, formdata, 'multipart/form-data') : await patchToApi(updateUrl, formdata, 'multipart/form-data');
         if (resp.status) {
+          swal({
+            text: resp.message,
+            icon: "success",
+          });
           if (this.formAction === 'view') {
             this.fetchDetails()
-
-            swal({
-              text: resp.message,
-              icon: "success",
-            });
             fetchDrivers(1, 10)
-          } else {
-            swal({
-              text: resp.message,
-              icon: "error",
-            });
           }
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
         }
         console.log('admin Response:', resp);
       } catch (error) {
@@ -298,6 +329,7 @@ export default {
     },
 
     handleDelete() {
+      this.deleteAccount()
       // Implement delete logic
       console.log('Deleting profile')
     },

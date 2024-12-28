@@ -32,7 +32,7 @@
           </div>
           <div class="info-item">
             <div class="info-label">Booking Date</div>
-            <!-- <div class="info-value">{{ movingDetails.bookingDate ? formatDate(movingDetails.bookingDate) :  parseDateTime(movingDetails.startTime).date }}</div> -->
+            <div class="info-value">{{ type == 'moving' ? formatDate(movingDetails.bookingDate) :  formatDate(movingDetails.startTime)}}</div>
           </div>
           <div v-if="type == 'moving'" class="info-item">
             <div class="info-label" >Pickup Location</div>
@@ -48,7 +48,7 @@
           </div>
           <div v-if="type == 'moving'" class="info-item">
             <div class="info-label">Delivery Property Type</div>
-            <div class="info-value">{{movingDetails.serviceType }}</div>
+            <div class="info-value">{{movingDetails.serviceType || movingDetails.propertyType }}</div>
           </div>
           <div  class="info-item">
             <div class="info-label">Pickup Property Floor</div>
@@ -65,7 +65,8 @@
           <div class="info-item additional-info">
             <div class="info-label">Additional Information</div>
             <div  class="info-value d-flex flex-wrap gap-2">
-              <span class="text-gray "v-for="item in movingDetails.additionalServices" :key="item.id">{{ item }}</span>
+              <span v-if="type == 'moving'" class="text-gray" v-for="(item, index) in movingDetails?.additionalServices " :key="`moving-${index}`">{{ item }}</span>
+              <span v-else class="text-gray "v-for="(item, index) in movingDetails?.extraData?.additionalServices" :key="`extra-${index}`">{{ item }}</span>
             </div>
           </div>
         </div>
@@ -73,9 +74,18 @@
 
       <div class="recent-deliveries">
         <h2>{{ type == 'moving' ? 'Items' : 'Service Details' }}</h2>
-        <div v-for="item in movingDetails.rooms || movingDetails.items" :key="item.id" class="delivery-item">
+        <template v-if="type == 'moving'">
+          <div v-for="item in movingDetails.items" :key="item.id" class="delivery-item">
+          {{ item.quantity }} {{ item.id }}
+          </div>
+        </template>
+        
+        <template v-else>
+          <div v-for="item in movingDetails.rooms " :key="item.id" class="delivery-item">
           {{ item.number }} {{ item.name }}
         </div>
+        </template>
+      
       </div>
     </div>
   </div>
@@ -140,16 +150,11 @@ export default {
         time: formattedTime,
       }
     },
-    formatDate(data, lastSeen = false) {
-      let processedData = data
-
-      if (lastSeen) {
-        const splitData = data.split(',')
-        processedData = splitData[0] // Assuming you want the first part after splitting
-      }
-
-      const date = new Date(processedData)
-      return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
+    formatDate(data) {
+      const date = new Date(data)
+      const processDateTime = date.toLocaleDateString()
+      const processDate = processDateTime.split(',')[0]
+      return processDate
     },
 
     async fetchDetails(quoteId) {
