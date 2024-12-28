@@ -4,13 +4,23 @@
         <div class="content">
           <h1>Your Space, Elevated Beyond Expectations – Cleaned to Perfection</h1>
           <div class="btn-container">
-            <button class="quote">Get Quote</button>
+            <a href="/getquote" class="quote">Get Quote</a>
           </div>
+          <div class="btn-container">
+            <img class="men" src="@/assets/icons/Men.png" alt="">
+            <div class="star-container">
+              <span>5.0 <img src="@/assets/icons/Star.png" alt=""></span>
+              <p>18k Satisfied Customers</p>
+            </div>
+          </div>
+        </div>
+        <div class="white-shape">
+          <p>Professional, eco-friendly cleaning tailored to your home or business. We deliver spotless results.</p>
         </div>
     </div>
   
     <div class="why-chose">
-      <h1>Efficient, reliable, and detail-oriented cleaning services.</h1>
+      <h1>From clutter to clear at your fingertips…</h1>
         <div class="cards">
           <div class="card">
           <img src="@/assets/icons/tick.png" alt="">
@@ -38,19 +48,19 @@
     <div class="images">
       <div class="card card1">
         <div class="content">
-          <h2>Office Removals</h2>
+          <h2>Residential Cleaning</h2>
           <img src="@/assets/icons/arrow-down.png" alt="">
         </div>
       </div>
       <div class="card card2">
         <div class="content">
-          <h2>Office Removals</h2>
+          <h2>Commercial Cleaning</h2>
           <img src="@/assets/icons/arrow-down.png" alt="">
         </div>
       </div>
       <div class="card card3">
         <div class="content">
-          <h2>Office Removals</h2>
+          <h2>End of Tenancy</h2>
           <img src="@/assets/icons/arrow-down.png" alt="">
         </div>
       </div>
@@ -60,7 +70,7 @@
         <img src="@/assets/images/cleaning.png" alt="">
       </div>
       <div class="left">
-        <h2>Our Cleaning Services: Tailored cleaning solutions for every space.</h2>
+        <h2>Tailored cleaning solutions for every space.</h2>
         <p>Professional, reliable, and efficient services designed to make your move seamless.</p>
         <div class="details">
           <div class="each-detail">
@@ -73,21 +83,23 @@
           </div>
           <div class="each-detail">
             <img src="@/assets/icons/move-in.png" alt="">
-            <h4>Move-In/Move-Out Cleaning</h4>
+            <h4>Move-In/Move-Out <br> Cleaning</h4>
           </div>
         </div>
       </div>
     </div>
+
+    <Carousel></Carousel>
+    
     <div class="get-in-touch">
       <div class="left">
         <img src="@/assets/images/ready.png" alt="">
       </div>
       <div class="right">
         <p>Ready To Experience Marvelous Cleaning At It’s Peak?</p>
-        <h2>Ready for a Sparkling Clean Space?</h2>
+        <h2>Get the best deal for your space today</h2>
         <div class="btn-contain">
-          <button class="quote">Schedule a Cleaning</button>
-          <button class="contact">Contact us for More Information</button>
+          <a href="/book-cleaning" class="quote">Let's Get Started</a>
         </div>
       </div>
     </div>
@@ -96,12 +108,14 @@
   
   <script>
     import Footer from '@/layouts/partials/footer.vue';
-    import TopNav from '@/layouts/partials/topnav.vue'
+    import TopNav from '@/layouts/partials/topnav.vue';
+    import Carousel from '@/layouts/partials/carousel.vue';
   export default {
     name: 'Cleaning',
     components: {
     TopNav,
-    Footer
+    Footer,
+    Carousel
 
   },
     props: {
@@ -131,6 +145,21 @@
       position: relative;
       padding-top:15%;
 
+      .white-shape{
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 15%; /* Width of the notch */
+      height: 15%; /* Height of the notch */
+      background-color: white; /* Same color as the background to make it look transparent */
+      border-radius: 25px 10px 0 0px;
+      padding: 25px 25px;
+      padding-top: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      }
+
       .content{
         position: relative;
         margin-left: 4%;
@@ -146,7 +175,23 @@
           display: flex;
           gap: 13px;
           margin-top: 20px;
-          button{
+          color: white;
+
+          span{
+            font-family: Outfit;
+            font-size: 21.32px;
+            font-weight: 600;
+            line-height: 29.84px;
+            color: #30EB3A;
+
+          }
+
+          .men{
+            width: 150px;
+            height: 50px;
+          }
+
+          a{
           height: 47px;
           color: white;
           border-radius: 8px;
@@ -155,6 +200,10 @@
           font-size: 18px;
           font-weight: 700;
           padding: 0px 20px;
+          text-decoration: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           }
 
           .service{
@@ -195,6 +244,7 @@
           border-radius: 10px;
           padding: 35px 25px;
           width: 23%;
+          cursor: pointer;
 
           img{
             width: 32px;
@@ -235,6 +285,8 @@
         height: 700px;
         display: flex;
         justify-content: flex-end;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
         
         .content{
           width: 100%;
@@ -261,6 +313,9 @@
           width: 35px;
           height: 35px;
         }
+      }
+      .card:hover{
+        transform: scale(1.1);
       }
       .card1{
           background-image: url('@/assets/images/residential.png');
@@ -330,6 +385,7 @@
       background: black;
       border-radius: 25px;
       gap: 4%;
+      margin-top: 100px;
 
       .left{
         width: 38%;
@@ -372,6 +428,10 @@
               border-radius: 10px;
               color: black;
               background-color: white;
+              text-decoration: none;
+              display: flex;
+              justify-content: center;
+              align-items: center;
               padding: 0px 18px;
               font-family: Lato;
               font-size: 20px;

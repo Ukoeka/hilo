@@ -2,7 +2,7 @@
     <div class="main-footer">
       <div class="top">
         <div class="left">
-        <h2>Logo</h2>
+        <img class="footer-img" src="@/assets/images/logo/logo-white.png" alt="">
         <div class="detail">
           <img src="@/assets/icons/location.png" alt="">
           <p>123 Security Lane, Secure City, ST 45678</p>
@@ -21,18 +21,18 @@
           <h3>Navigation</h3>
           <div class="links">
           <a href="/">Home</a>
-          <a href="">Resources</a>
-          <a href="">Contact Us</a>
+          <a href="/cleaning">Cleaning</a>
+          <a href="/packaging">Packaging</a>
+          <a href="/business">Business</a>
           <a href="/about">About Us</a>
-          <a href="">Partner</a>
           </div>
         </div>
         <div class="solutions">
           <h3>Solutions</h3>
           <div class="links">
-            <a href="">Products</a>
-          <a href="">Solutions</a>
-          <a href="">Services</a>
+            <a href="/gethired">Get Hired</a>
+          <a href="/getquote">Get Quote</a>
+          <a href="/book-driver">Book Driver</a>
           </div>
         </div>
       </div>
@@ -132,6 +132,10 @@
         }
         
       }
+    }
+
+    .footer-img{
+      width: 100px;
     }
   </style>
   

@@ -2,15 +2,13 @@
     <div class="hero">
         <TopNav></TopNav>
         <div class="content">
-          <h1>Efficient and <br> Affordable Removals & Logistics in the UK</h1>
+          <h1>Our Story: <br> Dedicated to <br> Excellence in <br> Cleaning & Logistics</h1>
           <div class="btn-container">
-            <button class="service">Order Packaging</button>
-            <button class="quote">Get Quote</button>
             
           </div>
         </div>
         <div class="white-shape">
-          <p>Join a team that values your skills, offers flexible hours, and provides great opportunities to grow.</p>
+          <p>Discover how our team delivers top-quality services tailored to meet your unique needs. </p>
         </div>
     </div>
     <h2 class="text-center give-space">Who We Are</h2>
@@ -22,7 +20,7 @@
         </div>
       </div>
       <div class="text">
-        <p>Lorem ipsum dolor sit amet consectetur. Ac vitae aliquam gravida fringilla placerat aliquet. Donec maecenas ipsum blandit nunc id pretium. Facilisi ut in vel semper aliquam. Felis purus molestie lectus nulla sed amet mi cursus. Amet facilisi pellentesque habitant nec in aliquet proin ullamcorper auctor. In dignissim sollicitudin orci neque dis morbi. Auctor sagittis in odio volutpat enim gravida integer. Imperdiet vel vel hendrerit massa adipiscing. Non consectetur nulla in pulvinar ultrices purus egestas. Sed nec viverra sem platea leo tristique ut ac.</p>
+        <p>At Hilogisticz, we’re more than just a cleaning and logistics company. We’re a team of passionate professionals dedicated to providing exceptional service with a personal touch. Our expertise spans across residential and commercial spaces, ensuring that every client receives reliable, timely, and high-quality support. We prioritize customer satisfaction, going above and beyond to make each experience smooth and stress-free.</p>
       </div>
       <div class="right-image">
         <img src="@/assets/images/maleavatar.png" alt="">
@@ -35,12 +33,12 @@
     <div class="ourmission">
       <div class="left">
         <button>Our Mission</button>
-        <p>Lorem ipsum dolor sit amet consectetur. Pharetra a eu condimentum quis.</p>
+        <p>Our mission is simple – to elevate spaces and simplify moves.</p>
       </div>
       <div class="right">
         <div class="circle-container">
           <div class="center-image">
-            <h2>LOGO</h2>
+            <img src="@/assets/images/logo/logo-white.png" alt="">
           </div>
           <div class="circle-images">
             <div class="image-1">
@@ -68,21 +66,25 @@
 
     <div class="cleaner-requirement">
       <div class="left">
-        <h2>Cleaner Requirements: What <br> You Need to Join Our Team</h2>
-        <p>Meeting these essential criteria ensures you're ready <br> to work with us and join our professional cleaning community.</p>
+        <h2>Our Core Values: Driving <br> Excellence Every Day</h2>
+        <p>At the heart of Hilogisticz, we believe in principles that drive outstanding results for our clients and our team. Explore the values that fuel our commitment to delivering top-tier cleaning and logistics services.</p>
         <button>Register Now</button>
         <div class="details">
           <div class="each-detail">
             <img src="@/assets/icons/furniture.png" alt="">
-            <h4>Furniture Assembly & Disassembly</h4>
+            <h4>Quality and Reliability</h4>
           </div>
           <div class="each-detail">
             <img src="@/assets/icons/packing.png" alt="">
-            <h4>Packing and Unpacking</h4>
+            <h4>Customer-Centric Service</h4>
           </div>
           <div class="each-detail">
             <img src="@/assets/icons/disposal.png" alt="">
-            <h4>Clearance and Disposal</h4>
+            <h4>Sustainability</h4>
+          </div>
+          <div class="each-detail">
+            <img src="@/assets/icons/disposal.png" alt="">
+            <h4>Teamwork and Growth</h4>
           </div>
         </div>
       </div>
@@ -100,15 +102,19 @@
     
     <div class="get-in-touch">
       <div class="right">
-        <p>Ready for a stress-Free Move?</p>
-        <h2>Focus on your move while we handle the packing. Get a personalized quote from Hilogisticz.</h2>
+        <p>Ready to work with us?</p>
+        <h2>Whether you’re looking to hire our services or join our growing team, we’re here to help. Take the next step and connect with us today.f</h2>
         <div class="btn-contain">
           <button class="quote">Start Your Application</button>
           <button class="contact">Learn More About Opportunities</button>
         </div>
       </div>
       <div class="left">
-        <p>Lorem ipsum dolor sit amet consectetur. Malesuada tellus id tempus et turpis maecenas pellentesque nam. Dolor faucibus curabitur libero a.</p>
+        <img src="@/assets/icons/quote.png" alt="">
+        <p class="quote-text">Lorem ipsum dolor sit amet consectetur. Malesuada tellus id tempus et turpis maecenas pellentesque nam. Dolor faucibus curabitur libero a.</p>
+
+        <h3>Anna D. Dragon, </h3>
+          <p>Director, UK</p>
       </div>
     </div>
     <Footer></Footer>
@@ -322,7 +328,7 @@
         .center-image img {
           width: 100px;
           height: 100px;
-          border-radius: 50%;
+          margin-left: 30px;
         }
 
         .circle-images {
@@ -350,36 +356,61 @@
           top: 20%;
           left: 35%;
           transform: rotate(60deg);
+
+          img{
+            transform: rotate(-60deg);
+          }
         }
 
         .image-2 {
           top: 20%;
           left: 65%;
           transform: rotate(120deg);
+
+
+          img{
+            transform: rotate(-120deg);
+          }
         }
 
         .image-3 {
           top: 50%;
           left: 80%;
           transform: rotate(180deg);
+
+          img{
+            transform: rotate(-180deg);
+          }
         }
 
         .image-4 {
           top: 80%;
           left: 65%;
           transform: rotate(240deg);
+
+          img{
+            transform: rotate(-240deg);
+          }
         }
 
         .image-5 {
           top: 80%;
           left: 35%;
           transform: rotate(300deg);
+
+          img{
+            transform: rotate(-300deg);
+          }
         }
 
         .image-6 {
           top: 50%;
           left: 20%;
           transform: rotate(360deg);
+
+          img{
+            transform: rotate(-360deg);
+          }
         }
     }
    }
@@ -510,11 +541,20 @@
       .left{
         width: 28%;
         border: 0.5px solid rgb(105, 103, 103);
-        padding: 20px;
+        padding: 40px;
+        padding-top: 100px;
 
         img{
-          width: 100%;
-          border-radius: 20px;
+          width: 40px;
+        }
+        .quote-text{
+          font-family: Lato;
+          font-size: 20px;
+          font-weight: 300;
+          line-height: 30px;
+          margin-top: 100px;
+          margin-bottom: 50px;
+
         }
       }
       .right{

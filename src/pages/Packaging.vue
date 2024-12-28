@@ -4,12 +4,18 @@
         <div class="content">
           <h1>Pack Like a Pro - <br> Everything You Need for a Safe Move!</h1>
           <div class="btn-container">
-            <button class="quote">Get Quote</button>
-            
+            <a href="/getquote" class="quote">Get Quote</a>
+          </div>
+          <div class="btn-container">
+            <img class="men" src="@/assets/icons/Men.png" alt="">
+            <div class="star-container">
+              <span>5.0 <img src="@/assets/icons/Star.png" alt=""></span>
+              <p>18k Satisfied Customers</p>
+            </div>
           </div>
         </div>
         <div class="white-shape">
-          <p>(Planning your move? Proper packing is essential to protect your belongings. ) Export packing…</p>
+          <p>Planning your move? Proper packing is essential to protect your belongings.  Export packing…</p>
         </div>
     </div>
     <div class="why-chose">
@@ -63,55 +69,58 @@
       <div class="left">
         <div class="card">
           <img src="@/assets/icons/black-tick.png" alt="">
-          <h3>Expertise You Can Trust</h3>
-          <p>Our skilled team is trained to handle all types of items, ensuring safe and efficient packing.</p>
+          <h3>Specialty Packing Materials</h3>
+          <p>We stock bubble wrap, packing paper, and custom TV/furniture covers to protect fragile and valuable items. These materials offer layers of cushioning to minimize movement and prevent scratches or cracks.</p>
         </div>
         <div class="card">
           <img src="@/assets/icons/high-quality.png" alt="">
-          <h3>High Quality Materials</h3>
-          <p>We provide premium, eco-friendly packing supplies tailored to protect your belongings during transit.</p>
+          <h3>Sturdy Moving Boxes</h3>
+          <p>Our double-strength boxes come in small, medium, large, and wardrobe sizes, perfect for packing everything from documents to clothes. Designed for durability, these boxes protect your items from damage during transport.</p>
         </div>
         <div class="card">
           <img src="@/assets/icons/tailored.png" alt="">
-          <h3>Tailored Services</h3>
-          <p>Choose from full, partial, or specialty packing options to fit your specific needs and preferences.</p>
+          <h3>Packing Tape & Labels</h3>
+          <p>Choose from clear tape, reinforced tape, and "fragile" labels to ensure secure packaging. With permanent markers and labeling tape, unpacking becomes easier by organizing and identifying your boxes.</p>
         </div>
         <div class="card">
           <img src="@/assets/icons/peace.png" alt="">
-          <h3>Peace of Mind</h3>
-          <p>Enjoy a stress-free moving experience with our professional and reliable packing services, designed to simplify your relocation.</p>
+          <h3>Moving Kits</h3>
+          <p>We offer all-inclusive kits tailored for different move sizes, ensuring you have everything you need to pack efficiently.</p>
         </div>
       </div>
     </div>
 
     <div class="process">
+      <div class="sun">
+          <img src="@/assets/images/sun.png" alt="">
+        </div>
         <div class="cards">
             <div class="card card1">
-                <p>Packaging Process: How We Safely Prepare Your Belongings for the Move</p>
+                <p>Our Careful Approach to Preparing Your Belongings for a Safe Move</p>
             </div>
             <div class="two-card">
                 <div class="top-card">
                     <div class="top-texts">
-                        <h3>consultation and Assessment</h3>
+                        <h3>Consultation and Assessment</h3>
                         <p>01</p>
                     </div>
                     <p>We begin with a thorough consultation to evaluate your items and specific needs, ensuring a personalized packing strategy</p>
                 </div>
             <div class="bottom-card">
                 <div class="top-texts">
-                    <h3>consultation and Assessment</h3>
-                    <p>01</p>
+                    <h3>Professional Packing</h3>
+                    <p>03</p>
                 </div>
-                <p>Experienced movers carefully pack your belongings, utilizing proper techniques and labeling boxes for easy identification during unpacking.</p>
+                <p>Experienced movers carefully pack your belongings utilizing proper techniques and labelling boxes for easy identification during unpacking</p>
                 
             </div>
             </div>
             <div class="card slant">  
                 <div class="top-texts">
-                    <h3>consultation and Assessment</h3>
-                    <p>01</p>
+                    <h3>Material Selection</h3>
+                    <p class="go-down">02</p>
                 </div>
-                <p>Experienced movers carefully pack your belongings, utilizing proper techniques and labeling boxes for easy identification during unpacking.</p>
+                <p>Our team selects high-quality eco-friendly packing materials tailored for protection of each item, from delicate glassware to heavy furniture</p>
         
             </div>
             <div class="card last-card">
@@ -119,6 +128,7 @@
             <p>Need supplies? We offer delivery of all essential packing materials. With eco-friendly boxes in every size, bubble wrap, and specialized tape, we have everything you need to pack safely for your next move.</p>
             </div>
         </div>
+        
     </div>
    
     
@@ -128,10 +138,9 @@
       </div>
       <div class="right">
         <p>Ready for a stress-Free Move?</p>
-        <h2>Focus on your move while we handle the packing. Get a personalized quote from Hilogisticz.</h2>
+        <h2>Skip the hassle of shopping around—we’ve got everything in-house to ensure your move is stress-free!</h2>
         <div class="btn-contain">
-          <button class="quote">Order Packaging</button>
-          <button class="contact">Contact us for More Information</button>
+          <a href="/order-packaging" class="quote">Book Packaging</a>
         </div>
       </div>
     </div>
@@ -205,7 +214,23 @@
           display: flex;
           gap: 13px;
           margin-top: 20px;
-          button{
+          color: white;
+
+          span{
+            font-family: Outfit;
+            font-size: 21.32px;
+            font-weight: 600;
+            line-height: 29.84px;
+            color: #30EB3A;
+
+          }
+
+          .men{
+            width: 150px;
+            height: 50px;
+          }
+
+          a{
           height: 47px;
           color: white;
           border-radius: 8px;
@@ -214,6 +239,10 @@
           font-size: 18px;
           font-weight: 700;
           padding: 0px 20px;
+          text-decoration: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           }
 
           .service{
@@ -263,7 +292,7 @@
             font-size: 18px;
             font-weight: 700;
             line-height: 27px;
-            margin: 10px 0px;
+            margin: 10px 10px;
             margin-top: 20px;
 
 
@@ -366,6 +395,18 @@
       margin-top: 80px;
       box-sizing: border-box;
       justify-content: space-evenly;
+      position: relative;
+
+
+      .sun{
+         position: absolute;
+         left: 74%;
+         top: -40px;
+         
+         img{
+          width: 100px;
+         }
+      }
      
       .cards{
         display: flex;
@@ -429,6 +470,11 @@
         .slant{
             background: #E2F5EE;
             padding: 20px;
+            clip-path: polygon(0 0, 100% 15%, 100% 100%, 0 100%);
+
+            .go-down{
+              margin-top: 40px;
+            }
 
             .top-texts{
                     display: flex;
@@ -524,6 +570,10 @@
               border-radius: 10px;
               color: black;
               background-color: white;
+              text-decoration: none;
+              display: flex;
+              justify-content: center;
+              align-items: center;
               padding: 0px 18px;
               font-family: Lato;
               font-size: 20px;

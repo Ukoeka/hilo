@@ -64,11 +64,11 @@
       <div class="right">
         <h2>Why Choose Hilogisticz?</h2>
         <p>Discover why Hilogisticz is the trusted choice for seamless, efficient, and customer-focused removals and logistics solutions.</p>
-        <button>Get Started Now</button>
+        
         <img src="@/assets/images/whychose.png" alt="">
       </div>
     </div>
-    <h1 class="text-center">Our Services</h1>
+    <h1 class="text-center mt-5 mb-5">Our Services</h1>
     <div class="images">
       <div class="card card1">
         <div class="content">
@@ -423,7 +423,7 @@
       .left{
         width: 50%;
         display: flex;
-        background: #F3F3F3;
+        background: #e9e7e7;
         padding: 50px;
         gap: 12px;
         border-radius: 10px;
@@ -563,6 +563,7 @@
       width: 92%;
       margin-left: 4%;
       margin-top: 100px;
+      margin-bottom: 100px;
       display: flex;
       gap: 10px;
 
