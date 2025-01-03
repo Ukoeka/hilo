@@ -100,7 +100,7 @@
         <ul class="pagination mb-0">
           <li class="page-item" :class="{ disabled: currentPage === 1 }">
             <button class="page-link" @click="changePage(currentPage - 1)">
-              <img src="../assets/Payment_Sales/pageleft.png" alt="">
+              <img src="@/assets/Payment_Sales/pageleft.png" alt="">
             </button>
           </li>
           <li v-for="page in visiblePages" :key="page" class="page-item" :class="{ active: currentPage === page }">
@@ -108,7 +108,7 @@
           </li>
           <li class="page-item" :class="{ disabled: currentPage === totalPages }">
             <button class="page-link" @click="changePage(currentPage + 1)">
-              <img src="../assets/Payment_Sales/pageright.png" alt="">
+              <img src="@/assets/Payment_Sales/pageright.png" alt="">
             </button>
           </li>
         </ul>
