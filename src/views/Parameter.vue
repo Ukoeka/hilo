@@ -199,9 +199,9 @@
                 <!-- Form Fields -->
                 <form>
                   <div class="form-group mb-3">
-                    <label for="itemName" class="mb-2 label">Item Name</label>
+                    <label for="itemName" class="mb-2 label">Category Name</label>
                     <input type="text" class="form-control inputs p-3" id="itemName" v-model="addCategory.name"
-                      placeholder="Enter item name" />
+                      placeholder="Enter  name" />
                   </div>
                   <div class="form-group mb-4">
                     <label for="movingCost" class="mb-2 label">Moving Cost</label>

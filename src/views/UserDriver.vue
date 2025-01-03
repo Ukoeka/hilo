@@ -3,7 +3,7 @@
     <div class="row w-100">
       <!-- Image Section -->
       <div class="col-md-6 d-none d-md-block p-0 img" style="height: 100vh;">
-        <img src="../assets/UserDashboard.png" alt="Delivery" class="h-100 w-100 object-fit-cover" />
+        <img src="../assets/userDriver.png" alt="Delivery" class="h-100 w-100 object-fit-cover" />
       </div>
 
       <!-- Login Form Section -->
@@ -65,8 +65,10 @@
 </template>
 
 <script>
+
 import Loader from '@/components/loader.vue';
 import { fetchFromApi, postToApi } from '@/services/baseApi'
+
 export default {
   name: 'Login',
   data() {
@@ -98,11 +100,8 @@ export default {
             text: "You have successfully logged in!",
             icon: "success",
           });
-          this.$router.push({
-            path: '/myaccount',  
-          })
-          localStorage.setItem('accountType', 'cleaning')
-
+          localStorage.setItem('accountType', 'moving')
+          this.$router.push('/myaccount')
         } else {
           swal({
             title: "Error",

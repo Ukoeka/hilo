@@ -135,23 +135,6 @@ export default {
   data() {
     return {
       viewAssign: null,
-
-      payments: [
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Charlie Brakus', email: 'Erin33@hotmail.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Active', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Jamie Schroeder', email: 'Ernest_Altenwerth@gmail.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Active', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Alexander O\'Conner', email: 'Lori.Rodriguez@yahoo.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Inactive', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Anne Stanton', email: 'Clarence69@yahoo.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Active', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Abel Brown', email: 'Carole.McCullough@hotmail.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Inactive', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Lorene Nienow', email: 'Javier.Olson@yahoo.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Male', status: 'Active', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Abel Turcotte', email: 'Wilma.Crona@hotmail.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Male', status: 'Active', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Rosa Kohler', email: 'Micheal_Hane@yahoo.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Inactive', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Mike Sporer', email: 'Veronica_Reynolds36@yahoo.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Active', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Elena Okuneva', email: 'Marlon_Hills14@yahoo.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Male', status: 'Active', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Darrell Brown', email: 'Kathleen_Bode@yahoo.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Male', status: 'Inactive', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Lillian Mohr', email: 'Shane71@yahoo.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Active', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Kelvin Johnson', email: 'Katherine.VonRueden@gmail.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Inactive', accountType: 'Driver' },
-        { image: 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp', name: 'Rosemary Howe', email: 'Santos_Corkery17@gmail.com', city: 'Glasgow', age: 45, dateAdded: '11/6/2022', gender: 'Female', status: 'Active', accountType: 'Driver' },
-      ],
       searchQuery: '',
       itemsPerPage: 14, // Items per page, with a default value of 14
       currentPage: 1,    // Current page number

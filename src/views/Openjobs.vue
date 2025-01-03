@@ -1,7 +1,7 @@
 <template>
   <UserLayout >
     <div class="vh-100 w-100 bg d-flex flex-column ">
-      <div class=" flex-grow-1 h-100 position-relative pt-2 px-5">
+      <div class=" w-100 h-100 position-relative pt-2 px-5">
       <Nav title="Open Jobs" />
 
       <div class="filter-section d-flex justify-content-between align-items-center bg-white p-3 rounded mb-3">
@@ -9,8 +9,8 @@
         <img src="../assets/Drivers/dropdown.png" alt="">
       </div>
 
-        <Jobs v-for="i in 3"  class="w-100 mb-3" @view="viewAssigned" v-if="!display"/>
-        <ClaimJob  v-if="display" @close="viewAssigned"/> 
+        <Jobs class="w-100 mb-3 " @view="viewAssigned" v-if="!display" type= "cleaning"/>
+        <ClaimJob  v-if="display" @close="viewAssigned" :job="job"/> 
     </div>
   </div>
   </UserLayout>
@@ -66,11 +66,13 @@ export default {
           price: 58,
         },
       ],
+      job: {}
     };
   },
   methods: {
-    viewAssigned() {
+    viewAssigned(job) {
       this.display = !this.display
+      this.job = job
     }
   }
 };

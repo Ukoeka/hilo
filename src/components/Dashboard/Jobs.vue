@@ -1,47 +1,129 @@
 <template>
-  <div class="job-card">
+  <p v-if="jobs.length == 0" class="text-center fw-bold fs-5 ">No Open Jobs Available</p>
+  <div class="job-card " v-for="job in jobs" :key="job.id">
     <div class="job-header">
-      2 Bedroom, 1 Living Room, 1 Kitchen, 1 Small Room, 1 Lobby
+      <span v-if="type == 'moving'" class="d-flex gap-3 flex-wrap">
+        <span v-for="item in job.items" :key="item._id">
+          <span v-if="item.quantity"> {{ item.quantity }} {{ item.id }},</span>
+        </span>
+      </span>
+      <span v-if="type == 'cleaning'" class="d-flex gap-3 flex-wrap">
+        <span v-for="item in job.rooms" :key="item._id">
+          <span v-if="item.number"> {{ item.number }} {{ item.name }},</span>
+        </span>
+      </span>
     </div>
     <div class="job-details">
       <div class="job-info">
-        <div>
-          <strong>Location</strong>
-          <p>Birmingham (B455AT)</p>
+        <div >
+          <strong>Pickup Location:</strong>
+          <p>{{ type == 'moving' ? job?.pickup?.name : job?.postCode }}</p>
         </div>
         <div>
-          <strong>Type</strong>
-          <p>Weekly</p>
+          <strong v-if="type == 'moving'">Delivery Location:</strong>
+          <strong v-else>Type:</strong>
+          <p>{{ type == 'moving' ? job?.delivery?.name : job?.cleaningType }}</p>
         </div>
         <div>
-          <strong>Date</strong>
-          <p>1 - 1 January</p>
+          <strong>Date:</strong>
+          <p>{{ type == 'moving' ? formatDate(job?.movingDate) : formatDate(job?.startTime) }}</p>
         </div>
         <div>
-          <strong>Time</strong>
-          <p>9am - 10am</p>
+          <strong>Time:</strong>
+          <p> N/A</p>
         </div>
         <div>
-          <strong>Hours</strong>
-          <p>8 Hrs</p>
+          <strong>Hours:</strong>
+          <p> N/A</p>
         </div>
       </div>
       <div class="job-actions">
-        <button class="view-btn" @click="view">View</button>
-        <div class="price">£58</div>
-        <button class="claim-btn">Claim</button>
+        <button class="view-btn" @click="view(job)">View</button>
+        <div class="price">£{{ job?.amount }}</div>
+        <button class="claim-btn" @click="claimJob(job.id)">
+          <span class="spinner-border spinner-border-sm" v-if="Loader && job.id"></span>
+          <span v-else>Claim</span>
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
+
 export default {
   name: "JobCard",
-  
+  data() {
+    return {
+      CleanerJob: ["Location", "Type", "Date", "Time", "Hours"],
+      DriverJob: ["Pickup Location", "Delivery Location", "Type", "Date", "Time", "Hours"],
+      type: null,
+      jobs: [],
+      jobsPagination: {},
+      Loader: false
+    }
+
+  },
+  mounted() {
+    this.type = localStorage.getItem("accountType");
+    this.getJobs(1, 10);
+  },
+
   methods: {
-    view() {
-      this.$emit("view");
+    formatDate(data, lastSeen = false) {
+      let processedData = data
+
+      if (lastSeen) {
+        const splitData = data.split(',')
+        processedData = splitData[0] // Assuming you want the first part after splitting
+      }
+
+      const date = new Date(processedData)
+      return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
+    },
+    async claimJob(jobId) {
+      this.Loader = true
+      const url = `jobs/${this.type}/${jobId}`
+      try {
+        const response = await postToApi(url, {})
+        console.log(response)
+        if (response.status) {
+          swal({
+            title: "Success",
+            text: "Job claimed successfully",
+            icon: "success",
+            button: "Close",
+          })
+        }
+      } catch (error) {
+        swal({
+          title: "Error",
+          text: error,
+          icon: "error",
+          button: "Close",
+        })
+      } finally {
+        this.Loader = false
+      }
+    },
+    async getJobs(page, pageSize) {
+
+      const url = `jobs/${this.type}?page=${page}&pageSize=${pageSize}`
+      try {
+        const response = await fetchFromApi(url);
+        if (response.status) {
+          this.jobs = response.data;
+          this.jobsPagination = response.pagination
+        } else {
+          console.log(response.message);
+        }
+      } catch (error) {
+        console.error("API call failed:", error);
+      }
+    },
+    view(job) {
+      this.$emit("view", job);
     },
   },
 };
@@ -52,7 +134,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 900px;
+  /* max-width: 900px; */
   border: 1px solid #e6e6e6;
   border-radius: 8px;
   overflow: hidden;

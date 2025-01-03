@@ -28,6 +28,7 @@ import BookDriver from "@/pages/BookDriver.vue";
 import OrderPackaging from "@/pages/OrderPackaging.vue";
 import ManAndVan from "@/pages/ManAndVan.vue";
 import UserCleaner from "@/views/UserCleaner.vue";
+import UserDriver from "@/views/UserDriver.vue";
 
 const routes = [
   {
@@ -44,6 +45,11 @@ const routes = [
     path: "/user/cleaner",
     component: UserCleaner,
     name: "UserCleaner",
+  },
+  {
+    path: "/user/driver",
+    component: UserDriver,
+    name: "UserDriver",
   },
   { path: "/payments", component: Payments, name: "Payments" },
   { path: "/quotes", component: Quotes, name: "Quotes" },
