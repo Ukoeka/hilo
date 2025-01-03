@@ -11,7 +11,7 @@
           </div>
         </div>
         <!-- Main Content Section -->
-        <div class="flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto" v-if="!showMovingDetails">
+        <div class="flex-grow-1 position-relative pt-2 px-5 h-100" v-if="!showMovingDetails">
           <!-- Card Section -->
           <div class="d-flex justify-content-between align-items-center mb-4">
             <div class="d-flex w-100 gap-3">
@@ -91,20 +91,19 @@
                  {{movingQuotesStats.allQuotes}} Quotes
                 </p>
               </div>
-              <div class="d-flex align-items-center right gap-3 justify-content-between">
-                <div class="d-flex align-items-center justify-content-center search">
+              <div class="d-flex align-items-center gap-3 justify-content-between ">
+                <div class="d-none  d-flex align-items-center justify-content-center search">
                   <img src="../assets/Payment_Sales/search.png" alt="" class="search-img" />
                   <input type="text" class="inputs" placeholder="Search" v-model="searchQuery" />
                 </div>
-                <button class="d-flex gap-2 btn">
+                <button class="d-none d-flex gap-2 btn">
                   <img src="../assets/Payment_Sales/filter-lines.png" alt="" />
                   Filters
                 </button>
-                <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center"
-                  @click="openModal">
+                <router-link to="/book-driver" class="btn btn-success d-flex align-items-center gap-2 justify-content-center">
                   <span><img src="../assets/Payment_Sales/plus.png" alt="" /></span>
                   Add New
-                </button>
+                </router-link> 
               </div>
             </div>
 
@@ -329,7 +328,14 @@ export default {
   },
   mounted() {
     this.fetchMQStats();
-    this.fetchQuotes(1, 10);
+    this.fetchQuotes(1, this.itemsPerPage);
+  },
+  watch: {
+    itemsPerPage(newVal, oldVal) {
+      if (newVal ) {
+        this.fetchQuotes(this.currentPage, newVal)
+      }
+    }
   },
   computed: {
     totalPages() {
@@ -377,6 +383,17 @@ export default {
     },
   },
   methods: {
+    formatDate(data, lastSeen = false) {
+      let processedData = data
+
+      if (lastSeen) {
+        const splitData = data.split(',')
+        processedData = splitData[0] // Assuming you want the first part after splitting
+      }
+
+      const date = new Date(processedData)
+      return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
+    },
 
     async addQuote() {
       try {
@@ -444,6 +461,7 @@ export default {
     },
 
     changePage(page) {
+      this.fetchQuotes(page, this.itemsPerPage)
       if (page !== "..." && page >= 1 && page <= this.totalPages) {
         this.currentPage = page;
       }
@@ -538,6 +556,7 @@ export default {
 .pagination .page-item.active .page-link {
   background-color: #28a745;
   border-color: #28a745;
+  color: white;
 }
 
 .pagination .page-link {

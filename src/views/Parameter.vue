@@ -23,7 +23,7 @@
               </button>
             </div>
             <div class="row">
-              <div v-for="(item) in parameters" :key="item.id" class="mb-3 col-4 ">
+              <div v-for="(item) in paginatedList" :key="item.id" class="mb-3 col-4 ">
                 <div class="card shadow-sm text-center" style="height: 330px;">
                   <div class="card-body">
                     <div class="d-flex justify-content-end gap-2 mb-4">
@@ -48,6 +48,39 @@
                       @click="openDetailedView(item)">View</button>
                   </div>
                 </div>
+              </div>
+            </div>
+            <!-- Pagination and Items Per Page Controls -->
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="d-flex gap-3 align-items-center">
+                <span>Items per page:</span>
+                <select v-model="itemsPerPage" class="form-select"
+                  style="width: 65px; background-color: #28a745; color: white; border: none;">
+                  <option value="10">10</option>
+                  <option value="14">14</option>
+                  <option value="20">20</option>
+                </select>
+                <p class="mb-0">
+                  {{ displayedStartIndex }}-{{ displayedEndIndex }} of {{ totalItems }} items
+                </p>
+              </div>
+              <div>
+                <ul class="pagination mb-0">
+                  <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                    <button class="page-link" @click="changePage(currentPage - 1)">
+                      <img src="../assets/Payment_Sales/pageleft.png" alt="">
+                    </button>
+                  </li>
+                  <li v-for="page in visiblePages" :key="page" class="page-item"
+                    :class="{ active: currentPage === page }">
+                    <button class="page-link" @click="changePage(page)">{{ page }}</button>
+                  </li>
+                  <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                    <button class="page-link" @click="changePage(currentPage + 1)">
+                      <img src="../assets/Payment_Sales/pageright.png" alt="">
+                    </button>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -82,7 +115,8 @@
               <div class="card text-center border-white rounded-2 pt-5 p-3">
                 <img :src="selectedItem.icon" alt="Category Icon" class="img-fluid mx-auto" width="60" height="60" />
                 <h4 class="my-3">{{ selectedItem.name }}</h4>
-                <button class="btn btn-success btn-green w-100 mb-2" @click="openModal1('edit', selectedItem.id)">Edit Category</button>
+                <button class="btn btn-success btn-green w-100 mb-2" @click="openModal1('edit', selectedItem.id)">Edit
+                  Category</button>
                 <button class="btn btn-outline-danger btn-outline-red w-100"
                   @click="deleteParameter(selectedItem.id)">Delete
                   Category</button>
@@ -120,11 +154,12 @@
                     <td>{{ item.name }}</td>
                     <td>{{ item.email }}</td>
                     <td class="menu-container">
-                      <svg @click="item.showMenu = !item.showMenu" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
-                        class="menu-icon" viewBox="0 0 16 16">
-                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                      <svg @click="item.showMenu = !item.showMenu" xmlns="http://www.w3.org/2000/svg" width="16"
+                        height="16" fill="currentColor" class="menu-icon" viewBox="0 0 16 16">
+                        <path
+                          d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
                       </svg>
-                      
+
                       <div v-if="item.showMenu" class="menu">
                         <div @click="editItem(item)">Edit</div>
                         <div @click="deleteItem(item)">Delete</div>
@@ -134,6 +169,7 @@
                 </tbody>
               </table>
             </div>
+
           </div>
         </div>
 
@@ -248,10 +284,10 @@ export default {
       Loader: false,
 
       items: [
-        
+
       ],
       itemDetails: [
-        
+
       ],
       generalParams: [
         { label: "Cost Per Mile", value: "" },
@@ -283,13 +319,54 @@ export default {
       parameters: [],
       addNewParameter: true,
       editParameter: null,
+
+      // pagination
+      itemsPerPage: 14, // Items per page, with a default value of 14
+      currentPage: 1, // Current page number
+      totalItems: 0, // Total number of items (example)
+
     };
+  },
+  computed: {
+    paginatedList() {
+      return this.parameters.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);   
+    },
+    totalPages() {
+      return Math.ceil(this.totalItems / this.itemsPerPage);
+    },
+    displayedStartIndex() {
+      return (this.currentPage - 1) * this.itemsPerPage + 1;
+    },
+    displayedEndIndex() {
+      return Math.min(this.displayedStartIndex + this.itemsPerPage - 1, this.totalItems);
+    },
+    visiblePages() {
+      // Only show the first few and last pages with ellipsis in between
+      const range = [];
+      if (this.totalPages <= 5) {
+        for (let i = 1; i <= this.totalPages; i++) {
+          range.push(i);
+        }
+      } else if (this.currentPage <= 3) {
+        range.push(1, 2, 3, 4, '...', this.totalPages);
+      } else if (this.currentPage > this.totalPages - 3) {
+        range.push(1, '...', this.totalPages - 3, this.totalPages - 2, this.totalPages - 1, this.totalPages);
+      } else {
+        range.push(1, '...', this.currentPage - 1, this.currentPage, this.currentPage + 1, '...', this.totalPages);
+      }
+      return range;
+    },
   },
   mounted() {
     this.fetchParameter();
   },
   methods: {
-    
+    changePage(page) {
+      if (page !== '...' && page >= 1 && page <= this.totalPages) {
+        this.currentPage = page;
+      }
+    },
+
     async deleteItem(item) {
       console.log(item)
       this.Loader = true
@@ -404,7 +481,7 @@ export default {
 
         this.addNewParameter = resp.status
         console.log('addNew', this.addNewParameter)
-        if(resp.status) {
+        if (resp.status) {
           this.fetchParameter()
         }
 
@@ -423,6 +500,7 @@ export default {
         const resp = await fetchFromApi(url);
         console.log('Response:', resp);
         this.parameters = resp.data
+        this.totalItems = resp.data.length
       } catch (error) {
         console.error('API call failed:', error);
       } finally {
@@ -491,7 +569,7 @@ export default {
       this.showModal1 = true;
       if (value == 'edit') {
         this.addNewParameter = false
-        this.editParameter =  id
+        this.editParameter = id
       } else {
         this.addNewParameter = true
       }
@@ -564,21 +642,39 @@ export default {
 .menu-container {
   position: relative;
 }
+
 .menu-icon {
   cursor: pointer;
 }
+
 .menu {
   position: absolute;
   right: 20px;
   background: white;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   padding: 8px;
 }
+
 .menu div {
   padding: 5px 10px;
   cursor: pointer;
 }
+
 .menu div:hover {
   background: #f5f5f5;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: #fff;
+}
+
+.pagination .page-link {
+  color: #28a745;
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #ccc;
 }
 </style>

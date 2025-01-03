@@ -23,10 +23,10 @@
                 13 quotes
               </p>
             </div>
-            <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center" @click="openModal()">
-              <span><img src="../assets/Payment_Sales/plus.png" alt="" /></span>
-              Add New
-            </button>
+            <router-link to="/book-cleaning" class="btn btn-success d-flex align-items-center gap-2 justify-content-center">
+                  <span><img src="../assets/Payment_Sales/plus.png" alt="" /></span>
+                  Add New
+                </router-link> 
           </div>
           <div class="container mt-4">
             <table class="table align-middle text-center">
@@ -46,8 +46,8 @@
               </thead>
               <tbody>
                 <!-- Single Row -->
-                <tr v-for="item in cleaningQuotes">
-                  <td>1</td>
+                <tr v-for="(item, index) in cleaningQuotes" :key="item in cleaningQuotes">
+                  <td>{{ index + 1 }}</td>
                   <td>N/A</td>
                   <td class="fw-bold">{{ item.postCode }}</td>
                   <td class="text-primary">{{ item.cleaningType }}</td>
@@ -61,25 +61,47 @@
                     </span>
                   </td>
                   <td>
-                    <!-- Action menu -->
-                    <div class="dropdown">
-                      <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                          <path
-                            d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-                        </svg>
-                      </button>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#" @click="showDetails(item.id) ">View</a></li>
-                        <li><a class="dropdown-item" href="#">Edit</a></li>
-                        <li><a class="dropdown-item" href="#">Delete</a></li>
-                      </ul>
-                    </div>
+                    <button class="btn btn-sm btn-success text-white rounded-full"
+                      @click="showDetails(item.id)">view</button>
+
                   </td>
                 </tr>
               </tbody>
             </table>
+          </div>
+
+          <!-- Pagination and Items Per Page Controls -->
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex gap-3 align-items-center">
+              <span>Number Of Items displayed per page</span>
+              <select v-model="itemsPerPage" class="form-select"
+                style="width: 65px; background-color: #28a745; color: white; border: none;">
+                <option value="10">10</option>
+                <option value="14">14</option>
+                <option value="20">20</option>
+              </select>
+              <p class="mb-0">
+                {{ displayedStartIndex }}-{{ displayedEndIndex }} of {{ totalItems }} items
+              </p>
+            </div>
+            <div>
+              <ul class="pagination mb-0">
+                <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                  <button class="page-link" @click="changePage(currentPage - 1)">
+                    <img src="../assets/Payment_Sales/pageleft.png" alt="">
+                  </button>
+                </li>
+                <li v-for="page in visiblePages" :key="page" class="page-item"
+                  :class="{ active: currentPage === page }">
+                  <button class="page-link" @click="changePage(page)">{{ page }}</button>
+                </li>
+                <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                  <button class="page-link" @click="changePage(currentPage + 1)">
+                    <img src="../assets/Payment_Sales/pageright.png" alt="">
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -296,7 +318,14 @@ export default {
     },
   },
   mounted() {
-    this.fetchQuotes(1, 10);
+    this.fetchQuotes(1, this.itemsPerPage);
+  },
+  watch: {
+    itemsPerPage(newVal, oldVal) {
+      if (newVal ) {
+        this.fetchQuotes(this.currentPage, newVal)
+      }
+    }
   },
   methods: {
     showDetails(id) {
@@ -355,6 +384,7 @@ export default {
       cleaningData.rooms.push({ name: "", number: 1 });
     },
     changePage(page) {
+      this.fetchQuotes(page, this.itemsPerPage)
       if (page !== "..." && page >= 1 && page <= this.totalPages) {
         this.currentPage = page;
       }
@@ -449,6 +479,7 @@ export default {
 .pagination .page-item.active .page-link {
   background-color: #28a745;
   border-color: #28a745;
+  color: #fff;
 }
 
 .pagination .page-link {

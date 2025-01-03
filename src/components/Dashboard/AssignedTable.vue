@@ -2,20 +2,20 @@
   <div class="quotes-container">
     <!-- Header Section -->
     <div class="header-section">
+      <div class="back-button">
+        <button @click="goBack">
+          ← Back
+        </button>
+      </div>
       <div class="title-section">
         <h6 class="assigned-title">Assigned</h6>
         <span class="quote-count">10,000 Quotes</span>
       </div>
-      
-      <div class="actions-section">
+
+      <div class="d-none actions-section">
         <div class="search-wrapper">
           <i class="search-icon bi bi-search"></i>
-          <input 
-            type="text" 
-            class="search-input"
-            placeholder="Search"
-            v-model="searchQuery"
-          >
+          <input type="text" class="search-input" placeholder="Search" v-model="searchQuery">
         </div>
         <button class="filters-btn">
           <i class="bi bi-sliders me-2"></i>
@@ -82,44 +82,47 @@
         </tbody>
       </table>
     </div>
-
-    <!-- Pagination -->
-    <div class="pagination-section">
-      <div class="items-display">
-        <div class="items-per-page">
-          <span>Number Of Items displayed per page</span>
-          <select v-model="itemsPerPage" class="page-select">
-            <option value="14">14</option>
-          </select>
-        </div>
-        <span class="items-count">1-14 of 12,400 items</span>
+    <!-- Pagination and Items Per Page Controls -->
+    <div class="mt-5 d-flex align-items-center justify-content-between">
+      <div class="d-flex gap-3 align-items-center">
+        <span>Number Of Items displayed per page</span>
+        <select v-model="itemsPerPage" class="form-select"
+          style="width: 65px; background-color: #28a745; color: white; border: none;">
+          <option value="10">10</option>
+          <option value="14">14</option>
+          <option value="20">20</option>
+        </select>
+        <p class="mb-0">
+          {{ displayedStartIndex }}-{{ displayedEndIndex }} of {{ totalItems }} items
+        </p>
       </div>
-
-      <div class="pagination-controls">
-        <button class="page-nav" :disabled="currentPage === 1">
-          <i class="bi bi-chevron-left"></i>
-        </button>
-        <button 
-          v-for="page in [1,2,3,4]" 
-          :key="page"
-          :class="['page-number', currentPage === page ? 'active' : '']"
-        >
-          {{ page }}
-        </button>
-        <span class="page-ellipsis">...</span>
-        <button class="page-number">25</button>
-        <button class="page-nav" :disabled="currentPage === totalPages">
-          <i class="bi bi-chevron-right"></i>
-        </button>
+      <div>
+        <ul class="pagination mb-0">
+          <li class="page-item" :class="{ disabled: currentPage === 1 }">
+            <button class="page-link" @click="changePage(currentPage - 1)">
+              <img src="../assets/Payment_Sales/pageleft.png" alt="">
+            </button>
+          </li>
+          <li v-for="page in visiblePages" :key="page" class="page-item" :class="{ active: currentPage === page }">
+            <button class="page-link" @click="changePage(page)">{{ page }}</button>
+          </li>
+          <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+            <button class="page-link" @click="changePage(currentPage + 1)">
+              <img src="../assets/Payment_Sales/pageright.png" alt="">
+            </button>
+          </li>
+        </ul>
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
 export default {
   name: 'AssignedQuotesTable',
-  
+  emits: ['close'],
+
   data() {
     return {
       quotes: [
@@ -142,15 +145,31 @@ export default {
   },
 
   computed: {
-    paginatedQuotes() {
-      const start = (this.currentPage - 1) * this.itemsPerPage
-      const end = start + this.itemsPerPage
-      return this.quotes.slice(start, end)
-    },
-    
     totalPages() {
-      return Math.ceil(this.totalItems / this.itemsPerPage)
-    }
+      return Math.ceil(this.totalItems / this.itemsPerPage);
+    },
+    displayedStartIndex() {
+      return (this.currentPage - 1) * this.itemsPerPage + 1;
+    },
+    displayedEndIndex() {
+      return Math.min(this.displayedStartIndex + this.itemsPerPage - 1, this.totalItems);
+    },
+    visiblePages() {
+      // Only show the first few and last pages with ellipsis in between
+      const range = [];
+      if (this.totalPages <= 5) {
+        for (let i = 1; i <= this.totalPages; i++) {
+          range.push(i);
+        }
+      } else if (this.currentPage <= 3) {
+        range.push(1, 2, 3, 4, '...', this.totalPages);
+      } else if (this.currentPage > this.totalPages - 3) {
+        range.push(1, '...', this.totalPages - 3, this.totalPages - 2, this.totalPages - 1, this.totalPages);
+      } else {
+        range.push(1, '...', this.currentPage - 1, this.currentPage, this.currentPage + 1, '...', this.totalPages);
+      }
+      return range;
+    },
   },
 
   methods: {
@@ -161,12 +180,27 @@ export default {
         'new': status === 'New',
         'paid': status === 'Paid'
       }
-    }
+    },
+    goBack() {
+      this.$emit('close')
+    },
+    changePage(page) {
+      if (page !== '...' && page >= 1 && page <= this.totalPages) {
+        this.currentPage = page;
+      }
+    },
   }
 }
 </script>
 
 <style scoped>
+.back-button button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #047857;
+}
+
 .quotes-container {
   padding: 24px;
   background: white;
@@ -365,5 +399,18 @@ export default {
 .page-nav:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+.pagination .page-item.active .page-link {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white;
+}
+
+.pagination .page-link {
+  color: #28a745;
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #ccc;
 }
 </style>

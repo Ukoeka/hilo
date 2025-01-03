@@ -76,7 +76,7 @@
         </div>
 
         <!-- Pagination and Items Per Page Controls -->
-        <!-- <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center justify-content-between">
           <div class="d-flex gap-3 align-items-center">
             <span>Number Of Items displayed per page</span>
             <select v-model="itemsPerPage" class="form-select" style="width: 65px; background-color: #28a745; color: white; border: none;">
@@ -110,7 +110,7 @@
               </li>
             </ul>
           </div>
-        </div> -->
+        </div>
 
         <!-- Admin Modal -->
         <div v-show="showModal" class="modal fade show" style="display: block; background: rgba(10, 11, 21, .5);">
@@ -226,8 +226,15 @@ export default {
       return range;
     },
   },
+  watch: {
+    itemsPerPage(newVal, oldVal) {
+      if (newVal ) {
+        this.fetchAdmin(this.currentPage, newVal)
+      }
+    }
+  },
   mounted() {
-    this.fetchAdmin(1, 10)
+    this.fetchAdmin(1, this.itemsPerPage)
   },
   methods: {
     formatDate(data, lastSeen = false) {
@@ -311,6 +318,7 @@ export default {
       }
     },
     changePage(page) {
+      this.fetchAdmin(page, this.itemsPerPage)
       if (page !== '...' && page >= 1 && page <= this.totalPages) {
         this.currentPage = page;
       }
@@ -404,6 +412,7 @@ export default {
 .pagination .page-item.active .page-link {
   background-color: #28a745;
   border-color: #28a745;
+  color: white;
 }
 
 .pagination .page-link {
