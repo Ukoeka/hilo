@@ -75,9 +75,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(payment, index) in payments" :key="index">
+              <tr v-for="(payment, index) in transactions" :key="index">
                 <td>{{ index + 1 }}</td>
-                <td>{{ payment.date }}</td>
+                <td>{{ formatDate(payment.createdAt) }}</td>
                 <td>{{ payment.amount }}</td>
                 <td>{{ payment.type }}</td>
                 <td>
@@ -174,6 +174,7 @@ export default {
       ],
       showModal: false,
       transactions: '',
+      transactionsPagination: {},
       withdrawal: {
         amount: '',
         accountNumber: '1234567890',
@@ -214,6 +215,17 @@ export default {
     this.fetchTransactions(1, 10)
   },
   methods: {
+    formatDate(data, lastSeen = false) {
+      let processedData = data
+
+      if (lastSeen) {
+        const splitData = data.split(',')
+        processedData = splitData[0] // Assuming you want the first part after splitting
+      }
+
+      const date = new Date(processedData)
+      return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
+    },
     async fetchTransactions(page, pageSize) {
       try {
         const url = `profile/transactions?page=${page}&pageSize=${pageSize}`
