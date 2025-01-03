@@ -272,7 +272,7 @@
         h1{
           text-align: left;
           font-family: Lato;
-          font-size: 70px;
+          font-size: 3.2rem;
           font-weight: 700;
           color: white;        
         }
@@ -370,22 +370,24 @@
 
         h1{
           font-family: Lato;
-          font-size: 100px;
+          font-size: 4rem;
           font-weight: 700;
           color: white;
+          margin-top: 20px;
 
         }
         p{
           font-family: Lato;
-          font-size: 20px;
+          font-size: 1.1rem;
           font-weight: 300;
           color: white;
+          margin-top: 50px;
         }
       }
         .btn-contain{
           display: flex;
           gap: 13px;
-          margin-top: 80px;
+          margin-top: 40px;
 
           a{
           height: 47px;
@@ -708,5 +710,11 @@
             }
           }
         }
+    }
+
+    @media only screen and (max-width: 1200px) {
+      .hero .content h1{
+        font-size: 2rem;
+      }
     }
   </style>

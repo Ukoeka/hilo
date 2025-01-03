@@ -66,9 +66,10 @@
 
     <div class="cleaner-requirement">
       <div class="left">
-        <h2>Our Core Values: Driving <br> Excellence Every Day</h2>
-        <p>At the heart of Hilogisticz, we believe in principles that drive outstanding results for our clients and our team. Explore the values that fuel our commitment to delivering top-tier cleaning and logistics services.</p>
-        <button>Register Now</button>
+        <h2 class="mt-5">Our Core Values: Driving <br> Excellence Every Day</h2>
+        <p>At the heart of Hilogisticz, we believe in principles that drive outstanding results <br>
+           for our clients and our team. Explore the values that fuel our commitment <br> to delivering top-tier cleaning and logistics services.</p>
+        <a href="/driver-recruitment" class="quoter">Register Now</a>
         <div class="details">
           <div class="each-detail">
             <img src="@/assets/icons/furniture.png" alt="">
@@ -90,7 +91,7 @@
       </div>
       <div class="right">
         <div class="top">
-          <img src="@/assets/images/truck.png" alt="">
+          <img height="800px" src="@/assets/images/truck.png" alt="">
         </div>
         <div class="bottom">
           <img class="img-60" src="@/assets/images/truck1.png" alt="">
@@ -103,10 +104,9 @@
     <div class="get-in-touch">
       <div class="right">
         <p>Ready to work with us?</p>
-        <h2>Whether you’re looking to hire our services or join our growing team, we’re here to help. Take the next step and connect with us today.f</h2>
+        <h2>Whether you’re looking to hire our services or join our growing team, we’re here to help. Take the next step and connect with us today.</h2>
         <div class="btn-contain">
-          <button class="quote">Start Your Application</button>
-          <button class="contact">Learn More About Opportunities</button>
+          <a href="/gethired" class="quote">Start Your Application</a>
         </div>
       </div>
       <div class="left">
@@ -427,6 +427,7 @@
 
     .left{
       width: 55%;
+      padding-left: 2%;
       color: white;
 
       h2{
@@ -460,7 +461,7 @@
       }
     }
     .right{
-      width: 45%;
+      width: 38%;
 
       .top{
         width: 100%;
@@ -592,6 +593,10 @@
               font-family: Lato;
               font-size: 20px;
               font-weight: 700;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              text-decoration: none;
 
             }
             .contact{
@@ -609,4 +614,23 @@
           }
         }
     }
+    .quoter{
+              border: none;
+              height: 54px;
+              border-radius: 10px;
+              color: black;
+              background-color: #2E7D32;
+              color: white;
+              padding: 0px 18px;
+              font-family: Lato;
+              font-size: 20px;
+              font-weight: 700;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              text-decoration: none;
+              width: 200px;
+              margin: 40px 0px;
+
+            }
   </style>

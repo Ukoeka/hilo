@@ -35,7 +35,7 @@
                     <li class="mt-3">Specialized Cleaning</li>
                 </div>
             </ul>
-            <button>Book Moving</button>
+            <a href="/book-driver">Book Moving</a>
         </div>
         <div class="right">
           <div class="left-image">
@@ -55,7 +55,7 @@
       <div class="right">
         <p>Your Trusted Partner in Professional Cleaning and Moving</p>
         <h2>We prioritize quality, efficiency, and <br> flexibility—everything your business <br> needs to maintain a productive, <br> pristine space or transition seamlessly.</h2>
-        <button>Book Cleaning</button>
+        <a href="/book-cleaning">Book Cleaning</a>
       </div>
     </div>
    
@@ -200,13 +200,18 @@
             margin-bottom: 50px;
         }
 
-        button{
+        a{
             padding: 0px 15px;
             background: #2E7D32;
             color: white;
             border: none;
             border-radius: 10px;
             height: 48px;
+            display: flex;
+            text-decoration: none;
+            width: 200px;
+            justify-content: center;
+            align-items: center;
         }
     }
     .right{
@@ -280,13 +285,18 @@
 
         }
 
-        button{
-          width: 150px;
-          height: 45px;
-          background: #2E7D32;
-          border-radius: 10px;
-          border: none;
-          color: white;
+        a{
+          padding: 0px 15px;
+            background: #2E7D32;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            height: 48px;
+            display: flex;
+            text-decoration: none;
+            width: 200px;
+            justify-content: center;
+            align-items: center;
         }
       }
     }

@@ -4,13 +4,14 @@
         <RouterLink to="/">
           <img class="logo" src="@/assets/images/logo/logo-small.png" alt="">
         </RouterLink>
-       
-        <a href="/cleaning">Cleaning</a>
-        <a href="/business">Businesses</a>
+        
+        
         <a href="/packaging">Packaging</a>
+        <a href="/business">Businesses</a>
+        <a href="/cleaning">Cleaning</a>
       </div>
       <div class="right">
-        <a href="/gethired">Get Hired</a>
+        <a href="/gethired">Join Us</a>
         <a class="green-btn" href="/getquote">Get Quote</a>
       </div>
     </div>
