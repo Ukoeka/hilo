@@ -46,7 +46,7 @@
                 <td>N/A</td>
                 <td>{{ type === 'moving' ? payment.pickUp?.name : payment.cleaningType }}</td>
                 <td>{{ payment.dropOff?.name || 'N/A'}}</td>
-                <td>{{ type === 'moving' ? formatDate(payment?.movingDate) : formatDate(payment?.startTime) }}</td>
+                <td>{{ type === 'moving' ? formatDate(payment?.bookingDate) : formatDate(payment?.startTime) }}</td>
                 <td>{{ payment?.amount }}</td>
                 <td>
                   <span :class="[

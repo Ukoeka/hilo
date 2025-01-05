@@ -40,6 +40,12 @@
                 v-model="driverDetails.businessName">
             </div>
           </div>
+          <div class="row mb-3">
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">Password</label>
+              <input type="password" class="form-control" id="password" placeholder="Password" v-model="driverDetails.password">
+            </div>
+          </div>
 
 
 
@@ -296,6 +302,7 @@ export default {
         postCode: "",
         phoneNumber: "",
         additionalData: "",
+        password: "",
       },
       form: {
         additional: {
@@ -396,6 +403,7 @@ export default {
         formData.append('postCode', this.driverDetails.postCode);
         formData.append('phoneNumber', this.driverDetails.phoneNumber);
         formData.append('additionalData', JSON.stringify(this.additional)); // { "numberOfVehicle": 1 }
+        formData.append('password', this.driverDetails.password);
 
         // Append documents as per the request body mmeyene
         this.appendFilesToFormData(formData, 'documents', this.documents);

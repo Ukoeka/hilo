@@ -119,10 +119,19 @@
 </template>
 
 <script>
+import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
+
 export default {
   name: 'AssignedQuotesTable',
   emits: ['close'],
-
+  props: {
+    quotesId: {
+      type: String
+    },
+    type: {
+      type: String
+    }     
+  },
   data() {
     return {
       quotes: [
@@ -137,6 +146,7 @@ export default {
         },
         // Add remaining quotes...
       ],
+      quotesPagination: {},
       searchQuery: '',
       currentPage: 1,
       itemsPerPage: 14,
@@ -171,8 +181,29 @@ export default {
       return range;
     },
   },
-
+  mounted() {
+    // this.fetchAssignedQuotes(this.quotesId, this.type);            
+  },
   methods: {
+    async fetchAssignedQuotes(quotesId, userType) {
+      const type = userType == 'driver' ? 'moving' : 'cleaning'
+      try {
+        const url = `quotes/${quotesId}?type=${type}`;
+        const resp = await fetchFromApi(url);
+        if (resp.status) {
+          this.quotes  = resp.data;
+          this.quotesPagination = resp.pagination
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('admin Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      }
+    },
     getStatusClass(status) {
       return {
         'ongoing': status === 'Ongoing',

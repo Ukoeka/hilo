@@ -119,7 +119,7 @@
 
     </div>
   </div>
-  <AssignedTable v-if="assignedTable" @close="assignedTable = false" />
+  <AssignedTable v-if="assignedTable" @close="assignedTable = false" :quotesId="userId" :type="CompType" />
 
 </template>
 

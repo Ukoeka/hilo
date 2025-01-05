@@ -1,16 +1,17 @@
 <template>
   <!-- Used by both payments and Qoutes -->
-  <div  class="page-container w-100">
+  <div class="page-container w-100">
     <header class="header">
       <button class="back-button" @click="back">
         ← Back
       </button>
       <div class="driver-section">
         <div>
-          <a href="javascript:void(0);" class="fw-bold me-3 text-decoration-none text-black" @click="assignDriver">Assigned Driver</a>
-          <span class="bg-white text-gray p-3">Charlie Brakus</span>
+          <a href="javascript:void(0);" class="fw-bold me-3 text-decoration-none text-black"
+            @click="assignDriver">Assigned Driver</a>
+          <span class="bg-white text-gray p-3">{{ PRDetails.user?.firstName }} {{ PRDetails.user?.lastName }}</span>
         </div>
-        <button class="driver-profile-btn">Driver Profile</button>
+        <button class="driver-profile-btn">{{ requestType == 'driver' ? 'Driver' : 'Cleaner' }} Profile</button>
       </div>
     </header>
 
@@ -19,55 +20,72 @@
         <div class="info-grid">
           <div class="info-item">
             <div class="info-label">Client Name</div>
-            <div class="info-value">{{ clientName }}</div>
+            <div class="info-value">{{ PRDetails.user?.firstName }} {{ PRDetails.user?.lastName }}</div>
           </div>
           <div class="info-item">
             <div class="info-label">Phone Number</div>
-            <div class="info-value">{{ phoneNumber }}</div>
+            <div class="info-value">{{ PRDetails?.quote?.phoneNumber }}</div>
           </div>
           <div class="info-item">
             <div class="info-label">Post Code</div>
-            <div class="info-value">{{ postCode }}</div>
+            <div class="info-value">{{ requestType == 'driver' ? PRDetails?.quote?.dropOff?.postcode :
+              PRDetails?.quote?.postCode }}</div>
           </div>
           <div class="info-item">
             <div class="info-label">Booking Date</div>
-            <div class="info-value">{{ bookingDate }}</div>
+            <div class="info-value">{{ requestType == 'driver' ? formatDate(PRDetails?.quote?.bookingDate) :
+              formatDate(PRDetails?.quote?.startTime) }}</div>
           </div>
-          <div class="info-item">
+          <div v-if="requestType == 'driver'" class="info-item">
             <div class="info-label">Pickup Location</div>
-            <div class="info-value">{{ pickupLocation }}</div>
+            <div class="info-value">{{ requestType == 'driver' ? PRDetails?.quote?.pickUp?.name : 'N/A' }}</div>
           </div>
-          <div class="info-item">
+          <div v-if="requestType == 'driver'" class="info-item">
             <div class="info-label">Delivery Location</div>
-            <div class="info-value">{{ deliveryLocation }}</div>
+            <div class="info-value">{{ requestType == 'driver' ? PRDetails?.quote?.dropOff?.name : 'N/A' }}</div>
           </div>
-          <div class="info-item">
+          <div v-if="requestType == 'driver'" class="info-item">
             <div class="info-label">Pickup Property Type</div>
-            <div class="info-value">{{ pickupPropertyType }}</div>
+            <div class="info-value">{{ requestId == 'driver' ? PRDetails?.quote?.propertyType : 'N/A' }}</div>
           </div>
-          <div class="info-item">
+          <div v-if="requestType == 'driver'" class="info-item">
             <div class="info-label">Delivery Property Type</div>
-            <div class="info-value">{{ deliveryPropertyType }}</div>
+            <div class="info-value">{{ 'N/A' }}</div>
           </div>
-          <div class="info-item">
+          <div v-if="requestType == 'driver'" class="info-item">
             <div class="info-label">Pickup Property Floor</div>
-            <div class="info-value">{{ pickupPropertyFloor }}</div>
+            <div class="info-value">{{ 'N/A' }}</div>
+          </div>
+          <div v-if="requestType == 'cleaner'" class="info-item">
+            <div class="info-label">Cleaning Type</div>
+            <div class="info-value">{{ PRDetails?.quote?.cleaningType }}</div>
           </div>
           <div class="info-item">
             <div class="info-label">Email</div>
-            <div class="info-value">{{ email }}</div>
+            <div class="info-value">{{ PRDetails?.quote?.email }}</div>
           </div>
           <div class="info-item additional-info">
             <div class="info-label">Additional Information</div>
-            <div class="info-value">{{ additionalInfo }}</div>
+            <div class="info-value d-flex gap-2 ">
+              <span
+                v-for="item in PRDetails?.quote?.extraData?.additionalServices || PRDetails?.quote?.additionalServices"
+                :key="item.id">{{ item }}</span>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="recent-deliveries">
-        <h2>Recent Deliveries</h2>
-        <div v-for="item in deliveryItems" :key="item.id" class="delivery-item">
-          {{ item.quantity }} {{ item.name }}
+        <h2>{{ requestType == 'driver' ? 'Recent Deliveries' : 'Service Details' }}</h2>
+        <div v-if="requestType == 'driver'">
+          <div v-for="item in PRDetails?.quote?.items" :key="item._id" class="delivery-item">
+            <span v-if="item.quantity > 0"> {{ item.quantity }} {{ item.id }}</span>
+          </div>
+        </div>
+        <div v-if="requestType == 'cleaner'">
+          <div v-for="item in PRDetails?.quote?.rooms" :key="item._id" class="delivery-item">
+            <span v-if="item.number > 0"> {{ item.number }} {{ item.name }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -75,14 +93,20 @@
 </template>
 
 <script>
-export default {
+import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
 
+export default {
+  name: 'PaymentRequest',
+  props: {
+    requestId: Number,
+    requestType: String
+  },
   data() {
     return {
 
       // manages Component rendering
       openDriversTable: false,
-
+      PRDetails: {},
       clientName: 'Charlie Brakus',
       phoneNumber: '+44 012 9904 9944',
       postCode: 'B455AT',
@@ -104,7 +128,38 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.fetchPRDetails()
+  },
   methods: {
+    formatDate(data, lastSeen = false) {
+      let processedData = data
+
+      if (lastSeen) {
+        const splitData = data.split(',')
+        processedData = splitData[0] // Assuming you want the first part after splitting
+      }
+
+      const date = new Date(processedData)
+      return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
+    },
+    async fetchPRDetails() {
+      try {
+        const url = `payment-requests/${this.requestId}`;
+        const resp = await fetchFromApi(url);
+        if (resp) {
+          this.PRDetails = resp.data;
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      }
+    },
     back() {
       this.$emit('payment')
     },

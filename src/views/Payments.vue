@@ -19,10 +19,10 @@
           <span class="toggle-active" :class="{ active: filterType === 'all' }" @click="filterBy('all')">
             All
           </span>
-          <span class="toggle-active" :class="{ active: filterType === 'drivers' }" @click="filterBy('drivers')">
+          <span class="toggle-active" :class="{ active: filterType === 'driver' }" @click="filterBy('driver')">
             Drivers
           </span>
-          <span class="toggle-active" :class="{ active: filterType === 'cleaners' }" @click="filterBy('cleaners')">
+          <span class="toggle-active" :class="{ active: filterType === 'cleaner' }" @click="filterBy('cleaner')">
             Cleaners
           </span>
         </div>
@@ -53,7 +53,7 @@
               </button>
             </div>
           </div>
-          <TableDetails @paymentRequest="handlePR" />
+          <TableDetails @paymentRequest="handlePR" @refresh="filterBy(filterType)" :items="paymentData" />
 
         </div>
 
@@ -61,8 +61,8 @@
       </div>
       <!-- Details Moving -->
 
-      <PaymentRequest v-if="!showDetails" @payment="handlePR" />
-      <CleanersPaymentRequest v-if="!showCleanerDetails" @payment="handlePR" />
+      <PaymentRequest v-if="!showDetails" @payment="handlePR"  :requestId="requestId" :requestType="requestType"/>
+      <!-- <CleanersPaymentRequest v-if="!showCleanerDetails" @payment="handlePR" /> -->
     </div>
   </AdminLayout>
 
@@ -92,7 +92,8 @@ export default {
   },
   data() {
     return {
-
+      requestId: null,
+      requestType: null,
       searchQuery: '',
       itemsPerPage: 14,
       currentPage: 1,
@@ -124,14 +125,15 @@ export default {
 
         }
       ],
-
+      paymentData: null,
     };
   },
-  mounted() {
+  created() {
     this.fetchPaymentRequestStats()
     this.fetchPaymentRequest(1, 10, 'driver')
   },
   methods: {
+
     async fetchPaymentRequestStats() {
       try {
         const url = `statistics/payment-requests`;
@@ -157,12 +159,12 @@ export default {
         console.error('API call failed:', error);
       }
     },
-    async fetchPaymentRequest(page, pageSize, type, status = 'declined') {
+    async fetchPaymentRequest(page, pageSize, type, status) {
       try {
-        const url = `payment-requests?page=${page}&pageSize=${pageSize}&type=${type}&status=${status}`;
+        const url = status ? `payment-requests?page=${page}&pageSize=${pageSize}&type=${type}&status=${status}` : `payment-requests?page=${page}&pageSize=${pageSize}&type=${type}`;
         const resp = await fetchFromApi(url);
-        if (resp) {
-
+        if (resp.status) {
+          this.paymentData = resp.data
         } else {
           swal({
             text: resp.message,
@@ -176,9 +178,14 @@ export default {
     },
     filterBy(type) {
       this.filterType = type;
+      type !== 'all' ? this.fetchPaymentRequest(1, 10, type) : this.fetchPaymentRequest(1, 10, 'driver');
     },
-    handlePR() {
-      console.log('called')
+    handlePR(id) {
+      console.log('called', id)
+      if (id) {
+        this.requestId = id
+        this.requestType = this.filterType == 'all' ? 'driver' : this.filterType
+      }
       // Toggle between main and detail views
       if (this.filterType === 'cleaners') {
 

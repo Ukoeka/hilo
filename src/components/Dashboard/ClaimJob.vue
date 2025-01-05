@@ -69,7 +69,7 @@
     <div class="col-12 rounded-2 py-2" style="background: rgba(245, 249, 251, 1); height: 100px;">
       <p class="title">Additional Information</p>
       <p class="description d-flex gap-2 flex-wrap">
-        <span v-for="info in job?.additionalServices"> {{ info }} </span>
+        <span v-for="info in job?.additionalServices || job?.extraData.additionalServices"> {{ info }} </span>
       </p>
     </div>
   </div>

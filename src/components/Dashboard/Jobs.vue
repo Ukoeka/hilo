@@ -17,16 +17,16 @@
       <div class="job-info">
         <div >
           <strong>Pickup Location:</strong>
-          <p>{{ type == 'moving' ? job?.pickup?.name : job?.postCode }}</p>
+          <p>{{ type == 'moving' ? job?.pickUp?.name : job?.postCode }}</p>
         </div>
         <div>
           <strong v-if="type == 'moving'">Delivery Location:</strong>
           <strong v-else>Type:</strong>
-          <p>{{ type == 'moving' ? job?.delivery?.name : job?.cleaningType }}</p>
+          <p>{{ type == 'moving' ? job?.dropOff?.name : job?.cleaningType }}</p>
         </div>
         <div>
           <strong>Date:</strong>
-          <p>{{ type == 'moving' ? formatDate(job?.movingDate) : formatDate(job?.startTime) }}</p>
+          <p>{{ type == 'moving' ? formatDate(job?.bookingDate) : formatDate(job?.startTime) }}</p>
         </div>
         <div>
           <strong>Time:</strong>

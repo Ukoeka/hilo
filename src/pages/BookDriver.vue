@@ -723,12 +723,7 @@ export default {
         },
         email: "Kristoffer22@hotmail.com",
         phoneNumber: "413-705-1942",
-        items: [
-          {
-            id: "32eeac738837378a8",
-            quantity: 2,
-          },
-        ],
+        items: [],
         vehicleType: "small", //must be one of: [small, medium, large]
         propertyType: "small_to_mid", //must one of: [small_to_mid, large]
         extraData: {
@@ -736,45 +731,8 @@ export default {
         },
       },
       activeTab: "bedroom",
-      tabs: [
-        {
-          id: "bedroom",
-          name: "Bedrooms",
-          items: [
-            { name: "Double Beds & Mattress", quantity: 2 },
-            { name: "Kingsize Bed & Mattress", quantity: 1 },
-            { name: "Single Wardrobe", quantity: 0 },
-            { name: "Chest of Drawers", quantity: 0 },
-            { name: "Bedside Table", quantity: 0 },
-            { name: "Dressing Table", quantity: 0 },
-            { name: "Television", quantity: 0 },
-          ],
-        },
-        {
-          id: "livingroom",
-          name: "Living Rooms",
-          items: [
-            { name: "Sofa", quantity: 0 },
-            { name: "Television", quantity: 0 },
-          ],
-        },
-        {
-          id: "dining",
-          name: "Dining",
-          items: [
-            { name: "Dining Chairs", quantity: 0 },
-            { name: "Dining Table", quantity: 0 },
-          ],
-        },
-        {
-          id: "kitchen",
-          name: "Kitchen",
-          items: [
-            { name: "Pots", quantity: 0 },
-            { name: "Cookers", quantity: 0 },
-          ],
-        },
-      ],
+      tabs: [],
+      servicePrice: 0,
       bookDate: null,
       stripesUrl: "",
       estimatedPrice: 0,
@@ -807,10 +765,48 @@ export default {
       }
     },
   },
+  mounted() {
+    this.getParameters();
+  },
   methods: {
     redirectStripes() {
       // You will be redirected to Stripe's secure checkout page
       if (this.stripesUrl) window.location.assign(this.stripesUrl);
+    },
+    async getParameters() {
+      try {
+        const url = "parameters";
+        const resp = await fetchFromApi(url);
+        console.log(resp);
+        if (resp.status) {
+          this.parameters = resp.data;
+          // what you are moving
+          resp.data.map((room) => {
+            const roomName = room.name;
+            const roomItems = [];
+            room.items.map((item) => {
+              roomItems.push({
+                name: item.name,
+                quantity: 0,
+                cost: item.movingCost
+              })
+            })
+            this.tabs.push({
+              id: roomName.toLowerCase(),
+              name: roomName,
+              items: roomItems
+            })
+          })
+          this.setActiveTab(this.tabs[0]?.id);
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+      } catch (error) {
+        console.error("API call failed:", error);
+      }
     },
     async bookDrivingService() {
       console.log(this.bookDriver);
