@@ -30,8 +30,8 @@
           <p>Click to apply for a position as a cleaner or driver and take the next step in your career.</p>
           <h2>Start Your Career with Us</h2>
           <div class="btn-contain">
-            <button class="quote">Apply as a Cleaner</button>
-            <button class="contact">Apply as a Driver</button>
+            <a href="/onboard-cleaner" class="quote">Apply as a Cleaner</a>
+            <a href="/onboard-driver" class="contact">Apply as a Driver</a>
           </div>
       </div>
     </div>
@@ -220,6 +220,10 @@
               font-family: Lato;
               font-size: 20px;
               font-weight: 700;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              text-decoration: none;
 
             }
             .contact{
@@ -232,6 +236,10 @@
               font-family: Lato;
               font-size: 20px;
               font-weight: 700;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              text-decoration: none;
 
             }
           }
