@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="white-shape">
-          <p>Planning your move? Proper packing is essential to protect your belongings.  Export packing…</p>
+          <p>Planning your move? Proper packing is essential to protect your belongings.</p>
         </div>
     </div>
     <div class="why-chose">
@@ -124,7 +124,11 @@
         
             </div>
             <div class="card last-card">
-            <h3>Packing Materials Delivery</h3>
+              <div class="top-texts d-flex align-items-center spacee">
+                <h3>Packing Materials Delivery</h3>
+                <p class="go-down">03</p>
+                </div>
+            
             <p>Need supplies? We offer delivery of all essential packing materials. With eco-friendly boxes in every size, bubble wrap, and specialized tape, we have everything you need to pack safely for your next move.</p>
             </div>
         </div>
@@ -594,5 +598,8 @@
             }
           }
         }
+    }
+    .spacee{
+      justify-content: space-between;
     }
   </style>
