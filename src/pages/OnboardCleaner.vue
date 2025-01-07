@@ -65,7 +65,12 @@
                 v-model="cleanerDetails.language">
             </div>
           </div>
-
+          <div class="row mb-3">
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">Password</label>
+              <input type="password" class="form-control" id="password" placeholder="Password" v-model="cleanerDetails.password">
+            </div>
+          </div>
 
 
 
@@ -166,6 +171,7 @@ export default {
         city: "",
         address: "",
         language: "",
+        password: "",
       },
       documents: [
         { label: "Driving License", file: null, preview: null },

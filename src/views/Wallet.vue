@@ -23,7 +23,7 @@
               <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                 <span>
                   <h6 class="txt-color">Balance</h6>
-                  <p class="mb-0 txt-primary fw-bold">$5,502.45</p>
+                  <p class="mb-0 txt-primary fw-bold">${{ walletStats.balance }}</p>
                 </span>
 
               </div>
@@ -33,7 +33,7 @@
               <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                 <span>
                   <h6 class="txt-color">Income</h6>
-                  <p class="mb-0 txt-primary-next fw-bold">$9,450.00</p>
+                  <p class="mb-0 txt-primary-next fw-bold">${{ walletStats.income }}</p>
                 </span>
 
               </div>
@@ -43,7 +43,7 @@
               <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                 <span>
                   <h6 class="txt-color ">Withdrawn</h6>
-                  <p class="mb-0 txt-danger fw-bold">$3,945.55</p>
+                  <p class="mb-0 txt-danger fw-bold">${{ walletStats.withdrawal }}</p>
                 </span>
 
               </div>
@@ -53,7 +53,7 @@
               <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                 <span>
                   <h6 class="txt-color">Ongoing Jobs</h6>
-                  <p class="mb-0 txt-dark fw-bold">$3,945.55</p>
+                  <p class="mb-0 txt-dark fw-bold">${{ walletStats.ongoingJobsEarning }}</p>
                 </span>
               </div>
             </div>
@@ -156,22 +156,6 @@ export default {
   },
   data() {
     return {
-      payments: [
-        { type: 'Funding', date: '7/july/2024', amount: 'NGN 439,000', status: 'Success' },
-        { type: 'Funding', date: '7/july/2024', amount: 'NGN 439,000', status: 'Failed' },
-        { type: 'Funding', date: '7/july/2024', amount: 'NGN 439,000', status: 'Failed' },
-        { type: 'Funding', date: '7/july/2024', amount: 'NGN 439,000', status: 'Success' },
-        { type: 'Funding', date: '7/july/2024', amount: 'NGN 439,000', status: 'Success' },
-        { type: 'Funding', date: '7/july/2024', amount: 'NGN 439,000', status: 'Success' },
-        { type: 'Funding', date: '7/july/2024', amount: 'NGN 439,000', status: 'Success' },
-        { type: 'Funding', date: '7/july/2024', amount: 'NGN 439,000', status: 'Success' },
-        { type: 'Funding', date: '7/july/2024', amount: 'NGN 439,000', status: 'Success' },
-        { type: 'Funding', date: '7/july/2024', amount: 'NGN 439,000', status: 'Success' },
-        { type: 'Funding', date: '7/july/2024', amount: 'NGN 439,000', status: 'Success' },
-        { type: 'Funding', date: '7/july/2024', amount: 'NGN 439,000', status: 'Success' },
-        { type: 'Funding', date: '7/july/2024', amount: 'NGN 439,000', status: 'Failed' },
-        { type: 'Funding', date: '7/july/2024', amount: 'NGN 439,000', status: 'Success' },
-      ],
       showModal: false,
       transactions: '',
       transactionsPagination: {},
@@ -181,7 +165,8 @@ export default {
         bank: ' Union Bank',
         routingNumber: 123456789
       },
-      loader: false
+      loader: false,
+      walletStats: {}
     };
   },
   computed: {
@@ -213,6 +198,7 @@ export default {
   },
   mounted() {
     this.fetchTransactions(1, 10)
+    this.fetchWalletStats()
   },
   methods: {
     formatDate(data, lastSeen = false) {
@@ -225,6 +211,32 @@ export default {
 
       const date = new Date(processedData)
       return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
+    },
+    async fetchWalletStats() {
+      try {
+        const url = `profile/stats`
+        const resp = await fetchFromApi(url)
+        console.log('login res', resp)
+
+        if (resp.status) {
+          this.walletStats = resp.data
+         
+        } else {
+          swal({
+            title: "Error",
+            text: resp.message,
+            icon: "error"
+          });
+        }
+      }
+      catch (error) {
+        console.error('Login error:', error)
+        swal({
+          title: "Error",
+          text: "An error occurred during login",
+          icon: "error"
+        });
+      }
     },
     async fetchTransactions(page, pageSize) {
       try {

@@ -31,12 +31,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in filteredItems" :key="item.id">
-          <td>{{ item.serialNumber }}</td>
-          <td>{{ item.driver }}</td>
-          <td>{{ item.accountType }}</td>
-          <td>{{ item.date }}</td>
-          <td>NGN {{ item.amount.toLocaleString() }}</td>
+        <tr v-for="(item, index) in items" :key="item.id">
+          <td>{{ index + 1 }}</td>
+          <td>{{ item.user.firstName }} {{ item.user.lastName }}</td>
+          <td>{{ item.user.accountType }}</td>
+          <td>{{ formatDate(item.createdAt) }}</td>
+          <td>NGN {{ item.amount }}</td>
           <td>
             <div :class="['status-badge', item.status.toLowerCase()]">
               <span class="status-dot"></span>
@@ -45,9 +45,9 @@
           </td>
           <td>
             <div class="d-flex gap-2">
-              <button class="details-btn" @click="showPR">Details</button>
-              <button v-if="item.status === 'Payment Request'" class="approve-btn">Approve</button>
-              <button v-if="item.status === 'Payment Request'" class="deny-btn">Deny</button>
+              <button class="details-btn" @click="showPR(item.id)">Details</button>
+              <button v-if="item.status === 'pending'" class="approve-btn" @click="approvePR(item.id)">Approve</button>
+              <button v-if="item.status === 'pending'" class="deny-btn" @click="denyPR(item.id)">Deny</button>
             </div>
           </td>
         </tr>
@@ -83,15 +83,16 @@
 </template>
 
 <script>
+import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
+
 export default {
+  name: 'TableDetails',
+  props: {
+    items: Array
+  },
 
   data() {
     return {
-      items: [
-        { id: 1, serialNumber: 1, driver: 'Raman Ismail', accountType: 'Driver', date: '7/7/2024', amount: 439000, status: 'Completed' },
-        { id: 2, serialNumber: 2, driver: 'Raman Ismail', accountType: 'Cleaner', date: '7/7/2024', amount: 439000, status: 'Completed' },
-        { id: 3, serialNumber: 3, driver: 'Raman Ismail', accountType: 'Driver', date: '7/7/2024', amount: 439000, status: 'Payment Request' },
-      ],
       searchQuery: '',
       sortColumn: 'serialNumber',
       sortDirection: 'asc',
@@ -148,6 +149,59 @@ export default {
     }
   },
   methods: {
+    async approvePR(requestId) {
+      try {
+        const url = `payment-requests/${requestId}/approve`;
+        const resp = await postToApi(url);
+        if (resp.status) {
+          swal({
+            text: resp.message,
+            icon: "success",  
+          })
+          this.$emit('refresh')
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      }
+    },
+    async denyPR(requestId) {
+      try {
+        const url = `payment-requests/${requestId}/decline`;
+        const resp = await postToApi(url);
+        if (resp.status) {
+          swal({
+            text: resp.message,
+            icon: "success",  
+          })
+          this.$emit('refresh')
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      }
+    },
+    formatDate(data, lastSeen = false) {
+      let processedData = data
+
+      if (lastSeen) {
+        const splitData = data.split(',')
+        processedData = splitData[0] // Assuming you want the first part after splitting
+      }
+
+      const date = new Date(processedData)
+      return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
+    },
     sort(column) {
       if (this.sortColumn === column) {
         this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
@@ -169,8 +223,8 @@ export default {
     goToPage(page) {
       this.currentPage = page;
     },
-    showPR() {
-      this.$emit('paymentRequest')
+    showPR(id) {
+      this.$emit('paymentRequest', id);
     }
   }
 }

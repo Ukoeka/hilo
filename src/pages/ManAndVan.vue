@@ -146,12 +146,12 @@
       <div class="left">
         <h2 class="mt-4 mb-4">Payment Summary</h2>
         <div class="text-contain mt-3 mb-3">
-          <h5>Mon 4 Dec, 2pm</h5>
+          <h5>{{formatDate(this.bookDriver.bookingDate)}}</h5>
         </div>
         <div class="time-area mt-3">
           <div class="top-text">
             <p>Booking Time</p>
-            <h5>7am to 3pm</h5>
+            <h5>{{extractTime(this.bookDriver.bookingDate)}}</h5>
           </div>
           <div class="button-area mb-3">
             <div class="change-time col-md-12"></div>
@@ -357,6 +357,25 @@ export default {
     },
   },
   methods: {
+    formatDate(data, lastSeen = false) {
+      let processedData = data
+
+      if (lastSeen) {
+        const splitData = data.split(',')
+        processedData = splitData[0] // Assuming you want the first part after splitting
+      }
+
+      const date = new Date(processedData)
+      return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
+    },
+    extractTime(isoDate) {
+      const date = new Date(isoDate);
+      const hours = String(date.getUTCHours()).padStart(2, '0');
+      const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+      const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+      return `${hours}:${minutes}:${seconds}`;
+  },
+
     redirectStripes() {
       // You will be redirected to Stripe's secure checkout page
       if (this.stripesUrl) window.location.assign(this.stripesUrl);

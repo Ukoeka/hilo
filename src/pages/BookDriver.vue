@@ -489,19 +489,19 @@
       <div class="left">
         <h2 class="mt-4 mb-4">Payment Summary</h2>
         <div class="text-contain mt-3 mb-3">
-          <h5>Mon 4 Dec, 2pm</h5>
+          <h5>{{formatDate(this.bookDriver.bookingDate)}}</h5>
         </div>
         <div class="time-area mt-3">
           <div class="top-text">
             <p>Booking Time</p>
-            <h5>7am to 3pm</h5>
+            <h5>{{extractTime(this.bookDriver.bookingDate)}}</h5>
           </div>
           <div class="button-area mb-3">
             <div class="change-time col-md-12"></div>
             <button @click="showInput()" v-if="timeDisplay == 1" class="big-btn">Change Time Slot</button>
             <div class="change-time" v-if="timeDisplay == 2">
               <button @click="hideInput()" class="cancel-btn">Cancel</button>
-              <input type="time" value="12:30" class="time-input form-control">
+              <input type="time" value="" class="time-input form-control">
             </div>
             
           </div>
@@ -730,14 +730,16 @@ export default {
       bookDriver: {
         bookingDate: "",
         pickUp: {
-          postcode: "",
+          postcode: "Georgia",
           name: "",
           lat: 1.9990092,
           lng: 0.98,
         },
         dropOff: {
-          postcode: "",
+          postcode: "Georgia",
           name: "",
+          lat: 0.4990092,
+          lng: 0.67 ,
         },
         email: "",
         phoneNumber: "",
@@ -754,45 +756,8 @@ export default {
         },
       },
       activeTab: "bedroom",
-      tabs: [
-        {
-          id: "bedroom",
-          name: "Bedrooms",
-          items: [
-            { name: "Double Beds & Mattress", quantity: 2 },
-            { name: "Kingsize Bed & Mattress", quantity: 1 },
-            { name: "Single Wardrobe", quantity: 0 },
-            { name: "Chest of Drawers", quantity: 0 },
-            { name: "Bedside Table", quantity: 0 },
-            { name: "Dressing Table", quantity: 0 },
-            { name: "Television", quantity: 0 },
-          ],
-        },
-        {
-          id: "livingroom",
-          name: "Living Rooms",
-          items: [
-            { name: "Sofa", quantity: 0 },
-            { name: "Television", quantity: 0 },
-          ],
-        },
-        {
-          id: "dining",
-          name: "Dining",
-          items: [
-            { name: "Dining Chairs", quantity: 0 },
-            { name: "Dining Table", quantity: 0 },
-          ],
-        },
-        {
-          id: "kitchen",
-          name: "Kitchen",
-          items: [
-            { name: "Pots", quantity: 0 },
-            { name: "Cookers", quantity: 0 },
-          ],
-        },
-      ],
+      tabs: [],
+      servicePrice: 0,
       bookDate: null,
       stripesUrl: "",
       estimatedPrice: 0,
@@ -825,10 +790,69 @@ export default {
       }
     },
   },
+  mounted() {
+    this.getParameters();
+    
+  },
   methods: {
+
+    formatDate(data, lastSeen = false) {
+      let processedData = data
+
+      if (lastSeen) {
+        const splitData = data.split(',')
+        processedData = splitData[0] // Assuming you want the first part after splitting
+      }
+
+      const date = new Date(processedData)
+      return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
+    },
+      extractTime(isoDate) {
+      const date = new Date(isoDate);
+      const hours = String(date.getUTCHours()).padStart(2, '0');
+      const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+      const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+      return `${hours}:${minutes}:${seconds}`;
+  },
+
     redirectStripes() {
       // You will be redirected to Stripe's secure checkout page
       if (this.stripesUrl) window.location.assign(this.stripesUrl);
+    },
+    async getParameters() {
+      try {
+        const url = "parameters";
+        const resp = await fetchFromApi(url);
+        console.log(resp);
+        if (resp.status) {
+          this.parameters = resp.data;
+          // what you are moving
+          resp.data.map((room) => {
+            const roomName = room.name;
+            const roomItems = [];
+            room.items.map((item) => {
+              roomItems.push({
+                name: item.name,
+                quantity: 0,
+                cost: item.movingCost
+              })
+            })
+            this.tabs.push({
+              id: roomName.toLowerCase(),
+              name: roomName,
+              items: roomItems
+            })
+          })
+          this.setActiveTab(this.tabs[0]?.id);
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+      } catch (error) {
+        console.error("API call failed:", error);
+      }
     },
     async bookDrivingService() {
       console.log(this.bookDriver);
@@ -840,10 +864,7 @@ export default {
           this.stripesUrl = resp.data.url;
           this.estimatedPrice = resp.data.estimated_price
           this.paymentView();
-          swal({
-            text: resp.message,
-            icon: "success",
-          });
+          console.log(this.bookDriver.bookingDate)
         } else {
           swal({
             text: resp.message,

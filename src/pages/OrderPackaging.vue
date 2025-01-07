@@ -38,7 +38,7 @@
           <div class="upload col-md-12" v-if="display == 2">
             <h2 class="text-center mt-5 mb-3">Which rooms would you like us to pack</h2>
             <div class="row mb-3">
-              <div class="each-row mt-3" v-for="room in packageDetails.rooms">
+              <div class="each-row mt-3" v-for="room in rooms">
                 <p>{{ room.name }}</p>
                 <div class="rightss">
                   <button @click="updateRoom(room.name, 'decrease')" type="button" class="red-btn">
@@ -66,64 +66,29 @@
             <h2 class="text-center mt-5 mb-4">What are You Moving?</h2>
 
             <!-- Number of Vehicles -->
-            <nav class="big-tabs">
-              <div
-                class="nav nav-tabs tabs-container"
-                id="nav-tab"
-                role="tablist"
-              >
-                <div
-                  v-for="(tab, index) in tabs"
-                  :key="index"
-                  class="nav-lin"
-                  :class="{ active: activeTab === tab.id }"
-                  :id="`${tab.id}-tab`"
-                  data-bs-toggle="tab"
-                  :data-bs-target="`#${tab.id}`"
-                  type="div"
-                  role="tab"
-                  :aria-controls="tab.id"
-                  :aria-selected="activeTab === tab.id"
-                  @click="setActiveTab(tab.id)"
-                >
+            <nav class="big-tabs ">
+              <div class="nav nav-tabs tabs-container" id="nav-tab" role="tablist">
+                <div v-for="(tab, index) in tabs" :key="index" class="nav-lin" :class="{ active: activeTab === tab.id }"
+                  :id="`${tab.id}-tab`" data-bs-toggle="tab" :data-bs-target="`#${tab.id}`" type="div" role="tab"
+                  :aria-controls="tab.id" :aria-selected="activeTab === tab.id" @click="setActiveTab(tab.id)">
                   {{ tab.name }}
                 </div>
               </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
-              <div
-                v-for="(tab, index) in tabs"
-                :key="index"
-                class="tab-pane fade"
-                :class="{
-                  show: activeTab === tab.id,
-                  active: activeTab === tab.id,
-                }"
-                :id="tab.id"
-                role="tabpanel"
-                :aria-labelledby="`${tab.id}-tab`"
-              >
+              <div v-for="(tab, index) in tabs" :key="index" class="tab-pane fade" :class="{
+                show: activeTab === tab.id,
+                active: activeTab === tab.id,
+              }" :id="tab.id" role="tabpanel" :aria-labelledby="`${tab.id}-tab`">
                 <div class="row each-tab mb-3">
-                  <div
-                    v-for="(item, idx) in tab.items"
-                    :key="idx"
-                    class="each-row mt-3"
-                  >
+                  <div v-for="(item, idx) in tab.items" :key="idx" class="each-row mt-3">
                     <p>{{ item.name }}</p>
                     <div class="rights">
-                      <button
-                        @click="item.quantity > 0 ? item.quantity-- : null"
-                        type="button"
-                        class="red-btn"
-                      >
+                      <button @click="item.quantity > 0 ? item.quantity-- : null" type="button" class="red-btn">
                         -
                       </button>
                       <p>{{ item.quantity }}</p>
-                      <button
-                        @click="item.quantity++"
-                        type="button"
-                        class="green-btn"
-                      >
+                      <button @click="item.quantity++" type="button" class="green-btn">
                         +
                       </button>
                     </div>
@@ -146,7 +111,8 @@
               <div class="each-row mt-3">
                 <p>Hours</p>
                 <div class="rightss">
-                  <button @click="packageDetails.hours > 0 ? packageDetails.hours-- : null" type="button" class="red-btn">-</button>
+                  <button @click="packageDetails.hours > 0 ? packageDetails.hours-- : null" type="button"
+                    class="red-btn">-</button>
                   <p>{{ packageDetails.hours }}</p>
                   <button @click=" packageDetails.hours++" type="button" class="green-btn">+</button>
                 </div>
@@ -167,12 +133,7 @@
           <div class="upload col-md-12" v-if="display == 5">
             <h2 class="text-center mt-5 mb-4">Time and Date</h2>
             <div class="row mb-3">
-              <VDatePicker
-                v-model="bookDate"
-                mode="dateTime"
-                is-required
-                expanded
-              />
+              <VDatePicker v-model="bookDate" mode="dateTime" is-required expanded />
             </div>
 
             <div class="form-group mt-5 buttons">
@@ -204,7 +165,7 @@
               <img src="@/assets/icons/price.png" alt="">
               <p>Service Price</p>
             </div>
-            <h5>$12</h5>
+            <h5>${{ servicePrice }}</h5>
           </div>
         </div>
       </div>
@@ -316,7 +277,8 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="last_name">Phone Number</label>
-                <input type="text" class="form-control" id="Phone Number" placeholder="Phone Number" v-model="packageDetails.phoneNumber">
+                <input type="text" class="form-control" id="Phone Number" placeholder="Phone Number"
+                  v-model="packageDetails.phoneNumber">
               </div>
             </div>
             <button type="button" @click="orderPackaging()" class="view-button mt-3" data-bs-dismiss="modal"
@@ -368,73 +330,13 @@ export default {
         email: "Kristoffer22@hotmail.com",
         phoneNumber: "413-705-1942",
         hours: 0,
-        rooms: [
-          {
-            name: "Bathroom",
-            number: 0,
-          },
-          {
-            name: "Bedroom",
-            number: 0,
-          },
-          {
-            name: "Kitchen",
-            number: 0,
-          },
-          {
-            name: "Dining",
-            number: 0,
-          },
-          {
-            name: "Living Room",
-            number: 0,
-          },
-
-        ],
-        items: [
-          
-        ],
+        rooms: [],
+        items: [],
       },
+      rooms: [],
+      servicePrice: 0,
       activeTab: "bedroom",
-      tabs: [
-        {
-          id: "bedroom",
-          name: "Bedrooms",
-          items: [
-            { name: "Double Beds & Mattress", quantity: 2 },
-            { name: "Kingsize Bed & Mattress", quantity: 1 },
-            { name: "Single Wardrobe", quantity: 0 },
-            { name: "Chest of Drawers", quantity: 0 },
-            { name: "Bedside Table", quantity: 0 },
-            { name: "Dressing Table", quantity: 0 },
-            { name: "Television", quantity: 0 },
-          ],
-        },
-        {
-          id: "livingroom",
-          name: "Living Rooms",
-          items: [
-            { name: "Sofa", quantity: 0 },
-            { name: "Television", quantity: 0 },
-          ],
-        },
-        {
-          id: "dining",
-          name: "Dining",
-          items: [
-            { name: "Dining Chairs", quantity: 0 },
-            { name: "Dining Table", quantity: 0 },
-          ],
-        },
-        {
-          id: "kitchen",
-          name: "Kitchen",
-          items: [
-            { name: "Pots", quantity: 0 },
-            { name: "Cookers", quantity: 0 },
-          ],
-        },
-      ],
+      tabs: [],
       bookDate: null,
       stripesUrl: "",
       estimatedPrice: 0,
@@ -459,6 +361,20 @@ export default {
       },
       deep: true,
     },
+    rooms: {
+      handler(newValue, oldValue) {
+        if (newValue) {
+          const rooms = newValue.map((room) => {
+            return {
+              name: room.name,
+              number: room.number,
+            };
+          });
+          this.packageDetails.rooms = rooms;
+        }
+      },
+      deep: true,
+    },
     bookDate(newValue) {
       if (newValue) {
         const date = new Date(newValue); // Create a Date object from the input string
@@ -467,10 +383,56 @@ export default {
       }
     },
   },
+  mounted() {
+    this.getParameters();
+  },
   methods: {
     redirectStripes() {
       // You will be redirected to Stripe's secure checkout page
       if (this.stripesUrl) window.location.assign(this.stripesUrl);
+    },
+    async getParameters() {
+      try {
+        const url = "parameters";
+        const resp = await fetchFromApi(url);
+        console.log(resp);
+        if (resp.status) {
+          this.parameters = resp.data;
+          // rooms to pack
+          this.rooms = resp.data.map((room) => {
+            return {
+              name: room.name,
+              number: 0,
+              cost: room.movingCost
+            };
+          });
+          // what you are moving
+          resp.data.map((room) => {
+            const roomName = room.name;
+            const roomItems = [];
+            room.items.map((item) => {
+              roomItems.push({
+                name: item.name,
+                quantity: 0,
+                cost: item.movingCost
+              })
+            })
+            this.tabs.push({
+              id: roomName.toLowerCase(),
+              name: roomName,
+              items: roomItems
+            })
+          })
+          this.setActiveTab(this.tabs[0]?.id);
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+      } catch (error) {
+        console.error("API call failed:", error);
+      }
     },
     async orderPackaging() {
       console.log(this.bookDriver);
@@ -499,12 +461,14 @@ export default {
     setActiveTab(tabId) {
       this.activeTab = tabId;
     },
-    updateRoom(name, type) {
-      this.packageDetails.rooms.map((room) => {
+    updateRoom(name, type, cost) {
+      this.rooms.map((room) => {
         if (room.name == name && type == "increase") {
           room.number += 1;
+          this.servicePrice = this.servicePrice + room.cost;
         } else if (room.name == name && type == "decrease" && room.number > 0) {
           room.number -= 1;
+          this.servicePrice = this.servicePrice - room.cost;
         }
       })
     },
@@ -535,6 +499,7 @@ export default {
     },
     showCard3() {
       this.display = 3;
+      this.servicePrice = 0
     },
     showCard4() {
       this.display = 4;
@@ -546,10 +511,6 @@ export default {
       this.bigDisplay = 2;
     },
   },
-  mounted() {
-
-  }
-
 };
 </script>
 
