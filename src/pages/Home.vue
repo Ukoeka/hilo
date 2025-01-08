@@ -70,48 +70,48 @@
     </div>
     <h1 class="text-center mt-5 mb-5">Our Services</h1>
     <div class="images">
-      <div class="card card1">
+      <a href="/book-driver" class="card card1">
         <div class="content">
           <h2>Office Removals</h2>
           <img src="@/assets/icons/arrow-down.png" alt="">
         </div>
-      </div>
-      <div class="card card2">
+      </a>
+      <a href="/book-driver" class="card card2">
         <div class="content">
           <h2>Furniture</h2>
           <img src="@/assets/icons/arrow-down.png" alt="">
         </div>
-      </div>
-      <div class="card card3">
+      </a>
+      <a href="/book-driver" class="card card3">
         <div class="content">
           <h2>Home Removals</h2>
           <img src="@/assets/icons/arrow-down.png" alt="">
         </div>
-      </div>
-      <div class="card card4">
+      </a>
+      <a href="/manandvan" class="card card4">
         <div class="content">
           <h2>Man and Van</h2>
           <img src="@/assets/icons/arrow-down.png" alt="">
         </div>
-      </div>
-      <div class="card card5">
+      </a>
+      <a href="/packaging" class="card card5">
         <div class="content">
           <h2>Packing Services</h2>
           <img src="@/assets/icons/arrow-down.png" alt="">
         </div>
-      </div>
-      <div class="card card6">
+      </a>
+      <a href="/packaging" class="card card6">
         <div class="content">
           <h2>Packing Materials</h2>
           <img src="@/assets/icons/arrow-down.png" alt="">
         </div>
-      </div>
-      <div class="card card7">
+      </a>
+      <a href="/packaging" class="card card7">
         <div class="content">
           <h2>B2B Logistics</h2>
           <img src="@/assets/icons/arrow-down.png" alt="">
         </div>
-      </div>
+      </a>
     </div>
     <div class="tailored">
       <div class="left">
@@ -498,6 +498,7 @@
         height: 500px;
         display: flex;
         justify-content: flex-end;
+        text-decoration: none;
         
         .content{
           width: 100%;
@@ -717,4 +718,5 @@
         font-size: 2rem;
       }
     }
+  
   </style>

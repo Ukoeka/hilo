@@ -168,21 +168,21 @@
       <div class="left">
         <h2 class="mt-4 mb-4">Payment Summary</h2>
         <div class="text-contain mt-3 mb-3">
-          <h5>Mon 4 Dec, 2pm</h5>
+          <h5>{{formatDate(this.bookCleaning.startTime)}}</h5>
         </div>
         <div class="time-area mt-3">
           <div class="top-text">
             <p>Booking Time</p>
-            <h5>7am to 3pm</h5>
+            <h5>{{ extractTime(this.bookCleaning.startTime) }}</h5>
           </div>
           <div class="button-area mb-3">
-
-            <div class="change-time col-md-12">
-
-
+            <div class="change-time col-md-12"></div>
+            <button @click="showInput()" v-if="timeDisplay == 1" class="big-btn">Change Time Slot</button>
+            <div class="change-time" v-if="timeDisplay == 2">
+              <button @click="hideInput()" class="cancel-btn">Cancel</button>
+              <input type="time" value="" class="time-input form-control">
             </div>
-            <div class="button"></div>
-            <button>Change Time Slot</button>
+            
           </div>
         </div>
         <!-- <div class="more-details mt-5">
@@ -339,7 +339,8 @@ export default {
   },
   data() {
     return {
-      bigDisplay: 1,
+      timeDisplay: 1,
+      bigDisplay: 2,
       display: 1,
       bedroom: 1,
       bathroom: 1,
@@ -347,14 +348,14 @@ export default {
       dining: 1,
       livingRoom: 1,
       bookCleaning: {
-        postCode: "41020",
-        cleaningType: "oneTime",
-        phoneNumber: "1273273283",
-        startTime: "2024-12-18T21:11:42.975Z",
-        endTime: "2024-12-18T21:11:42.975Z",
+        postCode: "",
+        cleaningType: "",
+        phoneNumber: "",
+        startTime: "",
+        endTime: "",
         additionalServices: [],
         havePets: false,
-        email: "testcustomer@test.email",
+        email: "",
         rooms: [
           {
             name: "Bathroom",
@@ -396,6 +397,25 @@ export default {
     }
   },
   methods: {
+    formatDate(data, lastSeen = false) {
+      let processedData = data
+
+      if (lastSeen) {
+        const splitData = data.split(',')
+        processedData = splitData[0] // Assuming you want the first part after splitting
+      }
+
+      const date = new Date(processedData)
+      return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
+    },
+    extractTime(isoDate) {
+      const date = new Date(isoDate);
+      const hours = String(date.getUTCHours()).padStart(2, '0');
+      const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+      const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+      return `${hours}:${minutes}:${seconds}`;
+  },
+
     redirectStripes() {
       // You will be redirected to Stripe's secure checkout page
       if (this.stripesUrl)
@@ -410,10 +430,7 @@ export default {
           this.bigDisplay = 2
           this.stripesUrl = resp.data.url
           this.estimatedPrice = resp.data.estimated_price
-          swal({
-            text: 'Cleaning services booked successfully',
-            icon: "success",
-          })
+          console.log(this.bookCleaning.startTime)
         } else {
           swal({
             text: resp.message,
@@ -462,6 +479,12 @@ export default {
     },
     showCard5() {
       this.display = 5;
+    },
+    showInput() {
+      this.timeDisplay = 2;
+    },
+    hideInput() {
+      this.timeDisplay = 1;
     },
 
     handleClick() {
@@ -683,7 +706,7 @@ export default {
         align-items: center;
 
 
-        button {
+        .big-btn {
           width: 80%;
           background: #F0F2F5;
           color: #2E7D32;
@@ -785,5 +808,26 @@ export default {
   border: none;
   border-radius: 10px;
   color: white;
+}
+.change-time{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 30px;
+  justify-content: center;
+
+  .cancel-btn{
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #ff2222;
+    color: white;
+  }
+}
+.time-input{
+  border-radius: 10px;
+  height: 40px;
+  width: 150px;
 }
 </style>
