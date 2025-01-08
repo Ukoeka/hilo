@@ -1,13 +1,7 @@
 <template>
   <AdminLayout>
     <div class="vh-100 w-100 bg d-flex flex-column p-3">
-      <div class="d-flex justify-content-between px-3 sizing mb-5">
-        <h2>Admins</h2>
-        <div class="d-flex gap-3 align-items-center profile">
-          <img src="../assets/Dashbordicons/3d_avatar_3.png" alt="" class="">
-          <span>Favour Udoh</span>
-        </div>
-      </div>
+      <Nav title="Admins" />
       <!-- Sidebar Section -->
 
       <!-- Main Content Section -->
@@ -16,8 +10,8 @@
         <div class="card p-3 mb-3">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <div class="d-flex align-items-center gap-2 p-3">
-              <h2>Account Managers</h2>
-              <p class="p-1 rounded-1 m-0"
+              <h2 class="size-18"> Account Managers</h2>
+              <p class="p-1 rounded-1 m-0 size-15"
                 style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">
                 {{ adminPagination?.totalRecords }} Admins
               </p>
@@ -31,29 +25,29 @@
           <table class="table">
             <thead>
               <tr>
-                <th>Serial Number <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Image<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Name<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Email<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Join date<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Role<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Last seen<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Status<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th></th>
+                <th class="text-grayed">Serial Number <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Image<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Name<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Email<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Join date<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Role<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Last seen<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Status<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed"></th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(item, index) in admins" :key="item.id">
-                <td>{{ index + 1 }}</td>
-                <td><img :src="item.profilePic"
+                <td class="text-grayed">{{ index + 1 }}</td>
+                <td class="text-grayed"><img :src="item.profilePic"
                     style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" alt="N/A">
                 </td>
-                <td>{{ item.firstName }} {{ item.lastName }}</td>
-                <td>{{ item.email }}</td>
-                <td>{{ formatDate(item.createdAt) }}</td>
-                <td :class="[item.role === 'Super Admin' ? 'text-success text-green' : '']">N/A</td>
-                <td>N/A</td>
-                <td>
+                <td class="text-grayed">{{ item.firstName }} {{ item.lastName }}</td>
+                <td class="text-grayed">{{ item.email }}</td>
+                <td class="text-grayed">{{ formatDate(item.createdAt) }}</td>
+                <td class="text-grayed" :class="[item.role === 'Super Admin' ? 'text-success text-green' : '']">N/A</td>
+                <td class="text-grayed">N/A</td>
+                <td class="text-grayed">
                   <span :class="[
                     'd-flex align-items-center justify-content-center gap-2 rounded p-2',
                     item.status === 'Active' ? 'completed' : '',

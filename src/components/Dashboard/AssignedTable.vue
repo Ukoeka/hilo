@@ -182,7 +182,7 @@ export default {
     },
   },
   mounted() {
-    // this.fetchAssignedQuotes(this.quotesId, this.type);            
+    this.fetchAssignedQuotes(this.quotesId, this.type);            
   },
   methods: {
     async fetchAssignedQuotes(quotesId, userType) {

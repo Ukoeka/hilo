@@ -13,8 +13,8 @@
       <div class="card p-3 mb-3">
         <div class="d-flex justify-content-between align-items-center mb-2">
           <div class="d-flex align-items-center gap-2 p-3">
-            <h2>{{ type === 'moving' ? 'Drivers' : 'Cleaners' }}</h2>
-            <p class="p-1 rounded-1 m-0"
+            <h2 class="size-18">{{ type === 'moving' ? 'Drivers' : 'Cleaners' }}</h2>
+            <p class="p-1 rounded-1 m-0 size-15"
               style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">13 {{ type === 'moving' ? 'Drivers' : 'Cleaners' }}
             </p>
           </div>
@@ -23,34 +23,34 @@
         <table class="table">
           <thead>
             <tr>
-              <th>Serial Number <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
-              <th>Image <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
-              <th>Name <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
-              <th>Email <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
-              <th v-if="type === 'moving'">Moves Completed<img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
-              <th>Age<img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
-              <th v-if="type !== 'moving'">City <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
-              <th>Date Added<img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
-              <th v-if="type !== 'moving'">Gender <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
-              <th>Status <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
-              <th>Assign {{ type === 'moving' ? 'Drivers' : 'Cleaners' }} <img src="@/assets/Payment_Sales/arrowdown.png"></th>
+              <th class="text-grayed">Serial Number <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
+              <th class="text-grayed">Image <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
+              <th class="text-grayed">Name <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
+              <th class="text-grayed">Email <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
+              <th v-if="type === 'moving'" class="text-grayed">Moves Completed<img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
+              <th class="text-grayed">Age<img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
+              <th v-if="type !== 'moving'" class="text-grayed">City <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
+              <th class="text-grayed">Date Added<img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
+              <th v-if="type !== 'moving'" class="text-grayed">Gender <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
+              <th class="text-grayed">Status <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
+              <th class="text-grayed">Assign {{ type === 'moving' ? 'Drivers' : 'Cleaners' }} <img src="@/assets/Payment_Sales/arrowdown.png"></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(payment, index) in driversData" :key="index">
-              <td>{{ index + 1 }}</td>
-              <td>
+              <td class="text-grayed">{{ index + 1 }}</td>
+              <td class="text-grayed">
                 <img :src="payment.profilePic" alt="Driver Image"
                   style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
               </td>
-              <td>{{ payment.firstName }} {{ payment.lastName }}</td>
-              <td>{{ payment.email }}</td>
-              <td v-if="type === 'moving'"> N/A</td>
-              <td>N/A</td>
-              <td v-if="type !== 'moving'"> {{ payment.city }}</td>
-              <td>{{ formatDate(payment.createdAt) }}</td>
-              <td v-if="type !== 'moving'"> {{ payment.gender }}</td>
-              <td>
+              <td class="text-grayed">{{ payment.firstName }} {{ payment.lastName }}</td>
+              <td class="text-grayed">{{ payment.email }}</td>
+              <td v-if="type === 'moving'" class="text-grayed"> N/A</td>
+              <td class="text-grayed">N/A</td>
+              <td v-if="type !== 'moving'" class="text-grayed"> {{ payment.city }}</td>
+              <td class="text-grayed">{{ formatDate(payment.createdAt) }}</td>
+              <td v-if="type !== 'moving'" class="text-grayed"> {{ payment.gender }}</td>
+              <td class="text-grayed">
                   <span :class="[
                     'd-flex align-items-center justify-content-center gap-2 rounded p-2',
                     payment.status === 'active' ? 'completed' : '',
@@ -63,8 +63,8 @@
                     {{ payment.status }}
                   </span>
                 </td>
-              <td>
-                <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center" @click=" assignDrivers(payment.id)"> Assign
+              <td class="">
+                <button class="btn btn-success d-flex align-items-center gap-2 justify-content-center size-15" @click=" assignDrivers(payment.id)"> Assign
                   {{ type == 'moving' ? 'Driver' : 'Cleaner' }}</button>
               </td>
             </tr>
@@ -73,7 +73,7 @@
       </div>
 
       <!-- Pagination and Items Per Page Controls -->
-      <!-- <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center justify-content-between">
           <div class="d-flex gap-3 align-items-center">
             <span>Number Of Items displayed per page</span>
             <select v-model="itemsPerPage" class="form-select" style="width: 65px; background-color: #28a745; color: white; border: none;">
@@ -107,7 +107,7 @@
               </li>
             </ul>
           </div>
-        </div> -->
+        </div>
 
     </div>
   </div>
@@ -168,6 +168,13 @@ export default {
   mounted() {
     this.fetchDrivers(1, 20)
   },
+  watch: {
+    itemsPerPage(newVal, oldVal) {
+      if (newVal ) {
+        this.fetchDrivers(this.currentPage, newVal)
+      }
+    }
+  },
   methods: {
     formatDate(data, lastSeen = false) {
       let processedData = data
@@ -224,6 +231,7 @@ export default {
       }
     },
     changePage(page) {
+      this.fetchDrivers(page, this.itemsPerPage)
       if (page !== '@.' && page >= 1 && page <= this.totalPages) {
         this.currentPage = page;
       }
@@ -314,6 +322,7 @@ export default {
 .pagination .page-item.active .page-link {
   background-color: #28a745;
   border-color: #28a745;
+  color: white;
 }
 
 .pagination .page-link {

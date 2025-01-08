@@ -36,8 +36,13 @@
           </div>
         </div>
         <div class="profile-actions">
+          <button class="btn btn-sm me-2"
+            :class="{ 'btn-success': AccountDetails.verificationStatus == 'pending ', 'btn-danger': AccountDetails.verificationStatus != 'pending ' }"
+            @click="Activation">
+            {{ activationStatus }}
+          </button>
           <button class="btn btn-outline-danger btn-sm" @click="handleDelete">
-            {{ formaAction === 'add' ? 'Cancel' : 'Delete' }}
+            {{ formAction === 'add' ? 'Cancel' : 'Delete' }}
           </button>
           <button class="btn btn-outline-primary btn-sm ms-2" @click="handleDrivers">
             {{ formAction === 'add' ? 'Save' : 'Edit' }}
@@ -183,6 +188,7 @@ export default {
       drivers: [],
       driversPagination: {},
       AccountDetails: {},
+      activationStatus: '...',
     }
   },
   mounted() {
@@ -215,7 +221,29 @@ export default {
       }
       input.click()
     },
+    async Activation() {
+      const url = `account/${this.userId}/verify`
+      try {
 
+        const resp = await postToApi(url);
+        if (resp.status) {
+          swal({
+            text: resp.message,
+            icon: "success",
+          })
+          this.fetchDetails()
+          this.activationStatus = resp.status
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('admin Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      }
+    },
     async deleteAccount() {
       const url = `account/${this.userId}`
       try {
@@ -250,6 +278,7 @@ export default {
         const resp = await fetchFromApi(url);
         if (resp.status) {
           this.AccountDetails = resp.data
+          this.activationStatus = resp.data.verificationStatus === 'pending' ? 'Activate' : 'Deactivate';
           const data = Object.keys(resp.data)
           data.forEach((key) => {
             this.formData[key] = key
