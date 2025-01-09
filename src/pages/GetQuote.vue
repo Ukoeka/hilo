@@ -30,8 +30,8 @@
           <p>Get started with a quote for your cleaning or moving needs.</p>
           <h2>Find the Perfect Service.</h2>
           <div class="btn-contain">
-            <button class="quote">Get Cleaner Quote</button>
-            <button class="contact">Get Driver Quote</button>
+            <a href="/book-cleaning" class="quote">Get Cleaner Quote</a>
+            <a href="/book-driver" class="contact">Get Driver Quote</a>
           </div>
       </div>
     </div>
@@ -212,6 +212,10 @@
             gap: 30px;
 
             .quote{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              text-decoration: none;
               border: none;
               height: 54px;
               border-radius: 10px;
@@ -224,6 +228,10 @@
 
             }
             .contact{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              text-decoration: none;
               border: 1px solid white;
               height: 54px;
               border-radius: 10px;

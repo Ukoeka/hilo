@@ -17,6 +17,7 @@ import Packaging from "@/pages/Packaging.vue";
 import Driver from "@/pages/Driver.vue";
 import Cleaner from "@/pages/Cleaner.vue";
 import About from "@/pages/AboutUs.vue";
+import Contact from "@/pages/ContactUs.vue";
 import PrivacyPolicy from "@/pages/PrivacyPolicy.vue";
 import GetQuote from "@/pages/GetQuote.vue";
 import GetHired from "@/pages/GetHired.vue";
@@ -91,6 +92,11 @@ const routes = [
     path: "/about",
     name: "About",
     component: About,
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    component: Contact,
   },
   {
     path: "/privacypolicy",

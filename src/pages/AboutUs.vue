@@ -104,14 +104,14 @@
     <div class="get-in-touch">
       <div class="right">
         <p>Ready to work with us?</p>
-        <h2>Whether you’re looking to hire our services or join our growing team, we’re here to help. Take the next step and connect with us today.</h2>
+        <h2>Whether you're looking for dependable cleaning and logistics services or seeking to become part of a growing, dedicated team, we’re here to support you. Take the next step toward excellence—connect with us today</h2>
         <div class="btn-contain">
-          <a href="/gethired" class="quote">Start Your Application</a>
+          <a href="/gethired" class="quote">Get Started Today</a>
         </div>
       </div>
       <div class="left">
         <img src="@/assets/icons/quote.png" alt="">
-        <p class="quote-text">Lorem ipsum dolor sit amet consectetur. Malesuada tellus id tempus et turpis maecenas pellentesque nam. Dolor faucibus curabitur libero a.</p>
+        <p class="quote-text">I partnered with Hilogisticz for our logistics needs, and they exceeded every expectation. Their dedication to customer satisfaction and reliable service has been invaluable to our operations.</p>
 
         <h3>Anna D. Dragon, </h3>
           <p>Director, UK</p>

@@ -32,22 +32,25 @@
             <div class="row mb-3">
               <div class="div-group col-md-6">
                 <label for="first_name">Pick-up Address</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="pickupAddress"
-                  placeholder="Pick-up Address"
+                <MapboxAddressInput 
                   v-model="bookDriver.pickUp.name"
+                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }" 
+                  placeholder="Pickup Address"
+                  @addressSelect="(address) => handleAddressSelect('first', address)" 
                 />
+                
+                <!-- test code -->
+
+                
+                <!--  -->
               </div>
               <div class="form-group col-md-6">
                 <label for="last_name">Drop-off Address</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id=""
-                  placeholder="Drop-off Address"
+                <MapboxAddressInput 
                   v-model="bookDriver.dropOff.name"
+                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }" 
+                  placeholder="Drop-off Address"
+                  @addressSelect="(address) => handleAddressSelect('second', address)" 
                 />
               </div>
             </div>
@@ -670,6 +673,7 @@
 </template>
 
 <script>
+import MapboxAddressInput from "@/components/MapBoxAddressInput.vue";
 import Footer from "@/layouts/partials/footer.vue";
 import TopNav from "@/layouts/partials/topnav.vue";
 import { StripeCheckout } from "@vue-stripe/vue-stripe";
@@ -688,11 +692,10 @@ export default {
     Footer,
     loader,
     StripeCheckout,
+    MapboxAddressInput
   },
 
-  props: {
-    // Define props here
-  },
+
   data() {
     return {
       // stripe
@@ -730,7 +733,7 @@ export default {
       bookDriver: {
         bookingDate: "",
         pickUp: {
-          postcode: "Georgia",
+          postcode: "",
           name: "",
           lat: 1.9990092,
           lng: 0.98,
@@ -792,9 +795,24 @@ export default {
   },
   mounted() {
     this.getParameters();
+
+
+    
+ 
+
+    
     
   },
   methods: {
+    handleAddressSelect(field, address) {
+      if (field === 'first') {
+        this.bookDriver.pickUp.name = address;
+        console.log(`Latitude: ${address.latitude}, Longitude: ${address.longitude}`)
+      } else if (field === 'second') {
+        this.bookDriver.dropOff.name = address;
+      }
+    },
+  
 
     formatDate(data, lastSeen = false) {
       let processedData = data
@@ -940,6 +958,12 @@ export default {
     hideInput() {
       this.timeDisplay = 1;
     },
+    
+
+    
+
+
+    
   },
 };
 </script>

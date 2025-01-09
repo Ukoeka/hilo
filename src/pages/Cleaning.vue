@@ -4,7 +4,7 @@
         <div class="content">
           <h1>Your Space, Elevated Beyond Expectations – Cleaned to Perfection</h1>
           <div class="btn-container">
-            <a href="/getquote" class="quote">Get Quote</a>
+            <a href="/book-cleaning" class="quote">Get Quote</a>
           </div>
           <div class="btn-container">
             <img class="men" src="@/assets/icons/Men.png" alt="">
