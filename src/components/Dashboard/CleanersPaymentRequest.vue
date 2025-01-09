@@ -91,7 +91,7 @@ export default {
       clientName: 'Charlie Brakus',
       phoneNumber: '+44 012 9904 9944',
       postCode: 'B455AT',
-      bookingDate: '1/1/2001',
+      bookingDate: '',
       pickupLocation: 'Birmingham',
       deliveryLocation: 'London',
       pickupPropertyType: 'House',

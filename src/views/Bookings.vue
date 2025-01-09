@@ -125,20 +125,7 @@ export default {
   data() {
     return {
       payments: [
-        { clientName: 'Charlie Brakus', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
-        { clientName: 'Jamie Schroeder', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
-        { clientName: 'Alexander O\'Conner', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Inactive' },
-        { clientName: 'Anne Stanton', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
-        { clientName: 'Abel Brown', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Inactive' },
-        { clientName: 'Lorene Nienow', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
-        { clientName: 'Abel Turcotte', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
-        { clientName: 'Rosa Kohler', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Inactive' },
-        { clientName: 'Mike Sporer', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
-        { clientName: 'Elena Okuneva', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
-        { clientName: 'Darrell Brown', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Inactive' },
-        { clientName: 'Lillian Mohr', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
-        { clientName: 'Kelvin Johnson', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Inactive' },
-        { clientName: 'Rosemary Howe', post: 'B455AT', cleaningType: 'Weekly', hours: 8, bookingDate: '1/1/2022', time: '10:00 AM', PhoneNumber: '+44 012 9904 9944', status: 'Active' },
+
       ],
       searchQuery: '',
       itemsPerPage: 14, // Items per page, with a default value of 14

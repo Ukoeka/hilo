@@ -1,21 +1,15 @@
 <template>
   <AdminLayout>
     <div class="vh-100 w-100 bg d-flex flex-column p-3">
-      <div class="d-flex justify-content-between px-3 sizing mb-5">
-        <h2>Cleaning Quotes</h2>
-        <div class="d-flex gap-3 align-items-center profile">
-          <img src="../assets/Dashbordicons/3d_avatar_3.png" alt="" class="" />
-          <span>Favour Udoh</span>
-        </div>
-      </div>
+      <Nav title="Cleaning Quotes" />
       <!-- Main Content Section -->
       <div v-if="!showMovingDetails" class="flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
         <!-- Quotes Table Section -->
         <div class="card p-3 mb-3">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <div class="d-flex align-items-center gap-2 p-3">
-              <h5>Cleanings</h5>
-              <p class="p-1 rounded-1 m-0" style="
+              <h5 class="size-18">Cleanings</h5>
+              <p class="p-1 rounded-1 m-0 size-15" style="
                   background: rgba(247, 250, 255, 1);
                   color: rgba(76, 149, 108, 1);
                   line-height: none;
@@ -32,35 +26,35 @@
             <table class="table align-middle text-center">
               <thead>
                 <tr class="text-secondary">
-                  <th>Serial Number</th>
-                  <th>Client Name</th>
-                  <th>Post Code</th>
-                  <th>Cleaning Type</th>
-                  <th>Hours</th>
-                  <th>Booking Date</th>
-                  <th>Time</th>
-                  <th>Phone Number</th>
-                  <th>Status</th>
-                  <th></th> <!-- Empty column for action menu -->
+                  <th class="text-grayed">Serial Number</th>
+                  <th class="text-grayed">Client Name</th>
+                  <th class="text-grayed">Post Code</th>
+                  <th class="text-grayed">Cleaning Type</th>
+                  <th class="text-grayed">Hours</th>
+                  <th class="text-grayed">Booking Date</th>
+                  <th class="text-grayed">Time</th>
+                  <th class="text-grayed">Phone Number</th>
+                  <th class="text-grayed">Status</th>
+                  <th class="text-grayed"></th> <!-- Empty column for action menu -->
                 </tr>
               </thead>
               <tbody>
                 <!-- Single Row -->
                 <tr v-for="(item, index) in cleaningQuotes" :key="item in cleaningQuotes">
-                  <td>{{ index + 1 }}</td>
-                  <td>N/A</td>
-                  <td class="fw-bold">{{ item.postCode }}</td>
-                  <td class="text-primary">{{ item.cleaningType }}</td>
-                  <td>8</td>
-                  <td>1/1/2001</td>
-                  <td>10:00 AM</td>
-                  <td>{{ item.phoneNumber }}</td>
-                  <td>
+                  <td class="text-grayed">{{ index + 1 }}</td>
+                  <td class="text-grayed">N/A</td>
+                  <td class="text-grayed fw-bold">{{ item.postCode }}</td>
+                  <td class="text-grayed text-primary">{{ item.cleaningType }}</td>
+                  <td class="text-grayed">8</td>
+                  <td class="text-grayed">1/1/2001</td>
+                  <td class="text-grayed">10:00 AM</td>
+                  <td class="text-grayed">{{ item.phoneNumber }}</td>
+                  <td class="text-grayed">
                     <span class="badge bg-success rounded-pill px-2 py-1">
                       <span class="me-1" style="font-size: 0.8rem;">●</span> {{ item.status }}
                     </span>
                   </td>
-                  <td>
+                  <td class="text-grayed">
                     <button class="btn btn-sm btn-success text-white rounded-full"
                       @click="showDetails(item.id)">view</button>
 
@@ -233,6 +227,7 @@ import {
   deleteFromApi,
   patchToApi,
 } from "@/services/baseApi";
+import Nav from "@/components/Nav.vue";
 
 
 export default {
@@ -240,6 +235,7 @@ export default {
     AdminLayout,
     DriversPaymentRequest,
     Quotes,
+    Nav
   },
 
   data() {

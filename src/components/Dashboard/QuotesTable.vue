@@ -4,39 +4,39 @@
     <table class="table table-hover align-middle">
       <thead class="table-light">
         <tr>
-          <th scope="col">Serial Number <i class="bi bi-caret-down-fill"></i></th>
-          <th scope="col">Customer / ServiceType <i class="bi bi-caret-down-fill"></i></th>
-          <th scope="col">Pickup location <i class="bi bi-caret-down-fill"></i></th>
-          <th scope="col">Drop-off location <i class="bi bi-caret-down-fill"></i></th>
-          <th scope="col">Date <i class="bi bi-caret-down-fill"></i></th>
-          <th scope="col">Amount <i class="bi bi-caret-down-fill"></i></th>
-          <th scope="col">Status <i class="bi bi-caret-down-fill"></i></th>
-          <th scope="col"></th>
+          <th scope="col" class="text-grayed">Serial Number <i class="bi bi-caret-down-fill"></i></th>
+          <th scope="col" class="text-grayed">Customer / ServiceType <i class="bi bi-caret-down-fill"></i></th>
+          <th scope="col" class="text-grayed">Pickup location <i class="bi bi-caret-down-fill"></i></th>
+          <th scope="col" class="text-grayed">Drop-off location <i class="bi bi-caret-down-fill"></i></th>
+          <th scope="col" class="text-grayed">Date <i class="bi bi-caret-down-fill"></i></th>
+          <th scope="col" class="text-grayed">Amount <i class="bi bi-caret-down-fill"></i></th>
+          <th scope="col" class="text-grayed">Status <i class="bi bi-caret-down-fill"></i></th>
+          <th scope="col" class="text-grayed"></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item, index) in quotesData" :key="index">
-          <td>{{ index + 1 }}</td>
-          <td>{{ item.serviceType }}</td>
-          <td>{{ item.pickUp?.name }}</td>
-          <td>{{ item.dropOff?.name }}</td>
-          <td>{{ formatDate(item.bookingDate, true) }}</td>
-          <td>{{ item.amount }}</td>
-          <td>
+          <td class="text-grayed">{{ index + 1 }}</td>
+          <td class="text-grayed">{{ item.serviceType }}</td>
+          <td class="text-grayed">{{ item.pickUp?.name }}</td>
+          <td class="text-grayed">{{ item.dropOff?.name }}</td>
+          <td class="text-grayed">{{ formatDate(item.bookingDate, true) }}</td>
+          <td class="text-grayed">{{ item.amount }}</td>
+          <td class="text-grayed">
             <span class="badge" :class="{
-              'bg-success text-light': item.status === 'paid',
+              'bg-success text-light': item.status === 'completed',
               'bg-warning text-dark': item.status === 'pending',
               'bg-dark text-light': item.status === 'draft',
             }">
               <i class="bi bi-circle-fill me-2" :class="{
-                'text-success': item.status === 'Paid',
+                'text-success': item.status === 'completed',
                 'text-warning': item.status === 'Pending',
                 'text-dark': item.status === 'draft',
               }"></i>
               {{ item.status }}
             </span>
           </td>
-          <td>
+          <td class="text-grayed">
             <button class="btn btn-sm btn-success text-white rounded-full"
             @click="openDetails(item.id)">view</button>
           </td>

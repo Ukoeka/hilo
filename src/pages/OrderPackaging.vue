@@ -333,7 +333,7 @@ export default {
       dressingTable: 1,
       television: 1,
       packageDetails: {
-        bookingDate: "2024-12-20T19:45:01.655Z",
+        bookingDate: "",
         pickUp: {
           postcode: "23422",
           name: "Georgia",

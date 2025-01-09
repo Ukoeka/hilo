@@ -1,13 +1,7 @@
 <template>
   <AdminLayout>
     <div class="vh-100 w-100 bg d-flex flex-column p-3">
-      <div class="d-flex justify-content-between px-3 sizing mb-5">
-        <h2>Drivers</h2>
-        <div class="d-flex gap-3 align-items-center profile">
-          <img src="@/assets/Dashbordicons/3d_avatar_3.png" alt="" class="">
-          <span>Favour Udoh</span>
-        </div>
-      </div>
+      <Nav title="Parameters" />
 
       <div class=" flex-grow-1 position-relative pt-2 px-5 h-100 ">
 

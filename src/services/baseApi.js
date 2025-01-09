@@ -1,4 +1,14 @@
-const base_url = 'https://holigisticz-server.onrender.com/api/'
+ // Start of Selection
+const base_url = 'https://holigisticz-server.onrender.com/api/';
+
+const handleResponse = async (response) => {
+  if (response.status === 401) {
+    window.location.href = '/login';
+    return;
+  }
+  return response.json();
+};
+
 export const fetchFromApi = async (url, params = {}, contentType = "application/json") => {
   const token = sessionStorage.getItem('MVtoken');
   const queryString = new URLSearchParams(params).toString();
@@ -9,8 +19,7 @@ export const fetchFromApi = async (url, params = {}, contentType = "application/
       "Authorization": `Bearer ${token}`,
     },
   });
-  const data = await response.json();
-  return data;
+  return handleResponse(response);
 };
 
 export const postToApi = async (url, data, contentType = "application/json") => {
@@ -19,7 +28,6 @@ export const postToApi = async (url, data, contentType = "application/json") => 
     "Authorization": `Bearer ${token}`,
   };
 
-  // Avoid setting Content-Type for FormData
   if (contentType !== 'multipart/form-data') {
     headers['Content-Type'] = contentType;
   }
@@ -37,17 +45,15 @@ export const postToApi = async (url, data, contentType = "application/json") => 
     body: body,
   });
 
-  const result = await response.json();
-  return result;
+  return handleResponse(response);
 };
 
-export const patchToApi  = async (url, data, contentType = "application/json") => {
+export const patchToApi = async (url, data, contentType = "application/json") => {
   const token = sessionStorage.getItem('MVtoken');
   const headers = {
     "Authorization": `Bearer ${token}`,
   };
 
-  // Avoid setting Content-Type for FormData
   if (contentType !== 'multipart/form-data') {
     headers['Content-Type'] = contentType;
   }
@@ -65,11 +71,8 @@ export const patchToApi  = async (url, data, contentType = "application/json") =
     body: body,
   });
 
-  const result = await response.json();
-  return result;
+  return handleResponse(response);
 };
-
-
 
 export const deleteFromApi = async (url) => {
   const token = sessionStorage.getItem('MVtoken');
@@ -80,13 +83,5 @@ export const deleteFromApi = async (url) => {
       "Authorization": `Bearer ${token}`,
     },
   });
-  const data = await response.json();
-  return data;
+  return handleResponse(response);
 };
-
-
-
-
-
-
-

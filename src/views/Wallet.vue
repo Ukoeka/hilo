@@ -3,13 +3,7 @@
     <div class="vh-100 w-100 bg d-flex flex-column ">
       <!-- Main Content Section -->
       <div class="flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
-        <div class="d-flex justify-content-between px-3 sizing mb-5">
-          <h2>Wallet</h2>
-          <div class="d-flex gap-3 align-items-center profile">
-            <img src="../assets/Dashbordicons/3d_avatar_3.png" alt="" class="">
-            <span>Favour Udoh</span>
-          </div>
-        </div>
+        <Nav title="Wallet" />
         <div class="d-flex mb-5 justify-content-end">
           <button @click="openModal"
             style="background-color: rgba(36, 36, 36, 0.11); color: white; width: 20%; border: none"
@@ -52,7 +46,7 @@
             <div class="card p-4 payment-description">
               <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                 <span>
-                  <h6 class="txt-color">Ongoing Jobs</h6>
+                  <h6 class="txt-color ">Ongoing Jobs</h6>
                   <p class="mb-0 txt-dark fw-bold">${{ walletStats.ongoingJobsEarning }}</p>
                 </span>
               </div>
@@ -66,21 +60,21 @@
           <table class="table">
             <thead>
               <tr>
-                <th>S/N <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Date <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Amount <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Type <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Status <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th></th>
+                <th class="text-grayed">S/N <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Date <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Amount <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Type <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Status <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed"></th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(payment, index) in transactions" :key="index">
-                <td>{{ index + 1 }}</td>
-                <td>{{ formatDate(payment.createdAt) }}</td>
-                <td>{{ payment.amount }}</td>
-                <td>{{ payment.type }}</td>
-                <td>
+                <td class="text-grayed">{{ index + 1 }}</td>
+                <td class="text-grayed">{{ formatDate(payment.createdAt) }}</td>
+                <td class="text-grayed">{{ payment.amount }}</td>
+                <td class="text-grayed">{{ payment.type }}</td>
+                <td class="text-grayed">
                   <span :class="[
                     'd-flex align-items-center justify-content-center gap-2 rounded p-2',
                     payment.status === 'Success' ? 'txt-primary-next' : '',
@@ -89,12 +83,44 @@
                     {{ payment.status }}
                   </span>
                 </td>
-                <td>
+                <td class="text-grayed">
                   <img src="../assets/Payment_Sales/more.png" alt="">
                 </td>
               </tr>
             </tbody>
           </table>
+                  <!-- Pagination and Items Per Page Controls -->
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex gap-3 align-items-center">
+            <span>Number Of Items displayed per page</span>
+            <select v-model="itemsPerPage" class="form-select"
+              style="width: 65px; background-color: #28a745; color: white; border: none;">
+              <option value="10">10</option>
+              <option value="14">14</option>
+              <option value="20">20</option>
+            </select>
+            <p class="mb-0">
+              {{ displayedStartIndex }}-{{ displayedEndIndex }} of {{ totalItems }} items
+            </p>
+          </div>
+          <div>
+            <ul class="pagination mb-0">
+              <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                <button class="page-link" @click="changePage(currentPage - 1)">
+                  <img src="../assets/Payment_Sales/pageleft.png" alt="">
+                </button>
+              </li>
+              <li v-for="page in visiblePages" :key="page" class="page-item" :class="{ active: currentPage === page }">
+                <button class="page-link" @click="changePage(page)">{{ page }}</button>
+              </li>
+              <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                <button class="page-link" @click="changePage(currentPage + 1)">
+                  <img src="../assets/Payment_Sales/pageright.png" alt="">
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
         </div>
 
       </div>
@@ -148,14 +174,20 @@
 import { fetchFromApi, postToApi } from '@/services/baseApi'
 import UserLayout from '@/layouts/UserLayout.vue';
 import loader from 'sass-loader';
+import Nav from '@/components/Nav.vue';
+
 
 
 export default {
   components: {
-    UserLayout
+    UserLayout,
+    Nav
   },
   data() {
     return {
+      itemsPerPage: 14,
+      currentPage: 1,
+      totalItems: 0,
       showModal: false,
       transactions: '',
       transactionsPagination: {},
@@ -196,8 +228,15 @@ export default {
       return range;
     },
   },
+  watch: {
+    itemsPerPage(newVal, oldVal) {
+      if (newVal) {
+        this.fetchTransactions(this.currentPage, newVal)
+      }
+    }
+  },
   mounted() {
-    this.fetchTransactions(1, 10)
+    this.fetchTransactions(1, this.itemsPerPage)
     this.fetchWalletStats()
   },
   methods: {
@@ -246,6 +285,7 @@ export default {
 
         if (resp.status) {
           this.transactions = resp.data
+          this.totalItems = resp.data.length
           this.transactionsPagination = resp.pagination
         } else {
           swal({
@@ -294,6 +334,7 @@ export default {
       }
     },
     changePage(page) {
+      this.fetchTransactions(page, this.itemsPerPage)
       if (page !== '...' && page >= 1 && page <= this.totalPages) {
         this.currentPage = page;
       }
@@ -361,6 +402,19 @@ export default {
   width: 55%;
 }
 
+.pagination .page-item.active .page-link {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white;
+}
+
+.pagination .page-link {
+  color: #28a745;
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #ccc;
+}
 .card {
   border: 1px solid white;
   border-radius: 5px;

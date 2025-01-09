@@ -2,13 +2,7 @@
   <AdminLayout>
 
     <div class="vh-100 w-100 bg d-flex flex-column p-3">
-      <div class="d-flex justify-content-between px-3 sizing mb-5">
-        <h2>Drivers</h2>
-        <div class="d-flex gap-3 align-items-center profile">
-          <img src="../assets/Dashbordicons/3d_avatar_3.png" alt="" class="">
-          <span>Favour Udoh</span>
-        </div>
-      </div>
+     <Nav title="Drivers"/>
 
       <!-- Main Content Section -->
       <div v-if="!viewAssign" class="flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
@@ -17,8 +11,8 @@
         <div class="card p-3 mb-3">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <div class="d-flex align-items-center gap-2 p-3">
-              <h2>Drivers</h2>
-              <p class="p-1 rounded-1 m-0"
+              <h2 class="size-18">Drivers</h2>
+              <p class="p-1 rounded-1 m-0 size-15"
                 style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">{{
                   driversPagination?.totalRecords }} Drivers
               </p>
@@ -33,30 +27,30 @@
           <table class="table">
             <thead>
               <tr>
-                <th>Serial Number <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Image <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Name <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Email <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Moves Completed<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Age<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Date Added<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Status <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th></th>
+                <th class="text-grayed">Serial Number <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Image <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Name <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Email <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Moves Completed<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Age<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Date Added<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Status <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed"></th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(payment, index) in driversData" :key="index">
-                <td>{{ index + 1 }}</td>
-                <td>
+                <td class="text-grayed">{{ index + 1 }}</td>
+                <td class="text-grayed">
                   <img :src="payment.profilePic" alt="Driver Image"
                     style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
                 </td>
-                <td>{{ payment.firstName }} {{ payment.lastName }}</td>
-                <td>{{ payment.email }}</td>
-                <td>N/A</td>
-                <td>N/A</td>
-                <td>{{ formatDate(payment.createdAt) }}</td>
-                <td>
+                <td class="text-grayed">{{ payment.firstName }} {{ payment.lastName }}</td>
+                <td class="text-grayed">{{ payment.email }}</td>
+                <td class="text-grayed">N/A</td>
+                <td class="text-grayed">N/A</td>
+                <td class="text-grayed">{{ formatDate(payment.createdAt) }}</td>
+                <td class="text-grayed">
                   <span :class="[
                     'd-flex align-items-center justify-content-center gap-2 rounded p-2',
                     payment.status === 'active' ? 'completed' : '',
@@ -69,7 +63,7 @@
                     {{ payment.status }}
                   </span>
                 </td>
-                <td>
+                <td class="text-grayed">
                   <button class="btn btn-sm btn-success text-white rounded-full"
                     @click="AssignDriver('view', payment.id)">view</button>
                 </td>
@@ -121,6 +115,7 @@
 
 <script>
 import ViewAssign from '@/components/Dashboard/ViewAssign.vue';
+import Nav from '@/components/Nav.vue';
 import AdminLayout from '@/layouts/AdminLayout.vue';
 import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
 
@@ -128,7 +123,8 @@ import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/b
 export default {
   components: {
     AdminLayout,
-    ViewAssign
+    ViewAssign,
+    Nav
   },
   data() {
     return {

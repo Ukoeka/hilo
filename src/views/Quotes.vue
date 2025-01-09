@@ -3,13 +3,8 @@
     <div class="d-flex justify-content-between vh-100 w-100 bg">
       <!-- Main Content Section -->
       <div class="flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto">
-        <div class="d-flex justify-content-between px-3 sizing mb-5">
-          <h2>{{showMovingDetails ? "Details" : 'Moving Quotes'}}</h2>
-          <div class="d-flex gap-3 align-items-center profile">
-            <img src="../assets/Dashbordicons/3d_avatar_3.png" alt="" class="" />
-            <span>Favour Udoh</span>
-          </div>
-        </div>
+        <Nav  title="Moving Quotes"/>
+
         <!-- Main Content Section -->
         <div class="flex-grow-1 position-relative pt-2 px-5 h-100" v-if="!showMovingDetails">
           <!-- Card Section -->
@@ -19,7 +14,7 @@
               <div class="card p-4 payment-description">
                 <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                   <span>
-                    <h6>All Quotes</h6>
+                    <h6 class="text-grayed">All Quotes</h6>
                     <p class="mb-0">{{ movingQuotesStats.allQuotes }}</p>
                   </span>
                   <span class="d-flex align-items-center justify-content-between p-3 rounded-3" style="
@@ -34,7 +29,7 @@
               <div class="card p-4 payment-description">
                 <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                   <span>
-                    <h6>Quotes Value</h6>
+                    <h6 class="text-grayed">Quotes Value</h6>
                     <p class="mb-0">NGN {{ movingQuotesStats.quotesValue }}</p>
                   </span>
                   <span class="d-flex align-items-center justify-content-between p-3 rounded-3" style="
@@ -49,7 +44,7 @@
               <div class="card p-4 payment-description">
                 <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                   <span>
-                    <h6>Paid</h6>
+                    <h6 class="text-grayed">Paid</h6>
                     <p class="mb-0">NGN {{ movingQuotesStats.paid }}</p>
                   </span>
                   <span class="d-flex align-items-center justify-content-between p-3 rounded-3" style="
@@ -64,7 +59,7 @@
               <div class="card p-4 payment-description">
                 <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                   <span>
-                    <h6>Pending</h6>
+                    <h6 class="text-grayed">Pending</h6>
                     <p class="mb-0">{{ movingQuotesStats.pending }}</p>
                   </span>
                   <span class="d-flex align-items-center justify-content-between p-3 rounded-3" style="
@@ -82,8 +77,8 @@
           <div class="card p-3 mb-3">
             <div class="d-flex justify-content-between align-items-center mb-2">
               <div class="d-flex align-items-center gap-2 p-3">
-                <h2>Quotes</h2>
-                <p class="p-1 rounded-1 m-0" style="
+                <h2 class="size-18">Quotes</h2>
+                <p class="p-1 rounded-1 m-0 size-15" style="
                     background: rgba(247, 250, 255, 1);
                     color: rgba(76, 149, 108, 1);
                     line-height: none;
@@ -92,7 +87,7 @@
                 </p>
               </div>
               <div class="d-flex align-items-center gap-3 justify-content-between ">
-                <div class="d-none  d-flex align-items-center justify-content-center search">
+                <div class="d-none d-flex align-items-center justify-content-center search">
                   <img src="../assets/Payment_Sales/search.png" alt="" class="search-img" />
                   <input type="text" class="inputs" placeholder="Search" v-model="searchQuery" />
                 </div>
@@ -273,6 +268,7 @@ import Sidebar from "../components/Sidebar.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
 import QuotesTable from "@/components/Dashboard/QuotesTable.vue";
 import DriversPaymentRequest from "@/components/Dashboard/DriversPaymentRequest.vue";
+
 import loader from "@/components/loader.vue";
 import {
   fetchFromApi,
@@ -280,6 +276,7 @@ import {
   deleteFromApi,
   patchToApi,
 } from "@/services/baseApi";
+import Nav from "@/components/Nav.vue";
 
 export default {
   components: {
@@ -287,6 +284,7 @@ export default {
     AdminLayout,
     QuotesTable,
     DriversPaymentRequest,
+    Nav,
   },
   data() {
     return {
@@ -306,7 +304,7 @@ export default {
 
       quotesBody: {
         serviceType: "DaV", // must be one of: [DaV, complete]
-        bookingDate: "2024-12-15T16:29:34.767Z",
+        bookingDate: "",
         hours: 2,
         pickUp: {
           postcode: "23422",

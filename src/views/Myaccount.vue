@@ -127,7 +127,7 @@
           <div class="rounded-4 mb-5 w-100">
             <div class="d-flex justify-content-between align-items-center p-2 rounded-top"
               style="background: linear-gradient(rgba(183, 241, 255, 1),rgba(241, 255, 211, 1));">
-              <button class="rounded-circle border bg-white" style="height: 50px; width: 50px;"><img
+              <button class="rounded-circle border bg-white" style="height: 50px; width: 50px;" @click="toggleDisplay"><img
                   src="../assets/Payment_Sales/ArrowLeft.png" alt=""></button>
               <div class="d-flex justify-content-between align-items-center p-2 gap-2 rounded-2 bg-white"
                 style="width: 20%;">
@@ -142,7 +142,7 @@
           <div class="p-5 w-75 mx-auto">
             <!-- Identity -->
             <div class="mb-5 w-100 m-auto">
-              <h3>Doc Set</h3>
+              <h3>Identity</h3>
               <div class="row mt-5 align-items-center">
                 <div class="col-md-3" v-for="(document, index) in documents.slice(0, 3)"
                   :key="'identity-' + document.id">
@@ -162,7 +162,7 @@
               </div>
             </div>
             <div class="mb-5 w-100 m-auto">
-              <h3>Doc Set</h3>
+              <h3>Insurance</h3>
               <div class="row mt-5 align-items-center">
                 <div class="col-md-3" v-for="(document, index) in documents.slice(3, 8)"
                   :key="'identity-' + document.id">
@@ -182,7 +182,7 @@
               </div>
             </div>
             <div class="mb-5 w-100 m-auto">
-              <h3>Doc Set</h3>
+              <h3>Other</h3>
               <div class="row mt-5 align-items-center">
                 <div class="col-md-3" v-for="(document, index) in documents.slice(8,9)"
                   :key="'identity-' + document.id">
@@ -261,6 +261,10 @@ export default {
     this.fetchUser()
   },
   methods: {
+    toggleDisplay() {
+      console.log('works')
+      this.selectedTab = !this.selectedTab
+    },
     handleClick() {
       const input = document.createElement('input')
       input.type = 'file'
