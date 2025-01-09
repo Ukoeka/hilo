@@ -4,7 +4,7 @@
       <div class=" w-100 h-100 position-relative pt-2 px-5">
       <Nav title="Open Jobs" />
 
-      <div class="filter-section d-flex justify-content-between align-items-center bg-white p-3 rounded mb-3">
+      <div class="d-none filter-section d-flex justify-content-between align-items-center bg-white p-3 rounded mb-3">
         <h5>Filter Results</h5>
         <img src="../assets/Drivers/dropdown.png" alt="">
       </div>
