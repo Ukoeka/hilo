@@ -325,7 +325,7 @@ export default {
       hours: 2,
       manVan: {
         serviceType: "DaV", // must be one of: [DaV, complete]
-        bookingDate: "2024-12-25T11:20:27.697Z",
+        bookingDate: "",
         hours: 2,
         pickUp: {
           postcode: "23422",
