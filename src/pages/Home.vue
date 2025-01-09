@@ -4,7 +4,7 @@
         <div class="content">
           <h1>Efficient and Affordable <br> Removals & Logistics in the UK</h1>
           <div class="btn-container">
-            <a href="/getquote" class="quote">Get Quote</a>
+            <a href="/book-driver" class="quote">Get Quote</a>
             
           </div>
           <div class="btn-container">
@@ -34,7 +34,7 @@
         <h1>Committed to Delivering Hassle-Free Removals and Logistics</h1>
         <p>At Hilogisticz, we’re dedicated to delivering professional and stress-free moving and logistics services. Every move is meticulously planned and executed with precision to ensure seamless, efficient delivery that meets your deadlines. Our top priority is customer satisfaction, with tailored solutions that adapt to your unique needs—ensuring a smooth, worry-free experience from beginning to end.</p>
         <div class="btn-contain">
-        <a href="/getquote" class="quote">Get Quote</a>
+        <a href="/book-driver" class="quote">Get Quote</a>
       </div>
       </div>
     </div>
@@ -204,7 +204,7 @@
         <p>Ready to Make Your Move Easy?</p>
         <h2>Get the Best Deal for Your Next Move – Let’s Make It Effortless!</h2>
         <div class="btn-contain">
-          <a href="/getquote" class="quote">Get Quote</a>
+          <a href="/book-driver" class="quote">Get Quote</a>
         </div>
       </div>
     </div>

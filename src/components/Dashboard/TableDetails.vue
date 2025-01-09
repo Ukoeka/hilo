@@ -10,7 +10,7 @@
               }}</span>
           </th>
           <th class="text-grayed" @click="sort('driver')">
-            Driver
+            Account Name
             <span v-if="sortColumn === 'driver'">{{
               sortDirection === "asc" ? "↑" : "↓"
               }}</span>

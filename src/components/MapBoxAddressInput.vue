@@ -99,6 +99,7 @@ export default {
             return data.features.map((address) => {
               const label = address.place_name;
               const location = label.split(', ')[1] || '';
+              const coordinates = address.geometry.coordinates;
 
               return {
                 label: label,
@@ -106,7 +107,9 @@ export default {
                 postcode: location.slice(0, location.indexOf(' ')),
                 city: location.slice(1 + location.indexOf(' ')),
                 state: address.context?.at(-2)?.text || '',
-                country: address.context?.at(-1)?.text || ''
+                country: address.context?.at(-1)?.text || '',
+                latitude: coordinates[1], // Latitude from geometry
+                longitude: coordinates[0] // Longitude from geometry
               };
             });
           } else {
