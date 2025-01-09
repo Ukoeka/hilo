@@ -10,13 +10,13 @@
         <div class="card p-3 mb-3 w-100">
           <div class="d-flex justify-content-between align-items-center mb-2">
             <div class="d-flex align-items-center gap-2 p-3">
-              <h2>Cleaners </h2>
-              <p class="p-1 rounded-1 m-0"
+              <h2 class="size-18">Cleaners </h2>
+              <p class="p-1 rounded-1 m-0 size-15"
                 style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;"> {{ bookingsPagination?.totalRecords	 }}
                 Quotes</p>
             </div>
-            <div class="d-flex align-items-center right gap-2 justify-content-around">
-              <div class="d-flex align-items-center justify-content-center search">
+            <div class="d-none d-flex align-items-center right gap-2 justify-content-around">
+              <div class=" d-flex align-items-center justify-content-center search">
                 <img src="../assets/Payment_Sales/search.png" alt="" class="search-img me-2">
                 <input type="text" class="search-inputs" placeholder="Search" v-model="searchQuery" style="padding: 5px; border: 1px solid #ccc; border-radius: 5px;" />
               </div>
@@ -30,36 +30,34 @@
           <table class="table">
             <thead>
               <tr>
-                <th>Serial Number <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th> {{ type === 'moving' ? 'Customer Name' : 'Client Name' }} <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>{{ type === 'moving' ? 'Post Code' : 'Cleaning Type' }} <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>{{ type === 'moving' ? 'Drop-off location' : 'Hours' }}  <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>{{ type === 'moving' ? 'Date' : 'Booking Date' }}<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>{{ type === 'moving' ? 'Amount' : 'Phone Number' }}<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th>Status <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Serial Number <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed"> {{ type === 'moving' ? 'Customer Name' : 'Client Name' }} <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">{{ type === 'moving' ? 'Post Code' : 'Cleaning Type' }} <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">{{ type === 'moving' ? 'Drop-off location' : 'Hours' }}  <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">{{ type === 'moving' ? 'Date' : 'Booking Date' }}<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">{{ type === 'moving' ? 'Amount' : 'Phone Number' }}<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed">Status <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(payment, index) in bookings" :key="payment?.id">
-                <td>{{ index + 1 }}</td>
-                <td>N/A</td>
-                <td>{{ type === 'moving' ? payment.pickUp?.name : payment.cleaningType }}</td>
-                <td>{{ payment.dropOff?.name || 'N/A'}}</td>
-                <td>{{ type === 'moving' ? formatDate(payment?.bookingDate) : formatDate(payment?.startTime) }}</td>
-                <td>{{ payment?.amount }}</td>
-                <td>
+                <td class="text-grayed">{{ index + 1 }}</td>
+                <td class="text-grayed">N/A</td>
+                <td class="text-grayed">{{ type === 'moving' ? payment.pickUp?.name : payment.cleaningType }}</td>
+                <td class="text-grayed">{{ payment.dropOff?.name || 'N/A'}}</td>
+                <td class="text-grayed">{{ type === 'moving' ? formatDate(payment?.bookingDate) : formatDate(payment?.startTime) }}</td>
+                <td class="text-grayed">{{ payment?.amount }}</td>
+                <td class="text-grayed">
                   <span :class="[
                     'd-flex align-items-center justify-content-center gap-2 rounded p-2',
-                    payment.status === 'paid' ? 'paid' : '',
-                    payment.status === 'payment Pending' ? 'pending' : '',
-                    payment.status === 'new' ? 'new' : '',
+                    payment.status === 'completed' ? 'paid' : '',
+                    payment.status === 'pending' ? 'pending' : '',
                     payment.status === 'ongoing' ? 'draft' : ''
                   ]" style="width: fit-content">
                     <div :class="[
-                      payment.status === 'paid' ? 'paid-circle' : '',
-                      payment.status === 'payment Pending' ? 'pending-circle' : '',
-                      payment.status === 'new' ? 'new-circle' : '',
+                      payment.status === 'completed' ? 'paid-circle' : '',
+                      payment.status === 'pending' ? 'pending-circle' : '',
                       payment.status === 'ongoing' ? 'draft-circle' : ''
 
                     ]" class="rounded-circle" style="height: 10px; width: 10px;"></div>
@@ -227,7 +225,7 @@ export default {
       searchQuery: '',
       itemsPerPage: 14,
       currentPage: 1,
-      totalItems: 12400,
+      totalItems: 0,
       display: false,
       Loader: false,
       bookings: [],
@@ -265,8 +263,15 @@ export default {
   },
   mounted() {
     this.type = localStorage.getItem('accountType');
-    this.Bookings(1, 10);
+    this.Bookings(1, this.itemsPerPage);
 
+  },
+  watch: {
+    itemsPerPage(newVal, oldVal) {
+      if (newVal) {
+        this.Bookings(this.currentPage, newVal)
+      }
+    }
   },
   methods: {
     formatDate(data, lastSeen = false) {
@@ -320,6 +325,7 @@ export default {
 
         if (resp.status) {
           this.bookings = resp.data
+          this.totalItems = resp.data.length
           this.bookingsPagination = resp.pagination
         } else {
           swal({
@@ -339,6 +345,8 @@ export default {
       }
     },
     changePage(page) {
+      this.bookings(page, this.itemsPerPage)
+
       if (page !== '...' && page >= 1 && page <= this.totalPages) {
         this.currentPage = page;
       }

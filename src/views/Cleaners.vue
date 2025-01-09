@@ -136,7 +136,7 @@ export default {
       searchQuery: '',
       itemsPerPage: 14, // Items per page, with a default value of 14
       currentPage: 1,    // Current page number
-      totalItems: 12400, // Total number of items (example)
+      totalItems: 0, // Total number of items (example)
       Loader: false,
       cleanersData: [],
       cleanersPagination: {}
@@ -197,6 +197,7 @@ export default {
         const resp = await fetchFromApi(url);
         if (resp.status) {
           this.cleanersData = resp.data;
+          this.totalItems = resp.data.length
           this.cleanersPagination = resp.pagination
         } else {
           swal({

@@ -48,7 +48,7 @@ body {
   border: #4C956C !important;
 }
 
-.text-grayed {
+.text-grayed, .txt-color {
   color: #A0A3BD !important;
   font-size: 15px !important;
 }
