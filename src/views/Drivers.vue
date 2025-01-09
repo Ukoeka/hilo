@@ -133,7 +133,7 @@ export default {
       searchQuery: '',
       itemsPerPage: 14,
       currentPage: 1,
-      totalItems: 12400,
+      totalItems: 0,
       isDriverDetailsVisible: false,
       isDriverAddDetailsVisible: false,
       user: {
@@ -220,6 +220,7 @@ export default {
         const resp = await fetchFromApi(url);
         if (resp.status) {
           this.driversData = resp.data;
+          this.totalItems = resp.pagination.totalRecords
           this.driversPagination = resp.pagination
         } else {
           swal({

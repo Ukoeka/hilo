@@ -15,7 +15,7 @@
           <div class="d-flex align-items-center gap-2 p-3">
             <h2 class="size-18">{{ type === 'moving' ? 'Drivers' : 'Cleaners' }}</h2>
             <p class="p-1 rounded-1 m-0 size-15"
-              style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">13 {{ type === 'moving' ? 'Drivers' : 'Cleaners' }}
+              style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">{{ totalItems }} {{ type === 'moving' ? 'Drivers' : 'Cleaners' }}
             </p>
           </div>
         </div>
@@ -195,6 +195,7 @@ export default {
         const resp = await fetchFromApi(url);
         if (resp.status) {
           this.driversData = resp.data;
+          this.totalItems = resp.pagination.totalRecords
           this.driversPagination = resp.pagination
         } else {
           swal({

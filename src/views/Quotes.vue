@@ -30,7 +30,7 @@
                 <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                   <span>
                     <h6 class="text-grayed">Quotes Value</h6>
-                    <p class="mb-0">NGN {{ movingQuotesStats.quotesValue }}</p>
+                    <p class="mb-0">£ {{ movingQuotesStats.quotesValue }}</p>
                   </span>
                   <span class="d-flex align-items-center justify-content-between p-3 rounded-3" style="
                       background-color: rgba(94, 244, 136, 0.1);
@@ -45,7 +45,7 @@
                 <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                   <span>
                     <h6 class="text-grayed">Paid</h6>
-                    <p class="mb-0">NGN {{ movingQuotesStats.paid }}</p>
+                    <p class="mb-0">£ {{ movingQuotesStats.paid }}</p>
                   </span>
                   <span class="d-flex align-items-center justify-content-between p-3 rounded-3" style="
                       background-color: rgba(94, 244, 136, 0.1);
@@ -83,7 +83,7 @@
                     color: rgba(76, 149, 108, 1);
                     line-height: none;
                   ">
-                 {{movingQuotesStats.allQuotes}} Quotes
+                 {{totalItems}} Quotes
                 </p>
               </div>
               <div class="d-flex align-items-center gap-3 justify-content-between ">
@@ -291,7 +291,7 @@ export default {
       searchQuery: "",
       itemsPerPage: 14, // Items per page, with a default value of 14
       currentPage: 1, // Current page number
-      totalItems: 12400, // Total number of items (example)
+      totalItems: 0, // Total number of items (example)
       showMovingDetails: false,
       movingQuotesStats: {
         allQuotes: 0,
@@ -419,6 +419,7 @@ export default {
         const resp = await fetchFromApi(url);
         if (resp.status) {
           this.movingQuotes = resp.data;
+          this.totalItems = resp.pagination.totalRecords
         } else {
           swal({
             text: resp.message,

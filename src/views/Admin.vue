@@ -181,7 +181,7 @@ export default {
       searchQuery: '',
       itemsPerPage: 14,
       currentPage: 1,
-      totalItems: 12400,
+      totalItems: 0,
       showModal: false,
       preview: null, // Holds the preview image URL
       selectedImage: null,
@@ -248,6 +248,7 @@ export default {
         const resp = await fetchFromApi(url);
         if (resp.status) {
           this.admins = resp.data;
+          this.totalItems = resp.pagination.totalRecords
           this.adminPagination = resp.pagination
         } else {
           swal({

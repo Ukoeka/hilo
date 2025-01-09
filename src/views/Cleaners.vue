@@ -197,7 +197,7 @@ export default {
         const resp = await fetchFromApi(url);
         if (resp.status) {
           this.cleanersData = resp.data;
-          this.totalItems = resp.data.length
+          this.totalItems = resp.pagination.totalRecords
           this.cleanersPagination = resp.pagination
         } else {
           swal({

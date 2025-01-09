@@ -9,7 +9,7 @@
       </div>
       <div class="title-section">
         <h6 class="assigned-title">Assigned</h6>
-        <span class="quote-count">10,000 Quotes</span>
+        <span class="quote-count">{{ totalItems}} Quotes</span>
       </div>
 
       <div class="d-none actions-section">
@@ -29,51 +29,51 @@
       <table class="quotes-table">
         <thead>
           <tr>
-            <th>
+            <th class="text-grayed">
               Serial Number
               <i class="bi bi-chevron-down"></i>
             </th>
-            <th>
+            <th class="text-grayed">
               Customer
               <i class="bi bi-chevron-down"></i>
             </th>
-            <th>
+            <th class="text-grayed">
               Pickup location
               <i class="bi bi-chevron-down"></i>
             </th>
-            <th>
+            <th class="text-grayed">
               Drop-off location
               <i class="bi bi-chevron-down"></i>
             </th>
-            <th>
+            <th class="text-grayed">
               Date
               <i class="bi bi-chevron-down"></i>
             </th>
-            <th>
+            <th class="text-grayed">
               Amount
               <i class="bi bi-chevron-down"></i>
             </th>
-            <th>
+            <th class="text-grayed">
               Status
               <i class="bi bi-chevron-down"></i>
             </th>
-            <th></th>
+            <th class="text-grayed"></th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="quote in paginatedQuotes" :key="quote.serialNumber">
-            <td>{{ quote.serialNumber }}</td>
-            <td>{{ quote.customer }}</td>
-            <td>{{ quote.pickupLocation }}</td>
-            <td>{{ quote.dropOffLocation }}</td>
-            <td>{{ quote.date }}</td>
-            <td>{{ quote.amount }}</td>
-            <td>
+          <tr v-for="quote, index in quotes" :key="quote.id">
+            <td class="text-grayed">{{ index + 1 }}</td>
+            <td class="text-grayed">{{ quote.customer }}</td>
+            <td class="text-grayed">{{ type === 'cleaner'? quote?.postCode : quote?.pickUp?.name }}</td>
+            <td class="text-grayed">{{ quote?.dropOff?.name }}</td>
+            <td class="text-grayed">{{ type === 'cleaner'? formatDate(quote.startTime) : formatDate(quote.bookingDate) }}</td>
+            <td class="text-grayed">{{ quote.amount }}</td>
+            <td class="text-grayed">
               <span :class="['status-badge', getStatusClass(quote.status)]">
                 {{ quote.status }}
               </span>
             </td>
-            <td>
+            <td class="text-grayed">
               <button class="action-btn">
                 <i class="bi bi-three-dots-vertical"></i>
               </button>
@@ -150,7 +150,7 @@ export default {
       searchQuery: '',
       currentPage: 1,
       itemsPerPage: 14,
-      totalItems: 12400
+      totalItems: 0
     }
   },
 
@@ -182,16 +182,34 @@ export default {
     },
   },
   mounted() {
-    this.fetchAssignedQuotes(this.quotesId, this.type);            
+    this.fetchAssignedQuotes(this.quotesId, this.currentPage, this.itemsPerPage);            
+  },
+  watch: {
+    itemsPerPage(newVal, oldVal) {
+      if (newVal ) {
+        this.fetchAssignedQuotes(this.quotesId, this.currentPage, newVal)
+      }
+    }
   },
   methods: {
-    async fetchAssignedQuotes(quotesId, userType) {
-      const type = userType == 'driver' ? 'moving' : 'cleaning'
+    formatDate(data, lastSeen = false) {
+      let processedData = data
+
+      if (lastSeen) {
+        const splitData = data.split(',')
+        processedData = splitData[0] // Assuming you want the first part after splitting
+      }
+
+      const date = new Date(processedData)
+      return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
+    },
+    async fetchAssignedQuotes(quotesId, page, pageSize) {
       try {
-        const url = `quotes/${quotesId}?type=${type}`;
+        const url = `account/${quotesId}/quotes?page=${page}&pageSize=${pageSize}`;
         const resp = await fetchFromApi(url);
         if (resp.status) {
           this.quotes  = resp.data;
+          this.totalItems = resp.pagination.totalRecords
           this.quotesPagination = resp.pagination
         } else {
           swal({
@@ -216,6 +234,7 @@ export default {
       this.$emit('close')
     },
     changePage(page) {
+      this.fetchAssignedQuotes(this.quotesId, page, this.itemsPerPage)
       if (page !== '...' && page >= 1 && page <= this.totalPages) {
         this.currentPage = page;
       }

@@ -65,7 +65,7 @@
           <div class="info-item additional-info">
             <div class="info-label">Additional Information</div>
             <div  class="info-value d-flex flex-wrap gap-2">
-              <span v-if="type == 'moving'" class="text-gray" v-for="(item, index) in movingDetails?.additionalServices " :key="`moving-${index}`">{{ item }}</span>
+              <span v-if="type == 'cleaning'" class="text-gray" v-for="(item, index) in movingDetails?.additionalServices " :key="`moving-${index}`">{{ item }}</span>
               <span v-else class="text-gray "v-for="(item, index) in movingDetails?.extraData?.additionalServices" :key="`extra-${index}`">{{ item }}</span>
             </div>
           </div>
