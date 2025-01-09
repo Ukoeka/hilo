@@ -94,19 +94,19 @@
           <img src="@/assets/icons/arrow-down.png" alt="">
         </div>
       </a>
-      <a href="/packaging" class="card card5">
+      <a href="/order-packaging" class="card card5">
         <div class="content">
           <h2>Packing Services</h2>
           <img src="@/assets/icons/arrow-down.png" alt="">
         </div>
       </a>
-      <a href="/packaging" class="card card6">
+      <a href="/order-packaging" class="card card6">
         <div class="content">
           <h2>Packing Materials</h2>
           <img src="@/assets/icons/arrow-down.png" alt="">
         </div>
       </a>
-      <a href="/packaging" class="card card7">
+      <a href="/contact" class="card card7">
         <div class="content">
           <h2>B2B Logistics</h2>
           <img src="@/assets/icons/arrow-down.png" alt="">

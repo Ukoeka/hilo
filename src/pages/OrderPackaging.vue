@@ -111,7 +111,7 @@
               <div class="each-row mt-3">
                 <p>Hours</p>
                 <div class="rightss">
-                  <button @click="packageDetails.hours > 0 ? packageDetails.hours-- : null" type="button"
+                  <button @click="packageDetails.hours > 2 ? packageDetails.hours-- : null" type="button"
                     class="red-btn">-</button>
                   <p>{{ packageDetails.hours }}</p>
                   <button @click=" packageDetails.hours++" type="button" class="green-btn">+</button>
@@ -146,7 +146,20 @@
         </form>
       </div>
       <div class="right">
-        <img src="@/assets/images/map.png" alt="">
+        <div class="map">
+                  <div
+                    id="map-container-google-2"
+                    class="z-depth-1-half map-container"
+                  >
+                    <iframe
+                      class="main-map"
+                      src="https://maps.google.com/maps?q=london&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                      frameborder="0"
+                      style="border: 0; width:100%; height: 400px;"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                  </div>
         <div class="details">
           <div class="each-details">
             <h2>GU16 7H</h2>
@@ -329,7 +342,7 @@ export default {
         },
         email: "Kristoffer22@hotmail.com",
         phoneNumber: "413-705-1942",
-        hours: 0,
+        hours: 2,
         rooms: [],
         items: [],
       },

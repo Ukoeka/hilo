@@ -340,7 +340,7 @@ export default {
   data() {
     return {
       timeDisplay: 1,
-      bigDisplay: 2,
+      bigDisplay: 1,
       display: 1,
       bedroom: 1,
       bathroom: 1,

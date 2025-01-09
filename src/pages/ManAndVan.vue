@@ -118,7 +118,20 @@
         </form>
       </div>
       <div class="right">
-        <img src="@/assets/images/map.png" alt="" />
+        <div class="map">
+                  <div
+                    id="map-container-google-2"
+                    class="z-depth-1-half map-container"
+                  >
+                    <iframe
+                      class="main-map"
+                      src="https://maps.google.com/maps?q=london&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                      frameborder="0"
+                      style="border: 0; width:100%; height: 400px;"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                  </div>
         <div class="details">
           <div class="each-details">
             <h2>GU16 7H</h2>
@@ -390,10 +403,10 @@ export default {
           this.stripesUrl = resp.data.url;
           this.estimatedPrice = resp.data.estimated_price
           this.paymentView();
-          swal({
-            text: resp.message,
-            icon: "success",
-          });
+          // swal({
+          //   text: resp.message,
+          //   icon: "success",
+          // });
         } else {
           swal({
             text: resp.message,

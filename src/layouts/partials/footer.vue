@@ -33,6 +33,7 @@
             <a href="/gethired">Join Us</a>
           <a href="/getquote">Get Quote</a>
           <a href="/book-driver">Book a Move</a>
+          <a href="/book-cleaning">Book Cleaning</a>
           </div>
         </div>
       </div>
