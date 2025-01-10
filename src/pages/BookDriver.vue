@@ -733,16 +733,11 @@ export default {
       bookDriver: {
         bookingDate: "",
         pickUp: {
-          postcode: "",
+          
           name: "",
-          lat: 1.9990092,
-          lng: 0.98,
         },
         dropOff: {
-          postcode: "Georgia",
           name: "",
-          lat: 0.4990092,
-          lng: 0.67 ,
         },
         email: "",
         phoneNumber: "",
@@ -807,7 +802,6 @@ export default {
     handleAddressSelect(field, address) {
       if (field === 'first') {
         this.bookDriver.pickUp.name = address;
-        console.log(`Latitude: ${address.latitude}, Longitude: ${address.longitude}`)
       } else if (field === 'second') {
         this.bookDriver.dropOff.name = address;
       }

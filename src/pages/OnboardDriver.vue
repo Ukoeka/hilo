@@ -414,10 +414,13 @@ export default {
         if (response.status) {
           swal({
             title: "Success",
-            text: "Driver has been successfully added",
+            text: "Registration Successful",
             icon: "success",
             button: "Ok",
-          })
+          });
+          setTimeout(() => {
+          this.$router.push('/registration-successful'); // Replace '/new-page' with your desired route
+    }, 2000); 
         } else {
           swal({
             title: "Error",
@@ -470,7 +473,7 @@ export default {
 };
 </script>
 
-<style scoped >
+<style scoped lang="scss" >
 .cursor {
   cursor: pointer;
 }

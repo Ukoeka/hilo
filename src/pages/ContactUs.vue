@@ -5,7 +5,7 @@
     </div>
 
     <div class="main-content">
-          <div href="/cleaner-recruitment" class="left">
+          <div class="left">
             <form>
               <h2 class="mb-3">Contact Us</h2>
               <p class="mb-3">We’re Here to Help with Your Questions, Feedback, and Support Needs—Reach Out Anytime!</p>

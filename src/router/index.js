@@ -26,6 +26,7 @@ import OnboardDriver from "@/pages/OnboardDriver.vue";
 import OnboardCleaner from "@/pages/OnboardCleaner.vue";
 import BookCleaning from "@/pages/BookCleaning.vue";
 import BookDriver from "@/pages/BookDriver.vue";
+import Registration from "@/pages/RegistrationSuccessful.vue";
 import OrderPackaging from "@/pages/OrderPackaging.vue";
 import ManAndVan from "@/pages/ManAndVan.vue";
 import UserCleaner from "@/views/UserCleaner.vue";
@@ -147,6 +148,11 @@ const routes = [
     path: "/manandvan",
     name: "ManAndVan",
     component: ManAndVan,
+  },
+  {
+    path: "/registration-successful",
+    name: "Registration",
+    component: Registration,
   },
 ];
 const router = createRouter({

@@ -1,21 +1,20 @@
 <script>
-import { reactive, ref, watch } from 'vue';
+import { reactive, ref } from 'vue';
 
 export default {
   props: {
     mapboxOptions: Object,
-    modelValue: String, // Input value bound with v-model
     placeholder: {
       type: String,
       default: 'Enter address'
     }
   },
-  emits: ['update:modelValue', 'addressSelect'], // Support v-model binding and address selection
+  emits: ['addressSelect'],
   setup(props, { emit }) {
     const defaultMapboxOptions = {
       api: 'https://api.mapbox.com/geocoding/v5/',
       endpoint: 'mapbox.places',
-      access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ',
+      access_token: '',
       limit: 5,
       types: 'address',
       proximity: 'ip',
@@ -26,20 +25,10 @@ export default {
     };
 
     const dropdownMenu = ref(null);
-    const searchtext = ref(props.modelValue || ''); // Initialize with modelValue
+    const searchtext = ref('');
     const suggestions = reactive([]);
 
     const mapboxOptions = { ...defaultMapboxOptions, ...props.mapboxOptions };
-
-    watch(() => props.modelValue, (newValue) => {
-      searchtext.value = newValue;
-    });
-
-    // Watch for changes in searchtext and emit updates
-    watch(searchtext, (newValue) => {
-      emit('update:modelValue', newValue);
-    });
-
 
     function formatLabel(label, part) {
       const index = label.toLowerCase().indexOf(searchtext.value.toLowerCase());
@@ -99,7 +88,6 @@ export default {
             return data.features.map((address) => {
               const label = address.place_name;
               const location = label.split(', ')[1] || '';
-              const coordinates = address.geometry.coordinates;
 
               return {
                 label: label,
@@ -107,9 +95,7 @@ export default {
                 postcode: location.slice(0, location.indexOf(' ')),
                 city: location.slice(1 + location.indexOf(' ')),
                 state: address.context?.at(-2)?.text || '',
-                country: address.context?.at(-1)?.text || '',
-                latitude: coordinates[1], // Latitude from geometry
-                longitude: coordinates[0] // Longitude from geometry
+                country: address.context?.at(-1)?.text || ''
               };
             });
           } else {
