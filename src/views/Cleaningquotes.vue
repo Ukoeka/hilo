@@ -14,7 +14,7 @@
                   color: rgba(76, 149, 108, 1);
                   line-height: none;
                 ">
-                13 quotes
+                {{ totalItems }} quotes
               </p>
             </div>
             <router-link to="/book-cleaning" class="btn btn-success d-flex align-items-center gap-2 justify-content-center">
@@ -263,7 +263,7 @@ export default {
       searchQuery: "",
       itemsPerPage: 14, // Items per page, with a default value of 14
       currentPage: 1, // Current page number
-      totalItems: 12400, // Total number of items (example)
+      totalItems: 0, // Total number of items (example)
       showModal: false,
       cleaningQuotes: [],
     };
@@ -345,6 +345,7 @@ export default {
         const resp = await fetchFromApi(url);
         if (resp.status) {
           this.cleaningQuotes = resp.data;
+          this.totalItems = resp.pagination.totalRecords
         } else {
           swal({
             text: resp.message,

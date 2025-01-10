@@ -2,7 +2,7 @@
   <AdminLayout>
     <!-- main view -->
     <div class="vh-100 w-100 bg d-flex flex-column">
-      <Nav  title="Payments Requests"/>
+      <Nav title="Payments Requests" />
       <!-- Main Content Section -->
       <div class="flex-grow-1 position-relative pt-2 px-5 h-100 overflow-auto" v-if="showDetails || showCleanerDetails">
         <!-- Filter Tabs -->
@@ -165,7 +165,7 @@ export default {
   },
   created() {
     this.fetchPaymentRequestStats();
-    this.fetchPaymentRequest(this.currentPage, this.itemsPerPage, "driver");
+    this.fetchPaymentRequest(this.currentPage, this.itemsPerPage);
   },
   computed: {
     filteredList() {
@@ -209,10 +209,10 @@ export default {
   watch: {
     itemsPerPage(newVal, oldVal) {
       if (newVal) {
-        this.filterType == 'all' ? this.fetchPaymentRequest(this.currentPage, newVal, 'driver') : this.fetchPaymentRequest(this.currentPage, newVal, this.filterType)
+        this.filterType == 'all' ? this.fetchPaymentRequest(this.currentPage, newVal) : this.fetchPaymentRequest(this.currentPage, newVal, this.filterType)
       }
     },
-    searchQuery(newVal, oldVal){}
+    searchQuery(newVal, oldVal) { }
   },
   methods: {
     async fetchPaymentRequestStats() {
@@ -242,10 +242,18 @@ export default {
     },
     async fetchPaymentRequest(page, pageSize, type, status) {
       this.Loader = true
+
       try {
-        const url = status
-          ? `payment-requests?page=${page}&pageSize=${pageSize}&type=${type}&status=${status}`
-          : `payment-requests?page=${page}&pageSize=${pageSize}&type=${type}`;
+        let url
+        if (status) {
+          url = `payment-requests?page=${page}&pageSize=${pageSize}&type=${type}&status=${status}`
+        } else if (type) {
+          url = `payment-requests?page=${page}&pageSize=${pageSize}&type=${type}`
+        } else {
+          url = `payment-requests?page=${page}&pageSize=${pageSize}`
+        }
+
+
         const resp = await fetchFromApi(url);
         if (resp.status) {
           this.paymentData = resp.data;
@@ -279,14 +287,14 @@ export default {
       }
     },
     changePage(page) {
-      this.filterType == 'all' ? this.fetchPaymentRequest(page, this.itemsPerPage, 'driver') : this.fetchPaymentRequest(page, this.itemsPerPage, this.filterType)
+      this.filterType == 'all' ? this.fetchPaymentRequest(page, this.itemsPerPage) : this.fetchPaymentRequest(page, this.itemsPerPage, this.filterType)
       if (page !== '...' && page >= 1 && page <= this.totalPages) {
         this.currentPage = page;
       }
     },
     filterBy(type) {
       this.filterType = type;
-      this.filterType == 'all' ? this.fetchPaymentRequest(this.currentPage, this.itemsPerPage, 'driver') : this.fetchPaymentRequest(this.currentPage, this.itemsPerPage, type)
+      this.filterType == 'all' ? this.fetchPaymentRequest(this.currentPage, this.itemsPerPage) : this.fetchPaymentRequest(this.currentPage, this.itemsPerPage, type)
 
     },
   },

@@ -30,7 +30,7 @@
                 <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                   <span>
                     <h6 class="text-grayed">Quotes Value</h6>
-                    <p class="mb-0">NGN {{ movingQuotesStats.quotesValue }}</p>
+                    <p class="mb-0">£ {{ movingQuotesStats.quotesValue }}</p>
                   </span>
                   <span class="d-flex align-items-center justify-content-between p-3 rounded-3" style="
                       background-color: rgba(94, 244, 136, 0.1);
@@ -45,7 +45,7 @@
                 <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                   <span>
                     <h6 class="text-grayed">Paid</h6>
-                    <p class="mb-0">NGN {{ movingQuotesStats.paid }}</p>
+                    <p class="mb-0">£ {{ movingQuotesStats.paid }}</p>
                   </span>
                   <span class="d-flex align-items-center justify-content-between p-3 rounded-3" style="
                       background-color: rgba(94, 244, 136, 0.1);
@@ -83,7 +83,7 @@
                     color: rgba(76, 149, 108, 1);
                     line-height: none;
                   ">
-                 {{movingQuotesStats.allQuotes}} Quotes
+                 {{totalItems}} Quotes
                 </p>
               </div>
               <div class="d-flex align-items-center gap-3 justify-content-between ">
@@ -103,7 +103,10 @@
             </div>
 
             <!-- Table Section -->
-            <QuotesTable :data="tableData" @payment="handlePR" type='moving' :quotes-data="movingQuotes" />
+           <div>
+            <div v-if="Loader" class="spinner-border text-success"></div>
+            <QuotesTable v-else :data="tableData" @payment="handlePR" type='moving' :quotes-data="movingQuotes" />
+           </div>
           </div>
 
           <!-- Pagination and Items Per Page Controls -->
@@ -277,6 +280,7 @@ import {
   patchToApi,
 } from "@/services/baseApi";
 import Nav from "@/components/Nav.vue";
+import Loader from "@/components/loader.vue";
 
 export default {
   components: {
@@ -291,7 +295,7 @@ export default {
       searchQuery: "",
       itemsPerPage: 14, // Items per page, with a default value of 14
       currentPage: 1, // Current page number
-      totalItems: 12400, // Total number of items (example)
+      totalItems: 0, // Total number of items (example)
       showMovingDetails: false,
       movingQuotesStats: {
         allQuotes: 0,
@@ -322,6 +326,7 @@ export default {
         phoneNumber: "332-834-2149",
       },
       quotesId: null,
+      Loader: false
     };
   },
   mounted() {
@@ -414,11 +419,13 @@ export default {
       }
     },
     async fetchQuotes(page, pageSize) {
+      this.Loader = true
       try {
         const url = `quotes?type=moving&page=${page}&pageSize=${pageSize}`;
         const resp = await fetchFromApi(url);
         if (resp.status) {
           this.movingQuotes = resp.data;
+          this.totalItems = resp.pagination.totalRecords
         } else {
           swal({
             text: resp.message,
@@ -428,6 +435,9 @@ export default {
         console.log("Response:", resp);
       } catch (error) {
         console.error("API call failed:", error);
+      }
+      finally {
+        this.Loader = false
       }
     },
     async fetchMQStats() {

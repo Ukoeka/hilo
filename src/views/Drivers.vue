@@ -23,8 +23,9 @@
               Add New
             </button>
           </div>
+          <div v-if="Loader" class="spinner-border text-success"></div>
 
-          <table class="table">
+          <table v-else class="table">
             <thead>
               <tr>
                 <th class="text-grayed">Serial Number <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
@@ -133,7 +134,7 @@ export default {
       searchQuery: '',
       itemsPerPage: 14,
       currentPage: 1,
-      totalItems: 12400,
+      totalItems: 0,
       isDriverDetailsVisible: false,
       isDriverAddDetailsVisible: false,
       user: {
@@ -215,11 +216,13 @@ export default {
       return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
     },
     async fetchDrivers(page, pageSize) {
+      this.Loader = true
       try {
         const url = `account/drivers?page=${page}&pageSize=${pageSize}`;
         const resp = await fetchFromApi(url);
         if (resp.status) {
           this.driversData = resp.data;
+          this.totalItems = resp.pagination.totalRecords
           this.driversPagination = resp.pagination
         } else {
           swal({
@@ -230,6 +233,9 @@ export default {
         console.log('admin Response:', resp);
       } catch (error) {
         console.error('API call failed:', error);
+      }
+      finally {
+        this.Loader = false
       }
     },
     AssignDriver(view, id) {

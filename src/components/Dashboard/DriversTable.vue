@@ -1,6 +1,6 @@
 <template>
 
-  <div class="d-flex justify-content-between vh-100 w-100 bg">
+  <div  class="d-flex justify-content-between vh-100 w-100 bg">
     <!-- Sidebar Section -->
 
     <!-- Main Content Section -->
@@ -15,12 +15,13 @@
           <div class="d-flex align-items-center gap-2 p-3">
             <h2 class="size-18">{{ type === 'moving' ? 'Drivers' : 'Cleaners' }}</h2>
             <p class="p-1 rounded-1 m-0 size-15"
-              style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">13 {{ type === 'moving' ? 'Drivers' : 'Cleaners' }}
+              style="background: rgba(247, 250, 255, 1); color: rgba(76, 149, 108, 1); line-height: none;">{{ totalItems }} {{ type === 'moving' ? 'Drivers' : 'Cleaners' }}
             </p>
           </div>
         </div>
+        <div v-if="Loader" class="spinner-border text-success"></div>
 
-        <table class="table">
+        <table v-else class="table">
           <thead>
             <tr>
               <th class="text-grayed">Serial Number <img src="@/assets/Payment_Sales/arrowdown.png" alt=""></th>
@@ -117,6 +118,7 @@
 <script>
 import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
 
+
 export default {
   props: {
     quotesId: {
@@ -134,8 +136,9 @@ export default {
       searchQuery: '',
       itemsPerPage: 14, // Items per page, with a default value of 14
       currentPage: 1,    // Current page number
-      totalItems: 12400, // Total number of items (example)
+      totalItems: 0, // Total number of items (example)
       driversData: [],
+      Loader: false
     };
   },
   computed: {
@@ -188,6 +191,7 @@ export default {
       return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
     },
     async fetchDrivers(page, pageSize) {
+      this.Loader = true
       try {
         const type = this.type === 'moving' ? 'drivers' : 'cleaners'
      
@@ -195,6 +199,7 @@ export default {
         const resp = await fetchFromApi(url);
         if (resp.status) {
           this.driversData = resp.data;
+          this.totalItems = resp.pagination.totalRecords
           this.driversPagination = resp.pagination
         } else {
           swal({
@@ -205,6 +210,9 @@ export default {
         console.log('admin Response:', resp);
       } catch (error) {
         console.error('API call failed:', error);
+      }
+      finally {
+        this.Loader = false
       }
     },
     async assignDrivers(id) {

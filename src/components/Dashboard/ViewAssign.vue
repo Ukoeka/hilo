@@ -44,8 +44,9 @@
           <button class="btn btn-outline-danger btn-sm" @click="handleDelete">
             {{ formAction === 'add' ? 'Cancel' : 'Delete' }}
           </button>
-          <button class="btn btn-outline-primary btn-sm ms-2" @click="handleDrivers">
-            {{ formAction === 'add' ? 'Save' : 'Edit' }}
+          <button class="btn btn-outline-primary btn-sm ms-2" @click="update">
+            <!-- {{ formAction === 'add' ? 'Save' : 'Edit' }} -->
+            {{ isEditing ? 'Save' : 'Edit' }}
           </button>
         </div>
 
@@ -59,25 +60,25 @@
           <!-- First Name -->
           <div class="col-md-6 mb-3">
             <label class="form-label">First Name</label>
-            <input type="text" class="form-control" v-model="formData.firstName" placeholder="Placeholder" />
+            <input type="text" class="form-control" v-model="formData.firstName" placeholder="Placeholder" :disabled="!isEditing" />
           </div>
 
           <!-- Last Name -->
           <div class="col-md-6 mb-3">
             <label class="form-label">Last Name</label>
-            <input type="text" class="form-control" v-model="formData.lastName" placeholder="Placeholder" />
+            <input type="text" class="form-control" v-model="formData.lastName" placeholder="Placeholder" :disabled="!isEditing" />
           </div>
 
           <!-- Email -->
           <div class="col-md-6 mb-3">
             <label class="form-label">Email</label>
-            <input type="email" class="form-control" v-model="formData.email" placeholder="Placeholder" />
+            <input type="email" class="form-control" v-model="formData.email" placeholder="Placeholder" :disabled="!isEditing" />
           </div>
 
           <!-- Gender -->
           <div class="col-md-6 mb-3">
             <label class="form-label">Gender</label>
-            <select class="form-select" v-model="formData.gender">
+            <select class="form-select" v-model="formData.gender" :disabled="!isEditing">
               <option value="">Placeholder</option>
               <option v-for="option in genderOptions" :key="option.value" :value="option.value">
                 {{ option.label }}
@@ -88,25 +89,25 @@
           <!-- Country -->
           <div class="col-md-6 mb-3">
             <label class="form-label">Country</label>
-            <input type="text" class="form-control" v-model="formData.country" placeholder="Placeholder" />
+            <input type="text" class="form-control" v-model="formData.country" placeholder="Placeholder" :disabled="!isEditing" />
           </div>
 
           <!-- City -->
           <div class="col-md-6 mb-3">
             <label class="form-label">City</label>
-            <input type="text" class="form-control" v-model="formData.city" placeholder="Placeholder" />
+            <input type="text" class="form-control" v-model="formData.city" placeholder="Placeholder" :disabled="!isEditing" />
           </div>
 
           <!-- Placeholder Field
           <div class="col-md-6 mb-3">
             <label class="form-label">Placeholder</label>
-            <input type="text" class="form-control" v-model="formData.placeholder" placeholder="Placeholder" />
+            <input type="text" class="form-control" v-model="formData.placeholder" placeholder="Placeholder" :disabled="!isEditing" />
           </div> -->
 
           <!-- Language -->
           <div class="col-md-6 mb-3">
             <label class="form-label">Language</label>
-            <select class="form-select" v-model="formData.language">
+            <select class="form-select" v-model="formData.language" :disabled="!isEditing">
               <option value="">Placeholder</option>
               <option v-for="lang in languageOptions" :key="lang.value" :value="lang.value">
                 {{ lang.label }}
@@ -116,7 +117,7 @@
           <!-- Address -->
           <div v-if="CompType === 'cleaner'" class="col-md-6 mb-3">
             <label class="form-label">Address</label>
-            <input type="text" class="form-control" v-model="formData.address" placeholder="Placeholder" />
+            <input type="text" class="form-control" v-model="formData.address" placeholder="Placeholder" :disabled="!isEditing" />
           </div>
         </div>
 
@@ -188,7 +189,7 @@ export default {
       drivers: [],
       driversPagination: {},
       AccountDetails: {},
-      activationStatus: '...',
+      activationStatus: 'loading...',
     }
   },
   mounted() {
@@ -299,7 +300,15 @@ export default {
 
       }
     },
+    update(){
+      if(this.isEditing){
+        this.handleDrivers()
+      }
+      this.isEditing = !this.isEditing
+    },
     async handleDrivers() {
+      if(!this.isEditing) return
+
       this.Loader = true;
       const driverUrl = `account/drivers`;
       const cleanerUrl = `account/cleaners`;

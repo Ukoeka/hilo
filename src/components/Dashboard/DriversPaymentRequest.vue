@@ -65,7 +65,7 @@
           <div class="info-item additional-info">
             <div class="info-label">Additional Information</div>
             <div  class="info-value d-flex flex-wrap gap-2">
-              <span v-if="type == 'moving'" class="text-gray" v-for="(item, index) in movingDetails?.additionalServices " :key="`moving-${index}`">{{ item }}</span>
+              <span v-if="type == 'cleaning'" class="text-gray" v-for="(item, index) in movingDetails?.additionalServices " :key="`moving-${index}`">{{ item }}</span>
               <span v-else class="text-gray "v-for="(item, index) in movingDetails?.extraData?.additionalServices" :key="`extra-${index}`">{{ item }}</span>
             </div>
           </div>
@@ -89,12 +89,14 @@
       </div>
     </div>
   </div>
-
+  <div>
   <DriversTable v-if="openDriversTable" @payment="assignDriver" :type='type' :quotesId="quotesId"></DriversTable>
+  </div>
 </template>
 
 <script>
 import DriversTable from './DriversTable.vue';
+import Loader from '@/components/loader.vue';
 import loader from "@/components/loader.vue";
 import {
   fetchFromApi,
@@ -121,14 +123,7 @@ export default {
 
       // manages Component rendering
       openDriversTable: false,
-      deliveryItems: [
-        { id: 1, quantity: '2', name: 'beds' },
-        { id: 2, quantity: '4', name: 'couches' },
-        { id: 3, quantity: '8', name: 'Chairs' },
-        { id: 4, quantity: '1', name: 'Kitchen Cabinet' },
-        { id: 5, quantity: '1', name: 'Small Box' },
-        { id: 6, quantity: '1', name: 'Small Bed' }
-      ],
+     Loader: false,
       movingDetails: {}
     }
   },
