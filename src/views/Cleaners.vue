@@ -23,7 +23,9 @@
             </button>
           </div>
 
-          <table class="table">
+          <div v-if="Loader" class="spinner-border text-success"></div>
+
+<table v-else class="table">
             <thead>
               <tr>
                 <th class="text-grayed">Serial Number <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
@@ -192,6 +194,7 @@ export default {
       return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
     },
     async fetchCleaners(page, pageSize) {
+      this.Loader = true
       try {
         const url = `account/cleaners?page=${page}&pageSize=${pageSize}`;
         const resp = await fetchFromApi(url);
@@ -208,6 +211,9 @@ export default {
         console.log('Cleaners Response:', resp);
       } catch (error) {
         console.error('API call failed:', error);
+      }
+      finally {
+        this.Loader = false
       }
     },
     AssignDriver(view, id) {

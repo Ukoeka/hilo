@@ -26,7 +26,7 @@ export default {
     <div class="w-100 h-100 d-flex align-items-center justify-content-between">
       <span>
         <h6 class="text-grayed">{{ title }}</h6>
-        <p class="mb-0"><span v-text="title == 'Payments value' ? 'NGN' : ''"></span>{{ value }}</p>
+        <p class="mb-0"><span v-text="title == 'Payments value' ? '£' : ''"></span>{{ value }}</p>
       </span>
       <span class="icon-background" :style="{ background: iconBg }">
         <img :src="icon" alt="" />

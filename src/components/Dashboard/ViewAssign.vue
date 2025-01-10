@@ -189,7 +189,7 @@ export default {
       drivers: [],
       driversPagination: {},
       AccountDetails: {},
-      activationStatus: '...',
+      activationStatus: 'loading...',
     }
   },
   mounted() {

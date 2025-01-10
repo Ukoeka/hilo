@@ -103,7 +103,10 @@
             </div>
 
             <!-- Table Section -->
-            <QuotesTable :data="tableData" @payment="handlePR" type='moving' :quotes-data="movingQuotes" />
+           <div>
+            <div v-if="Loader" class="spinner-border text-success"></div>
+            <QuotesTable v-else :data="tableData" @payment="handlePR" type='moving' :quotes-data="movingQuotes" />
+           </div>
           </div>
 
           <!-- Pagination and Items Per Page Controls -->
@@ -277,6 +280,7 @@ import {
   patchToApi,
 } from "@/services/baseApi";
 import Nav from "@/components/Nav.vue";
+import Loader from "@/components/loader.vue";
 
 export default {
   components: {
@@ -322,6 +326,7 @@ export default {
         phoneNumber: "332-834-2149",
       },
       quotesId: null,
+      Loader: false
     };
   },
   mounted() {
@@ -414,6 +419,7 @@ export default {
       }
     },
     async fetchQuotes(page, pageSize) {
+      this.Loader = true
       try {
         const url = `quotes?type=moving&page=${page}&pageSize=${pageSize}`;
         const resp = await fetchFromApi(url);
@@ -429,6 +435,9 @@ export default {
         console.log("Response:", resp);
       } catch (error) {
         console.error("API call failed:", error);
+      }
+      finally {
+        this.Loader = false
       }
     },
     async fetchMQStats() {

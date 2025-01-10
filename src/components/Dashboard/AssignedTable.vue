@@ -25,7 +25,9 @@
     </div>
 
     <!-- Table -->
-    <div class="table-responsive">
+    <div v-if="Loader" class="spinner-border text-success"></div>
+
+    <div v-else class="table-responsive">
       <table class="quotes-table">
         <thead>
           <tr>
@@ -120,6 +122,7 @@
 
 <script>
 import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
+import Loader from '../loader.vue';
 
 export default {
   name: 'AssignedQuotesTable',
@@ -150,7 +153,8 @@ export default {
       searchQuery: '',
       currentPage: 1,
       itemsPerPage: 14,
-      totalItems: 0
+      totalItems: 0,
+      Loader: false
     }
   },
 
@@ -204,6 +208,7 @@ export default {
       return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
     },
     async fetchAssignedQuotes(quotesId, page, pageSize) {
+      this.Loader = true
       try {
         const url = `account/${quotesId}/quotes?page=${page}&pageSize=${pageSize}`;
         const resp = await fetchFromApi(url);
@@ -220,6 +225,9 @@ export default {
         console.log('admin Response:', resp);
       } catch (error) {
         console.error('API call failed:', error);
+      }
+      finally {
+        this.Loader = false
       }
     },
     getStatusClass(status) {
