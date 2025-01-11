@@ -73,39 +73,43 @@ export default {
       emit('addressSelect', address);
     }
 
-    async function geoCode(street) {
-      if (street.length >= 2) {
-        const searchtext = encodeURIComponent(street);
-        const { api, endpoint, ...query } = mapboxOptions;
-        const queryString = new URLSearchParams(query).toString();
-        const requestUrl = `${api + endpoint}/${searchtext}.json?${queryString}`;
+   async function geoCode(street) {
+  if (street.length >= 2) {
+    const searchtext = encodeURIComponent(street);
+    const { api, endpoint, ...query } = mapboxOptions;
+    const queryString = new URLSearchParams(query).toString();
+    const requestUrl = `${api + endpoint}/${searchtext}.json?${queryString}`;
 
-        try {
-          const response = await fetch(requestUrl);
-          const data = await response.json();
+    try {
+      const response = await fetch(requestUrl);
+      const data = await response.json();
 
-          if (data.features) {
-            return data.features.map((address) => {
-              const label = address.place_name;
-              const location = label.split(', ')[1] || '';
+      if (data.features) {
+        return data.features.map((address) => {
+          const label = address.place_name;
+          const location = label.split(', ')[1] || '';
+          const [longitude, latitude] = address.geometry.coordinates;
 
-              return {
-                label: label,
-                street: label.split(', ')[0],
-                postcode: location.slice(0, location.indexOf(' ')),
-                city: location.slice(1 + location.indexOf(' ')),
-                state: address.context?.at(-2)?.text || '',
-                country: address.context?.at(-1)?.text || ''
-              };
-            });
-          } else {
-            console.log(data.message);
-          }
-        } catch (error) {
-          console.error('Error fetching geocoding data:', error);
-        }
+          return {
+            label: label,
+            street: label.split(', ')[0],
+            postcode: location.slice(0, location.indexOf(' ')),
+            city: location.slice(1 + location.indexOf(' ')),
+            state: address.context?.at(-2)?.text || '',
+            country: address.context?.at(-1)?.text || '',
+            latitude: latitude,
+            longitude: longitude,
+          };
+        });
+      } else {
+        console.error('No features found in the response:', data.message);
       }
+    } catch (error) {
+      console.error('Error fetching geocoding data:', error);
     }
+  }
+}
+
 
     return {
       dropdownMenu,

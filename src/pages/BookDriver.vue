@@ -644,13 +644,11 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="last_name">Phone Number</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="Phone Number"
-                  placeholder="Phone Number"
-                  v-model="bookDriver.phoneNumber"
-                />
+                <vue-tel-input :onlyCountries="['GB']" 
+                  v-model="bookCleaning.phoneNumber" 
+                  placeholder="Phone Number" 
+                  required>
+                </vue-tel-input>
               </div>
             </div>
             <button
@@ -733,7 +731,6 @@ export default {
       bookDriver: {
         bookingDate: "",
         pickUp: {
-          
           name: "",
         },
         dropOff: {
