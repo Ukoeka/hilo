@@ -32,7 +32,7 @@
                 <th class="text-grayed">Image <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th class="text-grayed">Name <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th class="text-grayed">Email <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
-                <th class="text-grayed">Age<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
+                <th class="text-grayed d-none">Age<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th class="text-grayed">City<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th class="text-grayed">Date Added<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
                 <th class="text-grayed">Gender<img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
@@ -48,7 +48,7 @@
                 </td>
                 <td class="text-grayed">{{ payment.firstName }} {{ payment.lastName }}</td>
                 <td class="text-grayed">{{ payment.email }}</td>
-                <td class="text-grayed">{{ payment.age }}</td>
+                <td class="text-grayed d-none">{{ payment.age }}</td>
                 <td class="text-grayed">{{ payment.city }}</td>
                 <td class="text-grayed">{{ formatDate(payment.createdAt) }}</td>
                 <td class="text-grayed">{{ payment.gender }}</td>

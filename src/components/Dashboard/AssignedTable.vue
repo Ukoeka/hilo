@@ -63,7 +63,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="quote, index in quotes" :key="quote.id">
+          <tr v-for="quote, index in  quotes" :key="quote.id">
             <td class="text-grayed">{{ index + 1 }}</td>
             <td class="text-grayed">{{ quote.customer }}</td>
             <td class="text-grayed">{{ type === 'cleaner'? quote?.postCode : quote?.pickUp?.name }}</td>
@@ -144,7 +144,7 @@ export default {
           pickupLocation: 'Birmingham',
           dropOffLocation: 'Central Square',
           date: '7/7/2024',
-          amount: 'NGN 439,000',
+          amount: '£ 439,000',
           status: 'Ongoing'
         },
         // Add remaining quotes...
@@ -184,6 +184,11 @@ export default {
       }
       return range;
     },
+    filteredQuotes() {
+      return this.quotes.filter(quote => {
+        return quote.quotesId === this.quotesId;
+      });
+    }
   },
   mounted() {
     this.fetchAssignedQuotes(this.quotesId, this.currentPage, this.itemsPerPage);            

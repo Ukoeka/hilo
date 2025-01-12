@@ -541,9 +541,9 @@ export default {
     },
     formatCurrency(value) {
       if (typeof value !== 'number') {
-        return 'N/A'; // or return '0 NGN'
+        return 'N/A'; // or return '0 £'
       }
-      return `NGN ${value.toLocaleString()}`;
+      return `£ ${value.toLocaleString()}`;
     },
     goBack() {
       this.showDetailedView = false;

@@ -19,8 +19,8 @@
       <div class="details-card">
         <div class="info-grid">
           <div class="info-item">
-            <div class="info-label">Client Name</div>
-            <div class="info-value">N/A</div>
+            <div class="info-label">Quote ID</div>
+            <div class="info-value">{{quotesId }}</div>
           </div>
           <div class="info-item">
             <div class="info-label">Phone Number</div>
@@ -61,6 +61,10 @@
           <div class="info-item">
             <div class="info-label">Email</div>
             <div class="info-value">{{ movingDetails.email }}</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Time</div>
+            <div class="info-value">{{ type == 'moving' ? extractTimeAmPm(movingDetails.bookingDate) : extractTimeAmPm(movingDetails.startTime)}}</div>
           </div>
           <div class="info-item additional-info">
             <div class="info-label">Additional Information</div>
@@ -104,6 +108,7 @@ import {
   deleteFromApi,
   patchToApi,
 } from "@/services/baseApi";
+import { parse } from 'vue/compiler-sfc';
 
 export default {
   name: 'DriversPaymentRequest',
@@ -144,6 +149,22 @@ export default {
         date: formattedDate,
         time: formattedTime,
       }
+    },
+    extractTimeAmPm(isoTimestamp) {
+      const date = new Date(isoTimestamp);
+
+      // Extract hours, minutes, and seconds
+      let hours = date.getHours();
+      const minutes = date.getMinutes().toString().padStart(2, '0');
+      const seconds = date.getSeconds().toString().padStart(2, '0');
+
+      // Determine AM/PM
+      const amPm = hours >= 12 ? 'PM' : 'AM';
+
+      // Convert to 12-hour format
+      hours = hours % 12 || 12; // Adjust for 0-hour in 12-hour format
+
+      return `${hours}:${minutes}:${seconds} ${amPm}`;
     },
     formatDate(data) {
       const date = new Date(data)
