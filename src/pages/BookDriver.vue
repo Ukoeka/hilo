@@ -645,7 +645,7 @@
               <div class="form-group col-md-6">
                 <label for="last_name">Phone Number</label>
                 <vue-tel-input :onlyCountries="['GB']" 
-                  v-model="bookCleaning.phoneNumber" 
+                  v-model="bookDriver.phoneNumber" 
                   placeholder="Phone Number" 
                   required>
                 </vue-tel-input>
