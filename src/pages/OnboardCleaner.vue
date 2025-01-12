@@ -20,55 +20,59 @@
           <div class="row mb-3">
             <div class="div-group col-md-6">
               <label for="first_name">First Name</label>
-              <input type="text" class="form-control" id="first_name" placeholder="First Name"
+              <input required type="text" class="form-control" id="first_name" placeholder="First Name"
                 v-model="cleanerDetails.firstName">
             </div>
             <div class="form-group col-md-6">
               <label for="last_name">Last Name</label>
-              <input type="text" class="form-control" id="last_name" placeholder="Last Name"
+              <input required type="text" class="form-control" id="last_name" placeholder="Last Name"
                 v-model="cleanerDetails.lastName">
             </div>
           </div>
           <div class="row mb-3">
             <div class="div-group col-md-6">
               <label for="first_name">Email</label>
-              <input type="text" class="form-control" id="email" placeholder="Email" v-model="cleanerDetails.email">
+              <input required type="email" class="form-control" id="email" placeholder="Email" v-model="cleanerDetails.email">
             </div>
             <div class="form-group col-md-6">
               <label for="last_name">Gender</label>
-              <select name="" class="form-control" id="" v-model="cleanerDetails.gender">
+              <select required name="" class="form-control" id="" v-model="cleanerDetails.gender">
                 <option>male</option>
                 <option>female</option>
               </select>
             </div>
           </div>
-          <div class="row mb-3">
-            <div class="div-group col-md-6">
-              <label for="first_name">Country</label>
-              <input type="text" class="form-control" id="country" placeholder="country"
-                v-model="cleanerDetails.country">
-            </div>
-            <div class="form-group col-md-6">
-              <label for="last_name">City</label>
-              <input type="text" class="form-control" id="city" placeholder="city" v-model="cleanerDetails.city">
-            </div>
-          </div>
+          
           <div class="row mb-3">
             <div class="div-group col-md-6">
               <label for="first_name">Address</label>
-              <input type="text" class="form-control" id="address" placeholder="address"
-                v-model="cleanerDetails.address">
+              <MapboxAddressInput 
+                  v-model="cleanerDetails.address"
+                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }" 
+                  placeholder="Address"
+                  required
+                  @addressSelect="(address) => handleAddressSelect('first', address)" 
+                />
             </div>
             <div class="form-group col-md-6">
               <label for="last_name">Language</label>
-              <input type="text" class="form-control" id="language" placeholder="Language"
+              <input required type="text" class="form-control" id="language" placeholder="Language"
                 v-model="cleanerDetails.language">
             </div>
           </div>
           <div class="row mb-3">
             <div class="form-group col-md-6">
+              <label for="inputEmail4">Phone Number</label>
+                <vue-tel-input :onlyCountries="['GB']" 
+                v-model="cleanerDetails.phoneNumber" 
+                required
+                >
+              </vue-tel-input>
+              <!-- <vue-country-code @onSelect="onSelect"></vue-country-code> -->
+            </div>
+            <div class="form-group col-md-6">
               <label for="inputEmail4">Password</label>
-              <input type="password" class="form-control" id="password" placeholder="Password" v-model="cleanerDetails.password">
+              <input required type="password" class="form-control" id="password" placeholder="Password" v-model="cleanerDetails.password">
             </div>
           </div>
 
@@ -93,7 +97,7 @@
                   <img v-if="document.preview" :src="document.preview" alt="Document Preview"
                     class="m-auto mb-3 preview-img" width="60" height="60" />
                   <img v-else src="../assets/Drivers/Vector.png" class="m-auto mb-3" alt="" width="60" height="60" />
-                  <input type="file" ref="fileInputs" @change="handleFileChange($event, index)" hidden />
+                  <input required type="file" ref="fileInputs" @change="handleFileChange($event, index)" hidden />
                   <p class="file-info browse-link">Browse<br />.jpg, .png or .pdf files Accepted</p>
                 </div>
               </div>
@@ -144,6 +148,7 @@
 </template>
 
 <script>
+import MapboxAddressInput from "@/components/MapBoxAddressInput.vue";
 import Footer from '@/layouts/partials/footer.vue';
 import TopNav from '@/layouts/partials/topnav.vue';
 import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi';
@@ -152,7 +157,8 @@ export default {
   name: 'OnboardDriver',
   components: {
     TopNav,
-    Footer
+    Footer,
+    MapboxAddressInput
 
   },
 
@@ -167,9 +173,8 @@ export default {
         lastName: "",
         email: "",
         gender: "",
-        country: "",
-        city: "",
         address: "",
+        phoneNumber:"",
         language: "",
         password: "",
       },
@@ -181,6 +186,16 @@ export default {
     };
   },
   methods: {
+
+    handleAddressSelect(field, address) {
+      if (field === 'first') {
+        this.cleanerDetails.address = address;
+      } else if (field === 'second') {
+        this.bookDriver.dropOff.name = address;
+      }
+    },
+
+    
     triggerFileInput(index) {
       const fileInput = this.$refs.fileInputs[index];
       fileInput.click();
@@ -238,11 +253,25 @@ export default {
 
       try {
         const payload = { language: "spanish" }
-        const resp = await postToApi(url, formdata, 'multipart/form-data');
-        swal({
-          text: resp.status ? "Your registration is successful!" : resp.message,
-          icon: resp.status ? "success" : "error",
-        });
+        const response = await postToApi(url, formdata, 'multipart/form-data');
+        if (response.status) {
+          swal({
+            title: "Success",
+            text: "Registration Successful",
+            icon: "success",
+            button: "Ok",
+          });
+          setTimeout(() => {
+          this.$router.push('/registration-successful'); // Replace '/new-page' with your desired route
+    }, 2000); 
+        } else {
+          swal({
+            title: "Error",
+            text: response.message,
+            icon: "error",
+            button: "Ok",
+          })
+        }
       } catch (error) {
         console.error('API call failed:', error);
       } finally {

@@ -20,30 +20,30 @@
           <div class="row mb-3">
             <div class="div-group col-md-6">
               <label for="first_name">First Name</label>
-              <input type="text" class="form-control" id="firstName" placeholder="First Name"
+              <input type="text" class="form-control" id="firstName" required placeholder="First Name"
                 v-model="driverDetails.firstName">
             </div>
             <div class="form-group col-md-6">
               <label for="last_name">Last Name</label>
-              <input type="text" class="form-control" id="last_name" placeholder="Last Name"
+              <input type="text" class="form-control" id="last_name" required placeholder="Last Name"
                 v-model="driverDetails.lastName">
             </div>
           </div>
           <div class="row mb-3">
             <div class="form-group col-md-6">
               <label for="inputEmail4">Email</label>
-              <input type="text" class="form-control" id="email" placeholder="email" v-model="driverDetails.email">
+              <input type="email" class="form-control" required id="email" placeholder="email" v-model="driverDetails.email">
             </div>
             <div class="form-group col-md-6">
               <label for="inputEmail4">Business Name</label>
-              <input type="text" class="form-control" id="businessName" placeholder="Business Name"
+              <input type="text" class="form-control" required id="businessName" placeholder="Business Name"
                 v-model="driverDetails.businessName">
             </div>
           </div>
           <div class="row mb-3">
             <div class="form-group col-md-6">
               <label for="inputEmail4">Password</label>
-              <input type="password" class="form-control" id="password" placeholder="Password" v-model="driverDetails.password">
+              <input type="password" class="form-control" required id="password" placeholder="Password" v-model="driverDetails.password">
             </div>
           </div>
 
@@ -59,15 +59,20 @@
           <h2 class="text-center mt-5 mb-4">Contact Details</h2>
           <div class="row mb-3">
             <div class="form-group col-md-12">
-              <label for="first_name">Post Code</label>
-              <input type="email" class="form-control" id="email" placeholder="Post Code"
-                v-model="driverDetails.postCode">
+              <label for="first_name">Addresss</label>
+              <MapboxAddressInput 
+                  v-model="driverDetails.postCode"
+                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }" 
+                  placeholder="Address"
+                  required
+                  @addressSelect="(address) => handleAddressSelect('first', address)" 
+                />
             </div>
           </div>
           <div class="row mb-3">
             <div class="form-group col-md-12">
               <label for="inputEmail4">Phone Number</label>
-              <vue-tel-input v-model="driverDetails.phoneNumber"></vue-tel-input>
+              <vue-tel-input :onlyCountries="['GB']" v-model="driverDetails.phoneNumber" required></vue-tel-input>
               <!-- <vue-country-code @onSelect="onSelect"></vue-country-code> -->
             </div>
           </div>
@@ -88,7 +93,7 @@
             <label for="number_of_vehicle">Number of Vehicles</label>
             <div class="form-group de-flex col-md-12">
               <div class="form-check form-check-inline" v-for="(label, index) in vehicleOptions" :key="index">
-                <input class="form-check-input" type="radio" name="number_of_vehicle" :id="'vehicle_' + index"
+                <input required class="form-check-input" type="radio" name="number_of_vehicle" :id="'vehicle_' + index"
                   :value="label.value" v-model="form.additional.numberOfVehicle">
                 <label class="form-check-label" :for="'vehicle_' + index">{{ label.label }}</label>
               </div>
@@ -100,7 +105,7 @@
             <label for="vehicle_types">Type of Vehicle</label>
             <div class="form-group de-flex col-md-12">
               <div class="form-check form-check-inline" v-for="(label, index) in vehicleTypes" :key="index">
-                <input class="form-check-input" type="checkbox" name="vehicle_types" :id="'type_' + index"
+                <input required class="form-check-input" type="checkbox" name="vehicle_types" :id="'type_' + index"
                   :value="label.value" v-model="form.additional.vehicleTypes">
                 <label class="form-check-label" :for="'type_' + index">{{ label.label }}</label>
               </div>
@@ -112,12 +117,12 @@
             <label for="vat_registered">VAT Registered</label>
             <div class="form-group radios col-md-12">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="vat_registered" value="yes"
+                <input required class="form-check-input" type="radio" name="vat_registered" value="yes"
                   v-model="form.additional.vatRegistered">
                 <label class="form-check-label">YES</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="vat_registered" value="no"
+                <input required class="form-check-input" type="radio" name="vat_registered" value="no"
                   v-model="form.additional.vatRegistered">
                 <label class="form-check-label">NO</label>
               </div>
@@ -152,7 +157,7 @@
                     <img v-if="document.preview" :src="document.preview" alt="Document Preview"
                       class="m-auto mb-3 preview-img" width="60" height="60" />
                     <img v-else src="../assets/Drivers/Vector.png" class="m-auto mb-3" alt="" width="60" height="60" />
-                    <input type="file" :ref="'fileInput' + document.id"
+                    <input required type="file" :ref="'fileInput' + document.id"
                       @change="handleFileChange($event, document.id, 'documents')" hidden />
                     <p class="file-info browse-link">
                       Browse<br />.jpg, .png or .pdf files Accepted
@@ -173,8 +178,8 @@
                     style="background-color: rgba(240, 245, 243, 1);">
                     <img v-if="document.preview" :src="document.preview" alt="Document Preview"
                       class="m-auto mb-3 preview-img" width="60" height="60" />
-                    <img v-else src="../assets/Drivers/Vector.png" class="m-auto mb-3" alt="" width="60" height="60" />
-                    <input type="file" :ref="'fileInput' + document.id"
+                    <img  v-else src="../assets/Drivers/Vector.png" class="m-auto mb-3" alt="" width="60" height="60" />
+                    <input required type="file" :ref="'fileInput' + document.id"
                       @change="handleFileChange($event, document.id, 'documents')" hidden />
                     <p class="file-info browse-link">
                       Browse<br />.jpg, .png or .pdf files Accepted
@@ -196,7 +201,7 @@
                     <img v-if="document.preview" :src="document.preview" alt="Document Preview"
                       class="m-auto mb-3 preview-img" width="60" height="60" />
                     <img v-else src="../assets/Drivers/Vector.png" class="m-auto mb-3" alt="" width="60" height="60" />
-                    <input type="file" :ref="'fileInput' + document.id"
+                    <input required type="file" :ref="'fileInput' + document.id"
                       @change="handleFileChange($event, document.id, 'documents')" hidden />
                     <p class="file-info browse-link">
                       Browse<br />.jpg, .png or .pdf files Accepted
@@ -211,7 +216,7 @@
 
           <div class="form-group mt-5 buttons">
             <button @click="showCard3()" type="submit" class="btn white-btn">Back</button>
-            <button type="button" @click="addDriver()" class="btn green-btn">submit</button>
+            <button type="submit" @click="addDriver()" class="btn green-btn">submit</button>
           </div>
 
         </div>
@@ -277,6 +282,7 @@
 </template>
 
 <script>
+import MapboxAddressInput from "@/components/MapBoxAddressInput.vue";
 import Footer from '@/layouts/partials/footer.vue';
 import TopNav from '@/layouts/partials/topnav.vue'
 import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
@@ -284,7 +290,8 @@ export default {
   name: 'OnboardDriver',
   components: {
     TopNav,
-    Footer
+    Footer,
+    MapboxAddressInput
 
   },
 
@@ -344,6 +351,13 @@ export default {
     };
   },
   methods: {
+    handleAddressSelect(field, address) {
+      if (field === 'first') {
+        this.driverDetails.postCode = address;
+      } else if (field === 'second') {
+        this.bookDriver.dropOff.name = address;
+      }
+    },
     triggerFileInput(index, listName) {
       event.stopPropagation(); // Prevents the click event from propagating further
       // Trigger the file input programmatically
@@ -414,10 +428,13 @@ export default {
         if (response.status) {
           swal({
             title: "Success",
-            text: "Driver has been successfully added",
+            text: "Registration Successful",
             icon: "success",
             button: "Ok",
-          })
+          });
+          setTimeout(() => {
+          this.$router.push('/registration-successful'); // Replace '/new-page' with your desired route
+    }, 2000); 
         } else {
           swal({
             title: "Error",
@@ -470,7 +487,7 @@ export default {
 };
 </script>
 
-<style scoped >
+<style scoped lang="scss" >
 .cursor {
   cursor: pointer;
 }

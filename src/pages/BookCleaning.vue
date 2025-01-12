@@ -21,9 +21,13 @@
 
           <div class="row mb-3">
             <div class="div-group col-md-12">
-              <label for="first_name">Post Code</label>
-              <input type="text" class="form-control" id="post_code" placeholder="Post Code"
-                v-model="bookCleaning.postCode" />
+              <label for="first_name">Address</label>
+                <MapboxAddressInput 
+                  v-model="bookCleaning.postCode"
+                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }" 
+                  placeholder="Your Address"
+                  @addressSelect="(address) => handleAddressSelect('first', address)" 
+                />
             </div>
           </div>
 
@@ -302,8 +306,7 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="last_name">Phone Number</label>
-                <input type="text" class="form-control" id="Phone Number" placeholder="Phone Number"
-                  v-model="bookCleaning.phoneNumber" />
+                  <vue-tel-input :onlyCountries="['GB']" v-model="bookCleaning.phoneNumber" placeholder="Phone Number" required></vue-tel-input>
               </div>
             </div>
             <button type="button" class="view-button mt-3" @click="bookCleaningService">
@@ -320,6 +323,7 @@
 </template>
 
 <script>
+import MapboxAddressInput from "@/components/MapBoxAddressInput.vue";
 import Footer from "@/layouts/partials/footer.vue";
 import TopNav from "@/layouts/partials/topnav.vue";
 import { ref } from "vue";
@@ -331,7 +335,8 @@ export default {
   components: {
     TopNav,
     Footer,
-    loader
+    loader,
+    MapboxAddressInput
   },
 
   props: {
@@ -397,6 +402,14 @@ export default {
     }
   },
   methods: {
+
+    handleAddressSelect(field, address) {
+      if (field === 'first') {
+        this.bookCleaning.postCode = address;
+        console.log(this.bookCleaning.postCode)
+      }
+    },
+
     formatDate(data, lastSeen = false) {
       let processedData = data
 
