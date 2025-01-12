@@ -8,7 +8,7 @@
       <div class="driver-section">
         <div>
           <a href="javascript:void(0);" class="fw-bold me-3 text-decoration-none text-black"
-          >Assigned Driver</a>
+          >Assigned {{ type == 'moving' ? 'Driver' : 'Cleaner' }}</a>
           <span class="bg-white text-gray p-3">N/A</span>
         </div>
         <button class="driver-profile-btn"   @click="assignDriver">{{ type == 'moving' ? 'Assign Driver' : 'Assign Cleaner' }}</button>
