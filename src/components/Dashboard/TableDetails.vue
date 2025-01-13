@@ -50,7 +50,7 @@
           </td>
           <td class="text-grayed">{{ item.user.accountType }}</td>
           <td class="text-grayed">{{ formatDate(item.createdAt) }}</td>
-          <td class="text-grayed">NGN {{ item.amount }}</td>
+          <td class="text-grayed">£ {{ item.amount }}</td>
           <td class="text-grayed">
             <div :class="['status-badge', item.status.toLowerCase()]">
               <span class="status-dot"></span>
