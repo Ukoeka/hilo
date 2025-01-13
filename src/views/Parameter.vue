@@ -16,7 +16,9 @@
                 <img src="@/assets/Payment_Sales/plus.png" alt=""> Add new
               </button>
             </div>
+            
             <div class="row">
+              <span class="spinner-border spinner-border-lg text-success" role="status" aria-hidden="true" v-if="Loader"></span>
               <div v-for="(item) in paginatedList" :key="item.id" class="mb-3 col-4 ">
                 <div class="card shadow-sm text-center" style="height: 330px;">
                   <div class="card-body">
@@ -89,7 +91,10 @@
                   <input type="text" class="inputs p-3" :id="'param' + index" placeholder="Placeholder"
                     v-model="param.value" />
                 </div>
-                <button type="submit" class="btn btn-success btn-green w-100">Update</button>
+                <button type="button" class="btn btn-success btn-green w-100" @click="updateNewParameter">
+                  <span v-if="Loader" class="spinner-border spinner-border-sm"></span>
+                  <span v-else>Save</span>
+               </button>
               </form>
             </div>
           </div>
@@ -276,6 +281,7 @@ export default {
   data() {
     return {
       Loader: false,
+      Loading: false,
 
       items: [
 
@@ -284,12 +290,12 @@ export default {
 
       ],
       generalParams: [
-        { label: "Cost Per Mile", value: "" },
-        { label: "Cost Per Hour", value: "" },
-        { label: "Base Rate", value: "" },
-        { label: "Disassembly Fee", value: "" },
-        { label: "Reassembly Fee", value: "" },
-        { label: "Cost Per Extra Floor", value: "" },
+        { label: "Cost Per Mile", value: "", key: "costPerMile" },
+        { label: "Cost Per Hour", value: "", key: "costPerHour" },
+        { label: "Base Rate", value: "", key: "baseRate" },
+        { label: "Disassembly Fee", value: "", key: "disassemblyRate" },
+        { label: "Reassembly Fee", value: "", key: "reassemblyRate" },
+        { label: "Cost Per Extra Floor", value: "", key: "costPerExtraFloor" },
       ],
       showDetails: true,
       showModal1: false,
@@ -361,6 +367,38 @@ export default {
       }
     },
 
+    async updateNewParameter(item) {
+      const data = {}
+      for(const item of this.generalParams) {
+        data[item.key] = item.value
+
+      }
+      console.log(data)
+      this.Loading = true
+
+      const url = `parameters/general-parameter`;
+
+      try {
+        const resp = await patchToApi(url, data);
+        if (resp.status) {
+          swal({
+            text: "Parameter updated successfully!",
+            icon: "success",
+          });
+          this.fetchParameter();
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      } finally {
+        this.Loading = false
+      }
+    },
     async deleteItem(item) {
       console.log(item)
       this.Loader = true
