@@ -27,6 +27,7 @@ import OnboardCleaner from "@/pages/OnboardCleaner.vue";
 import BookCleaning from "@/pages/BookCleaning.vue";
 import BookDriver from "@/pages/BookDriver.vue";
 import Registration from "@/pages/RegistrationSuccessful.vue";
+import PaymentSuccess from "@/pages/PaymentSuccessful.vue";
 import OrderPackaging from "@/pages/OrderPackaging.vue";
 import ManAndVan from "@/pages/ManAndVan.vue";
 import UserCleaner from "@/views/UserCleaner.vue";
@@ -153,6 +154,11 @@ const routes = [
     path: "/registration-successful",
     name: "Registration",
     component: Registration,
+  },
+  {
+    path: "/payment-success",
+    name: "PaymentSuccess",
+    component: PaymentSuccess,
   },
 ];
 const router = createRouter({

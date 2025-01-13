@@ -309,7 +309,11 @@
                   <vue-tel-input :onlyCountries="['GB']" v-model="bookCleaning.phoneNumber" placeholder="Phone Number" required></vue-tel-input>
               </div>
             </div>
-            <button type="button" class="view-button mt-3" @click="bookCleaningService">
+            <button type="button"
+            data-bs-dismiss="modal"
+              aria-label="Close"
+               class="view-button mt-3" 
+               @click="bookCleaningService()">
               <loader v-if="loading"></loader>
               <span v-else>View Instant Prices</span>
             </button>
@@ -405,8 +409,7 @@ export default {
 
     handleAddressSelect(field, address) {
       if (field === 'first') {
-        this.bookCleaning.postCode = address;
-        console.log(this.bookCleaning.postCode)
+        this.bookCleaning.postCode = address.postcode;
       }
     },
 

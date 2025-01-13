@@ -732,9 +732,15 @@ export default {
         bookingDate: "",
         pickUp: {
           name: "",
+          lat:"",
+          lng:"",
+          postcode:"",
         },
         dropOff: {
           name: "",
+          lat:"",
+          lng:"",
+          postcode:""
         },
         email: "",
         phoneNumber: "",
@@ -798,9 +804,15 @@ export default {
   methods: {
     handleAddressSelect(field, address) {
       if (field === 'first') {
-        this.bookDriver.pickUp.name = address;
+        this.bookDriver.pickUp.name = address.label;
+        this.bookDriver.pickUp.lat = address.latitude;
+        this.bookDriver.pickUp.lng = address.longitude;
+        this.bookDriver.pickUp.postcode = address.postcode;
       } else if (field === 'second') {
-        this.bookDriver.dropOff.name = address;
+        this.bookDriver.dropOff.name = address.label;
+        this.bookDriver.dropOff.lat = address.latitude;
+        this.bookDriver.dropOff.lng = address.longitude;
+        this.bookDriver.dropOff.postcode = address.postcode;
       }
     },
   
