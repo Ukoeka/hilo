@@ -4,7 +4,7 @@
 
       <!-- Main Content Section -->
       <div v-if="!display" class=" flex-grow-1 position-relative pt-2 px-5 h-100  w-100">
-        <Nav title="Assigned Cleanings" />
+        <Nav title="Assigned Cleaner" />
 
         <!-- Quotes Table Section -->
         <div class="card p-3 mb-3 w-100">
@@ -28,6 +28,8 @@
           </div>
 
           <table class="table">
+            <div v-if="Loader" class="spinner-border text-success mt-3"></div>
+
             <thead>
               <tr>
                 <th class="text-grayed">Serial Number <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
@@ -51,14 +53,14 @@
                 <td class="text-grayed">
                   <span :class="[
                     'd-flex align-items-center justify-content-center gap-2 rounded p-2',
-                    payment.status === 'completed' ? 'paid' : '',
-                    payment.status === 'pending' ? 'pending' : '',
-                    payment.status === 'ongoing' ? 'draft' : ''
+                    payment.status === 'completed' ? 'completed' : '',
+                    payment.status === 'pending' ? 'ongoing' : '',
+                    payment.status === 'new' ? 'draft' : ''
                   ]" style="width: fit-content">
                     <div :class="[
-                      payment.status === 'completed' ? 'paid-circle' : '',
-                      payment.status === 'pending' ? 'pending-circle' : '',
-                      payment.status === 'ongoing' ? 'draft-circle' : ''
+                      payment.status === 'completed' ? 'completed-circle' : '',
+                      payment.status === 'pending' ? 'ongoing-circle' : '',
+                      payment.status === 'new' ? 'draft-circle' : ''
 
                     ]" class="rounded-circle" style="height: 10px; width: 10px;"></div>
                     {{ payment.status }}
@@ -232,6 +234,7 @@ export default {
       bookingsPagination: {},
       selectedBooking: null,
       type: null,
+ 
     };
   },
   computed: {
@@ -318,6 +321,7 @@ export default {
       }
     },
     async Bookings(page, pageSize) {
+      this.Loader = true
       try {
         const url = `profile/jobs?page=${page}&pageSize=${pageSize}`
         const resp = await fetchFromApi(url)
@@ -342,6 +346,9 @@ export default {
           text: "An error occurred during login",
           icon: "error"
         });
+      }
+      finally {
+        this.Loader = false
       }
     },
     changePage(page) {
@@ -378,7 +385,7 @@ export default {
 
 .draft {
   background: rgba(234, 236, 240, 1);
-  color: rgba(0, 0, 0, 1);
+  color: #0037FF;
 }
 
 .ongoing-circle {
@@ -390,7 +397,7 @@ export default {
 }
 
 .draft-circle {
-  background: rgba(0, 0, 0, 1);
+  background: #008C9B;
 }
 
 .container {
