@@ -16,9 +16,10 @@
                 <img src="@/assets/Payment_Sales/plus.png" alt=""> Add new
               </button>
             </div>
-            
+
             <div class="row">
-              <span class="spinner-border spinner-border-lg text-success" role="status" aria-hidden="true" v-if="Loader"></span>
+              <span class="spinner-border spinner-border-lg text-success" role="status" aria-hidden="true"
+                v-if="Loader"></span>
               <div v-for="(item) in paginatedList" :key="item.id" class="mb-3 col-4 ">
                 <div class="card shadow-sm text-center" style="height: 330px;">
                   <div class="card-body">
@@ -84,17 +85,28 @@
           <!-- Right Section: General Parameters Form -->
           <div class="col-4 " v-if="showRightSection">
             <div class="card bg-black text-white p-3">
-              <h5>General Parameters</h5>
+
               <form>
-                <div class="mb-3" v-for="(param, index) in generalParams" :key="index">
-                  <label :for="'param' + index" class="form-label">{{ param.label }}</label>
-                  <input type="text" class="inputs p-3" :id="'param' + index" placeholder="Placeholder"
-                    v-model="param.value" />
+                <div>
+                  <h5 class="fw-bold pb-2">Moving Parameters</h5>
+                  <div class="mb-3" v-for="(param, index) in generalParams.slice(0, 3)" :key="param.key">
+                    <label :for="'param' + index" class="form-label">{{ param.label }} (£)</label>
+                    <input type="text" class="inputs p-3" :id="'param' + index" placeholder="Placeholder"
+                      v-model="param.value" />
+                  </div>
+                </div>
+                <div>
+                  <h5 class=" fw-bold py-2"> Cleaning Parameters</h5>
+                  <div class="mb-3" v-for="(param, index) in generalParams.slice(3, 7)" :key="param.key">
+                    <label :for="'param' + index" class="form-label">{{ param.label }} (£)</label>
+                    <input type="text" class="inputs p-3" :id="'param' + index" placeholder="Placeholder"
+                      v-model="param.value" />
+                  </div>
                 </div>
                 <button type="button" class="btn btn-success btn-green w-100" @click="updateNewParameter">
                   <span v-if="Loader" class="spinner-border spinner-border-sm"></span>
                   <span v-else>Save</span>
-               </button>
+                </button>
               </form>
             </div>
           </div>
@@ -329,7 +341,7 @@ export default {
   },
   computed: {
     paginatedList() {
-      return this.parameters.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);   
+      return this.parameters.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
     },
     totalPages() {
       return Math.ceil(this.totalItems / this.itemsPerPage);
@@ -359,6 +371,7 @@ export default {
   },
   mounted() {
     this.fetchParameter();
+    this.getParameter();
   },
   methods: {
     changePage(page) {
@@ -367,9 +380,31 @@ export default {
       }
     },
 
+    async getParameter(item) {
+
+      const url = `parameters/general-parameter`;
+
+      try {
+        const resp = await fetchFromApi(url);
+        if (resp.status) {
+          console.log(resp)
+          for (const item of this.generalParams) {
+            item.value = resp.data[item.key]
+          }
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+        console.log('Response:', resp);
+      } catch (error) {
+        console.error('API call failed:', error);
+      }
+    },
     async updateNewParameter(item) {
       const data = {}
-      for(const item of this.generalParams) {
+      for (const item of this.generalParams) {
         data[item.key] = item.value
 
       }
