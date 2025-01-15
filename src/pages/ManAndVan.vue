@@ -162,23 +162,23 @@
         <div class="details">
           <div class="each-details">
             <h2>{{ this.manVan.pickUp.name.split(', ')[0]}}</h2>
-            <p>TO</p>
+            <p class="mt-3">TO</p>
             <h2>{{ this.manVan.dropOff.name.split(', ')[0]}}</h2>
           </div>
-          <div class="each-detail">
+          <!-- <div class="each-detail">
             <div class="left">
               <img src="@/assets/icons/distance.png" alt="" />
               <p>Distance</p>
             </div>
             <h5>64 Miles</h5>
-          </div>
-          <div class="each-detail">
+          </div> -->
+          <!-- <div class="each-detail">
             <div class="left">
               <img src="@/assets/icons/price.png" alt="" />
               <p>Service Price</p>
             </div>
             <h5>$12</h5>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -188,16 +188,25 @@
         <div class="text-contain mt-3 mb-3">
           <h5>{{formatDate(this.manVan.bookingDate)}}</h5>
         </div>
-        <div class="time-area mt-3">
+          <div class="time-area mt-3">
           <div class="top-text">
             <p>Booking Time</p>
             <h5>{{extractTime(this.manVan.bookingDate)}}</h5>
           </div>
           <div class="button-area mb-3">
             <div class="change-time col-md-12"></div>
-            <div class="button"></div>
-            <button>Change Time Slot</button>
+            <button @click="showInput()" v-if="timeDisplay == 1" class="big-btn">Change Time Slot</button>
+            <div class="change-time" v-if="timeDisplay == 2">
+              <input type="time" value="" class="time-input form-control">
+              <div class="change-btns">
+                <button @click="hideInput()" class="cancel-btn">Cancel</button>
+                <button class="update-btn">Update</button>
+              </div>
+              
+            </div>
+            
           </div>
+        
         </div>
         <!-- <div class="more-details mt-5">
                 <h5>Moving Service</h5>
@@ -361,6 +370,7 @@ export default {
   },
   data() {
     return {
+      timeDisplay: 1,
       bigDisplay: 1,
       display: 1,
       doubleBed: 1,
@@ -508,6 +518,12 @@ export default {
     },
     paymentView() {
       this.bigDisplay = 2;
+    },
+    showInput() {
+      this.timeDisplay = 2;
+    },
+    hideInput() {
+      this.timeDisplay = 1;
     },
   },
   mounted() { },
@@ -804,7 +820,6 @@ export default {
       padding: 15px 20px;
       border-radius: 10px;
     }
-
     .time-area {
       background: #f0f5f3;
       width: 80%;
@@ -817,14 +832,13 @@ export default {
         justify-content: space-between;
         padding: 15px;
       }
-
       .button-area {
         display: flex;
         justify-content: center;
         flex-direction: column;
         align-items: center;
 
-        button {
+        .big-btn {
           width: 80%;
           background: #f0f2f5;
           color: #2e7d32;
@@ -834,14 +848,12 @@ export default {
         }
       }
     }
-
     .top-textss {
       width: 80%;
       display: flex;
       justify-content: space-between;
       padding: 15px;
     }
-
     .more-details {
       background: #f0f5f3;
       width: 80%;
@@ -855,7 +867,6 @@ export default {
         justify-content: space-between;
         padding: 15px;
       }
-
       .button-area {
         display: flex;
         justify-content: center;
@@ -873,7 +884,6 @@ export default {
       }
     }
   }
-
   // .right{
   //   width: 40%;
   //   border: 0.3px solid rgb(212, 212, 212);
@@ -956,5 +966,40 @@ export default {
   border: none;
   border-radius: 10px;
   color: white;
+}
+.change-time{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: 30px;
+  justify-content: center;
+
+  .change-btns{
+    display: flex;
+    gap: 15px;
+
+    .cancel-btn{
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #ff2222;
+    color: white;
+  }
+  .update-btn{
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #2e7d32;
+    color: white;
+  }
+  }
+}
+.time-input{
+  border-radius: 10px;
+  height: 40px;
+  width: 150px;
 }
 </style>

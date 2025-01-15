@@ -503,8 +503,12 @@
             <div class="change-time col-md-12"></div>
             <button @click="showInput()" v-if="timeDisplay == 1" class="big-btn">Change Time Slot</button>
             <div class="change-time" v-if="timeDisplay == 2">
-              <button @click="hideInput()" class="cancel-btn">Cancel</button>
               <input type="time" value="" class="time-input form-control">
+              <div class="change-btns">
+                <button @click="hideInput()" class="cancel-btn">Cancel</button>
+                <button class="update-btn">Update</button>
+              </div>
+              
             </div>
             
           </div>
@@ -1378,18 +1382,32 @@ export default {
 }
 .change-time{
   display: flex;
+  flex-direction: column;
   width: 100%;
   align-items: center;
   gap: 30px;
   justify-content: center;
 
-  .cancel-btn{
+  .change-btns{
+    display: flex;
+    gap: 15px;
+
+    .cancel-btn{
     width: 150px;
     height: 40px;
     border: none;
     border-radius: 10px;
     background-color: #ff2222;
     color: white;
+  }
+  .update-btn{
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #2e7d32;
+    color: white;
+  }
   }
 }
 .time-input{

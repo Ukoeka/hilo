@@ -149,43 +149,7 @@
           </div>
         </form>
       </div>
-      <div class="right">
-        <div class="map">
-                  <div
-                    id="map-container-google-2"
-                    class="z-depth-1-half map-container"
-                  >
-                    <iframe
-                      class="main-map"
-                      src="https://maps.google.com/maps?q=london&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                      frameborder="0"
-                      style="border: 0; width:100%; height: 400px;"
-                      allowfullscreen
-                    ></iframe>
-                  </div>
-                  </div>
-        <div class="details">
-          <div class="each-details">
-            <h2>GU16 7H</h2>
-            <p>TO</p>
-            <h2>L1 8JQ</h2>
-          </div>
-          <div class="each-detail">
-            <div class="left">
-              <img src="@/assets/icons/distance.png" alt="">
-              <p>Distance</p>
-            </div>
-            <h5>64 Miles</h5>
-          </div>
-          <div class="each-detail">
-            <div class="left">
-              <img src="@/assets/icons/price.png" alt="">
-              <p>Service Price</p>
-            </div>
-            <h5>${{ servicePrice }}</h5>
-          </div>
-        </div>
-      </div>
+  
     </div>
     <div class="payment-info" v-if="bigDisplay == 2">
       <div class="left">
