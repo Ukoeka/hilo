@@ -23,6 +23,8 @@
           </div>
 
           <table class="table">
+            <span class="spinner-border spinner-border-lg text-success" role="status" aria-hidden="true" v-if="Loader"></span>
+
             <thead>
               <tr>
                 <th class="text-grayed">Serial Number <img src="../assets/Payment_Sales/arrowdown.png" alt=""></th>
@@ -37,6 +39,7 @@
               </tr>
             </thead>
             <tbody>
+
               <tr v-for="(item, index) in admins" :key="item.id">
                 <td class="text-grayed">{{ index + 1 }}</td>
                 <td class="text-grayed"><img :src="item.profilePic"
@@ -50,14 +53,14 @@
                 <td class="text-grayed">
                   <span :class="[
                     'd-flex align-items-center justify-content-center gap-2 rounded p-2',
-                    item.status === 'Active' ? 'completed' : '',
-                    item.status === 'Inactive' ? 'draft' : '',
+                    item.status === 'active' ? 'completed' : '',
+                    item.status === 'inactive' ? 'draft' : '',
                     //   payment.status === 'Pending'? 'ongoing': ''
 
                   ]" style="width: fit-content">
                     <div :class="[
-                      item.status === 'Active' ? 'completed-circle' : '',
-                      item.status === 'Inactive' ? 'draft-circle' : '',
+                      item.status === 'active' ? 'completed-circle' : '',
+                      item.status === 'inactive' ? 'draft-circle' : '',
                       // payment.status === 'Pending' ? 'ongoing-circle' : '',
                     ]" class="rounded-circle" style="height: 10px; width: 10px;"></div>
                     {{ item.status }}
@@ -191,6 +194,7 @@ export default {
         email: '',
       },
       admins: [],
+      Loader: false,
     };
   },
   computed: {
@@ -243,6 +247,7 @@ export default {
       return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
     },
     async fetchAdmin(page, pageSize) {
+      this.Loader = true
       try {
         const url = `account/admins?page=${page}&pageSize=${pageSize}`;
         const resp = await fetchFromApi(url);
@@ -259,6 +264,9 @@ export default {
         console.log('admin Response:', resp);
       } catch (error) {
         console.error('API call failed:', error);
+      }
+      finally {
+        this.Loader = false
       }
     },
 

@@ -1,5 +1,6 @@
 <template>
-  <p v-if="jobs.length == 0" class="text-center fw-bold fs-5 ">No Open Jobs Available</p>
+  <div v-if="Loading" class="spinner-border text-success mt-3"></div>
+  <p v-if="jobs.length == 0 && !Loading" class="text-center fw-bold fs-5 ">No Open Jobs Available</p>
   <div class="job-card " v-for="job in jobs" :key="job.id">
     <div class="job-header">
       <span v-if="type == 'moving'" class="d-flex gap-3 flex-wrap">
@@ -15,7 +16,7 @@
     </div>
     <div class="job-details">
       <div class="job-info">
-        <div >
+        <div>
           <strong>Pickup Location:</strong>
           <p>{{ type == 'moving' ? job?.pickUp?.name : job?.postCode }}</p>
         </div>
@@ -47,6 +48,38 @@
       </div>
     </div>
   </div>
+  <!-- Pagination and Items Per Page Controls -->
+  <div class="d-flex align-items-center justify-content-between m-3">
+    <div class="d-flex gap-3 align-items-center">
+      <span>Number Of Items displayed per page</span>
+      <select v-model="itemsPerPage" class="form-select"
+        style="width: 65px; background-color: #28a745; color: white; border: none;">
+        <option value="10">10</option>
+        <option value="14">14</option>
+        <option value="20">20</option>
+      </select>
+      <p class="mb-0">
+        {{ displayedStartIndex }}-{{ displayedEndIndex }} of {{ totalItems }} items
+      </p>
+    </div>
+    <div>
+      <ul class="pagination mb-0">
+        <li class="page-item" :class="{ disabled: currentPage === 1 }">
+          <button class="page-link" @click="changePage(currentPage - 1)">
+            <img src="../../assets/Payment_Sales/pageleft.png" alt="">
+          </button>
+        </li>
+        <li v-for="page in visiblePages" :key="page" class="page-item" :class="{ active: currentPage === page }">
+          <button class="page-link" @click="changePage(page)">{{ page }}</button>
+        </li>
+        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+          <button class="page-link" @click="changePage(currentPage + 1)">
+            <img src="../../assets/Payment_Sales/pageright.png" alt="">
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -61,13 +94,51 @@ export default {
       type: null,
       jobs: [],
       jobsPagination: {},
-      Loader: false
+      Loader: false,
+      Loading: false,
+      itemsPerPage: 14, // Items per page, with a default value of 14
+      currentPage: 1,    // Current page number
+      totalItems: 0, // Total number of items (example)
     }
 
   },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.totalItems / this.itemsPerPage);
+    },
+    displayedStartIndex() {
+      return (this.currentPage - 1) * this.itemsPerPage + 1;
+    },
+    displayedEndIndex() {
+      return Math.min(this.displayedStartIndex + this.itemsPerPage - 1, this.totalItems);
+    },
+    visiblePages() {
+      // Only show the first few and last pages with ellipsis in between
+      const range = [];
+      if (this.totalPages <= 5) {
+        for (let i = 1; i <= this.totalPages; i++) {
+          range.push(i);
+        }
+      } else if (this.currentPage <= 3) {
+        range.push(1, 2, 3, 4, '...', this.totalPages);
+      } else if (this.currentPage > this.totalPages - 3) {
+        range.push(1, '...', this.totalPages - 3, this.totalPages - 2, this.totalPages - 1, this.totalPages);
+      } else {
+        range.push(1, '...', this.currentPage - 1, this.currentPage, this.currentPage + 1, '...', this.totalPages);
+      }
+      return range;
+    },
+  },
+  watch: {
+    itemsPerPage(newVal, oldVal) {
+      if (newVal) {
+        this.getJobs(this.currentPage, newVal);
+      }
+    }
+  },
   mounted() {
     this.type = localStorage.getItem("accountType");
-    this.getJobs(1, 10);
+    this.getJobs(this.currentPage, this.itemsPerPage);
   },
 
   methods: {
@@ -108,12 +179,13 @@ export default {
       }
     },
     async getJobs(page, pageSize) {
-
+      this.Loading = true
       const url = `jobs/${this.type}?page=${page}&pageSize=${pageSize}`
       try {
         const response = await fetchFromApi(url);
         if (response.status) {
           this.jobs = response.data;
+          this.totalItems = response.pagination.totalRecords
           this.jobsPagination = response.pagination
         } else {
           console.log(response.message);
@@ -121,9 +193,18 @@ export default {
       } catch (error) {
         console.error("API call failed:", error);
       }
+      finally {
+        this.Loading = false
+      }
     },
     view(job) {
       this.$emit("view", job);
+    },
+    changePage(page) {
+      this.getJobs(page, this.itemsPerPage);
+      if (page !== '...' && page >= 1 && page <= this.totalPages) {
+        this.currentPage = page;
+      }
     },
   },
 };
@@ -222,5 +303,19 @@ export default {
   font-size: 18px;
   font-weight: 600;
   color: #2f2f2f;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: #fff;
+}
+
+.pagination .page-link {
+  color: #28a745;
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #ccc;
 }
 </style>

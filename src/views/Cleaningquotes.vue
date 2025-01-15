@@ -23,7 +23,8 @@
                 </router-link> 
           </div>
           <div class="container mt-4">
-            <table class="table align-middle text-center">
+            <span class="spinner-border spinner-border-lg text-success" role="status" aria-hidden="true" v-if="Loader"></span>
+            <table v-else class="table align-middle text-center">
               <thead>
                 <tr class="text-secondary">
                   <th class="text-grayed">Serial Number</th>
@@ -241,7 +242,7 @@ export default {
   data() {
     return {
       showMovingDetails: false,
-
+      Loader: false,
       cleaningData: {
         postCode: "41020",
         cleaningType: "oneTime",
@@ -257,6 +258,7 @@ export default {
             number: 2,
           },
         ],
+  
       },
       availableServices: ["ironning", "laundry", "carpet cleaned", "window cleaning", "dusting"],
 
@@ -340,6 +342,7 @@ export default {
     },
 
     async fetchQuotes(page, pageSize) {
+      this.Loader = true
       try {
         const url = `quotes?type=cleaning&page=${page}&pageSize=${pageSize}`;
         const resp = await fetchFromApi(url);
@@ -355,6 +358,9 @@ export default {
         console.log("Response:", resp);
       } catch (error) {
         console.error("API call failed:", error);
+      }
+      finally {
+        this.Loader = false
       }
     },
     async addQuote() {
@@ -376,6 +382,7 @@ export default {
       } catch (error) {
         console.error("API call failed:", error);
       }
+     
     },
     addRoom() {
       cleaningData.rooms.push({ name: "", number: 1 });

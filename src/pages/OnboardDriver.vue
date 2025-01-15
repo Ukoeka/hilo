@@ -401,12 +401,16 @@ export default {
     },
 
     async addDriver() {
-      // Validate driverDetails before performing any action
-      // if (!this.isDriverDetailsValid()) {
-      //   alert('Please fill in all required fields.');
-      //   return;
-      // }
-
+      const isDocFilled = this.documents.every(doc => doc.file);
+      if (!isDocFilled) {
+          swal({
+            title: "Error",
+            text: "Please upload all documents",
+            icon: "error",
+            button: "Ok",
+          })
+        return;
+      }
       try {
         const formData = new FormData();
         // Append basic fields as per the request body example

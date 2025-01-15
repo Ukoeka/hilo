@@ -57,15 +57,15 @@
           </form>
 
           <!-- Divider -->
-          <!-- <div class="divider mb-4">
+          <div class="d-none divider mb-4">
             <span class="divider-text">or</span>
-          </div> -->
+          </div> 
 
           <!-- Google Sign-In Button -->
-          <!-- <button class="btn btn-outline-dark w-100 py-3 d-flex align-items-center justify-content-center gap-2 mb-4">
+          <button class="d-none btn btn-outline-dark w-100 py-3 d-flex align-items-center justify-content-center gap-2 mb-4">
             <img src="../assets/Login/google.png" alt="Google Icon" class="google-icon">
             <span class="fw-medium">Sign in with Google</span>
-          </button> -->
+          </button>
 
           <!-- Sign-Up Link -->
           <!-- <p class="text-center mb-0">

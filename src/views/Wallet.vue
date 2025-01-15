@@ -7,7 +7,7 @@
         <div class="d-flex mb-5 justify-content-end">
           <button @click="openModal"
             style="background-color: rgba(36, 36, 36, 0.11); color: white; width: 20%; border: none"
-            class="rounded-3 p-2 bg-black">Withdraw Funds</button>
+            class="rounded-3 p-2 bg-black max-w-80">Withdraw Funds</button>
         </div>
         <!-- Card Section -->
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -17,7 +17,7 @@
               <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                 <span>
                   <h6 class="txt-color">Balance</h6>
-                  <p class="mb-0 txt-primary fw-bold">${{ walletStats.balance }}</p>
+                  <p class="mb-0 txt-primary fw-bold">£{{ walletStats.balance }}</p>
                 </span>
 
               </div>
@@ -27,7 +27,7 @@
               <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                 <span>
                   <h6 class="txt-color">Income</h6>
-                  <p class="mb-0 txt-primary-next fw-bold">${{ walletStats.income }}</p>
+                  <p class="mb-0 txt-primary-next fw-bold">£{{ walletStats.income }}</p>
                 </span>
 
               </div>
@@ -37,7 +37,7 @@
               <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                 <span>
                   <h6 class="txt-color ">Withdrawn</h6>
-                  <p class="mb-0 txt-danger fw-bold">${{ walletStats.withdrawal }}</p>
+                  <p class="mb-0 txt-danger fw-bold">£{{ walletStats.withdrawal }}</p>
                 </span>
 
               </div>
@@ -47,7 +47,7 @@
               <div class="w-100 h-100 d-flex align-items-center justify-content-between">
                 <span>
                   <h6 class="txt-color ">Ongoing Jobs</h6>
-                  <p class="mb-0 txt-dark fw-bold">${{ walletStats.ongoingJobsEarning }}</p>
+                  <p class="mb-0 txt-dark fw-bold">£{{ walletStats.ongoingJobsEarning }}</p>
                 </span>
               </div>
             </div>
@@ -77,8 +77,9 @@
                 <td class="text-grayed">
                   <span :class="[
                     'd-flex align-items-center justify-content-center gap-2 rounded p-2',
-                    payment.status === 'Success' ? 'txt-primary-next' : '',
-                    payment.status === 'Failed' ? 'txt-danger' : '',
+                    payment.status === 'success' ? 'text-success' : '',
+                    payment.status === 'failed' ? 'text-danger' : '',
+                    payment.status === 'pending' ? 'ongoing' : '',
                   ]" style="width: fit-content">
                     {{ payment.status }}
                   </span>
@@ -357,7 +358,6 @@ export default {
 
 .ongoing {
   color: rgba(155, 93, 0, 1);
-  background-color: rgba(255, 254, 206, 1);
 }
 
 .draft {
