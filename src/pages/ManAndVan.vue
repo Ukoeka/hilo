@@ -103,11 +103,11 @@
               <div class="each-row mt-3">
                 <p>Mover (1 Mover Min)</p>
                 <div class="rightss">
-                  <button @click="manVan.movers > 1 ? manVan.movers-- : null" type="button" class="red-btn">
+                  <button @click="manVan.noOfMovers > 1 ? manVan.noOfMovers-- : null" type="button" class="red-btn">
                     -
                   </button>
-                  <p>{{ manVan.movers }}</p>
-                  <button @click="manVan.movers++" type="button" class="green-btn">
+                  <p>{{ manVan.noOfMovers }}</p>
+                  <button @click="manVan.noOfMovers++" type="button" class="green-btn">
                     +
                   </button>
                 </div>
@@ -385,6 +385,7 @@ export default {
         serviceType: "", 
         bookingDate: "",
         hours: 2,
+        noOfMovers: 1,
         pickUp: {
           postcode: "",
           name: "",
@@ -399,7 +400,6 @@ export default {
         },
         email: "",
         phoneNumber: "",
-        movers:1,
       },
       bookDate: null,
       estimatedPrice: 0,
