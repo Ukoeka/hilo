@@ -197,11 +197,6 @@
                     <input type="text" class="form-control inputs p-3" id="itemName" v-model="addCategory.name"
                       placeholder="Enter  name" />
                   </div>
-                  <div class="form-group mb-4">
-                    <label for="movingCost" class="mb-2 label">Moving Cost</label>
-                    <input type="text" class="form-control inputs p-3" id="movingCost" v-model="addCategory.cost"
-                      placeholder="Enter moving cost" />
-                  </div>
                 </form>
               </div>
               <div class="modal-footer justify-content-between">
@@ -297,7 +292,6 @@ export default {
 
       addCategory: {
         name: "",
-        cost: ""
       },
       movingItems: {
         name: "",

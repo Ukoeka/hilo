@@ -49,13 +49,21 @@
             <div class="row mb-3">
               <div class="div-group col-md-6">
                 <label for="first_name">Pick-up (Post Code)</label>
-                <input type="text" class="form-control" id="pickupAddress" placeholder="Pick-up Address"
-                  v-model="manVan.pickUp.name" />
+                  <MapboxAddressInput 
+                  v-model="manVan.pickUp.name"
+                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }" 
+                  placeholder="Pickup Address"
+                  @addressSelect="(address) => handleAddressSelect('first', address)" 
+                />
               </div>
               <div class="form-group col-md-6">
                 <label for="last_name">Drop-off (Post Code)</label>
-                <input type="text" class="form-control" id="" placeholder="Drop-off Address"
-                  v-model="manVan.dropOff.name" />
+                  <MapboxAddressInput 
+                  v-model="manVan.dropOff.name"
+                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }" 
+                  placeholder="Drop-off Address"
+                  @addressSelect="(address) => handleAddressSelect('second', address)" 
+                />
               </div>
             </div>
 
@@ -87,7 +95,26 @@
                 </div>
               </div>
             </div>
+            <h2 class="text-center mt-5 mb-4" v-if="manVan.serviceType =='complete'">
+              How many movers would you want to book?
+            </h2>
 
+            <div class="row mb-3" v-if="manVan.serviceType =='complete'">
+              <div class="each-row mt-3">
+                <p>Mover (1 Mover Min)</p>
+                <div class="rightss">
+                  <button @click="manVan.movers > 1 ? manVan.movers-- : null" type="button" class="red-btn">
+                    -
+                  </button>
+                  <p>{{ manVan.movers }}</p>
+                  <button @click="manVan.movers++" type="button" class="green-btn">
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            
             <!-- VAT Registered -->
 
             <div class="form-group mt-5 buttons">
@@ -159,12 +186,12 @@
       <div class="left">
         <h2 class="mt-4 mb-4">Payment Summary</h2>
         <div class="text-contain mt-3 mb-3">
-          <h5>{{formatDate(this.bookDriver.bookingDate)}}</h5>
+          <h5>{{formatDate(this.manVan.bookingDate)}}</h5>
         </div>
         <div class="time-area mt-3">
           <div class="top-text">
             <p>Booking Time</p>
-            <h5>{{extractTime(this.bookDriver.bookingDate)}}</h5>
+            <h5>{{extractTime(this.manVan.bookingDate)}}</h5>
           </div>
           <div class="button-area mb-3">
             <div class="change-time col-md-12"></div>
@@ -288,8 +315,11 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="last_name">Phone Number</label>
-                <input type="text" class="form-control" id="Phone Number" placeholder="Phone Number"
-                  v-model="manVan.phoneNumber" />
+                  <vue-tel-input :onlyCountries="['GB']" 
+                  v-model="manVan.phoneNumber"
+                  placeholder="Phone Number" 
+                  required>
+                </vue-tel-input>
               </div>
             </div>
             <button type="button" @click="bookManVan()" class="view-button mt-3" data-bs-dismiss="modal"
@@ -306,8 +336,10 @@
 </template>
 
 <script>
+import MapboxAddressInput from "@/components/MapBoxAddressInput.vue";
 import Footer from "@/layouts/partials/footer.vue";
 import TopNav from "@/layouts/partials/topnav.vue";
+import { StripeCheckout } from "@vue-stripe/vue-stripe";
 import {
   fetchFromApi,
   postToApi,
@@ -319,6 +351,9 @@ export default {
   components: {
     TopNav,
     Footer,
+    // loader,
+    StripeCheckout,
+    MapboxAddressInput
   },
 
   props: {
@@ -337,23 +372,24 @@ export default {
       television: 1,
       hours: 2,
       manVan: {
-        serviceType: "DaV", // must be one of: [DaV, complete]
+        serviceType: "", 
         bookingDate: "",
         hours: 2,
         pickUp: {
-          postcode: "23422",
-          name: "Georgia",
-          lat: 0.38843,
-          lng: 2.32111,
+          postcode: "",
+          name: "",
+          lat: "",
+          lng: "",
         },
         dropOff: {
-          postcode: "23422",
-          name: "Georgia",
-          lat: 0.38843,
-          lng: 2.32111,
+          postcode: "",
+          name: "",
+          lat: "",
+          lng: "",
         },
-        email: "Phoebe74@hotmail.com",
-        phoneNumber: "824-331-8941",
+        email: "",
+        phoneNumber: "",
+        movers:1,
       },
       bookDate: null,
       estimatedPrice: 0,
@@ -370,6 +406,21 @@ export default {
     },
   },
   methods: {
+    handleAddressSelect(field, address) {
+      if (field === 'first') {
+        this.manVan.pickUp.name = address.label;
+        this.manVan.pickUp.lat = address.latitude;
+        this.manVan.pickUp.lng = address.longitude;
+        this.manVan.pickUp.postcode = address.postcode;
+      } else if (field === 'second') {
+        this.manVan.dropOff.name = address.label;
+        this.manVan.dropOff.lat = address.latitude;
+        this.manVan.dropOff.lng = address.longitude;
+        this.manVan.dropOff.postcode = address.postcode;
+      }
+    },
+
+    
     formatDate(data, lastSeen = false) {
       let processedData = data
 

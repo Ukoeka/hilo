@@ -465,23 +465,23 @@
                   </div>
         <div class="details">
           <div class="each-details">
-            <h2>GU16 7H</h2>
+            <h2>{{ this.bookDriver.pickUp.name.split(', ')[0]}}</h2>
             <p>TO</p>
-            <h2>L1 8JQ</h2>
+            <h2>{{ this.bookDriver.dropOff.name.split(', ')[0]}}</h2>
           </div>
-          <div class="each-detail">
+          <!-- <div class="each-detail">
             <div class="left">
               <img src="@/assets/icons/distance.png" alt="" />
               <p>Distance</p>
             </div>
             <h5>64 Miles</h5>
-          </div>
+          </div> -->
           <div class="each-detail">
             <div class="left">
               <img src="@/assets/icons/price.png" alt="" />
               <p>Service Price</p>
             </div>
-            <h5>$12</h5>
+            <h5>{{ estimatedPrice }}</h5>
           </div>
         </div>
         

@@ -8,7 +8,7 @@
          <div class="centered mt-5">
             <img src="@/assets/icons/success.png" alt="">
             <h1>Payment Successful</h1>
-            <p>Your payment is successful, we will reach out to you in the next 24 hours</p>
+            <p>Your payment is successful, we will reach out to you via mail</p>
             <a href="/">Go Home</a>
          </div>
         </div>
