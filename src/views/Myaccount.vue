@@ -317,10 +317,10 @@ export default {
         const resp = await fetchFromApi(url);
         console.log('Response:', resp)
         if (resp.status) {
-          swal({
-            text: resp.message,
-            icon: "success",
-          })
+          // swal({
+          //   text: resp.message,
+          //   icon: "success",
+          // })
           this.user = resp.data
           resp.data.documents.forEach((doc, index) => {
             this.documents[index].preview = doc.url
