@@ -4,17 +4,18 @@
         <div class="left">
         <img class="footer-img" src="@/assets/images/logo/logo-white.png" alt="">
         <div class="detail">
-          <img src="@/assets/icons/location.png" alt="">
-          <p>123 Security Lane, Secure City, ST 45678</p>
-        </div>
-        <div class="detail">
           <img src="@/assets/icons/phone.png" alt="">
-          <p>(123) 456-7890</p>
+          <a href="tel:+1 2267586388" class="phone-text text-whites">
+            07379004538</a>
         </div>
         <div class="detail">
           <img src="@/assets/icons/mail.png" alt="">
-          <p> info@accessworks.com</p>
+          <a class="text-whites" href="mailto: suport@hilogisticz.com"> suport@hilogisticz.com</a>
         </div>
+        <div class="detail">
+          <img src="@/assets/icons/location.png" alt="">
+          <p>Royal academy, London SE18 4AS</p>
+        </div> 
       </div>
       <div class="middle">
         <div class="navigation">
@@ -39,7 +40,7 @@
       </div>
       </div>
       <div class="bottom">
-        <p>Copyright © 2022 GridUp. All rights reserved.</p>
+        <p>Copyright © 2025 hilogisticz. All rights reserved.</p>
         <div class="icons">
           <img src="@/assets/icons/twitter.png" alt="">
           <img src="@/assets/icons/linkedin.png" alt="">
@@ -138,5 +139,13 @@
     .footer-img{
       width: 100px;
     }
+    .phone-text{
+      font-size: 30px;
+      font-weight: 700;
+    }
+.text-whites{
+  color: white !important;
+  text-decoration: none !important;
+}
   </style>
   
