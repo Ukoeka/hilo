@@ -161,9 +161,9 @@
                   </div>
         <div class="details">
           <div class="each-details">
-            <h2>GU16 7H</h2>
+            <h2>{{ this.manVan.pickUp.name.split(', ')[0]}}</h2>
             <p>TO</p>
-            <h2>L1 8JQ</h2>
+            <h2>{{ this.manVan.dropOff.name.split(', ')[0]}}</h2>
           </div>
           <div class="each-detail">
             <div class="left">

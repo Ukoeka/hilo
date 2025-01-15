@@ -517,7 +517,7 @@ export default {
     },
     // create parameter
     async createParameter() {
-      if (!this.addCategory.name || !this.addCategory.cost || !this.selectImageFile) {
+      if (!this.addCategory.name || !this.selectImageFile) {
         console.error("Validation failed: Missing required fields");
         return;
       }
