@@ -504,7 +504,7 @@
             <button @click="showInput()" v-if="timeDisplay == 1" class="big-btn">Change Time Slot</button>
             <div class="change-time" v-if="timeDisplay == 2">
               <input type="time" v-model="startTime" class="time-input form-control">
-              <input type="time" v-model="endTime" class="time-input form-control">
+              <!-- <input type="time" v-model="endTime" class="time-input form-control"> -->
               <div class="change-btns">
                 <button @click="hideInput()" class="cancel-btn">Cancel</button>
                 <button @click="updateTime()" class="update-btn">Update</button>
@@ -768,7 +768,6 @@ export default {
       stripesUrl: "",
       estimatedPrice: 0,
       startTime: '',
-      endTime: '',
       quoteId: null,
     };
   },
@@ -880,9 +879,8 @@ export default {
     async updateTime() {
       try {
         const url = `booking/${this.quoteId}/update-time`;
-        const resp = await postToApi(url, {
+        const resp = await patchToApi(url, {
           startTime: this.startTime,
-          endTime: this.endTime
         });
         console.log(resp);
         if (resp.status) {
@@ -904,7 +902,7 @@ export default {
       console.log(this.bookDriver);
       try {
         const url = "booking/driver";
-        const resp = await patchToApi(url, this.bookDriver);
+        const resp = await postToApi(url, this.bookDriver);
         console.log(resp);
         if (resp.status) {
           this.stripesUrl = resp.data.url;

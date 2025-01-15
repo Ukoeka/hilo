@@ -28,10 +28,9 @@
               <thead>
                 <tr class="text-secondary">
                   <th class="text-grayed">Serial Number</th>
-                  <th class="text-grayed">Client Name</th>
+                  <th class="text-grayed">Quote ID</th>
                   <th class="text-grayed">Post Code</th>
                   <th class="text-grayed">Cleaning Type</th>
-                  <th class="text-grayed">Hours</th>
                   <th class="text-grayed">Booking Date</th>
                   <th class="text-grayed">Time</th>
                   <th class="text-grayed">Phone Number</th>
@@ -43,12 +42,11 @@
                 <!-- Single Row -->
                 <tr v-for="(item, index) in cleaningQuotes" :key="item in cleaningQuotes">
                   <td class="text-grayed">{{ index + 1 }}</td>
-                  <td class="text-grayed">N/A</td>
+                  <td class="text-grayed">{{  item.id }}</td>
                   <td class="text-grayed fw-bold">{{ item.postCode }}</td>
                   <td class="text-grayed text-primary">{{ item.cleaningType }}</td>
-                  <td class="text-grayed">8</td>
-                  <td class="text-grayed">1/1/2001</td>
-                  <td class="text-grayed">10:00 AM</td>
+                  <td class="text-grayed">{{ formatDate(item.startTime) }}</td>
+                  <td class="text-grayed">{{extractTime(item.startTime)}}</td>
                   <td class="text-grayed">{{ item.phoneNumber }}</td>
                   <td class="text-grayed">
                     <span class="badge bg-success rounded-pill px-2 py-1">
@@ -326,6 +324,26 @@ export default {
     }
   },
   methods: {
+    formatDate(data, lastSeen = false) {
+      let processedData = data
+
+      if (lastSeen) {
+        const splitData = data.split(',')
+        processedData = splitData[0] // Assuming you want the first part after splitting
+      }
+
+      const date = new Date(processedData)
+      return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
+    },
+    
+    extractTime(isoDate) {
+      const date = new Date(isoDate);
+      const hours = String(date.getUTCHours()).padStart(2, '0');
+      const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+      const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+      return `${hours}:${minutes}:${seconds}`;
+  },
+
     showDetails(id) {
       this.quotesId = id;
       if (this.quotesId) this.showMovingDetails = true;
@@ -348,6 +366,7 @@ export default {
         const resp = await fetchFromApi(url);
         if (resp.status) {
           this.cleaningQuotes = resp.data;
+          console.log(this.cleaningQuotes);
           this.totalItems = resp.pagination.totalRecords
         } else {
           swal({
