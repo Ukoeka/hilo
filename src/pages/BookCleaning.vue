@@ -210,7 +210,7 @@
               </div> -->
         <div class="top-textss mt-3">
           <p>Total</p>
-          <h5>$ {{ estimatedPrice }}</h5>
+          <h5>£{{ estimatedPrice }}</h5>
         </div>
 
 

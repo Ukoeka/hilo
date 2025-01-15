@@ -495,7 +495,7 @@ export default {
       }
 
       const url = `parameters/${this.selectedItem.id}/items`;
-
+      this.showModal2 = false
       try {
         const resp = await postToApi(url, this.movingItems);
         if (resp.status) {
@@ -549,7 +549,6 @@ export default {
     // create parameter
     async createParameter() {
       if (!this.addCategory.name || !this.selectImageFile) {
-        console.error("Validation failed: Missing required fields");
         return;
       }
 
@@ -570,7 +569,7 @@ export default {
           text: resp.status ? "Parameter created successfully!" : resp.message,
           icon: resp.status ? "success" : "error",
         });
-
+        this.showModal1 = false
         this.addNewParameter = resp.status
         console.log('addNew', this.addNewParameter)
         if (resp.status) {

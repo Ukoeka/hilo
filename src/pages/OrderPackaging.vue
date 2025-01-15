@@ -174,7 +174,7 @@
         </div>
         <div class="top-textss mt-3">
           <p>Total</p>
-          <h5> $ {{ estimatedPrice }}</h5>
+          <h5>£{{ estimatedPrice }}</h5>
         </div>
 
 
@@ -451,7 +451,6 @@ export default {
       }
     },
     async orderPackaging() {
-      console.log(this.bookDriver);
       try {
         const url = "booking/packaging";
         const resp = await postToApi(url, this.packageDetails);
@@ -460,10 +459,10 @@ export default {
           this.stripesUrl = resp.data.url;
           this.estimatedPrice = resp.data.estimated_price
           this.paymentView();
-          swal({
-            text: resp.message,
-            icon: "success",
-          });
+          // swal({
+          //   text: resp.message,
+          //   icon: "success",
+          // });
         } else {
           swal({
             text: resp.message,
@@ -599,7 +598,8 @@ export default {
     gap: 35px;
 
     .left {
-      width: 70%;
+      width: 80%;
+      margin-left: 10%;
       background: white;
       padding: 4%;
       border-radius: 10px;
