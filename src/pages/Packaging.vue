@@ -4,7 +4,7 @@
         <div class="content">
           <h1>Pack Like a Pro - <br> Everything You Need for a Safe Move!</h1>
           <div class="btn-container">
-            <a href="/getquote" class="quote">Get Quote</a>
+            <a href="/order-packaging" class="quote">Get Quote</a>
           </div>
           <div class="btn-container">
             <img class="men" src="@/assets/icons/Men.png" alt="">
