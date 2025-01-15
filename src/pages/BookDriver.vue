@@ -504,6 +504,7 @@
             <button @click="showInput()" v-if="timeDisplay == 1" class="big-btn">Change Time Slot</button>
             <div class="change-time" v-if="timeDisplay == 2">
               <input type="time" value="" class="time-input form-control">
+              <input type="time" value="" class="time-input form-control">
               <div class="change-btns">
                 <button @click="hideInput()" class="cancel-btn">Cancel</button>
                 <button class="update-btn">Update</button>
@@ -714,7 +715,7 @@ export default {
         "pk_test_51JhfO5HE9bpD2o7jw1NV5msrol1VBzjvtERfw1bAsDQpS35e8QAwZxQaQjAUVGVZPeWTNJdmDwupUSh53ZlisnOz00e9rgxChT",
       // APp
       timeDisplay: 1,
-      bigDisplay: 1,
+      bigDisplay: 2,
       display: 1,
       doubleBed: 1,
       kingBed: 1,
@@ -766,6 +767,8 @@ export default {
       bookDate: null,
       stripesUrl: "",
       estimatedPrice: 0,
+      startTime: '',
+      endTime: '',
     };
   },
   watch: {
@@ -797,12 +800,6 @@ export default {
   },
   mounted() {
     this.getParameters();
-
-
-    
- 
-
-    
     
   },
   methods: {

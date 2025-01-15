@@ -557,7 +557,7 @@ export default {
 
       const parameterData = {
         name: this.addCategory.name,
-        movingCost: this.addCategory.cost,
+        // movingCost: this.addCategory.cost,
         icon: this.selectedIcon // Send as data string
       };
       const parameter = this.editParameter ?? this.selectedItem.id
