@@ -768,7 +768,6 @@ export default {
       stripesUrl: "",
       estimatedPrice: 0,
       startTime: '',
-      endTime: '',
       quoteId: null,
     };
   },
@@ -882,7 +881,6 @@ export default {
         const url = `booking/${this.quoteId}/update-time`;
         const resp = await patchToApi(url, {
           startTime: this.startTime,
-          endTime: this.endTime
         });
         console.log(resp);
         if (resp.status) {
