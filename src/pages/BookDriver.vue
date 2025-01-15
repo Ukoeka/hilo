@@ -503,11 +503,11 @@
             <div class="change-time col-md-12"></div>
             <button @click="showInput()" v-if="timeDisplay == 1" class="big-btn">Change Time Slot</button>
             <div class="change-time" v-if="timeDisplay == 2">
-              <input type="time" value="" class="time-input form-control">
-              <input type="time" value="" class="time-input form-control">
+              <input type="time" v-model="startTime" class="time-input form-control">
+              <input type="time" v-model="endTime" class="time-input form-control">
               <div class="change-btns">
                 <button @click="hideInput()" class="cancel-btn">Cancel</button>
-                <button class="update-btn">Update</button>
+                <button @click="updateTime()" class="update-btn">Update</button>
               </div>
               
             </div>
@@ -715,7 +715,7 @@ export default {
         "pk_test_51JhfO5HE9bpD2o7jw1NV5msrol1VBzjvtERfw1bAsDQpS35e8QAwZxQaQjAUVGVZPeWTNJdmDwupUSh53ZlisnOz00e9rgxChT",
       // APp
       timeDisplay: 1,
-      bigDisplay: 2,
+      bigDisplay: 1,
       display: 1,
       doubleBed: 1,
       kingBed: 1,
@@ -769,6 +769,7 @@ export default {
       estimatedPrice: 0,
       startTime: '',
       endTime: '',
+      quoteId: null,
     };
   },
   watch: {
@@ -876,14 +877,38 @@ export default {
         console.error("API call failed:", error);
       }
     },
+    async updateTime() {
+      try {
+        const url = `booking/${this.quoteId}/update-time`;
+        const resp = await postToApi(url, {
+          startTime: this.startTime,
+          endTime: this.endTime
+        });
+        console.log(resp);
+        if (resp.status) {
+          swal({
+            text: resp.message,
+            icon: "success",
+          })
+        } else {
+          swal({
+            text: resp.message,
+            icon: "error",
+          });
+        }
+      } catch (error) {
+        console.error("API call failed:", error);
+      }
+    },
     async bookDrivingService() {
       console.log(this.bookDriver);
       try {
         const url = "booking/driver";
-        const resp = await postToApi(url, this.bookDriver);
+        const resp = await patchToApi(url, this.bookDriver);
         console.log(resp);
         if (resp.status) {
           this.stripesUrl = resp.data.url;
+          this.quoteId = resp.data.quoteId
           this.estimatedPrice = resp.data.estimated_price
           this.paymentView();
           console.log(this.bookDriver.bookingDate)

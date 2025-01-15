@@ -593,6 +593,9 @@ export default {
         console.log('Response:', resp);
         this.parameters = resp.data
         this.totalItems = resp.data.length
+        if(this.showDetailedView) {
+        this.selectedItem = resp.data.find( item => item.id === this.selectedItem.id)
+        }
       } catch (error) {
         console.error('API call failed:', error);
       } finally {
