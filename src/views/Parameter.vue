@@ -89,22 +89,26 @@
               <form>
                 <div>
                   <h5 class="fw-bold pb-2">Moving Parameters</h5>
-                  <div class="mb-3" v-for="(param, index) in generalParams.slice(0, 3)" :key="param.key">
+                  <div class="mb-4" v-for="(param, index) in generalParams" :key="param.key">
                     <label :for="'param' + index" class="form-label">{{ param.label }} (£)</label>
                     <input type="text" class="inputs p-3" :id="'param' + index" placeholder="Placeholder"
                       v-model="param.value" />
                   </div>
+                  <button type="button" class="btn btn-success btn-green w-100" @click="updateNewParameter('moving')">
+                    <span v-if="movingLoader" class="spinner-border spinner-border-sm"></span>
+                    <span v-else>Save</span>
+                  </button>
                 </div>
                 <div>
-                  <h5 class=" fw-bold py-2"> Cleaning Parameters</h5>
-                  <div class="mb-3" v-for="(param, index) in generalParams.slice(3, 7)" :key="param.key">
+                  <h5 class=" fw-bold py-3 mt-4"> Cleaning Parameters</h5>
+                  <div class="mb-3" v-for="(param, index) in cleaningParams" :key="param.key">
                     <label :for="'param' + index" class="form-label">{{ param.label }} (£)</label>
                     <input type="text" class="inputs p-3" :id="'param' + index" placeholder="Placeholder"
                       v-model="param.value" />
                   </div>
                 </div>
-                <button type="button" class="btn btn-success btn-green w-100" @click="updateNewParameter">
-                  <span v-if="Loader" class="spinner-border spinner-border-sm"></span>
+                <button type="button" class="btn btn-success btn-green w-100" @click="updateNewParameter('cleaning')">
+                  <span v-if="cleaningLoader" class="spinner-border spinner-border-sm"></span>
                   <span v-else>Save</span>
                 </button>
               </form>
@@ -289,7 +293,8 @@ export default {
     return {
       Loader: false,
       Loading: false,
-
+      cleaningLoader: false,
+      movingLoader: false,
       items: [
 
       ],
@@ -300,9 +305,13 @@ export default {
         { label: "Cost Per Mile", value: "", key: "costPerMile" },
         { label: "Cost Per Hour", value: "", key: "costPerHour" },
         { label: "Base Rate", value: "", key: "baseRate" },
-        { label: "Disassembly Fee", value: "", key: "disassemblyRate" },
-        { label: "Reassembly Fee", value: "", key: "reassemblyRate" },
-        { label: "Cost Per Extra Floor", value: "", key: "costPerExtraFloor" },
+        // { label: "Disassembly Fee", value: "", key: "disassemblyRate" },
+        // { label: "Reassembly Fee", value: "", key: "reassemblyRate" },
+        // { label: "Cost Per Extra Floor", value: "", key: "costPerExtraFloor" },
+      ],
+      cleaningParams: [
+        { label: "Cost Per Hour", value: "", key: "costPerHour" },
+        { label: "Base Rate", value: "", key: "baseRate" },
       ],
       showDetails: true,
       showModal1: false,
@@ -365,7 +374,8 @@ export default {
   },
   mounted() {
     this.fetchParameter();
-    this.getParameter();
+    this.getParameter('moving');
+    this.getParameter('cleaning');
   },
   methods: {
     changePage(page) {
@@ -374,16 +384,25 @@ export default {
       }
     },
 
-    async getParameter(item) {
-
-      const url = `parameters/general-parameter`;
+    async getParameter(type) {
+      this.cleaningLoader = true
+      this.movingLoader = true
+      const url = `parameters/general-parameter?type=${type}`;
 
       try {
         const resp = await fetchFromApi(url);
+
         if (resp.status) {
           console.log(resp)
-          for (const item of this.generalParams) {
-            item.value = resp.data[item.key]
+          if (type === 'moving') {
+            for (const item of this.generalParams) {
+              item.value = resp.data[item.key]
+            }
+          }
+          if (type === 'cleaning') {
+            for (const item of this.cleaningParams) {
+              item.value = resp.data[item.key]
+            }
           }
         } else {
           swal({
@@ -395,17 +414,28 @@ export default {
       } catch (error) {
         console.error('API call failed:', error);
       }
+      finally {
+        this.cleaningLoader = false
+        this.movingLoader = false
+      }
     },
-    async updateNewParameter(item) {
-      const data = {}
-      for (const item of this.generalParams) {
-        data[item.key] = item.value
+    async updateNewParameter(type) {
+      type === 'moving' ? this.movingLoader = true : this.cleaningLoader = true;
 
+      const data = {}
+      if (type === 'moving') {
+        for (const item of this.generalParams) {
+          data[item.key] = item.value
+        }
+      }
+
+      if (type === 'cleaning') {
+        for (const item of this.cleaningParams) {
+          data[item.key] = item.value
+        }
       }
       console.log(data)
-      this.Loading = true
-
-      const url = `parameters/general-parameter`;
+      const url = `parameters/general-parameter/${type}`;
 
       try {
         const resp = await patchToApi(url, data);
@@ -425,7 +455,8 @@ export default {
       } catch (error) {
         console.error('API call failed:', error);
       } finally {
-        this.Loading = false
+        type === 'moving' ? this.movingLoader = false : this.cleaningLoader = false;
+
       }
     },
     async deleteItem(item) {
