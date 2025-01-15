@@ -549,7 +549,6 @@ export default {
     // create parameter
     async createParameter() {
       if (!this.addCategory.name || !this.selectImageFile) {
-        console.error("Validation failed: Missing required fields");
         return;
       }
 
