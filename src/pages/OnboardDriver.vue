@@ -302,7 +302,7 @@ export default {
   },
   data() {
     return {
-      display: 4,
+      display: 1,
       driverDetails: {
         firstName: "",
         lastName: "",
