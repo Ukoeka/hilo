@@ -32,7 +32,8 @@
           <div class="row mb-3">
             <div class="div-group col-md-6">
               <label for="first_name">Email</label>
-              <input required type="email" class="form-control" id="email" placeholder="Email" v-model="cleanerDetails.email">
+              <input required type="email" class="form-control" id="email" placeholder="Email"
+                v-model="cleanerDetails.email">
             </div>
             <div class="form-group col-md-6">
               <label for="last_name">Gender</label>
@@ -42,17 +43,13 @@
               </select>
             </div>
           </div>
-          
+
           <div class="row mb-3">
             <div class="div-group col-md-6">
               <label for="first_name">Address</label>
-              <MapboxAddressInput 
-                  v-model="cleanerDetails.address"
-                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }" 
-                  placeholder="Address"
-                  required
-                  @addressSelect="(address) => handleAddressSelect('first', address)" 
-                />
+              <MapboxAddressInput v-model="cleanerDetails.address"
+                :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }"
+                placeholder="Address" required @addressSelect="(address) => handleAddressSelect('first', address)" />
             </div>
             <div class="form-group col-md-6">
               <label for="last_name">Language</label>
@@ -63,24 +60,22 @@
           <div class="row mb-3">
             <div class="form-group col-md-6">
               <label for="inputEmail4">Phone Number</label>
-                <vue-tel-input :onlyCountries="['GB']" 
-                v-model="cleanerDetails.phoneNumber" 
-                required
-                >
+              <vue-tel-input :onlyCountries="['GB']" v-model="cleanerDetails.phoneNumber" required>
               </vue-tel-input>
               <!-- <vue-country-code @onSelect="onSelect"></vue-country-code> -->
             </div>
             <div class="form-group col-md-6">
               <label for="inputEmail4">Password</label>
-              <input required type="password" class="form-control" id="password" placeholder="Password" v-model="cleanerDetails.password">
+              <input required type="password" class="form-control" id="password" placeholder="Password"
+                v-model="cleanerDetails.password">
             </div>
           </div>
 
 
 
-          <div class="form-group mt-5 buttons">
-            <button type="submit" disabled class="btn white-btn">Back</button>
-            <button type="submit" @click="showCard2()" class="btn green-btn">Next</button>
+          <div class="form-group mt-5 buttons justify-content-end">
+            <!-- <button type="button" disabled class="btn white-btn">Back</button> -->
+            <button type="button" @click="showCard2()" class="btn green-btn ms-auto">Next</button>
           </div>
 
         </div>
@@ -106,7 +101,10 @@
 
           <div class="form-group mt-5 buttons">
             <button @click="showCard1" type="button" class="btn white-btn">Back</button>
-            <button type="button" @click="addCleaner" class="btn green-btn">Register Now</button>
+            <button type="button" @click="addCleaner" class="btn green-btn">
+              <span v-if="Loader" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true" />
+              <span v-else>Register Now</span>
+            </button>
           </div>
         </div>
       </form>
@@ -148,6 +146,7 @@
 </template>
 
 <script>
+import Loader from "@/components/loader.vue";
 import MapboxAddressInput from "@/components/MapBoxAddressInput.vue";
 import Footer from '@/layouts/partials/footer.vue';
 import TopNav from '@/layouts/partials/topnav.vue';
@@ -174,7 +173,7 @@ export default {
         email: "",
         gender: "",
         address: "",
-        phoneNumber:"",
+        phoneNumber: "",
         language: "",
         password: "",
       },
@@ -183,6 +182,7 @@ export default {
         { label: "Utility Bill 1", file: null, preview: null },
         { label: "Utility Bill 2", file: null, preview: null },
       ],
+      Loader: false
     };
   },
   methods: {
@@ -195,7 +195,7 @@ export default {
       }
     },
 
-    
+
     triggerFileInput(index) {
       const fileInput = this.$refs.fileInputs[index];
       fileInput.click();
@@ -221,14 +221,31 @@ export default {
       this.display = 1;
     },
     showCard2() {
+      if(!this.validateCleanersDetails()) {
+        swal({
+          text: "All cleaner details are required to proceed.",
+          icon: "error",
+        });
+        return
+      }
       this.display = 2;
+    },
+    validateCleanersDetails() {
+      const isDetailsValid = Object.values(this.cleanerDetails).every((value) => value != '');
+      const isDocumentFilesValid = this.documents.every((doc) => doc.file);
+      if(this.display == 1) {
+        return isDetailsValid
+      }
+      if(this.display == 2) {
+        return isDocumentFilesValid 
+      }
     },
     async addCleaner() {
       // Check if cleanerDetails is valid
-      if (!this.cleanerDetails || Object.keys(this.cleanerDetails).length === 0) {
+      if (this.display == 2 && !this.validateCleanersDetails()) {
         console.error("Cleaner details are missing or incomplete.");
         swal({
-          text: "Cleaner details are required to proceed.",
+          text: "all cleaner details are required to proceed.",
           icon: "error",
         });
         return;
@@ -262,8 +279,8 @@ export default {
             button: "Ok",
           });
           setTimeout(() => {
-          this.$router.push('/registration-successful'); // Replace '/new-page' with your desired route
-    }, 2000); 
+            this.$router.push('/registration-successful'); // Replace '/new-page' with your desired route
+          }, 2000);
         } else {
           swal({
             title: "Error",

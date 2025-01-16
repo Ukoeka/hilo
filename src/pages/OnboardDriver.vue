@@ -14,7 +14,7 @@
         <div :class="[this.display > 2 ? 'active-bar each-bar' : 'each-bar']"></div>
         <div :class="[this.display == 4 ? 'active-bar each-bar' : 'each-bar']"></div>
       </div>
-      <form action="">
+      <form>
         <div v-if="display == 1">
           <h2 class="text-center mt-5 mb-4">Driver Details</h2>
           <div class="row mb-3">
@@ -32,7 +32,8 @@
           <div class="row mb-3">
             <div class="form-group col-md-6">
               <label for="inputEmail4">Email</label>
-              <input type="email" class="form-control" required id="email" placeholder="email" v-model="driverDetails.email">
+              <input type="email" class="form-control" required id="email" placeholder="email"
+                v-model="driverDetails.email">
             </div>
             <div class="form-group col-md-6">
               <label for="inputEmail4">Business Name</label>
@@ -43,15 +44,16 @@
           <div class="row mb-3">
             <div class="form-group col-md-6">
               <label for="inputEmail4">Password</label>
-              <input type="password" class="form-control" required id="password" placeholder="Password" v-model="driverDetails.password">
+              <input type="password" class="form-control" required id="password" placeholder="Password"
+                v-model="driverDetails.password">
             </div>
           </div>
 
 
 
           <div class="form-group mt-5 buttons">
-            <button type="submit" disabled class="btn white-btn">Back</button>
-            <button type="submit" @click="showCard2()" class="btn green-btn">Next</button>
+            <button type="button" disabled class="btn white-btn">Back</button>
+            <button type="button" @click="showCard2()" class="btn green-btn">Next</button>
           </div>
 
         </div>
@@ -60,13 +62,9 @@
           <div class="row mb-3">
             <div class="form-group col-md-12">
               <label for="first_name">Addresss</label>
-              <MapboxAddressInput 
-                  v-model="driverDetails.postCode"
-                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }" 
-                  placeholder="Address"
-                  required
-                  @addressSelect="(address) => handleAddressSelect('first', address)" 
-                />
+              <MapboxAddressInput v-model="driverDetails.postCode"
+                :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }"
+                placeholder="Address" required @addressSelect="(address) => handleAddressSelect('first', address)" />
             </div>
           </div>
           <div class="row mb-3">
@@ -80,8 +78,8 @@
 
 
           <div class="form-group mt-5 buttons">
-            <button @click="showCard1()" type="submit" class="btn white-btn">Back</button>
-            <button @click="showCard3()" type="submit" class="btn green-btn">Next</button>
+            <button @click="showCard1()" type="button" class="btn white-btn">Back</button>
+            <button @click="showCard3()" type="button" class="btn green-btn">Next</button>
           </div>
 
         </div>
@@ -130,8 +128,8 @@
           </div>
 
           <div class="form-group mt-5 buttons">
-            <button @click="showCard2()" type="submit" class="btn white-btn">Back</button>
-            <button @click="showCard4()" type="submit" class="btn green-btn">Next</button>
+            <button @click="showCard2()" type="button" class="btn white-btn">Back</button>
+            <button @click="showCard4()" type="button" class="btn green-btn">Next</button>
           </div>
         </div>
 
@@ -178,7 +176,7 @@
                     style="background-color: rgba(240, 245, 243, 1);">
                     <img v-if="document.preview" :src="document.preview" alt="Document Preview"
                       class="m-auto mb-3 preview-img" width="60" height="60" />
-                    <img  v-else src="../assets/Drivers/Vector.png" class="m-auto mb-3" alt="" width="60" height="60" />
+                    <img v-else src="../assets/Drivers/Vector.png" class="m-auto mb-3" alt="" width="60" height="60" />
                     <input required type="file" :ref="'fileInput' + document.id"
                       @change="handleFileChange($event, document.id, 'documents')" hidden />
                     <p class="file-info browse-link">
@@ -215,8 +213,11 @@
 
 
           <div class="form-group mt-5 buttons">
-            <button @click="showCard3()" type="submit" class="btn white-btn">Back</button>
-            <button type="submit" @click="addDriver()" class="btn green-btn">submit</button>
+            <button @click="showCard3()" type="button" class="btn white-btn">Back</button>
+            <button type="button" @click="addDriver()" class="btn green-btn">
+              <span v-if="loader" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true" />
+              <span v-else>submit</span>
+            </button>
           </div>
 
         </div>
@@ -286,6 +287,7 @@ import MapboxAddressInput from "@/components/MapBoxAddressInput.vue";
 import Footer from '@/layouts/partials/footer.vue';
 import TopNav from '@/layouts/partials/topnav.vue'
 import { fetchFromApi, postToApi, deleteFromApi, patchToApi } from '@/services/baseApi'
+
 export default {
   name: 'OnboardDriver',
   components: {
@@ -300,7 +302,7 @@ export default {
   },
   data() {
     return {
-      display: 1,
+      display: 4,
       driverDetails: {
         firstName: "",
         lastName: "",
@@ -350,6 +352,17 @@ export default {
       ],
     };
   },
+  watch: {
+    form: {
+      handler(newVal, oldVal) {
+        if (newVal) {
+          this.driverDetails.additionalData = newVal.additional
+        }
+      },
+      deep: true,
+      // immediate: true
+    }
+  },
   methods: {
     handleAddressSelect(field, address) {
       if (field === 'first') {
@@ -391,24 +404,47 @@ export default {
       this.display = 1;
     },
     showCard2() {
+      if (!this.isDriverDetailsValid()) { // Changed condition
+        swal({
+          text: "All driver details are required to proceed.",
+          icon: "error",
+        });
+        return;
+      }
       this.display = 2;
     },
+
     showCard3() {
+      if (!this.isDriverDetailsValid()) { // Changed condition
+        swal({
+          text: "All driver details are required to proceed.",
+          icon: "error",
+        });
+        return;
+      }
       this.display = 3;
     },
+
     showCard4() {
+      if (!this.isDriverDetailsValid()) { // Changed condition
+        swal({
+          text: "All driver details are required to proceed.",
+          icon: "error",
+        });
+        return;
+      }
       this.display = 4;
     },
-
     async addDriver() {
+      this.loader = true;
       const isDocFilled = this.documents.every(doc => doc.file);
       if (!isDocFilled) {
-          swal({
-            title: "Error",
-            text: "Please upload all documents",
-            icon: "error",
-            button: "Ok",
-          })
+        swal({
+          title: "Error",
+          text: "Please upload all documents",
+          icon: "error",
+          button: "Ok",
+        })
         return;
       }
       try {
@@ -437,8 +473,8 @@ export default {
             button: "Ok",
           });
           setTimeout(() => {
-          this.$router.push('/registration-successful'); // Replace '/new-page' with your desired route
-    }, 2000); 
+            // this.$router.push('/registration-successful'); // Replace '/new-page' with your desired route
+          }, 2000);
         } else {
           swal({
             title: "Error",
@@ -449,6 +485,9 @@ export default {
         }
       } catch (error) {
         console.error(error);
+      }
+      finally {
+        this.loader = false
       }
     },
 
@@ -464,34 +503,42 @@ export default {
 
     // Validate driverDetails to ensure all required fields are filled
     isDriverDetailsValid() {
-      const { firstName, lastName, email, businessName, postCode, phoneNumber, additionalData } = this.driverDetails;
+      const {
+        firstName,
+        lastName,
+        email,
+        postCode,
+        businessName,
+        phoneNumber,
+        password
+      } = this.driverDetails;
 
-      // Check for missing or empty fields
-      if (!firstName || !lastName || !email || !businessName || !postCode || !phoneNumber || !additionalData) {
-        return false;
+      // For display 1 - Driver Details
+      if (this.display === 1) {
+        return firstName && lastName && email && password; // Return true if all fields are filled
       }
 
-      // Check for at least one document in each section
-      const hasIdentityDocuments = this.documents.some(doc => doc.file);
-      const hasInsuranceDocuments = this.documents1.some(doc => doc.file);
-      const hasOtherDocuments = this.document2.some(doc => doc.file);
-
-      if (!hasIdentityDocuments || !hasInsuranceDocuments || !hasOtherDocuments) {
-        alert('Please upload all required documents.');
-        return false;
+      // For display 2 - Contact Details
+      if (this.display === 2) {
+        return phoneNumber && postCode && businessName; // Return true if all fields are filled
       }
 
-      return true;
+      // For display 3 - Additional Information
+      if (this.display === 3) {
+        return this.form.additional.numberOfVehicle &&
+          this.form.additional.vehicleTypes.length > 0 &&
+          this.form.additional.vatRegistered;
+      }
+
+      return true; // Default case
     },
-  },
-  mounted() {
 
-  }
+  },
 
 };
 </script>
 
-<style scoped lang="scss" >
+<style scoped lang="scss">
 .cursor {
   cursor: pointer;
 }
