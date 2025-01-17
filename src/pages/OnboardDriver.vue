@@ -473,7 +473,7 @@ export default {
             button: "Ok",
           });
           setTimeout(() => {
-            // this.$router.push('/registration-successful'); // Replace '/new-page' with your desired route
+            this.$router.push('/registration-successful'); // Replace '/new-page' with your desired route
           }, 2000);
         } else {
           swal({

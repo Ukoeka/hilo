@@ -54,14 +54,14 @@
                 <td class="text-grayed">
                   <span :class="[
                     'd-flex align-items-center justify-content-center gap-2 rounded p-2',
-                    payment.status === 'active' ? 'completed' : '',
-                    payment.status === 'inactive' ? 'draft' : ''
+                    payment.verificationStatus === 'verified' ? 'completed' : '',
+                    payment.verificationStatus === 'pending' ? 'ongoing' : ''
                   ]" style="width: fit-content">
                     <div :class="[
-                      payment.status === 'active' ? 'completed-circle' : '',
-                      payment.status === 'inactive' ? 'draft-circle' : ''
+                      payment.verificationStatus === 'completed' ? 'completed-circle' : '',
+                      payment.verificationStatus === 'pending' ? 'ongoing-circle' : ''
                     ]" class="rounded-circle" style="height: 10px; width: 10px;"></div>
-                    {{ payment.status }}
+                    {{ payment.verificationStatus }}
                   </span>
                 </td>
                 <td class="text-grayed">

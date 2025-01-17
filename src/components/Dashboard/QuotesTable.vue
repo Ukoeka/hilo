@@ -5,7 +5,7 @@
       <thead class="table-light">
         <tr>
           <th scope="col" class="text-grayed">Serial Number <i class="bi bi-caret-down-fill"></i></th>
-          <th scope="col" class="text-grayed">Customer / ServiceType <i class="bi bi-caret-down-fill"></i></th>
+          <th scope="col" class="text-grayed">QuoteId <i class="bi bi-caret-down-fill"></i></th>
           <th scope="col" class="text-grayed">Pickup location <i class="bi bi-caret-down-fill"></i></th>
           <th scope="col" class="text-grayed">Drop-off location <i class="bi bi-caret-down-fill"></i></th>
           <th scope="col" class="text-grayed">Date <i class="bi bi-caret-down-fill"></i></th>
@@ -17,7 +17,7 @@
       <tbody>
         <tr v-for="(item, index) in quotesData" :key="index">
           <td class="text-grayed">{{ index + 1 }}</td>
-          <td class="text-grayed">{{ item.serviceType }}</td>
+          <td class="text-grayed">{{ item.id }}</td>
           <td class="text-grayed">{{ item.pickUp?.name }}</td>
           <td class="text-grayed">{{ item.dropOff?.name }}</td>
           <td class="text-grayed">{{ formatDate(item.bookingDate, true) }}</td>
