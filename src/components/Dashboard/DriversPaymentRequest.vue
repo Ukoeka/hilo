@@ -9,9 +9,12 @@
         <div>
           <a href="javascript:void(0);" class="fw-bold me-3 text-decoration-none text-black"
           >Assigned {{ type == 'moving' ? 'Driver' : 'Cleaner' }}</a>
-          <span class="bg-white text-gray p-3">{{ type == 'moving' ?  movingDetails.driver.firstName : movingDetails.cleaner.firstName }} {{type == 'moving' ? movingDetails.driver.lastName : movingDetails.cleaner.lastName }}</span>
+          <span class="bg-white text-gray p-3">{{ type == 'moving' ?  movingDetails?.driver?.firstName : movingDetails?.cleaner?.firstName }} {{type == 'moving' ? movingDetails?.driver?.lastName : movingDetails?.cleaner?.lastName }}</span>
         </div>
-        <button class="driver-profile-btn"   @click="assignDriver">{{ type == 'moving' ? 'Assign Driver' : 'Assign Cleaner' }}</button>
+
+        <button v-if="!movingDetails.driver && type == 'moving'"  class="driver-profile-btn"   @click="assignDriver">Assign Driver</button>
+
+        <button v-if="!movingDetails.cleaner && type == 'cleaning'"  class="driver-profile-btn"   @click="assignDriver">Assign Cleaner</button>
       </div>
     </header>
 
