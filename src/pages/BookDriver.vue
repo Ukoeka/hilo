@@ -10,21 +10,11 @@
     <div class="drive-info" v-if="bigDisplay == 1">
       <div class="left">
         <div class="bars mb-3">
-          <div
-            :class="[this.display > 0 ? 'active-bar each-bar' : 'each-bar']"
-          ></div>
-          <div
-            :class="[this.display > 1 ? 'active-bar each-bar' : 'each-bar']"
-          ></div>
-          <div
-            :class="[this.display > 2 ? 'active-bar each-bar' : 'each-bar']"
-          ></div>
-          <div
-            :class="[this.display > 3 ? 'active-bar each-bar' : 'each-bar']"
-          ></div>
-          <div
-            :class="[this.display == 5 ? 'active-bar each-bar' : 'each-bar']"
-          ></div>
+          <div :class="[this.display > 0 ? 'active-bar each-bar' : 'each-bar']"></div>
+          <div :class="[this.display > 1 ? 'active-bar each-bar' : 'each-bar']"></div>
+          <div :class="[this.display > 2 ? 'active-bar each-bar' : 'each-bar']"></div>
+          <div :class="[this.display > 3 ? 'active-bar each-bar' : 'each-bar']"></div>
+          <div :class="[this.display == 5 ? 'active-bar each-bar' : 'each-bar']"></div>
         </div>
         <form action="">
           <div v-if="display == 1">
@@ -32,65 +22,44 @@
             <div class="row mb-3">
               <div class="div-group col-md-6">
                 <label for="first_name">Pick-up Address</label>
-                <MapboxAddressInput 
-                  v-model="bookDriver.pickUp.name"
-                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }" 
-                  placeholder="Pickup Address"
-                  @addressSelect="(address) => handleAddressSelect('first', address)" 
-                />
-                
+                <MapboxAddressInput v-model="bookDriver.pickUp.name"
+                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }"
+                  placeholder="Pickup Address" @addressSelect="(address) => handleAddressSelect('first', address)" />
+
                 <!-- test code -->
 
-                
+
                 <!--  -->
               </div>
               <div class="form-group col-md-6">
                 <label for="last_name">Drop-off Address</label>
-                <MapboxAddressInput 
-                  v-model="bookDriver.dropOff.name"
-                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }" 
-                  placeholder="Drop-off Address"
-                  @addressSelect="(address) => handleAddressSelect('second', address)" 
-                />
+                <MapboxAddressInput v-model="bookDriver.dropOff.name"
+                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }"
+                  placeholder="Drop-off Address" @addressSelect="(address) => handleAddressSelect('second', address)" />
               </div>
             </div>
             <div class="row mb-3 d-none">
               <div class="form-group col-md-6">
                 <label for="inputEmail4">Property Type</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id=""
-                  placeholder="Property Type"
-                  v-model="bookDriver.propertyType"
-                />
+                <input type="text" class="form-control" id="" placeholder="Property Type"
+                  v-model="bookDriver.propertyType" />
               </div>
               <div class="form-group col-md-6">
                 <label for="inputEmail4">Vehicle Type</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id=""
-                  placeholder="Property Type"
-                  v-model="bookDriver.vehicleType"
-                />
+                <input type="text" class="form-control" id="" placeholder="Property Type"
+                  v-model="bookDriver.vehicleType" />
               </div>
             </div>
             <div class="row mb-3 d-none">
               <div class="form-group col-md-6">
                 <label for="inputEmail4">Floor</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id=""
-                  placeholder="Property Type"
-                />
+                <input type="text" class="form-control" id="" placeholder="Property Type" />
               </div>
             </div>
 
-            <div class="form-group mt-5 buttons">
-              <button type="submit" disabled class="btn white-btn">Back</button>
-              <button type="submit" @click="showCard2()" class="btn green-btn">
+            <div class="form-group mt-5 buttons justify-content-end">
+              <!-- <button type="button" disabled class="btn white-btn">Back</button> -->
+              <button type="button" @click="showCard2()" class="btn green-btn">
                 Next
               </button>
             </div>
@@ -99,44 +68,27 @@
             <h2 class="text-center mt-5 mb-4">Select Property Type</h2>
             <div class="row mb-3">
               <div class="form-group d-flex give-gap col-md-12">
-                <input
-                  type="radio"
-                  id="small_to_mid"
-                  name="property_type"
-                  value="small_to_mid"
-                  checked
-                  @change="selectPropertyType($event.target.value, 'property')"
-                />
-                <label class="labelled" for="small_to_mid"
-                  >Small to Mid Size Property <br />
-                  <span>Ideal for this booking type</span></label
-                >
+                <input type="radio" id="small_to_mid" name="property_type" value="small_to_mid"
+                  @change="selectPropertyType($event.target.value, 'property')" />
+                <label class="labelled" for="small_to_mid">Small to Mid Size Property <br />
+                  <span>Ideal for this booking type</span></label>
               </div>
             </div>
             <div class="row mb-3">
               <div class="form-group d-flex give-gap col-md-12">
-                <input
-                  type="radio"
-                  id="large"
-                  name="property_type"
-                  value="large"
-                  @change="selectPropertyType($event.target.value, 'property')"
-                />
-                <label class="labelled" for="large"
-                  >Large Property <br />
-                  <span
-                    >You need to book, no obligation property survey to be able
-                    to get a precise quote</span
-                  ></label
-                >
+                <input type="radio" id="large" name="property_type" value="large"
+                  @change="selectPropertyType($event.target.value, 'property')" />
+                <label class="labelled" for="large">Large Property <br />
+                  <span>You need to book, no obligation property survey to be able
+                    to get a precise quote</span></label>
               </div>
             </div>
 
             <div class="form-group mt-5 buttons">
-              <button @click="showCard1()" type="submit" class="btn white-btn">
+              <button @click="back()" type="button" class="btn white-btn">
                 Back
               </button>
-              <button @click="showCard3()" type="submit" class="btn green-btn">
+              <button @click="showCard3()" type="button" class="btn green-btn">
                 Next
               </button>
             </div>
@@ -146,63 +98,28 @@
 
             <!-- Number of Vehicles -->
             <nav class="big-tabs">
-              <div
-                class="nav nav-tabs tabs-container"
-                id="nav-tab"
-                role="tablist"
-              >
-                <div
-                  v-for="(tab, index) in tabs"
-                  :key="index"
-                  class="nav-lin"
-                  :class="{ active: activeTab === tab.id }"
-                  :id="`${tab.id}-tab`"
-                  data-bs-toggle="tab"
-                  :data-bs-target="`#${tab.id}`"
-                  type="div"
-                  role="tab"
-                  :aria-controls="tab.id"
-                  :aria-selected="activeTab === tab.id"
-                  @click="setActiveTab(tab.id)"
-                >
+              <div class="nav nav-tabs tabs-container" id="nav-tab" role="tablist">
+                <div v-for="(tab, index) in tabs" :key="index" class="nav-lin" :class="{ active: activeTab === tab.id }"
+                  :id="`${tab.id}-tab`" data-bs-toggle="tab" :data-bs-target="`#${tab.id}`" type="div" role="tab"
+                  :aria-controls="tab.id" :aria-selected="activeTab === tab.id" @click="setActiveTab(tab.id)">
                   {{ tab.name }}
                 </div>
               </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
-              <div
-                v-for="(tab, index) in tabs"
-                :key="index"
-                class="tab-pane fade"
-                :class="{
-                  show: activeTab === tab.id,
-                  active: activeTab === tab.id,
-                }"
-                :id="tab.id"
-                role="tabpanel"
-                :aria-labelledby="`${tab.id}-tab`"
-              >
+              <div v-for="(tab, index) in tabs" :key="index" class="tab-pane fade" :class="{
+                show: activeTab === tab.id,
+                active: activeTab === tab.id,
+              }" :id="tab.id" role="tabpanel" :aria-labelledby="`${tab.id}-tab`">
                 <div class="row each-tab mb-3">
-                  <div
-                    v-for="(item, idx) in tab.items"
-                    :key="idx"
-                    class="each-row mt-3"
-                  >
+                  <div v-for="(item, idx) in tab.items" :key="idx" class="each-row mt-3">
                     <p>{{ item.name }}</p>
                     <div class="rights">
-                      <button
-                        @click="item.quantity > 0 ? item.quantity-- : null"
-                        type="button"
-                        class="red-btn"
-                      >
+                      <button @click="item.quantity > 0 ? item.quantity-- : null" type="button" class="red-btn">
                         -
                       </button>
                       <p>{{ item.quantity }}</p>
-                      <button
-                        @click="item.quantity++"
-                        type="button"
-                        class="green-btn"
-                      >
+                      <button @click="item.quantity++" type="button" class="green-btn">
                         +
                       </button>
                     </div>
@@ -214,10 +131,10 @@
             <!-- VAT Registered -->
 
             <div class="form-group mt-5 buttons">
-              <button @click="showCard2()" type="submit" class="btn white-btn">
+              <button @click="back()" type="button" class="btn white-btn">
                 Back
               </button>
-              <button @click="showCard4()" type="submit" class="btn green-btn">
+              <button @click="showCard4()" type="button" class="btn green-btn">
                 Next
               </button>
             </div>
@@ -228,65 +145,41 @@
             <div class="row mb-3">
               <div class="form-group col-md-12">
                 <div class="row radios mb-3">
-                  <label class="faded mb-2" for="number_of_vehicle"
-                    >Vehicle Type and Capacity
-                    <img
-                      class="question-modal"
-                      src="@/assets/icons/question.png"
-                      alt=""
-                  /></label>
+                  <label class="faded mb-2" for="number_of_vehicle">Vehicle Type and Capacity
+                    <img class="question-modal" src="@/assets/icons/question.png" alt="" /></label>
                   <div class="d-flexe mb-3">
                     <div class="form-group radio-btn">
-                      <input
-                        type="radio"
-                        id="email"
-                        value="small"
-                        @change="
-                          selectPropertyType(
-                            $event.target.value,
-                            'vehicle_type'
-                          )
-                        "
-                      />
+                      <input type="radio" id="email" value="small" @change="
+                        selectPropertyType(
+                          $event.target.value,
+                          'vehicle_type'
+                        )
+                        " />
                       <label class="labelle" for="first_name">Small Van</label>
                     </div>
                     <div class="form-group radio-btn">
-                      <input
-                        type="radio"
-                        id="email"
-                        value="medium"
-                        @change="
-                          selectPropertyType(
-                            $event.target.value,
-                            'vehicle_type'
-                          )
-                        "
-                      />
+                      <input type="radio" id="email" value="medium" @change="
+                        selectPropertyType(
+                          $event.target.value,
+                          'vehicle_type'
+                        )
+                        " />
                       <label class="labelle" for="first_name">Luton Van</label>
                     </div>
                     <div class="form-group radio-btn">
-                      <input
-                        type="radio"
-                        id="email"
-                        value="large"
-                        @change="
-                          selectPropertyType(
-                            $event.target.value,
-                            'vehicle_type'
-                          )
-                        "
-                      />
+                      <input type="radio" id="email" value="large" @change="
+                        selectPropertyType(
+                          $event.target.value,
+                          'vehicle_type'
+                        )
+                        " />
                       <label class="labelld" for="first_name">Large Van</label>
                     </div>
                   </div>
 
                   <div class="form-group mt-3 col-md-12">
-                    <label class="faded" for="number_of_vehicle"
-                      >Do you require additional services?<img
-                        class="question-modal"
-                        src="@/assets/icons/question.png"
-                        alt=""
-                    /></label>
+                    <label class="faded" for="number_of_vehicle">Do you require additional services?<img
+                        class="question-modal" src="@/assets/icons/question.png" alt="" /></label>
                   </div>
                 </div>
 
@@ -295,116 +188,70 @@
                   <div class="form-group col-md-8">
                     <div class="checkers mt-2 mb-3">
                       <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value="packing assistance"
-                          @change="
-                            updateAdditionalService(
-                              $event.target.value,
-                              $event.target.checked
-                            )
-                          "
-                        />
-                        <label class="form-check-label"
-                          >Packing Assistance</label
-                        >
+                        <input class="form-check-input" type="checkbox" value="packing assistance" @change="
+                          updateAdditionalService(
+                            $event.target.value,
+                            $event.target.checked
+                          )
+                          " />
+                        <label class="form-check-label">Packing Assistance</label>
                       </div>
                       <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value="unpacking assistance"
-                          @change="
-                            updateAdditionalService(
-                              $event.target.value,
-                              $event.target.checked
-                            )
-                          "
-                        />
-                        <label class="form-check-label"
-                          >Unpacking Assistance</label
-                        >
+                        <input class="form-check-input" type="checkbox" value="unpacking assistance" @change="
+                          updateAdditionalService(
+                            $event.target.value,
+                            $event.target.checked
+                          )
+                          " />
+                        <label class="form-check-label">Unpacking Assistance</label>
                       </div>
                     </div>
                     <div class="checkers mt-2 mb-3">
                       <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value="furniture assembly"
-                          @change="
-                            updateAdditionalService(
-                              $event.target.value,
-                              $event.target.checked
-                            )
-                          "
-                        />
-                        <label class="form-check-label"
-                          >Furniture Assembly</label
-                        >
+                        <input class="form-check-input" type="checkbox" value="furniture assembly" @change="
+                          updateAdditionalService(
+                            $event.target.value,
+                            $event.target.checked
+                          )
+                          " />
+                        <label class="form-check-label">Furniture Assembly</label>
                       </div>
                       <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value="furniture disassembly"
-                          @change="
-                            updateAdditionalService(
-                              $event.target.value,
-                              $event.target.checked
-                            )
-                          "
-                        />
-                        <label class="form-check-label"
-                          >Furniture disassembly</label
-                        >
+                        <input class="form-check-input" type="checkbox" value="furniture disassembly" @change="
+                          updateAdditionalService(
+                            $event.target.value,
+                            $event.target.checked
+                          )
+                          " />
+                        <label class="form-check-label">Furniture disassembly</label>
                       </div>
                     </div>
                     <div class="checkers mt-2 mb-3">
                       <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value="loading assistance"
-                          @change="
-                            updateAdditionalService(
-                              $event.target.value,
-                              $event.target.checked
-                            )
-                          "
-                        />
-                        <label class="form-check-label"
-                          >Loading Assistance</label
-                        >
+                        <input class="form-check-input" type="checkbox" value="loading assistance" @change="
+                          updateAdditionalService(
+                            $event.target.value,
+                            $event.target.checked
+                          )
+                          " />
+                        <label class="form-check-label">Loading Assistance</label>
                       </div>
                       <div class="form-check form-check-inline">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value="loading assistance"
-                          @change="
-                            updateAdditionalService(
-                              $event.target.value,
-                              $event.target.checked
-                            )
-                          "
-                        />
-                        <label class="form-check-label"
-                          >Unloading Assistance</label
-                        >
+                        <input class="form-check-input" type="checkbox" value="loading assistance" @change="
+                          updateAdditionalService(
+                            $event.target.value,
+                            $event.target.checked
+                          )
+                          " />
+                        <label class="form-check-label">Unloading Assistance</label>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div class="form-group mt-3 col-md-12">
-                  <label class="faded mb-3" for="number_of_vehicle"
-                    >Do you require additional services?<img
-                      class="question-modal"
-                      src="@/assets/icons/question.png"
-                      alt=""
-                  /></label>
+                  <label class="faded mb-3" for="number_of_vehicle">Do you require additional services?<img
+                      class="question-modal" src="@/assets/icons/question.png" alt="" /></label>
                   <input type="text" class="form-control" />
                 </div>
               </div>
@@ -413,7 +260,7 @@
             <!--  -->
 
             <div class="form-group mt-5 buttons">
-              <button @click="showCard3()" type="submit" class="btn white-btn">
+              <button @click="back()" type="button" class="btn white-btn">
                 Back
               </button>
               <button type="button" @click="showCard5()" class="btn green-btn">
@@ -424,24 +271,14 @@
           <div class="upload col-md-12" v-if="display == 5">
             <h2 class="text-center mt-5 mb-4">Time and Date</h2>
             <div class="row mb-3">
-              <VDatePicker
-                v-model="bookDate"
-                mode="dateTime"
-                is-required
-                expanded
-              />
+              <VDatePicker v-model="bookDate" mode="dateTime" is-required expanded />
             </div>
 
             <div class="form-group mt-5 buttons">
-              <button @click="showCard4()" type="button" class="btn white-btn">
+              <button @click="back()" type="button" class="btn white-btn">
                 Back
               </button>
-              <button
-                type="button"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-                class="btn green-btn"
-              >
+              <button type="button" @click="openModal" class="btn green-btn">
                 Next
               </button>
             </div>
@@ -450,24 +287,16 @@
       </div>
       <div class="right">
         <div class="map">
-                  <div
-                    id="map-container-google-2"
-                    class="z-depth-1-half map-container"
-                  >
-                    <iframe
-                      class="main-map"
-                      src="https://maps.google.com/maps?q=london&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                      frameborder="0"
-                      style="border: 0; width:100%; height: 400px;"
-                      allowfullscreen
-                    ></iframe>
-                  </div>
-                  </div>
+          <div id="map-container-google-2" class="z-depth-1-half map-container">
+            <iframe class="main-map" src="https://maps.google.com/maps?q=london&t=&z=13&ie=UTF8&iwloc=&output=embed"
+              frameborder="0" style="border: 0; width:100%; height: 400px;" allowfullscreen></iframe>
+          </div>
+        </div>
         <div class="details">
           <div class="each-details">
-            <h2>{{ this.bookDriver.pickUp.name.split(', ')[0]}}</h2>
+            <h2>{{ this.bookDriver.pickUp.name.split(', ')[0] }}</h2>
             <p>TO</p>
-            <h2>{{ this.bookDriver.dropOff.name.split(', ')[0]}}</h2>
+            <h2>{{ this.bookDriver.dropOff.name.split(', ')[0] }}</h2>
           </div>
           <!-- <div class="each-detail">
             <div class="left">
@@ -484,20 +313,20 @@
             <h5>{{ estimatedPrice }}</h5>
           </div>
         </div>
-        
+
       </div>
-      
+
     </div>
     <div class="payment-info" v-if="bigDisplay == 2">
       <div class="left">
         <h2 class="mt-4 mb-4">Payment Summary</h2>
         <div class="text-contain mt-3 mb-3">
-          <h5>{{formatDate(this.bookDriver.bookingDate)}}</h5>
+          <h5>{{ formatDate(this.bookDriver.bookingDate) }}</h5>
         </div>
         <div class="time-area mt-3">
           <div class="top-text">
             <p>Booking Time</p>
-            <h5>{{extractTime(this.bookDriver.bookingDate)}}</h5>
+            <h5>{{ extractTime(this.bookDriver.bookingDate) }}</h5>
           </div>
           <div class="button-area mb-3">
             <div class="change-time col-md-12"></div>
@@ -509,9 +338,9 @@
                 <button @click="hideInput()" class="cancel-btn">Cancel</button>
                 <button @click="updateTime()" class="update-btn">Update</button>
               </div>
-              
+
             </div>
-            
+
           </div>
         </div>
         <!-- <div class="more-details mt-5">
@@ -576,25 +405,14 @@
 
   <!-- MODAL -->
 
-  <div
-    class="modal fade"
-    id="exampleModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title text-center" id="exampleModalLabel">
             Please input Contact information for Instant Prices
           </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <h5>Why Add Your Email?</h5>
@@ -639,31 +457,18 @@
             <div class="row mb-3">
               <div class="div-group col-md-6">
                 <label for="first_name">Email</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="email"
-                  placeholder="Email"
-                  v-model="bookDriver.email"
-                />
+                <input type="text" class="form-control" id="email" placeholder="Email" v-model="bookDriver.email" />
               </div>
               <div class="form-group col-md-6">
                 <label for="last_name">Phone Number</label>
-                <vue-tel-input :onlyCountries="['GB']" 
-                  v-model="bookDriver.phoneNumber" 
-                  placeholder="Phone Number" 
+                <vue-tel-input :onlyCountries="['GB']" v-model="bookDriver.phoneNumber" placeholder="Phone Number"
                   required>
                 </vue-tel-input>
               </div>
             </div>
-            <button
-              type="button"
-              @click="bookDrivingService()"
-              class="view-button mt-3"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            >
-              <loader v-if="loading"></loader>
+            <button type="button" @click="bookDrivingService()" class="view-button mt-3" 
+              aria-label="Close">
+              <loader v-if="loader"></loader>
               <span v-else> View Instant Prices </span>
             </button>
           </form>
@@ -702,6 +507,7 @@ export default {
   data() {
     return {
       // stripe
+      loader: false,
       loading: false,
       lineItems: [
         {
@@ -737,28 +543,25 @@ export default {
         bookingDate: "",
         pickUp: {
           name: "",
-          lat:"",
-          lng:"",
-          postcode:"",
+          lat: "",
+          lng: "",
+          postcode: "",
         },
         dropOff: {
           name: "",
-          lat:"",
-          lng:"",
-          postcode:""
+          lat: "",
+          lng: "",
+          postcode: ""
         },
         email: "",
         phoneNumber: "",
         items: [
-          {
-            id: "32eeac738837378a8",
-            quantity: 2,
-          },
+
         ],
-        vehicleType: "small", //must be one of: [small, medium, large]
-        propertyType: "small_to_mid", //must one of: [small_to_mid, large]
+        vehicleType: "", //must be one of: [small, medium, large]
+        propertyType: "", //must one of: [small_to_mid, large]
         extraData: {
-          additionalServices: ["laundry"],
+          additionalServices: [],
         },
       },
       activeTab: "bedroom",
@@ -769,6 +572,7 @@ export default {
       estimatedPrice: 0,
       startTime: '',
       quoteId: null,
+      modal: null
     };
   },
   watch: {
@@ -800,9 +604,34 @@ export default {
   },
   mounted() {
     this.getParameters();
-    
+     // Import Bootstrap dynamically when component is mounted
+     import('bootstrap').then(bootstrap => {
+      const modalElement = document.getElementById('exampleModal')
+      if (modalElement) {
+        this.modal = new bootstrap.Modal(modalElement)
+      }
+    })
+
   },
   methods: {
+    hideModal() {
+      if (this.modal) {
+        this.modal.hide()
+      }
+    },
+    openModal() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
+      if (this.modal) {
+        this.modal.show()
+      }
+    },
+
     handleAddressSelect(field, address) {
       if (field === 'first') {
         this.bookDriver.pickUp.name = address.label;
@@ -816,7 +645,7 @@ export default {
         this.bookDriver.dropOff.postcode = address.postcode;
       }
     },
-  
+
 
     formatDate(data, lastSeen = false) {
       let processedData = data
@@ -829,13 +658,13 @@ export default {
       const date = new Date(processedData)
       return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
     },
-      extractTime(isoDate) {
+    extractTime(isoDate) {
       const date = new Date(isoDate);
       const hours = String(date.getUTCHours()).padStart(2, '0');
       const minutes = String(date.getUTCMinutes()).padStart(2, '0');
       const seconds = String(date.getUTCSeconds()).padStart(2, '0');
       return `${hours}:${minutes}:${seconds}`;
-  },
+    },
 
     redirectStripes() {
       // You will be redirected to Stripe's secure checkout page
@@ -899,12 +728,24 @@ export default {
       }
     },
     async bookDrivingService() {
+      const { email, phoneNumber } = this.bookDriver;
+      
+      if (!email && !phoneNumber) {
+        swal({
+          text: "Please fill all the fields",
+          icon: "error",
+        });
+        return;
+      }
+
       console.log(this.bookDriver);
+      this.loader = true
       try {
         const url = "booking/driver";
         const resp = await postToApi(url, this.bookDriver);
         console.log(resp);
         if (resp.status) {
+          this.hideModal()
           this.stripesUrl = resp.data.url;
           this.quoteId = resp.data.quoteId
           this.estimatedPrice = resp.data.estimated_price
@@ -918,6 +759,9 @@ export default {
         }
       } catch (error) {
         console.error("API call failed:", error);
+      }
+      finally {
+        this.loader = false
       }
     },
     setActiveTab(tabId) {
@@ -942,6 +786,38 @@ export default {
         this.bookDriver.extraData.additionalServices.splice(serviceIndex, 1);
       }
     },
+    // Validate driverDetails to ensure all required fields are filled
+    isDriverDetailsValid() {
+      const {
+        bookingDate,
+        pickUp,
+        dropOff,
+        items,
+        vehicleType,
+        propertyType,
+        extraData
+      } = this.bookDriver;
+
+      switch (this.display) {
+        case 1: // Driver Details
+          return [pickUp, dropOff].every(location => Object.values(location).every(Boolean));
+
+        case 2: // Contact Details
+          return Boolean(propertyType);
+
+        case 3:
+          return items.some(item => item.quantity > 0);
+
+        case 4: // Time and Date
+          return Boolean(vehicleType) && extraData.additionalServices.length > 0;
+
+        case 5: // Account Details
+          return Boolean(bookingDate);
+
+        default:
+          return true;
+      }
+    },
     triggerFileInput(index, listName) {
       // Trigger the file input programmatically
       this.$refs["fileInput" + index][0].click();
@@ -961,19 +837,47 @@ export default {
     onSelect({ name, iso2, dialCode }) {
       console.log(name, iso2, dialCode);
     },
-    showCard1() {
-      this.display = 2;
+    back() {
+      this.display = this.display > 1 ? this.display - 1 : 1;
     },
     showCard2() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
       this.display = 2;
     },
     showCard3() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
       this.display = 3;
     },
     showCard4() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
       this.display = 4;
     },
     showCard5() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
       this.display = 5;
     },
     paymentView() {
@@ -985,12 +889,12 @@ export default {
     hideInput() {
       this.timeDisplay = 1;
     },
-    
-
-    
 
 
-    
+
+
+
+
   },
 };
 </script>
@@ -1285,6 +1189,7 @@ export default {
       padding: 15px 20px;
       border-radius: 10px;
     }
+
     .time-area {
       background: #f0f5f3;
       width: 80%;
@@ -1297,6 +1202,7 @@ export default {
         justify-content: space-between;
         padding: 15px;
       }
+
       .button-area {
         display: flex;
         justify-content: center;
@@ -1313,12 +1219,14 @@ export default {
         }
       }
     }
+
     .top-textss {
       width: 80%;
       display: flex;
       justify-content: space-between;
       padding: 15px;
     }
+
     .more-details {
       background: #f0f5f3;
       width: 80%;
@@ -1332,6 +1240,7 @@ export default {
         justify-content: space-between;
         padding: 15px;
       }
+
       .button-area {
         display: flex;
         justify-content: center;
@@ -1349,6 +1258,7 @@ export default {
       }
     }
   }
+
   // .right{
   //   width: 40%;
   //   border: 0.3px solid rgb(212, 212, 212);
@@ -1392,6 +1302,7 @@ export default {
     align-items: center;
   }
 }
+
 .pay-btn {
   width: 70%;
   background: #2e7d32;
@@ -1400,7 +1311,8 @@ export default {
   border-radius: 10px;
   color: white;
 }
-.change-time{
+
+.change-time {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -1408,29 +1320,31 @@ export default {
   gap: 30px;
   justify-content: center;
 
-  .change-btns{
+  .change-btns {
     display: flex;
     gap: 15px;
 
-    .cancel-btn{
-    width: 150px;
-    height: 40px;
-    border: none;
-    border-radius: 10px;
-    background-color: #ff2222;
-    color: white;
-  }
-  .update-btn{
-    width: 150px;
-    height: 40px;
-    border: none;
-    border-radius: 10px;
-    background-color: #2e7d32;
-    color: white;
-  }
+    .cancel-btn {
+      width: 150px;
+      height: 40px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff2222;
+      color: white;
+    }
+
+    .update-btn {
+      width: 150px;
+      height: 40px;
+      border: none;
+      border-radius: 10px;
+      background-color: #2e7d32;
+      color: white;
+    }
   }
 }
-.time-input{
+
+.time-input {
   border-radius: 10px;
   height: 40px;
   width: 150px;

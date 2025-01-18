@@ -22,18 +22,15 @@
           <div class="row mb-3">
             <div class="div-group col-md-12">
               <label for="first_name">Address</label>
-                <MapboxAddressInput 
-                  v-model="bookCleaning.postCode"
-                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }" 
-                  placeholder="Your Address"
-                  @addressSelect="(address) => handleAddressSelect('first', address)" 
-                />
+              <MapboxAddressInput v-model="bookCleaning.postCode"
+                :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }"
+                placeholder="Your Address" @addressSelect="(address) => handleAddressSelect('first', address)" />
             </div>
           </div>
 
-          <div class="form-group mt-5 buttons">
-            <button type="submit" disabled class="btn white-btn">Back</button>
-            <button type="submit" @click="showCard2()" class="btn green-btn">
+          <div class="form-group mt-5 buttons justify-content-end">
+            <!-- <button type="submit" disabled class="btn white-btn">Back</button> -->
+            <button type="button" @click="showCard2()" class="btn green-btn">
               Next
             </button>
           </div>
@@ -48,7 +45,7 @@
                 <label class="form-check-label" for="inlineRadio1">YES</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="pets" id="inlineRadio2" checked
+                <input class="form-check-input" type="radio" name="pets" id="inlineRadio2"
                   @change="havePet(false)" />
                 <label class="form-check-label" for="inlineRadio2">NO</label>
               </div>
@@ -67,7 +64,7 @@
           </div>
 
           <div class="form-group mt-5 buttons">
-            <button @click="showCard1()" type="button" class="btn white-btn">
+            <button @click="back()" type="button" class="btn white-btn">
               Back
             </button>
             <button @click="showCard3()" type="button" class="btn green-btn">
@@ -96,7 +93,7 @@
           </div>
 
           <div class="form-group mt-5 buttons">
-            <button @click="showCard2()" type="button" class="btn white-btn">
+            <button @click="back()" type="button" class="btn white-btn">
               Back
             </button>
             <button @click="showCard4()" type="button" class="btn green-btn">
@@ -143,7 +140,7 @@
             </div>
           </div>
           <div class="form-group mt-5 buttons">
-            <button @click="showCard3()" type="button" class="btn white-btn">
+            <button @click="back()" type="button" class="btn white-btn">
               Back
             </button>
             <button @click="showCard5()" type="button" class="btn green-btn">
@@ -158,10 +155,10 @@
           </div>
 
           <div class="form-group mt-5 buttons">
-            <button @click="showCard4()" type="button" class="btn white-btn">
+            <button @click=" back()" type="button" class="btn white-btn">
               Back
             </button>
-            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn green-btn">
+            <button type="button" @click="openModal" class="btn green-btn">
               Next
             </button>
           </div>
@@ -172,7 +169,7 @@
       <div class="left">
         <h2 class="mt-4 mb-4">Payment Summary</h2>
         <div class="text-contain mt-3 mb-3">
-          <h5>{{formatDate(this.bookCleaning.startTime)}}</h5>
+          <h5>{{ formatDate(this.bookCleaning.startTime) }}</h5>
         </div>
         <div class="time-area mt-3">
           <div class="top-text">
@@ -188,9 +185,9 @@
                 <button @click="hideInput()" class="cancel-btn">Cancel</button>
                 <button class="update-btn">Update</button>
               </div>
-              
+
             </div>
-            
+
           </div>
         </div>
         <!-- <div class="more-details mt-5">
@@ -310,15 +307,13 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="last_name">Phone Number</label>
-                  <vue-tel-input :onlyCountries="['GB']" v-model="bookCleaning.phoneNumber" placeholder="Phone Number" required></vue-tel-input>
+                <vue-tel-input :onlyCountries="['GB']" v-model="bookCleaning.phoneNumber" placeholder="Phone Number"
+                  required></vue-tel-input>
               </div>
             </div>
-            <button type="button"
-            data-bs-dismiss="modal"
-              aria-label="Close"
-               class="view-button mt-3" 
-               @click="bookCleaningService()">
-              <loader v-if="loading"></loader>
+            <button type="button" aria-label="Close" class="view-button mt-3"
+              @click="bookCleaningService()">
+              <loader v-if="loader"></loader>
               <span v-else>View Instant Prices</span>
             </button>
           </form>
@@ -397,6 +392,8 @@ export default {
       bookDate: null,
       stripesUrl: '',
       estimatedPrice: 0,
+      modal: null,
+      loader: false
     };
   },
   watch: {
@@ -410,6 +407,24 @@ export default {
     }
   },
   methods: {
+    hideModal() {
+      if (this.modal) {
+        this.modal.hide()
+      }
+    },
+    openModal() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
+      if (this.modal) {
+        this.modal.show()
+      }
+    },
+
 
     handleAddressSelect(field, address) {
       if (field === 'first') {
@@ -434,7 +449,7 @@ export default {
       const minutes = String(date.getUTCMinutes()).padStart(2, '0');
       const seconds = String(date.getUTCSeconds()).padStart(2, '0');
       return `${hours}:${minutes}:${seconds}`;
-  },
+    },
 
     redirectStripes() {
       // You will be redirected to Stripe's secure checkout page
@@ -442,11 +457,22 @@ export default {
         window.location.assign(this.stripesUrl);
     },
     async bookCleaningService() {
+      const { email, phoneNumber } = this.bookCleaning;
+      
+      if (!email && !phoneNumber) {
+        swal({
+          text: "Please fill all the fields",
+          icon: "error",
+        });
+        return;
+      }
+      this.loader = true;
       try {
         const url = "booking/cleaning";
         const resp = await postToApi(url, this.bookCleaning);
         console.log(resp.status);
         if (resp.status) {
+          this.hideModal()
           this.bigDisplay = 2
           this.stripesUrl = resp.data.url
           this.estimatedPrice = resp.data.estimated_price
@@ -459,6 +485,9 @@ export default {
         }
       } catch (error) {
         console.error("API call failed:", error);
+      }
+      finally {
+        this.loader = false
       }
     },
     // Method
@@ -481,23 +510,82 @@ export default {
         this.bookCleaning.additionalServices.splice(serviceIndex, 1);
       }
     },
+    // Validate driverDetails to ensure all required fields are filled
+    isDriverDetailsValid() {
+      const {
+        address,
+        cleaningType,
+        havePets,
+        startTime,
+        additionalServices,
+        rooms,
+      } = this.bookCleaning;
+
+      switch (this.display) {
+        case 1: // Driver Details
+          return Boolean(address);
+
+        case 2: // Contact Details
+          return Boolean(havePets) && Boolean(cleaningType);
+
+        case 3:
+          return rooms.some(item => item.number > 0);
+
+        case 4: // Time and Date
+          return additionalServices.length > 0;
+
+        case 5: // Account Details
+          return Boolean(startTime);
+
+        default:
+          return true;
+      }
+    },
     havePet(value) {
       this.bookCleaning.havePets = value;
       console.log(value);
     },
-    showCard1() {
-      this.display = 1;
+    back() {
+      this.display = this.display > 1 ? this.display - 1 : 1;
     },
     showCard2() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
       this.display = 2;
     },
     showCard3() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
       this.display = 3;
     },
     showCard4() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
       this.display = 4;
     },
     showCard5() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
       this.display = 5;
     },
     showInput() {
@@ -523,6 +611,13 @@ export default {
         dates: new Date(),
       },
     ]);
+
+    import('bootstrap').then(bootstrap => {
+      const modalElement = document.getElementById('exampleModal')
+      if (modalElement) {
+        this.modal = new bootstrap.Modal(modalElement)
+      }
+    })
   },
 };
 </script>
@@ -829,7 +924,8 @@ export default {
   border-radius: 10px;
   color: white;
 }
-.change-time{
+
+.change-time {
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -837,29 +933,31 @@ export default {
   gap: 30px;
   justify-content: center;
 
-  .change-btns{
+  .change-btns {
     display: flex;
     gap: 15px;
 
-    .cancel-btn{
-    width: 150px;
-    height: 40px;
-    border: none;
-    border-radius: 10px;
-    background-color: #ff2222;
-    color: white;
-  }
-  .update-btn{
-    width: 150px;
-    height: 40px;
-    border: none;
-    border-radius: 10px;
-    background-color: #2e7d32;
-    color: white;
-  }
+    .cancel-btn {
+      width: 150px;
+      height: 40px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff2222;
+      color: white;
+    }
+
+    .update-btn {
+      width: 150px;
+      height: 40px;
+      border: none;
+      border-radius: 10px;
+      background-color: #2e7d32;
+      color: white;
+    }
   }
 }
-.time-input{
+
+.time-input {
   border-radius: 10px;
   height: 40px;
   width: 150px;

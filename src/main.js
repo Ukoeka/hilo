@@ -9,11 +9,9 @@ import VueTelInput from 'vue-tel-input';
 import App from './App.vue'
 import router from './router'
 
-import "bootstrap";
-import 'bootstrap/js/dist/button';
-import 'bootstrap/js/dist/modal';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/css/bootstrap.css'
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/js/bootstrap.js"
+
 import 'v-calendar/style.css';
 import 'vue-tel-input/vue-tel-input.css';
 

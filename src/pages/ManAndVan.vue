@@ -21,7 +21,7 @@
             <h2 class="text-center mt-5 mb-4">Moving Service Selection</h2>
             <div class="row mb-3">
               <div class="form-group d-flex give-gap col-md-12">
-                <input type="radio" id="DaV" name="moving_service" value="DaV" checked
+                <input type="radio" id="DaV" name="moving_service" value="DaV"
                   @change="selectPropertyType($event.target.value)" />
                 <label class="labelled" for="DaV">Driver and Van Alone <br />
                   <span>Your are responsible for loading and unloading van</span></label>
@@ -36,9 +36,9 @@
               </div>
             </div>
 
-            <div class="form-group mt-5 buttons">
-              <button type="submit" disabled class="btn white-btn">Back</button>
-              <button type="submit" @click="showCard2()" class="btn green-btn">
+            <div class="form-group mt-5 buttons justify-content-end">
+              <!-- <button type="button" disabled class="btn white-btn">Back</button> -->
+              <button type="button" @click="showCard2()" class="btn green-btn">
                 Next
               </button>
             </div>
@@ -49,26 +49,20 @@
             <div class="row mb-3">
               <div class="div-group col-md-6">
                 <label for="first_name">Pick-up (Post Code)</label>
-                  <MapboxAddressInput 
-                  v-model="manVan.pickUp.name"
-                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }" 
-                  placeholder="Pickup Address"
-                  @addressSelect="(address) => handleAddressSelect('first', address)" 
-                />
+                <MapboxAddressInput v-model="manVan.pickUp.name"
+                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }"
+                  placeholder="Pickup Address" @addressSelect="(address) => handleAddressSelect('first', address)" />
               </div>
               <div class="form-group col-md-6">
                 <label for="last_name">Drop-off (Post Code)</label>
-                  <MapboxAddressInput 
-                  v-model="manVan.dropOff.name"
-                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }" 
-                  placeholder="Drop-off Address"
-                  @addressSelect="(address) => handleAddressSelect('second', address)" 
-                />
+                <MapboxAddressInput v-model="manVan.dropOff.name"
+                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }"
+                  placeholder="Drop-off Address" @addressSelect="(address) => handleAddressSelect('second', address)" />
               </div>
             </div>
 
             <div class="form-group mt-5 buttons">
-              <button @click="showCard1()" type="button" class="btn white-btn">
+              <button @click="back" type="button" class="btn white-btn">
                 Back
               </button>
               <button @click="showCard3()" type="button" class="btn green-btn">
@@ -95,11 +89,11 @@
                 </div>
               </div>
             </div>
-            <h2 class="text-center mt-5 mb-4" v-if="manVan.serviceType =='complete'">
+            <h2 class="text-center mt-5 mb-4" v-if="manVan.serviceType == 'complete'">
               How many movers would you want to book?
             </h2>
 
-            <div class="row mb-3" v-if="manVan.serviceType =='complete'">
+            <div class="row mb-3" v-if="manVan.serviceType == 'complete'">
               <div class="each-row mt-3">
                 <p>Mover (1 Mover Min)</p>
                 <div class="rightss">
@@ -114,14 +108,14 @@
               </div>
             </div>
 
-            
+
             <!-- VAT Registered -->
 
             <div class="form-group mt-5 buttons">
-              <button @click="showCard2()" type="submit" class="btn white-btn">
+              <button @click="back" type="button" class="btn white-btn">
                 Back
               </button>
-              <button @click="showCard4()" type="submit" class="btn green-btn">
+              <button @click="showCard4()" type="button" class="btn green-btn">
                 Next
               </button>
             </div>
@@ -134,10 +128,10 @@
             </div>
 
             <div class="form-group mt-5 buttons">
-              <button @click="showCard3()" type="button" class="btn white-btn">
+              <button @click="back" type="button" class="btn white-btn">
                 Back
               </button>
-              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn green-btn">
+              <button type="button" @click="openModal" class="btn green-btn">
                 Next
               </button>
             </div>
@@ -146,24 +140,16 @@
       </div>
       <div class="right">
         <div class="map">
-                  <div
-                    id="map-container-google-2"
-                    class="z-depth-1-half map-container"
-                  >
-                    <iframe
-                      class="main-map"
-                      src="https://maps.google.com/maps?q=london&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                      frameborder="0"
-                      style="border: 0; width:100%; height: 400px;"
-                      allowfullscreen
-                    ></iframe>
-                  </div>
-                  </div>
+          <div id="map-container-google-2" class="z-depth-1-half map-container">
+            <iframe class="main-map" src="https://maps.google.com/maps?q=london&t=&z=13&ie=UTF8&iwloc=&output=embed"
+              frameborder="0" style="border: 0; width:100%; height: 400px;" allowfullscreen></iframe>
+          </div>
+        </div>
         <div class="details">
           <div class="each-details">
-            <h2>{{ this.manVan.pickUp.name.split(', ')[0]}}</h2>
+            <h2>{{ this.manVan.pickUp.name.split(', ')[0] }}</h2>
             <p class="mt-3">TO</p>
-            <h2>{{ this.manVan.dropOff.name.split(', ')[0]}}</h2>
+            <h2>{{ this.manVan.dropOff.name.split(', ')[0] }}</h2>
           </div>
           <!-- <div class="each-detail">
             <div class="left">
@@ -186,12 +172,12 @@
       <div class="left">
         <h2 class="mt-4 mb-4">Payment Summary</h2>
         <div class="text-contain mt-3 mb-3">
-          <h5>{{formatDate(this.manVan.bookingDate)}}</h5>
+          <h5>{{ formatDate(this.manVan.bookingDate) }}</h5>
         </div>
-          <div class="time-area mt-3">
+        <div class="time-area mt-3">
           <div class="top-text">
             <p>Booking Time</p>
-            <h5>{{extractTime(this.manVan.bookingDate)}}</h5>
+            <h5>{{ extractTime(this.manVan.bookingDate) }}</h5>
           </div>
           <div class="button-area mb-3">
             <div class="change-time col-md-12"></div>
@@ -202,11 +188,11 @@
                 <button @click="hideInput()" class="cancel-btn">Cancel</button>
                 <button class="update-btn">Update</button>
               </div>
-              
+
             </div>
-            
+
           </div>
-        
+
         </div>
         <!-- <div class="more-details mt-5">
                 <h5>Moving Service</h5>
@@ -324,16 +310,14 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="last_name">Phone Number</label>
-                  <vue-tel-input :onlyCountries="['GB']" 
-                  v-model="manVan.phoneNumber"
-                  placeholder="Phone Number" 
-                  required>
+                <vue-tel-input :onlyCountries="['GB']" v-model="manVan.phoneNumber" placeholder="Phone Number" required>
                 </vue-tel-input>
               </div>
             </div>
-            <button type="button" @click="bookManVan()" class="view-button mt-3" data-bs-dismiss="modal"
+            <button type="button" @click="bookManVan()" class="view-button mt-3"
               aria-label="Close">
-              View Instant Prices
+              <span v-if="loader" class="spinner-border spinner-border-sm"></span>
+              <span v-else>  View Instant Prices</span>
             </button>
           </form>
         </div>
@@ -355,6 +339,7 @@ import {
   deleteFromApi,
   patchToApi,
 } from "@/services/baseApi";
+import { h } from "vue";
 export default {
   name: "OnboardDriver",
   components: {
@@ -370,9 +355,10 @@ export default {
   },
   data() {
     return {
+      loader: false,
       timeDisplay: 1,
       bigDisplay: 1,
-      display: 1,
+      display: 4,
       doubleBed: 1,
       kingBed: 1,
       wardrobe: 1,
@@ -382,10 +368,10 @@ export default {
       television: 1,
       hours: 2,
       manVan: {
-        serviceType: "", 
+        serviceType: "",
         bookingDate: "",
-        hours: 2,
-        noOfMovers: 1,
+        hours: 0,
+        noOfMovers: 0,
         pickUp: {
           postcode: "",
           name: "",
@@ -404,6 +390,7 @@ export default {
       bookDate: null,
       estimatedPrice: 0,
       stripesUrl: "",
+      modal: null,
     };
   },
   watch: {
@@ -415,7 +402,33 @@ export default {
       }
     },
   },
+  mounted() {
+     // Import Bootstrap dynamically when component is mounted
+     import('bootstrap').then(bootstrap => {
+      const modalElement = document.getElementById('exampleModal')
+      if (modalElement) {
+        this.modal = new bootstrap.Modal(modalElement)
+      }
+    })
+   },
   methods: {
+    hideModal() {
+      if (this.modal) {
+        this.modal.hide()
+      }
+    },
+    openModal() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
+      if (this.modal) {
+        this.modal.show()
+      }
+    },
     handleAddressSelect(field, address) {
       if (field === 'first') {
         this.manVan.pickUp.name = address.label;
@@ -430,7 +443,7 @@ export default {
       }
     },
 
-    
+
     formatDate(data, lastSeen = false) {
       let processedData = data
 
@@ -448,19 +461,37 @@ export default {
       const minutes = String(date.getUTCMinutes()).padStart(2, '0');
       const seconds = String(date.getUTCSeconds()).padStart(2, '0');
       return `${hours}:${minutes}:${seconds}`;
-  },
+    },
 
     redirectStripes() {
       // You will be redirected to Stripe's secure checkout page
       if (this.stripesUrl) window.location.assign(this.stripesUrl);
     },
     async bookManVan() {
+      const { email, phoneNumber } = this.manVan;
+      
+      if (!email && !phoneNumber) {
+        swal({
+          text: "Please fill all the fields",
+          icon: "error",
+        });
+        return;
+      }
+      this.loader = true
       console.log(this.manVan);
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
       try {
         const url = "booking/man-and-van";
         const resp = await postToApi(url, this.manVan);
         console.log(resp);
         if (resp.status) {
+          this.hideModal()
           this.stripesUrl = resp.data.url;
           this.estimatedPrice = resp.data.estimated_price
           this.paymentView();
@@ -476,6 +507,9 @@ export default {
         }
       } catch (error) {
         console.error("API call failed:", error);
+      }
+      finally {
+        this.loader = false
       }
     },
     selectPropertyType(serviceName) {
@@ -498,22 +532,77 @@ export default {
         reader.readAsDataURL(file); // This will load the image or file
       }
     },
+    // Validate driverDetails to ensure all required fields are filled
+    isDriverDetailsValid() {
+      const {
+        serviceType,
+        bookingDate,
+        hours,
+        noOfMovers,
+        pickUp,
+        dropOff,
+      } = this.manVan;
+
+      switch (this.display) {
+        case 1: // Driver Details
+          return Boolean(serviceType);
+
+        case 2: // Contact Details
+          return [pickUp, dropOff].every(location => Object.values(location).every(Boolean));
+
+        case 3:
+          return this.manVan.serviceType === 'completed' ? hours && noOfMovers : Boolean(hours) && hours > 2;
+
+        case 4: // Time and Date
+          return Boolean(bookingDate);
+        default:
+          return true;
+      }
+    },
     onSelect({ name, iso2, dialCode }) {
       console.log(name, iso2, dialCode);
     },
-    showCard1() {
-      this.display = 1;
+    back() {
+      this.display = this.display > 1 ? this.display - 1 : 1;
     },
     showCard2() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
       this.display = 2;
     },
     showCard3() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
       this.display = 3;
     },
     showCard4() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please Hours must be greater than 2",
+          icon: "error",
+        })
+        return
+      }
       this.display = 4;
     },
     showCard5() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
       this.display = 5;
     },
     paymentView() {
@@ -526,7 +615,7 @@ export default {
       this.timeDisplay = 1;
     },
   },
-  mounted() { },
+  
 };
 </script>
 
@@ -820,6 +909,7 @@ export default {
       padding: 15px 20px;
       border-radius: 10px;
     }
+
     .time-area {
       background: #f0f5f3;
       width: 80%;
@@ -832,6 +922,7 @@ export default {
         justify-content: space-between;
         padding: 15px;
       }
+
       .button-area {
         display: flex;
         justify-content: center;
@@ -848,12 +939,14 @@ export default {
         }
       }
     }
+
     .top-textss {
       width: 80%;
       display: flex;
       justify-content: space-between;
       padding: 15px;
     }
+
     .more-details {
       background: #f0f5f3;
       width: 80%;
@@ -867,6 +960,7 @@ export default {
         justify-content: space-between;
         padding: 15px;
       }
+
       .button-area {
         display: flex;
         justify-content: center;
@@ -884,6 +978,7 @@ export default {
       }
     }
   }
+
   // .right{
   //   width: 40%;
   //   border: 0.3px solid rgb(212, 212, 212);
@@ -967,7 +1062,8 @@ export default {
   border-radius: 10px;
   color: white;
 }
-.change-time{
+
+.change-time {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -975,29 +1071,31 @@ export default {
   gap: 30px;
   justify-content: center;
 
-  .change-btns{
+  .change-btns {
     display: flex;
     gap: 15px;
 
-    .cancel-btn{
-    width: 150px;
-    height: 40px;
-    border: none;
-    border-radius: 10px;
-    background-color: #ff2222;
-    color: white;
-  }
-  .update-btn{
-    width: 150px;
-    height: 40px;
-    border: none;
-    border-radius: 10px;
-    background-color: #2e7d32;
-    color: white;
-  }
+    .cancel-btn {
+      width: 150px;
+      height: 40px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff2222;
+      color: white;
+    }
+
+    .update-btn {
+      width: 150px;
+      height: 40px;
+      border: none;
+      border-radius: 10px;
+      background-color: #2e7d32;
+      color: white;
+    }
   }
 }
-.time-input{
+
+.time-input {
   border-radius: 10px;
   height: 40px;
   width: 150px;

@@ -302,6 +302,7 @@ export default {
   },
   data() {
     return {
+      loader: false,
       display: 1,
       driverDetails: {
         firstName: "",

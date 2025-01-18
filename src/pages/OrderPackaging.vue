@@ -22,12 +22,9 @@
             <div class="row mb-3">
               <div class="div-group col-md-12">
                 <label for="first_name">Post Code</label>
-                  <MapboxAddressInput 
-                  v-model="packageDetails.pickUp.name"
-                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }" 
-                  placeholder="Post Code"
-                  @addressSelect="(address) => handleAddressSelect('first', address)" 
-                />
+                <MapboxAddressInput v-model="packageDetails.pickUp.name"
+                  :mapboxOptions="{ access_token: 'pk.eyJ1IjoiaGlsb2dpc3RpY3oiLCJhIjoiY20xcnI2dnQ4MGNtdTJqc2VxYjdkOG0yZCJ9.OEdEvlatiPYNU48wPWcvoQ' }"
+                  placeholder="Post Code" @addressSelect="(address) => handleAddressSelect('first', address)" />
               </div>
             </div>
 
@@ -61,7 +58,7 @@
 
 
             <div class="form-group mt-5 buttons">
-              <button @click="showCard1()" type="button" class="btn white-btn">Back</button>
+              <button @click=" back()" type="button" class="btn white-btn">Back</button>
               <button @click="showCard3()" type="button" class="btn green-btn">Next</button>
             </div>
 
@@ -104,8 +101,8 @@
             <!-- VAT Registered -->
 
             <div class="form-group mt-5 buttons">
-              <button @click="showCard2()" type="submit" class="btn white-btn">Back</button>
-              <button @click="showCard4()" type="submit" class="btn green-btn">Next</button>
+              <button @click=" back()" type="button" class="btn white-btn">Back</button>
+              <button @click="showCard4()" type="button" class="btn green-btn">Next</button>
             </div>
           </div>
 
@@ -129,7 +126,7 @@
 
 
             <div class="form-group mt-5 buttons">
-              <button @click="showCard4()" type="submit" class="btn white-btn">Back</button>
+              <button @click=" back()" type="button" class="btn white-btn">Back</button>
               <button type="button" @click="showCard5()" class="btn green-btn">Next</button>
             </div>
 
@@ -141,26 +138,25 @@
             </div>
 
             <div class="form-group mt-5 buttons">
-              <button @click="showCard4()" type="button" class="btn white-btn">Back</button>
-              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                class="btn green-btn">Next</button>
+              <button @click=" back()" type="button" class="btn white-btn">Back</button>
+              <button type="button" class="btn green-btn" @click="openModal">Next</button>
             </div>
 
           </div>
         </form>
       </div>
-  
+
     </div>
     <div class="payment-info" v-if="bigDisplay == 2">
       <div class="left">
         <h2 class="mt-4 mb-4">Payment Summary</h2>
         <div class="text-contain mt-3 mb-3">
-          <h5>{{formatDate(this.packageDetails.bookingDate)}}</h5>
+          <h5>{{ formatDate(this.packageDetails.bookingDate) }}</h5>
         </div>
         <div class="time-area mt-3">
           <div class="top-text">
             <p>Booking Time</p>
-            <h5>{{extractTime(this.packageDetails.bookingDate)}}</h5>
+            <h5>{{ extractTime(this.packageDetails.bookingDate) }}</h5>
           </div>
           <div class="button-area mb-3">
             <div class="change-time col-md-12"></div>
@@ -169,7 +165,7 @@
               <button @click="hideInput()" class="cancel-btn">Cancel</button>
               <input type="time" value="" class="time-input form-control">
             </div>
-            
+
           </div>
         </div>
         <div class="top-textss mt-3">
@@ -258,15 +254,15 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="last_name">Phone Number</label>
-                  <vue-tel-input :onlyCountries="['GB']" 
-                  v-model="packageDetails.phoneNumber" 
-                  placeholder="Phone Number" 
+                <vue-tel-input :onlyCountries="['GB']" v-model="packageDetails.phoneNumber" placeholder="Phone Number"
                   required>
                 </vue-tel-input>
               </div>
             </div>
-            <button type="button" @click="orderPackaging()" class="view-button mt-3" data-bs-dismiss="modal"
-              aria-label="Close">View Instant Prices</button>
+            <button type="button" @click="orderPackaging()" class="view-button mt-3" aria-label="Close">
+              <span v-if="loader" class="spinner-border spinner-border-sm"></span>
+              <span v-else>  View Instant Prices</span>
+             </button>
           </form>
 
         </div>
@@ -297,6 +293,7 @@ export default {
   },
   data() {
     return {
+      loader: false,
       timeDisplay: 1,
       bigDisplay: 1,
       display: 1,
@@ -328,6 +325,7 @@ export default {
       bookDate: null,
       stripesUrl: "",
       estimatedPrice: 0,
+      modal: null,
     };
   },
   watch: {
@@ -373,9 +371,32 @@ export default {
   },
   mounted() {
     this.getParameters();
+    // Import Bootstrap dynamically when component is mounted
+    import('bootstrap').then(bootstrap => {
+      const modalElement = document.getElementById('exampleModal')
+      if (modalElement) {
+        this.modal = new bootstrap.Modal(modalElement)
+      }
+    })
   },
   methods: {
-
+    hideModal() {
+      if (this.modal) {
+        this.modal.hide()
+      }
+    },
+    openModal() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
+      if (this.modal) {
+        this.modal.show()
+      }
+    },
     handleAddressSelect(field, address) {
       if (field === 'first') {
         this.packageDetails.pickUp.name = address.label;
@@ -396,13 +417,13 @@ export default {
       const date = new Date(processedData)
       return isNaN(date) ? 'Invalid Date' : date.toLocaleDateString()
     },
-      extractTime(isoDate) {
+    extractTime(isoDate) {
       const date = new Date(isoDate);
       const hours = String(date.getUTCHours()).padStart(2, '0');
       const minutes = String(date.getUTCMinutes()).padStart(2, '0');
       const seconds = String(date.getUTCSeconds()).padStart(2, '0');
       return `${hours}:${minutes}:${seconds}`;
-  },
+    },
     redirectStripes() {
       // You will be redirected to Stripe's secure checkout page
       if (this.stripesUrl) window.location.assign(this.stripesUrl);
@@ -451,11 +472,23 @@ export default {
       }
     },
     async orderPackaging() {
+      const { email, phoneNumber } = this.packageDetails;
+      
+      if (!email && !phoneNumber) {
+        swal({
+          text: "Please fill all the fields",
+          icon: "error",
+        });
+        return;
+      }
+
+      this.loader = true;
       try {
         const url = "booking/packaging";
         const resp = await postToApi(url, this.packageDetails);
         console.log(resp);
         if (resp.status) {
+          this.hideModal()
           this.stripesUrl = resp.data.url;
           this.estimatedPrice = resp.data.estimated_price
           this.paymentView();
@@ -472,6 +505,9 @@ export default {
       } catch (error) {
         console.error("API call failed:", error);
       }
+      finally {
+        this.loader = false
+      }
     },
     setActiveTab(tabId) {
       this.activeTab = tabId;
@@ -486,6 +522,35 @@ export default {
           this.servicePrice = this.servicePrice - room.cost;
         }
       })
+    },
+    // Validate driverDetails to ensure all required fields are filled
+    isDriverDetailsValid() {
+      const {
+        bookingDate,
+        pickUp,
+        hours,
+        items,
+        rooms,
+      } = this.packageDetails;
+
+      switch (this.display) {
+        case 1: // Driver Details
+          return Object.keys(pickUp).every(key => Boolean(pickUp[key]));
+
+        case 2: // Contact Details
+          return rooms.some(item => item.number > 0);
+
+        case 3:
+          return items.some(item => item.quantity > 0);
+
+        case 4: // Time and Date
+          return hours.length > 2;
+
+        case 5: // Account Details
+          return Boolean(bookingDate);
+        default:
+          return true;
+      }
     },
     triggerFileInput(index, listName) {
       // Trigger the file input programmatically
@@ -506,21 +571,59 @@ export default {
     onSelect({ name, iso2, dialCode }) {
       console.log(name, iso2, dialCode);
     },
-    showCard1() {
-      this.display = 1;
+    back() {
+      this.display = this.display > 1 ? this.display - 1 : 1;
     },
     showCard2() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
       this.display = 2;
     },
     showCard3() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
       this.display = 3;
       this.servicePrice = 0
     },
     showCard4() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
       this.display = 4;
     },
     showCard5() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
       this.display = 5;
+    },
+    showModal() {
+      if (!this.isDriverDetailsValid()) {
+        swal({
+          text: "Please enter valid details",
+          icon: "error",
+        })
+        return
+      }
+      this.display = 6;
     },
     paymentView() {
       this.bigDisplay = 2;
@@ -990,14 +1093,15 @@ export default {
   border-radius: 10px;
   color: white;
 }
-.change-time{
+
+.change-time {
   display: flex;
   width: 100%;
   align-items: center;
   gap: 30px;
   justify-content: center;
 
-  .cancel-btn{
+  .cancel-btn {
     width: 150px;
     height: 40px;
     border: none;
@@ -1006,7 +1110,8 @@ export default {
     color: white;
   }
 }
-.time-input{
+
+.time-input {
   border-radius: 10px;
   height: 40px;
   width: 150px;
